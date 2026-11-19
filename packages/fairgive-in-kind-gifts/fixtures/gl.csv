@@ -1,0 +1,6 @@
+entry_id,date,account,account_name,debit,credit,memo
+IK-1,2026-02-28,4500,In-kind contributions,,3000.00,Laptops
+IK-2,2026-04-30,4500,In-kind contributions,,800.00,Food
+IK-3,2026-05-31,4500,In-kind contributions,,12000.00,Painting
+IK-4,2026-06-30,4500,In-kind contributions,,4000.00,Legal services
+IK-5,2026-07-31,4500,In-kind contributions,,600.00,Office space

@@ -1,0 +1,9 @@
+Zusagenummer;Spendernummer;Spender;E-Mail-Adresse;Datum;Betrag;Rate;frequency;Fälligkeitsdatum;Zustand;conditional
+PL-1;C-1;Maple Hartwell;maple.hartwell@example.org;02.01.2026;1.200,00;12;Monthly;15.01.2026;Open;no
+PL-2;C-2;Rowan Ellery;rowan.ellery@example.org;01.02.2026;5.000,00;1;Once;30.06.2026;Open;no
+PL-3;C-3;Juniper Vance;juniper.vance@example.org;15.12.2025;600,00;3;Quarterly;01.01.2026;Open;no
+PL-4;C-4;Tamsin Okafor;tamsin.okafor@example.org;10.02.2026;1.000,00;1;Once;01.03.2026;Closed;no
+PL-5;C-5;Corwin Achebe;corwin.achebe@example.org;01.12.2025;3.000,00;3;Annual;01.01.2026;Open;no
+PL-6;C-6;Liesel Marchetti;liesel.marchetti@example.org;01.09.2025;2.000,00;1;Once;31.03.2026;Written off;no
+PL-7;C-7;Bram Halloway;bram.halloway@example.org;01.05.2026;10.000,00;1;Once;31.12.2026;Open;yes
+PL-8;C-8;Odessa Quill;odessa.quill@example.org;01.10.2026;500,00;1;Once;01.12.2026;Open;no

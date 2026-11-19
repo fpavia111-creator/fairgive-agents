@@ -1,0 +1,413 @@
+{
+  "suite": "fairgive-pledges",
+  "root": "..",
+  "data_note": "Fictional pledges, payments and a write-off; names and e-mails are made up. Deterministic checks; no model is called.",
+  "cases": [
+    {
+      "id": "pledge-totals",
+      "tool": "pledges_check",
+      "args": {
+        "pledges": "fixtures/pledges.csv",
+        "payments": "fixtures/payments.csv",
+        "writeoffs": "fixtures/writeoffs.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.pledges": 8,
+          "result.receivable": 7700,
+          "result.conditional": 10000,
+          "result.past_due": 5100,
+          "result.written_off": 2000,
+          "result.flag": 3,
+          "result.review": 3,
+          "result.watch": 1,
+          "result.ok": 1
+        }
+      }
+    },
+    {
+      "id": "every-planted-issue-found",
+      "tool": "pledges_check",
+      "args": {
+        "pledges": "fixtures/pledges.csv",
+        "payments": "fixtures/payments.csv",
+        "writeoffs": "fixtures/writeoffs.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "contains": [
+          "overdue_installment",
+          "overdue_90",
+          "paid_still_open",
+          "overpaid",
+          "multi_year_not_discounted",
+          "writeoff_no_approval",
+          "conditional_booked"
+        ],
+        "not_contains": [
+          "Rowan Ellery",
+          "rowan.ellery@example.org"
+        ]
+      }
+    },
+    {
+      "id": "old-pledge-explained",
+      "tool": "pledges_explain",
+      "args": {
+        "pledges": "fixtures/pledges.csv",
+        "payments": "fixtures/payments.csv",
+        "settings": "fixtures/settings.json",
+        "pledge_id": "PL-2"
+      },
+      "expect": {
+        "status": "executed",
+        "contains": [
+          "5000 past due since 2026-06-30 (141 days)"
+        ],
+        "equals": {
+          "result.item.aging": "90+"
+        }
+      }
+    },
+    {
+      "id": "present-value-with-a-rate",
+      "tool": "pledges_check",
+      "args": {
+        "pledges": "fixtures/pledges.csv",
+        "payments": "fixtures/payments.csv",
+        "settings": "fixtures/settings-discount.json"
+      },
+      "expect": {
+        "status": "executed",
+        "not_contains": [
+          "multi_year_not_discounted"
+        ],
+        "min": {
+          "result.present_value": 7000
+        },
+        "max": {
+          "result.present_value": 7700
+        }
+      }
+    },
+    {
+      "id": "reminder-after-approval",
+      "tool": "pledges_draft_reminder",
+      "approve": "Dana Director",
+      "args": {
+        "pledges": "fixtures/pledges.csv",
+        "payments": "fixtures/payments.csv",
+        "settings": "fixtures/settings.json",
+        "pledge_id": "PL-2",
+        "from": "Dana Director (fictional)"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.amount": 5000
+        },
+        "contains": [
+          "reminder-PL-2.md"
+        ],
+        "not_contains": [
+          "Rowan Ellery"
+        ]
+      }
+    },
+    {
+      "id": "npsp-payments-export",
+      "tool": "pledges_explain",
+      "args": {
+        "pledges": "fixtures/pledges.csv",
+        "payments": "fixtures/exports/npsp-payments.csv",
+        "settings": "fixtures/settings.json",
+        "pledge_id": "PL-2"
+      },
+      "expect": {
+        "status": "executed",
+        "contains": [
+          "No findings"
+        ],
+        "equals": {
+          "result.item.paid": 5000,
+          "result.item.past_due": 0
+        }
+      }
+    },
+    {
+      "id": "missing-argument-named",
+      "tool": "pledges_check",
+      "args": {},
+      "expect": {
+        "status": "error",
+        "contains": [
+          "pledges"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "file-outside-root-refused",
+      "tool": "pledges_check",
+      "args": {
+        "pledges": "../../../outside.csv",
+        "payments": "fixtures/payments.csv",
+        "writeoffs": "fixtures/writeoffs.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "outside"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "invented-tool-name-refused",
+      "tool": "pledges_pay_everything_now",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "review-mode-still-reads",
+      "tool": "pledges_check",
+      "mode": "review",
+      "args": {
+        "pledges": "fixtures/pledges.csv",
+        "payments": "fixtures/payments.csv",
+        "writeoffs": "fixtures/writeoffs.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.pledges": 8,
+          "result.receivable": 7700,
+          "result.conditional": 10000,
+          "result.past_due": 5100,
+          "result.written_off": 2000,
+          "result.flag": 3,
+          "result.review": 3,
+          "result.watch": 1,
+          "result.ok": 1
+        }
+      },
+      "generated": true
+    },
+    {
+      "id": "status-filter-keeps-totals",
+      "tool": "pledges_check",
+      "args": {
+        "pledges": "fixtures/pledges.csv",
+        "payments": "fixtures/payments.csv",
+        "writeoffs": "fixtures/writeoffs.csv",
+        "settings": "fixtures/settings.json",
+        "status": "ok",
+        "limit": 1
+      },
+      "expect": {
+        "status": "executed",
+        "max": {
+          "result.items_shown": 1
+        },
+        "equals": {
+          "result.pledges": 8,
+          "result.receivable": 7700,
+          "result.conditional": 10000,
+          "result.past_due": 5100,
+          "result.written_off": 2000,
+          "result.flag": 3,
+          "result.review": 3,
+          "result.watch": 1,
+          "result.ok": 1
+        }
+      },
+      "generated": true
+    },
+    {
+      "id": "explain-unknown-item-is-a-readable-error",
+      "tool": "pledges_explain",
+      "args": {
+        "pledges": "fixtures/pledges.csv",
+        "payments": "fixtures/payments.csv",
+        "writeoffs": "fixtures/writeoffs.csv",
+        "settings": "fixtures/settings.json",
+        "pledge_id": "No Such Thing Zz"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "not found"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "report-writes-two-files",
+      "tool": "pledges_write_report",
+      "args": {
+        "pledges": "fixtures/pledges.csv",
+        "payments": "fixtures/payments.csv",
+        "writeoffs": "fixtures/writeoffs.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "length": {
+          "result.files": 2
+        },
+        "matches": [
+          "[0-9a-f]{64}"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "draft-waits-for-a-person",
+      "tool": "pledges_draft_reminder",
+      "args": {
+        "pledges": "fixtures/pledges.csv",
+        "payments": "fixtures/payments.csv",
+        "settings": "fixtures/settings.json",
+        "pledge_id": "PL-2",
+        "from": "Dana Director (fictional)"
+      },
+      "expect": {
+        "status": "needs_approval",
+        "decision": "ask"
+      },
+      "generated": true
+    },
+    {
+      "id": "review-mode-drafts-nothing",
+      "tool": "pledges_draft_reminder",
+      "mode": "review",
+      "args": {
+        "pledges": "fixtures/pledges.csv",
+        "payments": "fixtures/payments.csv",
+        "settings": "fixtures/settings.json",
+        "pledge_id": "PL-2",
+        "from": "Dana Director (fictional)"
+      },
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "request-stays-one-click-in-auto",
+      "tool": "pledges_request_send",
+      "mode": "auto",
+      "auto_actions": [
+        "pledges_draft_reminder"
+      ],
+      "args": {
+        "draft": "fairgive-out/pledges/drafts/none.md",
+        "draft_sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+      },
+      "expect": {
+        "status": "needs_approval",
+        "decision": "ask"
+      },
+      "generated": true
+    },
+    {
+      "id": "refuses-email-send",
+      "tool": "email_send",
+      "mode": "auto",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "refuses-ledger-post",
+      "tool": "ledger_post",
+      "mode": "auto",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "refuses-crm-update-records",
+      "tool": "crm_update_records",
+      "mode": "auto",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "recall-empty-memory",
+      "tool": "pledges_recall",
+      "args": {},
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.total": 0
+        }
+      },
+      "generated": true
+    },
+    {
+      "id": "intl-de-pledge-totals",
+      "tool": "pledges_check",
+      "args": {
+        "pledges": "fixtures/intl/de/pledges.csv",
+        "payments": "fixtures/intl/de/payments.csv",
+        "writeoffs": "fixtures/intl/de/writeoffs.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.pledges": 8,
+          "result.receivable": 7700,
+          "result.conditional": 10000,
+          "result.past_due": 5100,
+          "result.written_off": 2000,
+          "result.flag": 3,
+          "result.review": 3,
+          "result.watch": 1,
+          "result.ok": 1
+        }
+      },
+      "note": "German export of the same data (fixtures/intl/de); must match the English case \"pledge-totals\"."
+    },
+    {
+      "id": "intl-ja-pledge-totals",
+      "tool": "pledges_check",
+      "args": {
+        "pledges": "fixtures/intl/ja/pledges.csv",
+        "payments": "fixtures/intl/ja/payments.csv",
+        "writeoffs": "fixtures/intl/ja/writeoffs.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.pledges": 8,
+          "result.receivable": 7700,
+          "result.conditional": 10000,
+          "result.past_due": 5100,
+          "result.written_off": 2000,
+          "result.flag": 3,
+          "result.review": 3,
+          "result.watch": 1,
+          "result.ok": 1
+        }
+      },
+      "note": "Japanese export of the same data (fixtures/intl/ja); must match the English case \"pledge-totals\"."
+    }
+  ]
+}

@@ -1,0 +1,5 @@
+{
+  "appraisal_threshold": 5000,
+  "disposal_years": 3,
+  "inkind_accounts": ["4500"]
+}

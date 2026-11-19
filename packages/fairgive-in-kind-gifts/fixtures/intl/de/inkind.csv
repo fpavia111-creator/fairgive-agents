@@ -1,0 +1,9 @@
+Spenden-ID;Spender;Spendendatum;Beschreibung;Kategorie;Wert;Bewertungsmethode;valued_by;appraisal;specialized_skill;disposed_date;disposed_amount
+K-1;Maple Hartwell;10.02.2026;Six laptops;Goods;3.000,00;Retail price of the same model;Organization;;;;
+K-2;Rowan Ellery;05.03.2026;Office furniture;Goods;;;;;;;
+K-3;Juniper Vance;01.04.2026;Food for the pantry;Goods;800,00;;Organization;;;;
+K-4;Tamsin Okafor;15.05.2026;Painting for the auction;Goods;12.000,00;Donor estimate;Donor;no;;;
+K-5;Corwin Achebe;01.06.2026;Pro bono legal work;Services;4.000,00;Attorney hourly rate x hours;Organization;;yes;;
+K-6;Liesel Marchetti;20.06.2026;Event day volunteering;Services;1.500,00;Hours x average wage;Organization;;no;;
+K-7;Bram Halloway;01.02.2025;Passenger van;Vehicle;9.000,00;Appraisal;Appraiser;yes;;15.08.2026;6.000,00
+K-8;Odessa Quill;07.07.2026;Rent-free office space;Facilities;6.000,00;Market rent for similar space;Organization;;;;

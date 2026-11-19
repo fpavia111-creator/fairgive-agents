@@ -1,0 +1,3 @@
+gift_id,donor,gift_date,description,category,value,valuation_method,valued_by
+N-1,Rowan Ellery,08/01/2026,Printer,Goods,450.00,Retail price,Organization
+N-2,Juniper Vance,08/02/2026,Sculpture,Goods,7000.00,Donor estimate,Donor

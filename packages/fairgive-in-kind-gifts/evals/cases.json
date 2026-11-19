@@ -1,0 +1,322 @@
+{
+  "suite": "fairgive-in-kind-gifts",
+  "root": "..",
+  "data_note": "A fictional in-kind log and ledger; names are made up. Not tax advice. Deterministic checks; no model is called.",
+  "cases": [
+    {
+      "id": "in-kind-totals",
+      "tool": "in_kind_check",
+      "args": {
+        "inkind": "fixtures/inkind.csv",
+        "gl": "fixtures/gl.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.gifts": 8,
+          "result.total_value": 36300,
+          "result.recognized_value": 34800,
+          "result.no_value": 1,
+          "result.over_appraisal_threshold": 1,
+          "result.gl_gap": 5400,
+          "result.flag": 2,
+          "result.review": 4,
+          "result.ok": 7
+        }
+      }
+    },
+    {
+      "id": "every-planted-issue-found",
+      "tool": "in_kind_check",
+      "args": {
+        "inkind": "fixtures/inkind.csv",
+        "gl": "fixtures/gl.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "contains": [
+          "no_value",
+          "no_valuation_method",
+          "donor_value_only",
+          "over_appraisal_threshold",
+          "services_recognition_check",
+          "disposed_within_3_years",
+          "gl_differs"
+        ],
+        "not_contains": [
+          "Tamsin Okafor",
+          "Bram Halloway"
+        ]
+      }
+    },
+    {
+      "id": "painting-explained",
+      "tool": "in_kind_explain",
+      "args": {
+        "inkind": "fixtures/inkind.csv",
+        "gl": "fixtures/gl.csv",
+        "settings": "fixtures/settings.json",
+        "item": "K-4"
+      },
+      "expect": {
+        "status": "executed",
+        "contains": [
+          "the 12000 value comes from the donor only",
+          "over the 5000 appraisal threshold"
+        ]
+      }
+    },
+    {
+      "id": "without-ledger-or-accounts",
+      "tool": "in_kind_check",
+      "args": {
+        "inkind": "fixtures/inkind.csv"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.gl_gap": 0,
+          "result.items_total": 8
+        }
+      }
+    },
+    {
+      "id": "higher-appraisal-threshold",
+      "tool": "in_kind_check",
+      "args": {
+        "inkind": "fixtures/inkind.csv",
+        "settings": "fixtures/settings-20k.json"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.over_appraisal_threshold": 0
+        }
+      }
+    },
+    {
+      "id": "crm-in-kind-export",
+      "tool": "in_kind_check",
+      "args": {
+        "inkind": "fixtures/exports/neon-inkind.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.gifts": 2,
+          "result.over_appraisal_threshold": 1,
+          "result.total_value": 7450
+        }
+      }
+    },
+    {
+      "id": "missing-argument-named",
+      "tool": "in_kind_check",
+      "args": {},
+      "expect": {
+        "status": "error",
+        "contains": [
+          "inkind"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "file-outside-root-refused",
+      "tool": "in_kind_check",
+      "args": {
+        "inkind": "../../../outside.csv",
+        "gl": "fixtures/gl.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "outside"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "invented-tool-name-refused",
+      "tool": "in_kind_pay_everything_now",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "review-mode-still-reads",
+      "tool": "in_kind_check",
+      "mode": "review",
+      "args": {
+        "inkind": "fixtures/inkind.csv",
+        "gl": "fixtures/gl.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.gifts": 8,
+          "result.total_value": 36300,
+          "result.recognized_value": 34800,
+          "result.no_value": 1,
+          "result.over_appraisal_threshold": 1,
+          "result.gl_gap": 5400,
+          "result.flag": 2,
+          "result.review": 4,
+          "result.ok": 7
+        }
+      },
+      "generated": true
+    },
+    {
+      "id": "status-filter-keeps-totals",
+      "tool": "in_kind_check",
+      "args": {
+        "inkind": "fixtures/inkind.csv",
+        "gl": "fixtures/gl.csv",
+        "settings": "fixtures/settings.json",
+        "status": "ok",
+        "limit": 1
+      },
+      "expect": {
+        "status": "executed",
+        "max": {
+          "result.items_shown": 1
+        },
+        "equals": {
+          "result.gifts": 8,
+          "result.total_value": 36300,
+          "result.recognized_value": 34800,
+          "result.no_value": 1,
+          "result.over_appraisal_threshold": 1,
+          "result.gl_gap": 5400,
+          "result.flag": 2,
+          "result.review": 4,
+          "result.ok": 7
+        }
+      },
+      "generated": true
+    },
+    {
+      "id": "explain-unknown-item-is-a-readable-error",
+      "tool": "in_kind_explain",
+      "args": {
+        "inkind": "fixtures/inkind.csv",
+        "gl": "fixtures/gl.csv",
+        "settings": "fixtures/settings.json",
+        "item": "No Such Thing Zz"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "not found"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "report-writes-two-files",
+      "tool": "in_kind_write_report",
+      "args": {
+        "inkind": "fixtures/inkind.csv",
+        "gl": "fixtures/gl.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "length": {
+          "result.files": 2
+        },
+        "matches": [
+          "[0-9a-f]{64}"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "refuses-ledger-post",
+      "tool": "ledger_post",
+      "mode": "auto",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "refuses-irs-file",
+      "tool": "irs_file",
+      "mode": "auto",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "recall-empty-memory",
+      "tool": "in_kind_recall",
+      "args": {},
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.total": 0
+        }
+      },
+      "generated": true
+    },
+    {
+      "id": "intl-de-in-kind-totals",
+      "tool": "in_kind_check",
+      "args": {
+        "inkind": "fixtures/intl/de/inkind.csv",
+        "gl": "fixtures/intl/de/gl.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.gifts": 8,
+          "result.total_value": 36300,
+          "result.recognized_value": 34800,
+          "result.no_value": 1,
+          "result.over_appraisal_threshold": 1,
+          "result.gl_gap": 5400,
+          "result.flag": 2,
+          "result.review": 4,
+          "result.ok": 7
+        }
+      },
+      "note": "German export of the same data (fixtures/intl/de); must match the English case \"in-kind-totals\"."
+    },
+    {
+      "id": "intl-ja-in-kind-totals",
+      "tool": "in_kind_check",
+      "args": {
+        "inkind": "fixtures/intl/ja/inkind.csv",
+        "gl": "fixtures/intl/ja/gl.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.gifts": 8,
+          "result.total_value": 36300,
+          "result.recognized_value": 34800,
+          "result.no_value": 1,
+          "result.over_appraisal_threshold": 1,
+          "result.gl_gap": 5400,
+          "result.flag": 2,
+          "result.review": 4,
+          "result.ok": 7
+        }
+      },
+      "note": "Japanese export of the same data (fixtures/intl/ja); must match the English case \"in-kind-totals\"."
+    }
+  ]
+}

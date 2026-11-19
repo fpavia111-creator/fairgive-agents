@@ -1,0 +1,9 @@
+gift_id,donor,gift_date,description,category,value,valuation_method,valued_by,appraisal,specialized_skill,disposed_date,disposed_amount
+K-1,Maple Hartwell,2026-02-10,Six laptops,Goods,3000.00,Retail price of the same model,Organization,,,,
+K-2,Rowan Ellery,2026-03-05,Office furniture,Goods,,,,,,,
+K-3,Juniper Vance,2026-04-01,Food for the pantry,Goods,800.00,,Organization,,,,
+K-4,Tamsin Okafor,2026-05-15,Painting for the auction,Goods,12000.00,Donor estimate,Donor,no,,,
+K-5,Corwin Achebe,2026-06-01,Pro bono legal work,Services,4000.00,Attorney hourly rate x hours,Organization,,yes,,
+K-6,Liesel Marchetti,2026-06-20,Event day volunteering,Services,1500.00,Hours x average wage,Organization,,no,,
+K-7,Bram Halloway,2025-02-01,Passenger van,Vehicle,9000.00,Appraisal,Appraiser,yes,,2026-08-15,6000.00
+K-8,Odessa Quill,2026-07-07,Rent-free office space,Facilities,6000.00,Market rent for similar space,Organization,,,,
