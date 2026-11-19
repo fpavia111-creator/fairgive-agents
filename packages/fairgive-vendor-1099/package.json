@@ -1,6 +1,7 @@
 {
   "name": "fairgive-vendor-1099",
   "version": "0.1.0",
+  "mcpName": "io.github.fpavia111-creator/fairgive-vendor-1099",
   "description": "Fairgive Vendor 1099: finds vendors paid at or over the 1099 threshold in your settings, with payments by card left out: no W-9 on file, no or malformed taxpayer id, missing address, attorneys paid as corporations. Taxpayer ids are masked. Files nothing.",
   "type": "module",
   "license": "MIT",
@@ -23,7 +24,8 @@
     "evals",
     "README.md",
     "CHANGELOG.md",
-    "LICENSE"
+    "LICENSE",
+    "server.json"
   ],
   "scripts": {
     "test": "node scripts/run-tests.cjs",

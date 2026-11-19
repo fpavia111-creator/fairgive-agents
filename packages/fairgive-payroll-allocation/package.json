@@ -1,6 +1,7 @@
 {
   "name": "fairgive-payroll-allocation",
   "version": "0.1.0",
+  "mcpName": "io.github.fpavia111-creator/fairgive-payroll-allocation",
   "description": "Fairgive Payroll Allocation: compares salaries charged to programs and grants with timesheets or effort reports: charges that differ from effort, effort over 100%, grant-funded staff with no effort certification and pay never allocated. Never changes payroll.",
   "type": "module",
   "license": "MIT",
@@ -23,7 +24,8 @@
     "evals",
     "README.md",
     "CHANGELOG.md",
-    "LICENSE"
+    "LICENSE",
+    "server.json"
   ],
   "scripts": {
     "test": "node scripts/run-tests.cjs",

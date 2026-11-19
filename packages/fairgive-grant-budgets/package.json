@@ -1,6 +1,7 @@
 {
   "name": "fairgive-grant-budgets",
   "version": "0.1.0",
+  "mcpName": "io.github.fpavia111-creator/fairgive-grant-budgets",
   "description": "Fairgive Grant Budgets: grant budget against actual by grant and budget line, with costs shared across several grants by allocation percentages: lines over budget beyond your flexibility rule, allocations over or under 100%, costs outside the grant period and unallowable categories. Never posts.",
   "type": "module",
   "license": "MIT",
@@ -23,7 +24,8 @@
     "evals",
     "README.md",
     "CHANGELOG.md",
-    "LICENSE"
+    "LICENSE",
+    "server.json"
   ],
   "scripts": {
     "test": "node scripts/run-tests.cjs",

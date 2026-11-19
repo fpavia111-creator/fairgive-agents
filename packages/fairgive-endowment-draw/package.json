@@ -1,6 +1,7 @@
 {
   "name": "fairgive-endowment-draw",
   "version": "0.1.0",
+  "mcpName": "io.github.fpavia111-creator/fairgive-endowment-draw",
   "description": "Fairgive Endowment Draw: works out each endowment fund's draw from your spending policy (rate times the average of past quarter-end values), flags underwater funds, too little history and rates over the prudence presumption in your settings, and drafts the draw memo.",
   "type": "module",
   "license": "MIT",
@@ -23,7 +24,8 @@
     "evals",
     "README.md",
     "CHANGELOG.md",
-    "LICENSE"
+    "LICENSE",
+    "server.json"
   ],
   "scripts": {
     "test": "node scripts/run-tests.cjs",

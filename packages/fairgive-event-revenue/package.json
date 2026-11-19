@@ -1,6 +1,7 @@
 {
   "name": "fairgive-event-revenue",
   "version": "0.1.0",
+  "mcpName": "io.github.fpavia111-creator/fairgive-event-revenue",
   "description": "Fairgive Event Revenue: splits event ticket and table sales into the exchange part (fair market value of the benefits) and the contribution part, and compares the split with your ledger. Lists ticket types with no fair market value. Never posts.",
   "type": "module",
   "license": "MIT",
@@ -23,7 +24,8 @@
     "evals",
     "README.md",
     "CHANGELOG.md",
-    "LICENSE"
+    "LICENSE",
+    "server.json"
   ],
   "scripts": {
     "test": "node scripts/run-tests.cjs",

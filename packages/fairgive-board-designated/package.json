@@ -1,6 +1,7 @@
 {
   "name": "fairgive-board-designated",
   "version": "0.1.0",
+  "mcpName": "io.github.fpavia111-creator/fairgive-board-designated",
   "description": "Fairgive Board Designated: checks board-designated funds against the board resolutions log: designations and spending with no resolution, balances below zero, designations shown as donor-restricted and designations above unrestricted net assets. Never posts.",
   "type": "module",
   "license": "MIT",
@@ -23,7 +24,8 @@
     "evals",
     "README.md",
     "CHANGELOG.md",
-    "LICENSE"
+    "LICENSE",
+    "server.json"
   ],
   "scripts": {
     "test": "node scripts/run-tests.cjs",

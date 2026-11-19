@@ -1,6 +1,7 @@
 {
   "name": "fairgive-in-kind-gifts",
   "version": "0.1.0",
+  "mcpName": "io.github.fpavia111-creator/fairgive-in-kind-gifts",
   "description": "Fairgive In-Kind Gifts: checks the in-kind gift log: gifts with no value or valuation method, values taken only from the donor, items over the appraisal and Form 8283 thresholds in your settings, services that need a recognition decision, and in-kind totals missing from the ledger.",
   "type": "module",
   "license": "MIT",
@@ -23,7 +24,8 @@
     "evals",
     "README.md",
     "CHANGELOG.md",
-    "LICENSE"
+    "LICENSE",
+    "server.json"
   ],
   "scripts": {
     "test": "node scripts/run-tests.cjs",

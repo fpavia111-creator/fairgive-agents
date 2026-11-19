@@ -1,6 +1,7 @@
 {
   "name": "fairgive-single-audit",
   "version": "0.1.0",
+  "mcpName": "io.github.fpavia111-creator/fairgive-single-audit",
   "description": "Fairgive Single Audit: totals federal award spending by assistance listing number for the fiscal year against the single audit threshold in your settings, and lists missing listing numbers and pass-through ids. Data for your auditor, not a determination.",
   "type": "module",
   "license": "MIT",
@@ -23,7 +24,8 @@
     "evals",
     "README.md",
     "CHANGELOG.md",
-    "LICENSE"
+    "LICENSE",
+    "server.json"
   ],
   "scripts": {
     "test": "node scripts/run-tests.cjs",

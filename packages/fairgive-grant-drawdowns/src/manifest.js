@@ -44,7 +44,7 @@ export const manifest = giveAgent({
       return { id: g.grant, amount: g.available, text: letter({ title: `Draw request: ${g.grant}`, to: `${g.funder || 'Funder'} payment portal [TO CONFIRM portal and account]`, from: a.from, re: `Reimbursement of allowable costs, ${o.settings_used.organization || '[TO CONFIRM organization]'}`,
         intro: `Request ${dollars(g.available)} on ${g.grant} for allowable costs incurred and not yet drawn, as of ${o.extra.as_of}.`,
         rows: [{ award: dollars(g.award ?? 0), costs_to_date: dollars(g.spent), drawn_to_date: dollars(g.drawn), this_request: dollars(g.available) }], columns: ['award', 'costs_to_date', 'drawn_to_date', 'this_request'],
-        closing: ['Supporting ledger detail attached: [ATTACH cost detail for the period]', 'Certified by: [TO CONFIRM authorized official]'] }) };
+        closing: ['Supporting ledger detail attached: [ATTACH cost detail for the period]', 'Signed by the authorized official: [TO CONFIRM name and title]'] }) };
     },
   },
   refused: [REFUSE.funder, REFUSE.transfer],

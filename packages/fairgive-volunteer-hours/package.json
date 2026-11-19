@@ -1,6 +1,7 @@
 {
   "name": "fairgive-volunteer-hours",
   "version": "0.1.0",
+  "mcpName": "io.github.fpavia111-creator/fairgive-volunteer-hours",
   "description": "Fairgive Volunteer Hours: totals volunteer hours by program from your hours log, values them at your hourly rate setting, and flags shifts over your daily maximum, future dates, duplicate entries, missing programs, background checks due and skilled services to look at for recognition.",
   "type": "module",
   "license": "MIT",
@@ -23,7 +24,8 @@
     "evals",
     "README.md",
     "CHANGELOG.md",
-    "LICENSE"
+    "LICENSE",
+    "server.json"
   ],
   "scripts": {
     "test": "node scripts/run-tests.cjs",

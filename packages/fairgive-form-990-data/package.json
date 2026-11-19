@@ -1,6 +1,7 @@
 {
   "name": "fairgive-form-990-data",
   "version": "0.1.0",
+  "mcpName": "io.github.fpavia111-creator/fairgive-form-990-data",
   "description": "Fairgive Form 990 Data: checks that the data behind common Form 990 schedules is complete: Schedule B contributors over the threshold with name and address, Schedule M noncash gifts, Schedule I grants with EIN, and officer hours and pay. Files nothing; not tax advice.",
   "type": "module",
   "license": "MIT",
@@ -23,7 +24,8 @@
     "evals",
     "README.md",
     "CHANGELOG.md",
-    "LICENSE"
+    "LICENSE",
+    "server.json"
   ],
   "scripts": {
     "test": "node scripts/run-tests.cjs",

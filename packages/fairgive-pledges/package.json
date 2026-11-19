@@ -1,6 +1,7 @@
 {
   "name": "fairgive-pledges",
   "version": "0.1.0",
+  "mcpName": "io.github.fpavia111-creator/fairgive-pledges",
   "description": "Fairgive Pledges: ages pledges receivable from pledge and payment exports: overdue installments, overpaid and paid-off pledges still open, write-offs without an approval, and multi-year pledges with no discount. Drafts pledge reminders. Never writes off or sends.",
   "type": "module",
   "license": "MIT",
@@ -23,7 +24,8 @@
     "evals",
     "README.md",
     "CHANGELOG.md",
-    "LICENSE"
+    "LICENSE",
+    "server.json"
   ],
   "scripts": {
     "test": "node scripts/run-tests.cjs",

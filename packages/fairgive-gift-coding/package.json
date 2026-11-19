@@ -1,6 +1,7 @@
 {
   "name": "fairgive-gift-coding",
   "version": "0.1.0",
+  "mcpName": "io.github.fpavia111-creator/fairgive-gift-coding",
   "description": "Fairgive Gift Coding: checks how gifts were coded: notes that name a restricted purpose on an unrestricted fund, gifts to inactive funds, appeals coded to a fund other than their default and restricted funds used for another purpose. Never changes the CRM.",
   "type": "module",
   "license": "MIT",
@@ -23,7 +24,8 @@
     "evals",
     "README.md",
     "CHANGELOG.md",
-    "LICENSE"
+    "LICENSE",
+    "server.json"
   ],
   "scripts": {
     "test": "node scripts/run-tests.cjs",

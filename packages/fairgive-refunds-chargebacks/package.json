@@ -1,6 +1,7 @@
 {
   "name": "fairgive-refunds-chargebacks",
   "version": "0.1.0",
+  "mcpName": "io.github.fpavia111-creator/fairgive-refunds-chargebacks",
   "description": "Fairgive Refunds Chargebacks: matches processor refunds and chargebacks to CRM gifts: refunds still standing as gifts in the CRM, acknowledgements sent for refunded gifts, refunds larger than the gift and disputes with evidence due. Never refunds or responds.",
   "type": "module",
   "license": "MIT",
@@ -23,7 +24,8 @@
     "evals",
     "README.md",
     "CHANGELOG.md",
-    "LICENSE"
+    "LICENSE",
+    "server.json"
   ],
   "scripts": {
     "test": "node scripts/run-tests.cjs",

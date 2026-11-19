@@ -1,0 +1,37 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "io.github.fpavia111-creator/fairgive-form-990-data",
+  "title": "Fairgive Form 990 Data",
+  "description": "Fairgive Form 990 Data: checks that the data behind common Form 990 schedules is complete…",
+  "version": "0.1.0",
+  "repository": {
+    "url": "https://github.com/fpavia111-creator/fairgive-agents",
+    "source": "github",
+    "subfolder": "packages/fairgive-form-990-data"
+  },
+  "websiteUrl": "https://fair-agents.com/fairgive.html",
+  "packages": [
+    {
+      "registryType": "npm",
+      "identifier": "fairgive-form-990-data",
+      "version": "0.1.0",
+      "transport": {
+        "type": "stdio"
+      },
+      "packageArguments": [
+        {
+          "type": "positional",
+          "value": "mcp"
+        },
+        {
+          "type": "named",
+          "name": "--root",
+          "description": "Folder holding the exports this agent may read and write (it cannot reach outside it)",
+          "isRequired": true,
+          "format": "filepath",
+          "valueHint": "exports_folder"
+        }
+      ]
+    }
+  ]
+}

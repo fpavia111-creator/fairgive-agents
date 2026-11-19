@@ -1,6 +1,7 @@
 {
   "name": "fairgive-acknowledgements",
   "version": "0.1.0",
+  "mcpName": "io.github.fpavia111-creator/fairgive-acknowledgements",
   "description": "Fairgive Acknowledgements: finds gifts at or over your acknowledgement threshold with no letter, late letters, letters with a different amount or no goods-and-services statement, and letters for refunded gifts. Drafts the letters for a person to send. Never sends.",
   "type": "module",
   "license": "MIT",
@@ -23,7 +24,8 @@
     "evals",
     "README.md",
     "CHANGELOG.md",
-    "LICENSE"
+    "LICENSE",
+    "server.json"
   ],
   "scripts": {
     "test": "node scripts/run-tests.cjs",

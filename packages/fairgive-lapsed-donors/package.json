@@ -1,6 +1,7 @@
 {
   "name": "fairgive-lapsed-donors",
   "version": "0.1.0",
+  "mcpName": "io.github.fpavia111-creator/fairgive-lapsed-donors",
   "description": "Fairgive Lapsed Donors: lists donors who gave last year but not this year (LYBUNT) and in an earlier year but not this one (SYBUNT), with retention, upgrades and downgrades by fiscal year. Reads your gift export only. Never contacts anyone.",
   "type": "module",
   "license": "MIT",
@@ -23,7 +24,8 @@
     "evals",
     "README.md",
     "CHANGELOG.md",
-    "LICENSE"
+    "LICENSE",
+    "server.json"
   ],
   "scripts": {
     "test": "node scripts/run-tests.cjs",

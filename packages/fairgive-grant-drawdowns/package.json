@@ -1,6 +1,7 @@
 {
   "name": "fairgive-grant-drawdowns",
   "version": "0.1.0",
+  "mcpName": "io.github.fpavia111-creator/fairgive-grant-drawdowns",
   "description": "Fairgive Grant Drawdowns: for reimbursement and advance grants, allowable costs incurred against draws received: the amount you can draw, costs waiting too long, draws over costs or over the award. Drafts the drawdown request for a person. Never submits it.",
   "type": "module",
   "license": "MIT",
@@ -23,7 +24,8 @@
     "evals",
     "README.md",
     "CHANGELOG.md",
-    "LICENSE"
+    "LICENSE",
+    "server.json"
   ],
   "scripts": {
     "test": "node scripts/run-tests.cjs",

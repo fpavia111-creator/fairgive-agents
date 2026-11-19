@@ -59,7 +59,7 @@ Fairgive Grant Drawdowns demo (fictional nonprofit data), Auto mode on
 
 ▶ Write a draft (Auto is opted in for drafts here)
   status: executed  decision: allow  (auto)
-  draw request G-FED drafted for 27000 with 3 open marker(s) ([TO CONFIRM portal and account], [ATTACH cost detail for the period], [TO CONFIRM authorized official]). Nothing was sent.
+  draw request G-FED drafted for 27000 with 3 open marker(s) ([TO CONFIRM portal and account], [ATTACH cost detail for the period], [TO CONFIRM name and title]). Nothing was sent.
 
 ▶ Auto: approving the draft stays one named click
   status: needs_approval  decision: ask

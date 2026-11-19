@@ -1,0 +1,37 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "io.github.fpavia111-creator/fairgive-gift-coding",
+  "title": "Fairgive Gift Coding",
+  "description": "Fairgive Gift Coding: checks how gifts were coded: notes that name a restricted purpose on an…",
+  "version": "0.1.0",
+  "repository": {
+    "url": "https://github.com/fpavia111-creator/fairgive-agents",
+    "source": "github",
+    "subfolder": "packages/fairgive-gift-coding"
+  },
+  "websiteUrl": "https://fair-agents.com/fairgive.html",
+  "packages": [
+    {
+      "registryType": "npm",
+      "identifier": "fairgive-gift-coding",
+      "version": "0.1.0",
+      "transport": {
+        "type": "stdio"
+      },
+      "packageArguments": [
+        {
+          "type": "positional",
+          "value": "mcp"
+        },
+        {
+          "type": "named",
+          "name": "--root",
+          "description": "Folder holding the exports this agent may read and write (it cannot reach outside it)",
+          "isRequired": true,
+          "format": "filepath",
+          "valueHint": "exports_folder"
+        }
+      ]
+    }
+  ]
+}

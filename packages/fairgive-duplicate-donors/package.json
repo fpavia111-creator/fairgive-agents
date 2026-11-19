@@ -1,6 +1,7 @@
 {
   "name": "fairgive-duplicate-donors",
   "version": "0.1.0",
+  "mcpName": "io.github.fpavia111-creator/fairgive-duplicate-donors",
   "description": "Fairgive Duplicate Donors: finds likely duplicate donor records in a constituent export by e-mail, phone, address and name similarity, with the gifts on each record. Writes a merge worklist for a person. Never merges or deletes records.",
   "type": "module",
   "license": "MIT",
@@ -23,7 +24,8 @@
     "evals",
     "README.md",
     "CHANGELOG.md",
-    "LICENSE"
+    "LICENSE",
+    "server.json"
   ],
   "scripts": {
     "test": "node scripts/run-tests.cjs",

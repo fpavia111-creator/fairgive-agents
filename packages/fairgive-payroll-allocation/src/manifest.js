@@ -7,12 +7,12 @@ const files = {
   payroll: { type: 'string', description: 'Payroll register under --root (ADP, Paychex, Gusto-style export): employee id, name, period, gross pay' },
   effort: { type: 'string', description: 'Timesheets or effort reports under --root: employee id, period, program or grant code, percent or hours' },
   charges: { type: 'string', description: 'Salary charges from the ledger under --root: employee id, period, program or grant code, amount' },
-  certifications: { type: 'string', description: 'Optional effort certifications under --root: employee id, period, date certified' },
+  certifications: { type: 'string', description: 'Optional effort certifications under --root: employee id, period, date signed' },
 };
 const PAY = { employee_id: { aliases: ['Employee ID', 'Emp ID', 'Employee Number', 'File Number'], required: true, translate: 'person_id' }, employee: { aliases: ['Employee', 'Employee Name', 'Name'], personal: true }, period: { aliases: ['Period', 'Pay Period', 'Quarter', 'Month'] }, gross: { aliases: ['Gross', 'Gross Pay', 'Gross Wages', 'Total Pay'], type: 'money' } };
 const EFF = { employee_id: { aliases: ['Employee ID', 'Emp ID', 'Employee Number'], required: true, translate: 'person_id' }, period: { aliases: ['Period', 'Pay Period', 'Quarter', 'Month'] }, code: { aliases: ['Code', 'Program', 'Grant', 'Project', 'Cost Center'], translate: 'program' }, pct: { aliases: ['Pct', 'Percent', 'Effort %', 'Effort Percent'], type: 'number', translate: 'allocation_pct' }, hours: { aliases: ['Hours', 'Hours Worked'], type: 'number' } };
 const CH = { employee_id: { aliases: ['Employee ID', 'Emp ID', 'Employee Number'], required: true, translate: 'person_id' }, period: { aliases: ['Period', 'Pay Period', 'Quarter', 'Month'] }, code: { aliases: ['Code', 'Program', 'Grant', 'Project', 'Cost Center', 'Class'], translate: 'program' }, amount: { aliases: ['Amount', 'Charged', 'Salary Charged', 'Debit'], type: 'money' } };
-const CERT = { employee_id: { aliases: ['Employee ID', 'Emp ID'], required: true, translate: 'person_id' }, period: { aliases: ['Period', 'Quarter', 'Certification Period'] }, certified_date: { aliases: ['Certified Date', 'Signed Date', 'Certified On', 'Date Signed'], type: 'date', translate: 'date' } };
+const CERT = { employee_id: { aliases: ['Employee ID', 'Emp ID'], required: true, translate: 'person_id' }, period: { aliases: ['Period', 'Quarter', 'Certification Period'] }, certified_date: { aliases: ['Certification Date', 'Signed Date', 'Signature Date', 'Date Signed'], type: 'date', translate: 'date' } };
 export const DEMO = { title: 'Fairgive Payroll Allocation', files: { payroll: 'payroll.csv', effort: 'effort.csv', charges: 'charges.csv', certifications: 'certifications.csv', settings: 'settings.json' }, explain: { arg: 'item', value: 'E-2 2026-Q3' } };
 
 export const manifest = giveAgent({

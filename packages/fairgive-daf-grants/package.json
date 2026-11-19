@@ -1,6 +1,7 @@
 {
   "name": "fairgive-daf-grants",
   "version": "0.1.0",
+  "mcpName": "io.github.fpavia111-creator/fairgive-daf-grants",
   "description": "Fairgive DAF Grants: lists gifts from donor-advised fund sponsors and flags the ones to look at: DAF grants used for event benefits, applied to a personal pledge, hard-credited to the advisor or acknowledged as tax-deductible to the advisor. Not tax advice.",
   "type": "module",
   "license": "MIT",
@@ -23,7 +24,8 @@
     "evals",
     "README.md",
     "CHANGELOG.md",
-    "LICENSE"
+    "LICENSE",
+    "server.json"
   ],
   "scripts": {
     "test": "node scripts/run-tests.cjs",

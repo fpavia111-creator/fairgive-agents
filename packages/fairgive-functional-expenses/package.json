@@ -1,6 +1,7 @@
 {
   "name": "fairgive-functional-expenses",
   "version": "0.1.0",
+  "mcpName": "io.github.fpavia111-creator/fairgive-functional-expenses",
   "description": "Fairgive Functional Expenses: builds the natural-by-function expense table (program, management and general, fundraising) from your ledger and allocation rules, and flags expenses with no function, shared costs not allocated and allocation rules that do not add to 100%.",
   "type": "module",
   "license": "MIT",
@@ -23,7 +24,8 @@
     "evals",
     "README.md",
     "CHANGELOG.md",
-    "LICENSE"
+    "LICENSE",
+    "server.json"
   ],
   "scripts": {
     "test": "node scripts/run-tests.cjs",

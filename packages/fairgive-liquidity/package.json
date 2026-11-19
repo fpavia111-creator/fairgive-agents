@@ -1,6 +1,7 @@
 {
   "name": "fairgive-liquidity",
   "version": "0.1.0",
+  "mcpName": "io.github.fpavia111-creator/fairgive-liquidity",
   "description": "Fairgive Liquidity: works out financial assets available for general spending within one year from your balance sheet accounts and restrictions, with months of operating expenses covered. Flags restricted cash counted as available and receivables due after a year.",
   "type": "module",
   "license": "MIT",
@@ -23,7 +24,8 @@
     "evals",
     "README.md",
     "CHANGELOG.md",
-    "LICENSE"
+    "LICENSE",
+    "server.json"
   ],
   "scripts": {
     "test": "node scripts/run-tests.cjs",

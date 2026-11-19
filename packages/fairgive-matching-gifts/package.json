@@ -1,6 +1,7 @@
 {
   "name": "fairgive-matching-gifts",
   "version": "0.1.0",
+  "mcpName": "io.github.fpavia111-creator/fairgive-matching-gifts",
   "description": "Fairgive Matching Gifts: finds gifts from donors whose employer matches, with the match amount, the claim deadline and the claims sent or received: eligible gifts not claimed, deadlines close or passed, matches received that differ. Drafts donor reminders. Never submits a claim.",
   "type": "module",
   "license": "MIT",
@@ -23,7 +24,8 @@
     "evals",
     "README.md",
     "CHANGELOG.md",
-    "LICENSE"
+    "LICENSE",
+    "server.json"
   ],
   "scripts": {
     "test": "node scripts/run-tests.cjs",

@@ -1,6 +1,7 @@
 {
   "name": "fairgive-indirect-costs",
   "version": "0.1.0",
+  "mcpName": "io.github.fpavia111-creator/fairgive-indirect-costs",
   "description": "Fairgive Indirect Costs: rebuilds the indirect cost base (modified total direct costs) per grant from the ledger, leaving out equipment, participant support and subaward amounts over the cap, applies the rate in your settings and compares with the indirect charged.",
   "type": "module",
   "license": "MIT",
@@ -23,7 +24,8 @@
     "evals",
     "README.md",
     "CHANGELOG.md",
-    "LICENSE"
+    "LICENSE",
+    "server.json"
   ],
   "scripts": {
     "test": "node scripts/run-tests.cjs",

@@ -1,6 +1,7 @@
 {
   "name": "fairgive-giving-statements",
   "version": "0.1.0",
+  "mcpName": "io.github.fpavia111-creator/fairgive-giving-statements",
   "description": "Fairgive Giving Statements: builds year-end contribution statements per giver from your church or nonprofit giving records, and flags givers with no address, gifts dated in another year, refunds and loose offering with no giver. Drafts the statements for a person to send.",
   "type": "module",
   "license": "MIT",
@@ -23,7 +24,8 @@
     "evals",
     "README.md",
     "CHANGELOG.md",
-    "LICENSE"
+    "LICENSE",
+    "server.json"
   ],
   "scripts": {
     "test": "node scripts/run-tests.cjs",

@@ -1,6 +1,7 @@
 {
   "name": "fairgive-grant-reports",
   "version": "0.1.0",
+  "mcpName": "io.github.fpavia111-creator/fairgive-grant-reports",
   "description": "Fairgive Grant Reports: builds the reporting calendar for every grant from its schedule and period, and flags reports overdue, due soon, final reports after the period ends and grants with no schedule. Writes a calendar file. Never submits anything to a funder.",
   "type": "module",
   "license": "MIT",
@@ -23,7 +24,8 @@
     "evals",
     "README.md",
     "CHANGELOG.md",
-    "LICENSE"
+    "LICENSE",
+    "server.json"
   ],
   "scripts": {
     "test": "node scripts/run-tests.cjs",

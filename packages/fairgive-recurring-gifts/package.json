@@ -1,6 +1,7 @@
 {
   "name": "fairgive-recurring-gifts",
   "version": "0.1.0",
+  "mcpName": "io.github.fpavia111-creator/fairgive-recurring-gifts",
   "description": "Fairgive Recurring Gifts: checks recurring gift plans against processor charges: failed charges, plans with several failures in a row, missed months, cards about to expire and charges after a cancellation. Drafts update-your-card notes. Never charges or sends.",
   "type": "module",
   "license": "MIT",
@@ -23,7 +24,8 @@
     "evals",
     "README.md",
     "CHANGELOG.md",
-    "LICENSE"
+    "LICENSE",
+    "server.json"
   ],
   "scripts": {
     "test": "node scripts/run-tests.cjs",

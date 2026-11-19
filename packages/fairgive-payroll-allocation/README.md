@@ -114,7 +114,7 @@ Table inputs can be CSV, TSV, semicolon- or pipe-separated text, Excel `.xlsx`, 
 |---|---|---|---|
 | `employee_id` (required) | text | Employee ID, Emp ID | Personalnummer, Matricule, 社員番号, 员工编号 |
 | `period` | text | Period, Quarter, Certification Period | Periode, Période, 期間, 期间 |
-| `certified_date` | date | Certified Date, Signed Date, Certified On, Date Signed | Datum, Date, 日付, 日期 |
+| `certified_date` | date | Certification Date, Signed Date, Signature Date, Date Signed | Datum, Date, 日付, 日期 |
 
 ### Files from other countries
 

@@ -1,6 +1,7 @@
 {
   "name": "fairgive-processor-fees",
   "version": "0.1.0",
+  "mcpName": "io.github.fpavia111-creator/fairgive-processor-fees",
   "description": "Fairgive Processor Fees: checks Stripe, PayPal, Givebutter or Classy transactions against the fee rates in your settings: fees over the rate, gifts booked net of fees, donor-covered fees, refund fees and payouts missing from the bank. Never moves money.",
   "type": "module",
   "license": "MIT",
@@ -23,7 +24,8 @@
     "evals",
     "README.md",
     "CHANGELOG.md",
-    "LICENSE"
+    "LICENSE",
+    "server.json"
   ],
   "scripts": {
     "test": "node scripts/run-tests.cjs",

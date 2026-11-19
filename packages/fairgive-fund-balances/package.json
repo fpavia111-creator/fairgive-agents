@@ -1,6 +1,7 @@
 {
   "name": "fairgive-fund-balances",
   "version": "0.1.0",
+  "mcpName": "io.github.fpavia111-creator/fairgive-fund-balances",
   "description": "Fairgive Fund Balances: fund balances by restriction class from your fund list and ledger: restricted funds spent below zero, funds coded to the wrong net asset class, endowment corpus below the gift value and due-to/due-from that do not net to zero. Never posts entries.",
   "type": "module",
   "license": "MIT",
@@ -23,7 +24,8 @@
     "evals",
     "README.md",
     "CHANGELOG.md",
-    "LICENSE"
+    "LICENSE",
+    "server.json"
   ],
   "scripts": {
     "test": "node scripts/run-tests.cjs",
