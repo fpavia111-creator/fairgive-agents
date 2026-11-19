@@ -151,7 +151,7 @@ for (const lang of LANGS) {
   if (lang === 'en') md.push('## Use with Claude Code', '', '```bash', 'claude mcp add fairgive-gift-deposits -- npx -y fairgive-gift-deposits mcp --root .', '```', '', 'or add this repository as a plugin marketplace and install the agents you want (`.claude-plugin/marketplace.json`).', '');
   md.push(`## ${t.devH}`, '', '```bash', 'npm install', `npm test                      # core and ${total} agents`, 'npm run evals', 'npm run hostile', 'npm run hostile:args', 'npm run bench', 'npm run intl', 'npm run masking', 'npm run release:check:offline', '```', '', `## ${t.testH}`, '', t.testT, '', `## ${t.limH}`, '', ...t.lim.map((s) => `- ${s}`), '', `## ${t.licH}`, '', 'MIT © 2026 Kurt Francisco', '');
   const f = join(ROOT, t.file); const text = md.join('\n');
-  if (process.argv.includes('--check')) { if (!existsSync(f) || readFileSync(f, 'utf8') !== text) { console.log(`${t.file} is stale`); stale++; } }
+  if (process.argv.includes('--check')) { if (!existsSync(f) || readFileSync(f, 'utf8').replace(/\r\n/g, '\n') !== text) { console.log(`${t.file} is stale`); stale++; } }
   else writeFileSync(f, text);
 }
 console.log(`${LANGS.length} README file(s) ${process.argv.includes('--check') ? 'checked' : 'written'}, ${total} agents`);

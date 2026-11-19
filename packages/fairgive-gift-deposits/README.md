@@ -2,7 +2,16 @@
 
 Matches gifts in your donor CRM to bank deposits and to contribution revenue in the general ledger, by batch, date and amount. Lists gifts never deposited, deposits with no gifts and months where the CRM and the GL disagree. Never posts or changes anything.
 
-Part of **Fairgive**, the nonprofit, foundation, church and association back-office agents by Mythos Machines. The software is free (MIT); the paid part is a fixed-price setup on your own files. Every result is computed from your files with plain arithmetic, on your computer; no AI model is called by the tools.
+Part of **Fairgive**, the nonprofit, foundation, church and association back-office agents by Mythos Machines. The software is free (MIT); the paid part is a fixed-price setup on your own files. Every result is computed from your files with plain arithmetic, on your computer; no AI model is called by the tools. It reads files and writes reports; it never files, sends, pays or changes a live system, and a person on your team decides and acts on every finding.
+
+## What it needs
+
+Exports you already have, saved as files on your computer (CSV, Excel, JSON; see "Columns it reads" and "Exports it reads" below):
+
+- `gifts` (required): Gift export from your donor CRM (Raiser's Edge NXT, Salesforce NPSP, Bloomerang, DonorPerfect, Little Green Light, Neon, Givebutter or Classy): gift id, donor, date, amount, type, batch
+- `deposits` (required): Bank deposits or the bank statement credits: date, amount, description, and the gift batch when your deposit slips name it
+- `gl`: Optional general ledger detail (QuickBooks Online, Aplos, Sage Intacct or Financial Edge NXT) to compare contribution revenue month by month
+- `settings` (optional): a JSON file with your own thresholds and rules; see "Settings" below.
 
 ## What it checks
 
@@ -170,6 +179,46 @@ fairgive-gift-deposits memory list
 fairgive-gift-deposits memory accept MEM-1a2b3c4d5e6f --as "Your Name"
 fairgive-gift-deposits memory retire MEM-1a2b3c4d5e6f --as "Your Name" --reason "carrier renamed"
 ```
+
+<!-- sources:start -->
+## Exports it reads
+
+Table inputs can be CSV, TSV, semicolon- or pipe-separated text, Excel `.xlsx`, JSON or JSONL. A file already in this agent's own columns is read as it is. The exports below are recognised by their column names and mapped onto those columns; dates become `YYYY-MM-DD`, amounts plain decimals (both decimal marks), and yes/no columns `yes`/`no`. Each result lists, under `sources`, which export was recognised, which columns were mapped, and any rows skipped or dates that could be read two ways.
+
+**CRM gifts** (argument `gifts`)
+
+| System | Export | Layout checked against vendor docs |
+|---|---|---|
+| Blackbaud Raiser's Edge NXT | Gift list or query export (CSV) | no |
+| Salesforce Nonprofit Success Pack | Opportunities (donations) report export | no |
+| Bloomerang | Transactions export | no |
+| DonorPerfect | Gift export (field names) | no |
+| Little Green Light | Gifts export | no |
+| Neon CRM | Donation report export | no |
+| Givebutter | Transactions export | no |
+| GoFundMe Pro (Classy) | Transactions export | no |
+
+**Bank deposits** (argument `deposits`)
+
+No named exports: other column names are matched by a list of common alternatives.
+
+**General ledger detail** (argument `gl`)
+
+| System | Export | Layout checked against vendor docs |
+|---|---|---|
+| QuickBooks Online | General Ledger report (CSV or Excel) | no |
+| Aplos | Transactions export | no |
+| Sage Intacct | General ledger detail report export | no |
+| Blackbaud Financial Edge NXT | Journal entry or account activity export | no |
+
+Columns named differently? Run `npx fairgive-gift-deposits inspect <file>` to see how a file is read (column names and shapes only, never values), then name your columns in `fairgive-sources.json` in the root:
+
+```json
+{ "files": { "exports/users.csv": { "columns": { "email": "Work E-mail" }, "date_order": "dmy" } } }
+```
+
+Where a layout says "checked", its column names were compared with the vendor's documentation on that date. The other layouts were written from knowledge of the export and were not checked. None was tested against a live account. If a real export does not match, the result says which columns were missing; please report it.
+<!-- sources:end -->
 
 ## Install
 

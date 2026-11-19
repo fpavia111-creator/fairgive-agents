@@ -2,7 +2,15 @@
 
 Matches processor refunds and chargebacks to CRM gifts: refunds still standing as gifts in the CRM, acknowledgements sent for refunded gifts, refunds larger than the gift and disputes with evidence due. Never refunds or responds.
 
-Part of **Fairgive**, the nonprofit, foundation, church and association back-office agents by Mythos Machines. The software is free (MIT); the paid part is a fixed-price setup on your own files. Every result is computed from your files with plain arithmetic, on your computer; no AI model is called by the tools.
+Part of **Fairgive**, the nonprofit, foundation, church and association back-office agents by Mythos Machines. The software is free (MIT); the paid part is a fixed-price setup on your own files. Every result is computed from your files with plain arithmetic, on your computer; no AI model is called by the tools. It reads files and writes reports; it never files, sends, pays or changes a live system, and a person on your team decides and acts on every finding.
+
+## What it needs
+
+Exports you already have, saved as files on your computer (CSV, Excel, JSON; see "Columns it reads" and "Exports it reads" below):
+
+- `events` (required): Refunds and disputes from your processor (Stripe, PayPal, Givebutter or Classy export): transaction id, processor, type, date, amount, gift id, status, evidence due date
+- `gifts` (required): Gift export from your donor CRM: gift id, donor, date, amount, status, acknowledgement date
+- `settings` (optional): a JSON file with your own thresholds and rules; see "Settings" below.
 
 ## What it checks
 
@@ -143,6 +151,37 @@ fairgive-refunds-chargebacks memory list
 fairgive-refunds-chargebacks memory accept MEM-1a2b3c4d5e6f --as "Your Name"
 fairgive-refunds-chargebacks memory retire MEM-1a2b3c4d5e6f --as "Your Name" --reason "carrier renamed"
 ```
+
+<!-- sources:start -->
+## Exports it reads
+
+Table inputs can be CSV, TSV, semicolon- or pipe-separated text, Excel `.xlsx`, JSON or JSONL. A file already in this agent's own columns is read as it is. The exports below are recognised by their column names and mapped onto those columns; dates become `YYYY-MM-DD`, amounts plain decimals (both decimal marks), and yes/no columns `yes`/`no`. Each result lists, under `sources`, which export was recognised, which columns were mapped, and any rows skipped or dates that could be read two ways.
+
+**Refunds and disputes** (argument `events`)
+
+No named exports: other column names are matched by a list of common alternatives.
+
+**CRM gifts** (argument `gifts`)
+
+| System | Export | Layout checked against vendor docs |
+|---|---|---|
+| Blackbaud Raiser's Edge NXT | Gift list or query export (CSV) | no |
+| Salesforce Nonprofit Success Pack | Opportunities (donations) report export | no |
+| Bloomerang | Transactions export | no |
+| DonorPerfect | Gift export (field names) | no |
+| Little Green Light | Gifts export | no |
+| Neon CRM | Donation report export | no |
+| Givebutter | Transactions export | no |
+| GoFundMe Pro (Classy) | Transactions export | no |
+
+Columns named differently? Run `npx fairgive-refunds-chargebacks inspect <file>` to see how a file is read (column names and shapes only, never values), then name your columns in `fairgive-sources.json` in the root:
+
+```json
+{ "files": { "exports/users.csv": { "columns": { "email": "Work E-mail" }, "date_order": "dmy" } } }
+```
+
+Where a layout says "checked", its column names were compared with the vendor's documentation on that date. The other layouts were written from knowledge of the export and were not checked. None was tested against a live account. If a real export does not match, the result says which columns were missing; please report it.
+<!-- sources:end -->
 
 ## Install
 

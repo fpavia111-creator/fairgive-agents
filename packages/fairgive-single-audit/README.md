@@ -2,7 +2,15 @@
 
 Totals federal award spending by assistance listing number for the fiscal year against the single audit threshold in your settings, and lists missing listing numbers and pass-through ids. Data for your auditor, not a determination.
 
-Part of **Fairgive**, the nonprofit, foundation, church and association back-office agents by Mythos Machines. The software is free (MIT); the paid part is a fixed-price setup on your own files. Every result is computed from your files with plain arithmetic, on your computer; no AI model is called by the tools.
+Part of **Fairgive**, the nonprofit, foundation, church and association back-office agents by Mythos Machines. The software is free (MIT); the paid part is a fixed-price setup on your own files. Every result is computed from your files with plain arithmetic, on your computer; no AI model is called by the tools. It reads files and writes reports; it never files, sends, pays or changes a live system, and a person on your team decides and acts on every finding.
+
+## What it needs
+
+Exports you already have, saved as files on your computer (CSV, Excel, JSON; see "Columns it reads" and "Exports it reads" below):
+
+- `grants` (required): Grant list: grant code, funder, federal (yes/no), assistance listing number, pass-through entity and its award id
+- `expenses` (required): Spending by grant (ledger lines with the grant or project code): date, grant, amount
+- `settings` (optional): a JSON file with your own thresholds and rules; see "Settings" below.
 
 ## What it checks
 
@@ -120,6 +128,28 @@ fairgive-single-audit memory list
 fairgive-single-audit memory accept MEM-1a2b3c4d5e6f --as "Your Name"
 fairgive-single-audit memory retire MEM-1a2b3c4d5e6f --as "Your Name" --reason "carrier renamed"
 ```
+
+<!-- sources:start -->
+## Exports it reads
+
+Table inputs can be CSV, TSV, semicolon- or pipe-separated text, Excel `.xlsx`, JSON or JSONL. A file already in this agent's own columns is read as it is. The exports below are recognised by their column names and mapped onto those columns; dates become `YYYY-MM-DD`, amounts plain decimals (both decimal marks), and yes/no columns `yes`/`no`. Each result lists, under `sources`, which export was recognised, which columns were mapped, and any rows skipped or dates that could be read two ways.
+
+**Grants** (argument `grants`)
+
+No named exports: other column names are matched by a list of common alternatives.
+
+**Spending by grant** (argument `expenses`)
+
+No named exports: other column names are matched by a list of common alternatives.
+
+Columns named differently? Run `npx fairgive-single-audit inspect <file>` to see how a file is read (column names and shapes only, never values), then name your columns in `fairgive-sources.json` in the root:
+
+```json
+{ "files": { "exports/users.csv": { "columns": { "email": "Work E-mail" }, "date_order": "dmy" } } }
+```
+
+Where a layout says "checked", its column names were compared with the vendor's documentation on that date. The other layouts were written from knowledge of the export and were not checked. None was tested against a live account. If a real export does not match, the result says which columns were missing; please report it.
+<!-- sources:end -->
 
 ## Install
 

@@ -89,11 +89,15 @@ for (const n of readdirSync(PK).filter((x) => /^fairgive-(?!core$)/.test(x) && (
   const { manifest } = await import(pathToFileURL(join(PK, n, 'src', 'index.js')).href);
   const f = join(PK, n, 'README.md'); if (!existsSync(f)) continue;
   const block = section(n, manifest, demoText(n));
-  let txt = readFileSync(f, 'utf8');
+  // Compare without line endings: a Windows checkout can have CRLF files.
+  const orig = readFileSync(f, 'utf8').replace(/\r\n/g, '\n'); let txt = orig;
   // The hand-written tool table is replaced by the generated one.
   if (!txt.includes(START)) txt = txt.replace(/\n## Tools\n[\s\S]*?(?=\n## )/, '\n');
-  const next = txt.includes(START) ? txt.replace(new RegExp(`${START}[\\s\\S]*?${END}`), block) : txt.includes('\n## Limits') ? txt.replace(/\n## Limits\b/, `\n${block}\n\n## Limits`) : `${txt.trimEnd()}\n\n${block}\n`;
-  if (next === readFileSync(f, 'utf8')) continue;
+  let next = txt.includes(START) ? txt.replace(new RegExp(`${START}[\\s\\S]*?${END}`), block) : txt.includes('\n## Limits') ? txt.replace(/\n## Limits\b/, `\n${block}\n\n## Limits`) : `${txt.trimEnd()}\n\n${block}\n`;
+  // Keep the "Exports it reads" block (scripts/sources-doc.mjs) that sits before "## Install".
+  const src = (/<!-- sources:start -->[\s\S]*?<!-- sources:end -->/.exec(orig) || [])[0];
+  if (src && !next.includes('<!-- sources:start -->')) next = next.replace(/\n## Install\b/, `\n${src}\n\n## Install`);
+  if (next === orig) continue;
   if (check) { console.log(`${n}: README generated part is out of date`); stale++; continue; }
   writeFileSync(f, next); console.log(`${n}: README updated`);
 }

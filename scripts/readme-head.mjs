@@ -13,7 +13,7 @@ import { AgentRuntime, FAIRGIVE_LIMITS } from '../packages/fairgive-core/src/ind
 
 const PK = join(dirname(fileURLToPath(import.meta.url)), '..', 'packages');
 const only = process.argv.slice(2).filter((a) => !a.startsWith('--'));
-const esc = (s) => String(s ?? '').replace(/\|/g, '\|').replace(/\n/g, ' ');
+const esc = (s) => String(s ?? '').replace(/\|/g, '\\|').replace(/\n/g, ' ');
 for (const n of readdirSync(PK).filter((x) => /^fairgive-(?!core$)/.test(x) && (!only.length || only.includes(x))).sort()) {
   const mod = await import(pathToFileURL(join(PK, n, 'src', 'index.js')).href);
   const { manifest, DEMO, DEFAULTS } = { ...mod, DEMO: (await import(pathToFileURL(join(PK, n, 'src', 'manifest.js')).href)).DEMO };
@@ -28,7 +28,10 @@ for (const n of readdirSync(PK).filter((x) => /^fairgive-(?!core$)/.test(x) && (
   const pkg = JSON.parse(readFileSync(join(PK, n, 'package.json'), 'utf8'));
   const desc = pkg.description.replace(/^[^:]+:\s*/, '');
   const L = [`# ${n}`, '', desc.charAt(0).toUpperCase() + desc.slice(1), '',
-    `Part of **Fairgive**, the nonprofit, foundation, church and association back-office agents by Mythos Machines. The software is free (MIT); the paid part is a fixed-price setup on your own files. Every result is computed from your files with plain arithmetic, on your computer; no AI model is called by the tools.`, '',
+    `Part of **Fairgive**, the nonprofit, foundation, church and association back-office agents by Mythos Machines. The software is free (MIT); the paid part is a fixed-price setup on your own files. Every result is computed from your files with plain arithmetic, on your computer; no AI model is called by the tools. It reads files and writes reports${manifest.tools.some((t) => /_request_/.test(t.name)) ? ' and drafts' : ''}; it never files, sends, pays or changes a live system, and a person on your team decides and acts on every finding.`, '',
+    '## What it needs', '', 'Exports you already have, saved as files on your computer (CSV, Excel, JSON; see "Columns it reads" and "Exports it reads" below):', '',
+    ...Object.entries(manifest.tools[0].inputSchema.properties).filter(([k]) => !['limit', 'status', 'settings'].includes(k)).map(([k, v]) => `- \`${k}\`${(manifest.tools[0].inputSchema.required || []).includes(k) ? ' (required)' : ''}: ${esc(String(v.description || '').replace(/ under --root/, ''))}`),
+    ...(manifest.tools[0].inputSchema.properties.settings ? ['- `settings` (optional): a JSON file with your own thresholds and rules; see "Settings" below.'] : []), '',
     '## What it checks', '', manifest.tools[0].description, '',
     '| Finding | Example from the fictional demo data |', '|---|---|',
     ...[...examples.entries()].sort((a, b) => (a[0] < b[0] ? -1 : 1)).map(([code, e]) => `| \`${code}\` | ${esc(e.detail)} |`), '',
@@ -44,6 +47,9 @@ for (const n of readdirSync(PK).filter((x) => /^fairgive-(?!core$)/.test(x) && (
   const block = (/<!-- generated:start -->[\s\S]*?<!-- generated:end -->/.exec(old) || [])[0];
   let txt = L.join('\n');
   if (block) txt = txt.replace('\n## Limits', `\n${block}\n\n## Limits`);
+  // Keep the "Exports it reads" block that scripts/sources-doc.mjs writes before "## Install".
+  const sources = (/<!-- sources:start -->[\s\S]*?<!-- sources:end -->/.exec(old) || [])[0];
+  if (sources && !txt.includes('<!-- sources:start -->')) txt = txt.replace(/\n## Install\b/, `\n${sources}\n\n## Install`);
   writeFileSync(f, txt);
   console.log(`${n}: README head written (${examples.size} finding codes)`);
 }

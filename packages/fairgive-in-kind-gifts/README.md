@@ -2,7 +2,15 @@
 
 Checks the in-kind gift log: gifts with no value or valuation method, values taken only from the donor, items over the appraisal and Form 8283 thresholds in your settings, services that need a recognition decision, and in-kind totals missing from the ledger.
 
-Part of **Fairgive**, the nonprofit, foundation, church and association back-office agents by Mythos Machines. The software is free (MIT); the paid part is a fixed-price setup on your own files. Every result is computed from your files with plain arithmetic, on your computer; no AI model is called by the tools.
+Part of **Fairgive**, the nonprofit, foundation, church and association back-office agents by Mythos Machines. The software is free (MIT); the paid part is a fixed-price setup on your own files. Every result is computed from your files with plain arithmetic, on your computer; no AI model is called by the tools. It reads files and writes reports; it never files, sends, pays or changes a live system, and a person on your team decides and acts on every finding.
+
+## What it needs
+
+Exports you already have, saved as files on your computer (CSV, Excel, JSON; see "Columns it reads" and "Exports it reads" below):
+
+- `inkind` (required): In-kind gift log: gift id, donor, date, description, category (goods, services, facilities, vehicle, art...), value, valuation method, who valued it, appraisal (yes/no), specialized skill (for services), date and amount if sold
+- `gl`: Optional general ledger detail, to compare in-kind revenue month by month
+- `settings` (optional): a JSON file with your own thresholds and rules; see "Settings" below.
 
 ## What it checks
 
@@ -147,6 +155,33 @@ fairgive-in-kind-gifts memory list
 fairgive-in-kind-gifts memory accept MEM-1a2b3c4d5e6f --as "Your Name"
 fairgive-in-kind-gifts memory retire MEM-1a2b3c4d5e6f --as "Your Name" --reason "carrier renamed"
 ```
+
+<!-- sources:start -->
+## Exports it reads
+
+Table inputs can be CSV, TSV, semicolon- or pipe-separated text, Excel `.xlsx`, JSON or JSONL. A file already in this agent's own columns is read as it is. The exports below are recognised by their column names and mapped onto those columns; dates become `YYYY-MM-DD`, amounts plain decimals (both decimal marks), and yes/no columns `yes`/`no`. Each result lists, under `sources`, which export was recognised, which columns were mapped, and any rows skipped or dates that could be read two ways.
+
+**In-kind gift log** (argument `inkind`)
+
+No named exports: other column names are matched by a list of common alternatives.
+
+**General ledger detail** (argument `gl`)
+
+| System | Export | Layout checked against vendor docs |
+|---|---|---|
+| QuickBooks Online | General Ledger report (CSV or Excel) | no |
+| Aplos | Transactions export | no |
+| Sage Intacct | General ledger detail report export | no |
+| Blackbaud Financial Edge NXT | Journal entry or account activity export | no |
+
+Columns named differently? Run `npx fairgive-in-kind-gifts inspect <file>` to see how a file is read (column names and shapes only, never values), then name your columns in `fairgive-sources.json` in the root:
+
+```json
+{ "files": { "exports/users.csv": { "columns": { "email": "Work E-mail" }, "date_order": "dmy" } } }
+```
+
+Where a layout says "checked", its column names were compared with the vendor's documentation on that date. The other layouts were written from knowledge of the export and were not checked. None was tested against a live account. If a real export does not match, the result says which columns were missing; please report it.
+<!-- sources:end -->
 
 ## Install
 

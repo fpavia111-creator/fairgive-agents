@@ -2,7 +2,16 @@
 
 Builds the reporting calendar for every grant from its schedule and period, and flags reports overdue, due soon, final reports after the period ends and grants with no schedule. Writes a calendar file. Never submits anything to a funder.
 
-Part of **Fairgive**, the nonprofit, foundation, church and association back-office agents by Mythos Machines. The software is free (MIT); the paid part is a fixed-price setup on your own files. Every result is computed from your files with plain arithmetic, on your computer; no AI model is called by the tools.
+Part of **Fairgive**, the nonprofit, foundation, church and association back-office agents by Mythos Machines. The software is free (MIT); the paid part is a fixed-price setup on your own files. Every result is computed from your files with plain arithmetic, on your computer; no AI model is called by the tools. It reads files and writes reports and drafts; it never files, sends, pays or changes a live system, and a person on your team decides and acts on every finding.
+
+## What it needs
+
+Exports you already have, saved as files on your computer (CSV, Excel, JSON; see "Columns it reads" and "Exports it reads" below):
+
+- `grants` (required): Grant list: grant code, name, funder, award start and end, owner
+- `schedule` (required): Reporting schedule: grant, report name, frequency (quarterly, semiannual, annual, final or once), days after the period end it is due, or the due date for a one-time report
+- `submissions`: Optional log of reports sent: grant, report, period end, date sent
+- `settings` (optional): a JSON file with your own thresholds and rules; see "Settings" below.
 
 ## What it checks
 
@@ -147,6 +156,32 @@ fairgive-grant-reports memory list
 fairgive-grant-reports memory accept MEM-1a2b3c4d5e6f --as "Your Name"
 fairgive-grant-reports memory retire MEM-1a2b3c4d5e6f --as "Your Name" --reason "carrier renamed"
 ```
+
+<!-- sources:start -->
+## Exports it reads
+
+Table inputs can be CSV, TSV, semicolon- or pipe-separated text, Excel `.xlsx`, JSON or JSONL. A file already in this agent's own columns is read as it is. The exports below are recognised by their column names and mapped onto those columns; dates become `YYYY-MM-DD`, amounts plain decimals (both decimal marks), and yes/no columns `yes`/`no`. Each result lists, under `sources`, which export was recognised, which columns were mapped, and any rows skipped or dates that could be read two ways.
+
+**Grants** (argument `grants`)
+
+No named exports: other column names are matched by a list of common alternatives.
+
+**Reporting schedule** (argument `schedule`)
+
+No named exports: other column names are matched by a list of common alternatives.
+
+**Reports sent** (argument `submissions`)
+
+No named exports: other column names are matched by a list of common alternatives.
+
+Columns named differently? Run `npx fairgive-grant-reports inspect <file>` to see how a file is read (column names and shapes only, never values), then name your columns in `fairgive-sources.json` in the root:
+
+```json
+{ "files": { "exports/users.csv": { "columns": { "email": "Work E-mail" }, "date_order": "dmy" } } }
+```
+
+Where a layout says "checked", its column names were compared with the vendor's documentation on that date. The other layouts were written from knowledge of the export and were not checked. None was tested against a live account. If a real export does not match, the result says which columns were missing; please report it.
+<!-- sources:end -->
 
 ## Install
 
