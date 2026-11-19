@@ -1,0 +1,15 @@
+entry_id;Datum;Konto;Kontobezeichnung;Fonds;Ausgang;Eingang;Verwendungszweck
+OB-1;01.07.2026;3200;Net assets with donor restrictions;YOUTH;;6.000,00;Opening balance
+JE-21;15.08.2026;4010;Contributions;YOUTH;;2.000,00;Youth gifts
+JE-22;30.09.2026;5100;Youth program expenses;YOUTH;5.000,00;;Q1 spending
+JE-23;30.09.2026;3900;Net assets released from restriction;YOUTH;3.000,00;;Release
+JE-23;30.09.2026;3900;Net assets released from restriction;GEN;;3.000,00;Release
+OB-2;01.07.2026;3200;Net assets with donor restrictions;CAPITAL;;20.000,00;Opening balance
+JE-24;30.09.2026;5300;Building costs;CAPITAL;4.000,00;;Architect
+JE-25;30.09.2026;3900;Net assets released from restriction;CAPITAL;4.000,00;;Release
+JE-26;01.08.2026;4010;Contributions;MUSIC;;1.500,00;Music gifts
+JE-27;30.09.2026;5200;Music program expenses;MUSIC;1.000,00;;Instruments
+JE-28;30.09.2026;3900;Net assets released from restriction;MUSIC;2.500,00;;Release
+OB-3;01.07.2026;3200;Net assets with donor restrictions;SCHOL-2026;;10.000,00;Opening balance
+OB-4;01.07.2026;3200;Net assets with donor restrictions;SCHOL-2027;;12.000,00;Opening balance
+JE-29;15.09.2026;3900;Net assets released from restriction;SCHOL-2027;2.000,00;;Early release

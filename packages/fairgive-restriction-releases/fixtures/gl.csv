@@ -1,0 +1,15 @@
+entry_id,date,account,account_name,fund,debit,credit,memo
+OB-1,2026-07-01,3200,Net assets with donor restrictions,YOUTH,,6000.00,Opening balance
+JE-21,2026-08-15,4010,Contributions,YOUTH,,2000.00,Youth gifts
+JE-22,2026-09-30,5100,Youth program expenses,YOUTH,5000.00,,Q1 spending
+JE-23,2026-09-30,3900,Net assets released from restriction,YOUTH,3000.00,,Release
+JE-23,2026-09-30,3900,Net assets released from restriction,GEN,,3000.00,Release
+OB-2,2026-07-01,3200,Net assets with donor restrictions,CAPITAL,,20000.00,Opening balance
+JE-24,2026-09-30,5300,Building costs,CAPITAL,4000.00,,Architect
+JE-25,2026-09-30,3900,Net assets released from restriction,CAPITAL,4000.00,,Release
+JE-26,2026-08-01,4010,Contributions,MUSIC,,1500.00,Music gifts
+JE-27,2026-09-30,5200,Music program expenses,MUSIC,1000.00,,Instruments
+JE-28,2026-09-30,3900,Net assets released from restriction,MUSIC,2500.00,,Release
+OB-3,2026-07-01,3200,Net assets with donor restrictions,SCHOL-2026,,10000.00,Opening balance
+OB-4,2026-07-01,3200,Net assets with donor restrictions,SCHOL-2027,,12000.00,Opening balance
+JE-29,2026-09-15,3900,Net assets released from restriction,SCHOL-2027,2000.00,,Early release

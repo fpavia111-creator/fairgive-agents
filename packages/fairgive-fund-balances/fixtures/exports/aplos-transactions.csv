@@ -1,0 +1,4 @@
+Transaction ID,Date,Account,Fund,Tag,Amount,Memo
+T-1,07/01/2026,3200,YOUTH,,-5000.00,Opening balance
+T-2,09/30/2026,5100,YOUTH,Youth,9000.00,Q1 spending
+T-3,07/01/2026,3100,GEN,,-1000.00,Opening balance

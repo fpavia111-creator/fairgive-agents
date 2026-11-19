@@ -1,0 +1,346 @@
+{
+  "suite": "fairgive-restriction-releases",
+  "root": "..",
+  "data_note": "A fictional fund list and ledger. Deterministic checks; no model is called.",
+  "cases": [
+    {
+      "id": "release-totals",
+      "tool": "releases_check",
+      "args": {
+        "funds": "fixtures/funds.csv",
+        "gl": "fixtures/gl.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.restricted_funds": 5,
+          "result.to_release": 12000,
+          "result.released_in_error": 4500,
+          "result.flag": 4,
+          "result.ok": 1
+        }
+      }
+    },
+    {
+      "id": "every-planted-issue-found",
+      "tool": "releases_check",
+      "args": {
+        "funds": "fixtures/funds.csv",
+        "gl": "fixtures/gl.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "contains": [
+          "release_due",
+          "release_over_spending",
+          "release_over_balance",
+          "time_restriction_ended",
+          "release_before_time"
+        ]
+      }
+    },
+    {
+      "id": "music-fund-explained",
+      "tool": "releases_explain",
+      "args": {
+        "funds": "fixtures/funds.csv",
+        "gl": "fixtures/gl.csv",
+        "settings": "fixtures/settings.json",
+        "fund": "MUSIC"
+      },
+      "expect": {
+        "status": "executed",
+        "contains": [
+          "2500 released but only 1000 spent",
+          "the fund only received 1500"
+        ]
+      }
+    },
+    {
+      "id": "flagged-funds-only",
+      "tool": "releases_check",
+      "args": {
+        "funds": "fixtures/funds.csv",
+        "gl": "fixtures/gl.csv",
+        "settings": "fixtures/settings.json",
+        "status": "flag"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.items_shown": 4
+        }
+      }
+    },
+    {
+      "id": "release-entry-after-approval",
+      "tool": "releases_draft_release_entry",
+      "approve": "Dana Controller",
+      "args": {
+        "funds": "fixtures/funds.csv",
+        "gl": "fixtures/gl.csv",
+        "settings": "fixtures/settings.json",
+        "period": "Quarter ended 2026-09-30",
+        "to": "Books by Example LLP"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.amount": 12000
+        },
+        "contains": [
+          "release_entry-Quarter-ended-2026-09-30.md",
+          "TO CONFIRM"
+        ]
+      }
+    },
+    {
+      "id": "intacct-export-without-settings",
+      "tool": "releases_check",
+      "args": {
+        "funds": "fixtures/funds.csv",
+        "gl": "fixtures/exports/intacct-gl-detail.csv"
+      },
+      "expect": {
+        "status": "executed",
+        "contains": [
+          "intacct_gl_detail"
+        ],
+        "equals": {
+          "result.to_release": 5000
+        }
+      }
+    },
+    {
+      "id": "missing-argument-named",
+      "tool": "releases_check",
+      "args": {},
+      "expect": {
+        "status": "error",
+        "contains": [
+          "funds"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "file-outside-root-refused",
+      "tool": "releases_check",
+      "args": {
+        "funds": "../../../outside.csv",
+        "gl": "fixtures/gl.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "outside"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "invented-tool-name-refused",
+      "tool": "releases_pay_everything_now",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "review-mode-still-reads",
+      "tool": "releases_check",
+      "mode": "review",
+      "args": {
+        "funds": "fixtures/funds.csv",
+        "gl": "fixtures/gl.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.restricted_funds": 5,
+          "result.to_release": 12000,
+          "result.released_in_error": 4500,
+          "result.flag": 4,
+          "result.ok": 1
+        }
+      },
+      "generated": true
+    },
+    {
+      "id": "status-filter-keeps-totals",
+      "tool": "releases_check",
+      "args": {
+        "funds": "fixtures/funds.csv",
+        "gl": "fixtures/gl.csv",
+        "settings": "fixtures/settings.json",
+        "status": "ok",
+        "limit": 1
+      },
+      "expect": {
+        "status": "executed",
+        "max": {
+          "result.items_shown": 1
+        },
+        "equals": {
+          "result.restricted_funds": 5,
+          "result.to_release": 12000,
+          "result.released_in_error": 4500,
+          "result.flag": 4,
+          "result.ok": 1
+        }
+      },
+      "generated": true
+    },
+    {
+      "id": "explain-unknown-item-is-a-readable-error",
+      "tool": "releases_explain",
+      "args": {
+        "funds": "fixtures/funds.csv",
+        "gl": "fixtures/gl.csv",
+        "settings": "fixtures/settings.json",
+        "fund": "No Such Thing Zz"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "not found"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "report-writes-two-files",
+      "tool": "releases_write_report",
+      "args": {
+        "funds": "fixtures/funds.csv",
+        "gl": "fixtures/gl.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "length": {
+          "result.files": 2
+        },
+        "matches": [
+          "[0-9a-f]{64}"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "draft-waits-for-a-person",
+      "tool": "releases_draft_release_entry",
+      "args": {
+        "funds": "fixtures/funds.csv",
+        "gl": "fixtures/gl.csv",
+        "settings": "fixtures/settings.json",
+        "period": "Quarter ended 2026-09-30",
+        "to": "Books by Example LLP"
+      },
+      "expect": {
+        "status": "needs_approval",
+        "decision": "ask"
+      },
+      "generated": true
+    },
+    {
+      "id": "review-mode-drafts-nothing",
+      "tool": "releases_draft_release_entry",
+      "mode": "review",
+      "args": {
+        "funds": "fixtures/funds.csv",
+        "gl": "fixtures/gl.csv",
+        "settings": "fixtures/settings.json",
+        "period": "Quarter ended 2026-09-30",
+        "to": "Books by Example LLP"
+      },
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "request-stays-one-click-in-auto",
+      "tool": "releases_request_post",
+      "mode": "auto",
+      "auto_actions": [
+        "releases_draft_release_entry"
+      ],
+      "args": {
+        "draft": "fairgive-out/releases/drafts/none.md",
+        "draft_sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+      },
+      "expect": {
+        "status": "needs_approval",
+        "decision": "ask"
+      },
+      "generated": true
+    },
+    {
+      "id": "refuses-ledger-post",
+      "tool": "ledger_post",
+      "mode": "auto",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "recall-empty-memory",
+      "tool": "releases_recall",
+      "args": {},
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.total": 0
+        }
+      },
+      "generated": true
+    },
+    {
+      "id": "intl-de-release-totals",
+      "tool": "releases_check",
+      "args": {
+        "funds": "fixtures/intl/de/funds.csv",
+        "gl": "fixtures/intl/de/gl.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.restricted_funds": 5,
+          "result.to_release": 12000,
+          "result.released_in_error": 4500,
+          "result.flag": 4,
+          "result.ok": 1
+        }
+      },
+      "note": "German export of the same data (fixtures/intl/de); must match the English case \"release-totals\"."
+    },
+    {
+      "id": "intl-ja-release-totals",
+      "tool": "releases_check",
+      "args": {
+        "funds": "fixtures/intl/ja/funds.csv",
+        "gl": "fixtures/intl/ja/gl.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.restricted_funds": 5,
+          "result.to_release": 12000,
+          "result.released_in_error": 4500,
+          "result.flag": 4,
+          "result.ok": 1
+        }
+      },
+      "note": "Japanese export of the same data (fixtures/intl/ja); must match the English case \"release-totals\"."
+    }
+  ]
+}

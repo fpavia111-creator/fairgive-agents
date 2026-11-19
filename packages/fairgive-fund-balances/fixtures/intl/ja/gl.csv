@@ -1,0 +1,17 @@
+entry_id,ì˙ït,ä®íËâ»ñ⁄,ä®íËâ»ñ⁄ñº,äÓã‡,èoã‡,ì¸ã‡,ìEóv
+OB-1,2026/07/01,3100,Net assets without donor restrictions,GEN,,"50,000.00",Opening balance
+JE-11,2026/09/30,4010,Contributions,GEN,,"20,000.00",Q1 gifts
+JE-12,2026/09/30,5000,Program expenses,GEN,"30,000.00",,Q1 spending
+OB-2,2026/07/01,3100,Net assets without donor restrictions,BOARD-RES,,"25,000.00",Opening balance
+OB-3,2026/07/01,3200,Net assets with donor restrictions,YOUTH,,"5,000.00",Opening balance
+JE-13,2026/09/30,4010,Contributions,YOUTH,,"2,000.00",Q1 gifts
+JE-14,2026/09/30,5100,Youth program expenses,YOUTH,"9,000.00",,Q1 spending
+OB-4,2026/07/01,3100,Net assets without donor restrictions,CAPITAL,,"15,000.00",Opening balance
+OB-5,2026/07/01,3200,Net assets with donor restrictions,SCHOL-TIME,,"8,000.00",Opening balance
+JE-15,2026/09/30,4010,Contributions,SCHOL-TIME,,"1,000.00",Q1 gifts
+OB-6,2026/07/01,3300,Net assets with donor restrictions - perpetual,ENDOW,,"100,000.00",Opening balance
+JE-16,2026/09/30,4900,Investment return,ENDOW,"6,000.00",,Unrealized loss
+JE-17,2026/09/30,4010,Contributions,MISC,,500.00,Q1 gifts
+JE-18,2026/09/30,4010,Contributions,OLDFUND,,300.00,Q1 gifts
+JE-19,2026/09/30,1900,Due from other funds,GEN,"4,000.00",,Interfund
+JE-19,2026/09/30,2900,Due to other funds,YOUTH,,"3,500.00",Interfund

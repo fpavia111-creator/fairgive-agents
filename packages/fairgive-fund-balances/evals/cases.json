@@ -1,0 +1,339 @@
+{
+  "suite": "fairgive-fund-balances",
+  "root": "..",
+  "data_note": "A fictional fund list and ledger. Deterministic checks; no model is called.",
+  "cases": [
+    {
+      "id": "balances-by-class",
+      "tool": "funds_check",
+      "args": {
+        "funds": "fixtures/funds.csv",
+        "gl": "fixtures/gl.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.funds": 7,
+          "result.without_donor_restrictions": 65000,
+          "result.board_designated": 25000,
+          "result.with_donor_restrictions": 116000,
+          "result.perpetual": 94000,
+          "result.negative_restricted": 2000,
+          "result.wrong_class": 15000,
+          "result.interfund_gap": 500,
+          "result.flag": 4,
+          "result.review": 2,
+          "result.ok": 3
+        }
+      }
+    },
+    {
+      "id": "every-planted-issue-found",
+      "tool": "funds_check",
+      "args": {
+        "funds": "fixtures/funds.csv",
+        "gl": "fixtures/gl.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "contains": [
+          "negative_restricted_balance",
+          "wrong_net_asset_class",
+          "perpetual_below_corpus",
+          "no_restriction_code",
+          "unknown_fund",
+          "interfund_not_zero"
+        ]
+      }
+    },
+    {
+      "id": "endowment-under-corpus-explained",
+      "tool": "funds_explain",
+      "args": {
+        "funds": "fixtures/funds.csv",
+        "gl": "fixtures/gl.csv",
+        "settings": "fixtures/settings.json",
+        "fund": "ENDOW"
+      },
+      "expect": {
+        "status": "executed",
+        "contains": [
+          "under its corpus (original gift value) of 100000 by 6000"
+        ],
+        "equals": {
+          "result.item.balance": 94000
+        }
+      }
+    },
+    {
+      "id": "without-account-map-no-class-check",
+      "tool": "funds_check",
+      "args": {
+        "funds": "fixtures/funds.csv",
+        "gl": "fixtures/gl.csv"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.wrong_class": 0,
+          "result.interfund_gap": 0
+        },
+        "not_contains": [
+          "wrong_net_asset_class",
+          "interfund_not_zero"
+        ]
+      }
+    },
+    {
+      "id": "only-restricted-funds-filter",
+      "tool": "funds_check",
+      "args": {
+        "funds": "fixtures/funds.csv",
+        "gl": "fixtures/gl.csv",
+        "settings": "fixtures/settings.json",
+        "status": "flag"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.items_shown": 4,
+          "result.items_total": 9
+        }
+      }
+    },
+    {
+      "id": "aplos-signed-amounts",
+      "tool": "funds_check",
+      "args": {
+        "funds": "fixtures/funds.csv",
+        "gl": "fixtures/exports/aplos-transactions.csv"
+      },
+      "expect": {
+        "status": "executed",
+        "contains": [
+          "aplos_transactions"
+        ],
+        "equals": {
+          "result.negative_restricted": 4000,
+          "result.without_donor_restrictions": 1000
+        }
+      }
+    },
+    {
+      "id": "missing-argument-named",
+      "tool": "funds_check",
+      "args": {},
+      "expect": {
+        "status": "error",
+        "contains": [
+          "funds"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "file-outside-root-refused",
+      "tool": "funds_check",
+      "args": {
+        "funds": "../../../outside.csv",
+        "gl": "fixtures/gl.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "outside"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "invented-tool-name-refused",
+      "tool": "funds_pay_everything_now",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "review-mode-still-reads",
+      "tool": "funds_check",
+      "mode": "review",
+      "args": {
+        "funds": "fixtures/funds.csv",
+        "gl": "fixtures/gl.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.funds": 7,
+          "result.without_donor_restrictions": 65000,
+          "result.board_designated": 25000,
+          "result.with_donor_restrictions": 116000,
+          "result.perpetual": 94000,
+          "result.negative_restricted": 2000,
+          "result.wrong_class": 15000,
+          "result.interfund_gap": 500,
+          "result.flag": 4,
+          "result.review": 2,
+          "result.ok": 3
+        }
+      },
+      "generated": true
+    },
+    {
+      "id": "status-filter-keeps-totals",
+      "tool": "funds_check",
+      "args": {
+        "funds": "fixtures/funds.csv",
+        "gl": "fixtures/gl.csv",
+        "settings": "fixtures/settings.json",
+        "status": "ok",
+        "limit": 1
+      },
+      "expect": {
+        "status": "executed",
+        "max": {
+          "result.items_shown": 1
+        },
+        "equals": {
+          "result.funds": 7,
+          "result.without_donor_restrictions": 65000,
+          "result.board_designated": 25000,
+          "result.with_donor_restrictions": 116000,
+          "result.perpetual": 94000,
+          "result.negative_restricted": 2000,
+          "result.wrong_class": 15000,
+          "result.interfund_gap": 500,
+          "result.flag": 4,
+          "result.review": 2,
+          "result.ok": 3
+        }
+      },
+      "generated": true
+    },
+    {
+      "id": "explain-unknown-item-is-a-readable-error",
+      "tool": "funds_explain",
+      "args": {
+        "funds": "fixtures/funds.csv",
+        "gl": "fixtures/gl.csv",
+        "settings": "fixtures/settings.json",
+        "fund": "No Such Thing Zz"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "not found"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "report-writes-two-files",
+      "tool": "funds_write_report",
+      "args": {
+        "funds": "fixtures/funds.csv",
+        "gl": "fixtures/gl.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "length": {
+          "result.files": 2
+        },
+        "matches": [
+          "[0-9a-f]{64}"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "refuses-ledger-post",
+      "tool": "ledger_post",
+      "mode": "auto",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "refuses-bank-transfer",
+      "tool": "bank_transfer",
+      "mode": "auto",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "recall-empty-memory",
+      "tool": "funds_recall",
+      "args": {},
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.total": 0
+        }
+      },
+      "generated": true
+    },
+    {
+      "id": "intl-de-balances-by-class",
+      "tool": "funds_check",
+      "args": {
+        "funds": "fixtures/intl/de/funds.csv",
+        "gl": "fixtures/intl/de/gl.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.funds": 7,
+          "result.without_donor_restrictions": 65000,
+          "result.board_designated": 25000,
+          "result.with_donor_restrictions": 116000,
+          "result.perpetual": 94000,
+          "result.negative_restricted": 2000,
+          "result.wrong_class": 15000,
+          "result.interfund_gap": 500,
+          "result.flag": 4,
+          "result.review": 2,
+          "result.ok": 3
+        }
+      },
+      "note": "German export of the same data (fixtures/intl/de); must match the English case \"balances-by-class\"."
+    },
+    {
+      "id": "intl-ja-balances-by-class",
+      "tool": "funds_check",
+      "args": {
+        "funds": "fixtures/intl/ja/funds.csv",
+        "gl": "fixtures/intl/ja/gl.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.funds": 7,
+          "result.without_donor_restrictions": 65000,
+          "result.board_designated": 25000,
+          "result.with_donor_restrictions": 116000,
+          "result.perpetual": 94000,
+          "result.negative_restricted": 2000,
+          "result.wrong_class": 15000,
+          "result.interfund_gap": 500,
+          "result.flag": 4,
+          "result.review": 2,
+          "result.ok": 3
+        }
+      },
+      "note": "Japanese export of the same data (fixtures/intl/ja); must match the English case \"balances-by-class\"."
+    }
+  ]
+}

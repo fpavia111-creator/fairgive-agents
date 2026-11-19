@@ -1,0 +1,5 @@
+{
+  "net_asset_accounts": { "3100": "without", "3200": "with", "3300": "with" },
+  "interfund_accounts": ["1900", "2900"],
+  "activity_from": "3"
+}
