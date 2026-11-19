@@ -1,0 +1,5 @@
+grant,grant_name,funder,award_start,award_end,owner
+G-ARTS,Community arts,Example Arts Council,2026-01-01,2026-12-31,Dana Rivers
+G-FED,After-school learning,Example Federal Agency,2026-07-01,2027-06-30,Sam Whitlow
+G-FOUND,Food pantry,Example Family Foundation,2025-07-01,2026-06-30,Dana Rivers
+G-NEW,Youth mentoring,Example Community Trust,2026-10-01,2027-09-30,Sam Whitlow

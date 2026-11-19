@@ -1,0 +1,394 @@
+{
+  "suite": "fairgive-grant-reports",
+  "root": "..",
+  "data_note": "Fictional grants, schedules and submissions; owner names are made up. Deterministic checks; no model is called.",
+  "cases": [
+    {
+      "id": "report-calendar-totals",
+      "tool": "grant_reports_check",
+      "args": {
+        "grants": "fixtures/grants.csv",
+        "schedule": "fixtures/schedule.csv",
+        "submissions": "fixtures/submissions.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.grants": 4,
+          "result.reports": 12,
+          "result.overdue": 2,
+          "result.due_soon": 1,
+          "result.sent_late": 1,
+          "result.no_schedule": 1,
+          "result.flag": 2,
+          "result.review": 1,
+          "result.watch": 2,
+          "result.ok": 8
+        }
+      }
+    },
+    {
+      "id": "every-planted-issue-found",
+      "tool": "grant_reports_check",
+      "args": {
+        "grants": "fixtures/grants.csv",
+        "schedule": "fixtures/schedule.csv",
+        "submissions": "fixtures/submissions.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "contains": [
+          "overdue",
+          "due_soon",
+          "late_submission",
+          "no_schedule"
+        ],
+        "not_contains": [
+          "Dana Rivers",
+          "Sam Whitlow"
+        ]
+      }
+    },
+    {
+      "id": "final-report-explained",
+      "tool": "grant_reports_explain",
+      "args": {
+        "grants": "fixtures/grants.csv",
+        "schedule": "fixtures/schedule.csv",
+        "submissions": "fixtures/submissions.csv",
+        "settings": "fixtures/settings.json",
+        "item": "G-FOUND Final report 2026-06-30"
+      },
+      "expect": {
+        "status": "executed",
+        "contains": [
+          "was due on 2026-09-28 (51 day(s) ago)"
+        ]
+      }
+    },
+    {
+      "id": "calendar-file",
+      "tool": "grant_reports_write_calendar",
+      "args": {
+        "grants": "fixtures/grants.csv",
+        "schedule": "fixtures/schedule.csv",
+        "submissions": "fixtures/submissions.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.events": 7
+        },
+        "contains": [
+          "grant-reports.ics"
+        ]
+      }
+    },
+    {
+      "id": "reminder-after-approval",
+      "tool": "grant_reports_draft_reminder",
+      "approve": "Dana Director",
+      "args": {
+        "grants": "fixtures/grants.csv",
+        "schedule": "fixtures/schedule.csv",
+        "submissions": "fixtures/submissions.csv",
+        "settings": "fixtures/settings.json",
+        "grant": "G-FED"
+      },
+      "expect": {
+        "status": "executed",
+        "contains": [
+          "reminder-G-FED.md"
+        ],
+        "not_contains": [
+          "Sam Whitlow"
+        ]
+      }
+    },
+    {
+      "id": "without-submissions-everything-past-due-is-overdue",
+      "tool": "grant_reports_check",
+      "args": {
+        "grants": "fixtures/grants.csv",
+        "schedule": "fixtures/schedule.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.overdue": 7,
+          "result.sent_late": 0
+        }
+      }
+    },
+    {
+      "id": "missing-argument-named",
+      "tool": "grant_reports_check",
+      "args": {},
+      "expect": {
+        "status": "error",
+        "contains": [
+          "grants"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "file-outside-root-refused",
+      "tool": "grant_reports_check",
+      "args": {
+        "grants": "../../../outside.csv",
+        "schedule": "fixtures/schedule.csv",
+        "submissions": "fixtures/submissions.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "outside"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "invented-tool-name-refused",
+      "tool": "grant_reports_pay_everything_now",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "review-mode-still-reads",
+      "tool": "grant_reports_check",
+      "mode": "review",
+      "args": {
+        "grants": "fixtures/grants.csv",
+        "schedule": "fixtures/schedule.csv",
+        "submissions": "fixtures/submissions.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.grants": 4,
+          "result.reports": 12,
+          "result.overdue": 2,
+          "result.due_soon": 1,
+          "result.sent_late": 1,
+          "result.no_schedule": 1,
+          "result.flag": 2,
+          "result.review": 1,
+          "result.watch": 2,
+          "result.ok": 8
+        }
+      },
+      "generated": true
+    },
+    {
+      "id": "status-filter-keeps-totals",
+      "tool": "grant_reports_check",
+      "args": {
+        "grants": "fixtures/grants.csv",
+        "schedule": "fixtures/schedule.csv",
+        "submissions": "fixtures/submissions.csv",
+        "settings": "fixtures/settings.json",
+        "status": "ok",
+        "limit": 1
+      },
+      "expect": {
+        "status": "executed",
+        "max": {
+          "result.items_shown": 1
+        },
+        "equals": {
+          "result.grants": 4,
+          "result.reports": 12,
+          "result.overdue": 2,
+          "result.due_soon": 1,
+          "result.sent_late": 1,
+          "result.no_schedule": 1,
+          "result.flag": 2,
+          "result.review": 1,
+          "result.watch": 2,
+          "result.ok": 8
+        }
+      },
+      "generated": true
+    },
+    {
+      "id": "explain-unknown-item-is-a-readable-error",
+      "tool": "grant_reports_explain",
+      "args": {
+        "grants": "fixtures/grants.csv",
+        "schedule": "fixtures/schedule.csv",
+        "submissions": "fixtures/submissions.csv",
+        "settings": "fixtures/settings.json",
+        "item": "No Such Thing Zz"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "not found"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "report-writes-two-files",
+      "tool": "grant_reports_write_report",
+      "args": {
+        "grants": "fixtures/grants.csv",
+        "schedule": "fixtures/schedule.csv",
+        "submissions": "fixtures/submissions.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "length": {
+          "result.files": 2
+        },
+        "matches": [
+          "[0-9a-f]{64}"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "draft-waits-for-a-person",
+      "tool": "grant_reports_draft_reminder",
+      "args": {
+        "grants": "fixtures/grants.csv",
+        "schedule": "fixtures/schedule.csv",
+        "submissions": "fixtures/submissions.csv",
+        "settings": "fixtures/settings.json",
+        "grant": "G-FED"
+      },
+      "expect": {
+        "status": "needs_approval",
+        "decision": "ask"
+      },
+      "generated": true
+    },
+    {
+      "id": "review-mode-drafts-nothing",
+      "tool": "grant_reports_draft_reminder",
+      "mode": "review",
+      "args": {
+        "grants": "fixtures/grants.csv",
+        "schedule": "fixtures/schedule.csv",
+        "submissions": "fixtures/submissions.csv",
+        "settings": "fixtures/settings.json",
+        "grant": "G-FED"
+      },
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "request-stays-one-click-in-auto",
+      "tool": "grant_reports_request_send",
+      "mode": "auto",
+      "auto_actions": [
+        "grant_reports_draft_reminder"
+      ],
+      "args": {
+        "draft": "fairgive-out/grant_reports/drafts/none.md",
+        "draft_sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+      },
+      "expect": {
+        "status": "needs_approval",
+        "decision": "ask"
+      },
+      "generated": true
+    },
+    {
+      "id": "refuses-funder-portal-submit",
+      "tool": "funder_portal_submit",
+      "mode": "auto",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "refuses-email-send",
+      "tool": "email_send",
+      "mode": "auto",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "recall-empty-memory",
+      "tool": "grant_reports_recall",
+      "args": {},
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.total": 0
+        }
+      },
+      "generated": true
+    },
+    {
+      "id": "intl-de-report-calendar-totals",
+      "tool": "grant_reports_check",
+      "args": {
+        "grants": "fixtures/intl/de/grants.csv",
+        "schedule": "fixtures/intl/de/schedule.csv",
+        "submissions": "fixtures/intl/de/submissions.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.grants": 4,
+          "result.reports": 12,
+          "result.overdue": 2,
+          "result.due_soon": 1,
+          "result.sent_late": 1,
+          "result.no_schedule": 1,
+          "result.flag": 2,
+          "result.review": 1,
+          "result.watch": 2,
+          "result.ok": 8
+        }
+      },
+      "note": "German export of the same data (fixtures/intl/de); must match the English case \"report-calendar-totals\"."
+    },
+    {
+      "id": "intl-ja-report-calendar-totals",
+      "tool": "grant_reports_check",
+      "args": {
+        "grants": "fixtures/intl/ja/grants.csv",
+        "schedule": "fixtures/intl/ja/schedule.csv",
+        "submissions": "fixtures/intl/ja/submissions.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.grants": 4,
+          "result.reports": 12,
+          "result.overdue": 2,
+          "result.due_soon": 1,
+          "result.sent_late": 1,
+          "result.no_schedule": 1,
+          "result.flag": 2,
+          "result.review": 1,
+          "result.watch": 2,
+          "result.ok": 8
+        }
+      },
+      "note": "Japanese export of the same data (fixtures/intl/ja); must match the English case \"report-calendar-totals\"."
+    }
+  ]
+}
