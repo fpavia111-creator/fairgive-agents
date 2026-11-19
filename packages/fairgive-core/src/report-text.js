@@ -36,6 +36,7 @@ const PAGE = {
     '요약 문장, 지적 사항의 문구, 코드와 “한계” 아래의 주석은 영어입니다. 이 페이지는 Claude가 번역했으며 원어민 검토는 아직 이루어지지 않았습니다.'],
 };
 
+// Report titles, one per Fairgive agent.
 const TITLES = {
   'Gift and deposit reconciliation': ['Abgleich von Spenden und Einzahlungen', 'Rapprochement des dons et des remises en banque', 'Conciliación de donaciones y depósitos', 'Conciliação de doações e depósitos', 'Riconciliazione di donazioni e versamenti', '寄付と入金の照合', '捐赠与存款对账', '기부금과 입금 대사'],
   'Fund balances by restriction': ['Fondssalden nach Zweckbindung', 'Soldes des fonds par restriction', 'Saldos de fondos por restricción', 'Saldos de fundos por restrição', 'Saldi dei fondi per vincolo', '使途制限別の基金残高', '按限定性划分的基金余额', '제한 구분별 기금 잔액'],

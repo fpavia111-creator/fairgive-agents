@@ -49,7 +49,6 @@ export function runtimeFromFlags(manifest, flags) {
     approvalWebhook: flags['approval-webhook'] || env.FAIRGIVE_APPROVAL_WEBHOOK || undefined,
     memory: !(flags['no-memory'] || /^(1|true|yes)$/i.test(env.FAIRGIVE_NO_MEMORY || '')),
     lang: flags.lang || env.FAIRGIVE_LANG || undefined,
-    pii: flags.pii || env.FAIRGIVE_PII || undefined,
   });
 }
 
@@ -95,8 +94,7 @@ Options:
   --audit-mirror FILE             Also append every audit line to this file
   --approval-ttl HOURS            Approvals expire this long after approval (default 24)
   --approval-webhook URL          POST pending approvals, HMAC-signed with FAIRGIVE_WEBHOOK_SECRET
-  --lang en|de|fr|es|pt|it|ja|zh|ko   Language of reports and the approvals page (FAIRGIVE_LANG); tool results stay in English
-  --pii mask|off                  Personal-data masking of results the model sees (FAIRGIVE_PII, default mask)${manifest.memory ? `
+  --lang en|de|fr|es|pt|it|ja|zh|ko   Language of reports and the approvals page (FAIRGIVE_LANG); tool results stay in English${manifest.memory ? `
   --no-memory                     Run without the facts this agent has learned (recall and learn still work)` : ''}
 `;
 }

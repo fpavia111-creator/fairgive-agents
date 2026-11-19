@@ -14,11 +14,6 @@ import { AgentRuntime } from './runtime.js';
 import { adaptRecords } from './sources.js';
 import { ONE_CLICK_CATEGORIES } from './manifest.js';
 import { parseCsvRows } from './csv.js';
-import { readTable } from './tables.js';
-import { piiKindOf } from './pii.js';
-
-// A fixed pseudonym key, so two runs of the same case give the same pseudonyms.
-const TEST_PII_KEY = Buffer.alloc(32, 7);
 
 const FILE_ARG = /\.(csv|tsv|txt|json|jsonl|xlsx|edi|x12)$/i;
 const VOLATILE = /(^|_)(ms|at|time|generated|ran|date_written|written_at|elapsed|file|files|draft|path|dir|out_dir|report|html|csv|md)$/i;
@@ -53,7 +48,7 @@ export function agentContract({ manifest, casesFile }) {
   const runs = manifest.tools.filter((t) => decision(t) !== 'block');
   const caseFor = (t) => cases.find((c) => c.tool === t.name && (!c.expect || !c.expect.status || ['executed', 'needs_approval'].includes(c.expect.status)));
   const sandbox = () => { const d = mkdtempSync(join(tmpdir(), `${manifest.name}-contract-`)); cpSync(srcRoot, d, { recursive: true, filter: (p) => !/[\\/](node_modules|fairgive-out|\.fairgive)([\\/]|$)/.test(p) }); return d; };
-  const rtIn = (root, opts = {}) => new AgentRuntime(manifest, { root, stateDir: join(root, '.fairgive-test'), audit: false, piiKey: TEST_PII_KEY, ...opts });
+  const rtIn = (root, opts = {}) => new AgentRuntime(manifest, { root, stateDir: join(root, '.fairgive-test'), audit: false, ...opts });
   async function run(rt, tool, args) {
     const first = await rt.call(tool, args);
     if (first.status !== 'needs_approval') return first;
@@ -238,37 +233,6 @@ export function agentContract({ manifest, casesFile }) {
           });
         }
       }
-    });
-  }
-
-  // Personal data in the fixtures (donor, member and staff names, e-mails, phones,
-  // addresses, taxpayer ids) never reaches a result the model sees.
-  const piiCases = cases.filter((c) => { const t = manifest.tools.find((x) => x.name === c.tool); return t && ['read', 'report', 'write'].includes(t.kind) && (!c.mode || c.mode === 'assist') && (!c.expect || !c.expect.status || c.expect.status === 'executed'); });
-  const piiValues = (c) => {
-    const out = new Set(); const byArg = new Map();
-    for (const [kind, def] of Object.entries(manifest.sources || {})) for (const a of def.args || [kind]) byArg.set(a, [kind, def]);
-    for (const [arg, v] of Object.entries(c.args || {})) {
-      if (typeof v !== 'string' || !/\.(csv|tsv|json|xlsx)$/i.test(v) || !byArg.has(arg)) continue;
-      const [kind, def] = byArg.get(arg); let rows;
-      try { const table = readTable(resolve(srcRoot, v)); rows = table.records ? table.records : adaptRecords(table, def, { kind, file: v }).rows; } catch { continue; }
-      for (const r of rows) for (const [f, x] of Object.entries(r || {})) {
-        const fd = (def.fields || {})[f]; const kindOf = (fd && fd.pii) || piiKindOf(f);
-        if (kindOf && typeof x === 'string' && x.trim().length >= 5) out.add(x.trim());
-      }
-    }
-    return [...out];
-  };
-  if (piiCases.some((c) => piiValues(c).length)) {
-    test(`${manifest.name} contract: personal data in the fixtures does not reach what the model sees`, async () => {
-      let checked = 0;
-      for (const c of piiCases) {
-        const vals = piiValues(c); if (!vals.length) continue;
-        const root = sandbox(); const r = await rtIn(root).call(c.tool, c.args);
-        const text = JSON.stringify(r).toLowerCase();
-        for (const v of vals) assert.ok(!text.includes(v.toLowerCase()), `${c.id}: "${v}" reached the result`);
-        checked++;
-      }
-      assert.ok(checked > 0);
     });
   }
 

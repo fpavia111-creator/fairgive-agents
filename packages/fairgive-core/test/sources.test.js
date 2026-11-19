@@ -133,7 +133,7 @@ test('the catalogue: every entry has a system, a label and a way to be recognise
   for (const e of all.filter((x) => x.basis === 'documented')) assert.ok(e.source && /^\d{4}-\d{2}-\d{2}$/.test(e.checked), e.id);
   assert.match(EXPORTS_BASIS_NOTE, /None was tested against a live account/);
   assert.throws(() => exportProfile('nope', {}), /unknown export "nope"/);
-  const p = exportProfile('fedex_fbo_csv', { tracking: 'Express or Ground Tracking ID' }, { note: 'n' }); assert.equal(p.system, 'FedEx Billing Online'); assert.equal(p.note, 'n'); assert.deepEqual(p.map, { tracking: 'Express or Ground Tracking ID' });
+  const p = exportProfile('paypal_activity', { item: 'Description' }, { note: 'n' }); assert.equal(p.system, 'PayPal'); assert.equal(p.note, 'n'); assert.deepEqual(p.map, { item: 'Description' });
 });
 
 test('row helpers for grouped reports, repeated rows and split names', () => {
@@ -225,4 +225,10 @@ test('mcp: fairgive_inspect_input is listed read-only and fairgive_info says whi
   const bad = await h({ jsonrpc: '2.0', id: 3, method: 'tools/call', params: { name: 'fairgive_inspect_input', arguments: { path: 'nope.csv' } } }); assert.equal(bad.result.isError, true);
   const info = await h({ jsonrpc: '2.0', id: 4, method: 'tools/call', params: { name: 'fairgive_info', arguments: {} } });
   assert.match(JSON.stringify(info.result.structuredContent), /HR System/);
+});
+
+test('a header that is the field name in another letter case is read, not left blank', () => {
+  const def = { fields: { item: { aliases: ['Menu Item'] }, qty: { type: 'number' } } };
+  const r = adaptRecords({ format: 'csv', matrix: [['Item', 'QTY'], ['Burger', '3']] }, def, { kind: 'sales' });
+  assert.equal(r.rows[0].item, 'Burger'); assert.equal(Number(r.rows[0].qty), 3);
 });

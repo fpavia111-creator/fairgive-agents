@@ -1,7 +1,7 @@
 {
   "name": "fairgive-agents",
   "private": true,
-  "description": "Fairgive freight and shipping cost agents monorepo.",
+  "description": "Fairgive: nonprofit, foundation, church and association back-office agents monorepo, built on fairgive-core.",
   "license": "MIT",
   "workspaces": [
     "packages/fairgive-core",
@@ -18,7 +18,11 @@
     "plugin:check": "node scripts/plugin-files.mjs --check",
     "intl": "node scripts/intl-check.mjs",
     "mcp:check": "node scripts/mcp-conformance.mjs",
-    "readme:check": "node scripts/readme-sections.mjs --check"
+    "readme:check": "node scripts/readme-sections.mjs --check",
+    "evals": "node scripts/run-all-evals.mjs",
+    "samples": "node scripts/sample-reports.mjs",
+    "evals:make": "node scripts/make-evals.mjs",
+    "masking": "node scripts/masking-check.mjs"
   },
   "engines": {
     "node": ">=20"

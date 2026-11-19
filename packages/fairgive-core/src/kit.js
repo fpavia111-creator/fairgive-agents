@@ -119,7 +119,7 @@ export function draftPair(cfg) {
 
 /** Standard one-line limit sentences used in reports. */
 export const LIMITS = Object.freeze({
-  files: 'Reads only the files you give it. It does not log in to a carrier, TMS, bank or ERP.',
-  contract: 'Amounts are checked against the contract file you supply. It is not a tariff service and does not know your carrier\'s current rules.',
-  advice: 'Not legal, tax, customs or accounting advice. A person decides what to dispute, claim or pay.',
+  files: 'Reads only the files you give it. It does not log in to a donor CRM, giving platform, payment processor, bank or accounting system.',
+  contract: 'Amounts are checked against the settings files you supply. It does not know the current terms of a funder, a processor or a vendor.',
+  advice: 'Not legal, tax, audit or accounting advice. A person decides what to record, send, file or pay.',
 });

@@ -1,39 +1,87 @@
 // Nonprofit back-office helpers shared by the Fairgive agents. Pure functions, no I/O.
 //
 // Nothing here is a rule of law or an accounting standard. Thresholds, rates and
-// periods live in each agent's settings file with a default that a person checks;
-// every agent says which defaults it used. These helpers only read and compare.
-import { readNumber } from './intl.js';
-import { normalizeName, jaroWinkler } from './text.js';
-
-// ------------------------------------------------------------------ numbers ----
+// periods are settings the organization changes in its own settings file, and every
+// agent says which it used. These helpers only read and compare.
+import { foldText, readNumber } from './intl.js';
+import { jaroWinkler } from './text.js';
 
 export const round2 = (n) => Math.round((Number(n) + Number.EPSILON) * 100) / 100;
-/** A number from a cell, or null. "$1,200.00", "(45)", "1.234,56" all read. */
-export const num = (v) => { if (v === null || v === undefined || v === '') return null; if (typeof v === 'number') return Number.isFinite(v) ? v : null; const n = readNumber(v); return Number.isFinite(n) ? n : null; };
-/** num() with 0 for blanks. */
-export const amt = (v) => num(v) ?? 0;
+export const round1 = (n) => Math.round((Number(n) + Number.EPSILON) * 10) / 10;
+export const round4 = (n) => Math.round((Number(n) + Number.EPSILON) * 10000) / 10000;
+export const num = (v) => { if (v === null || v === undefined || v === '') return null; if (typeof v === 'number') return Number.isFinite(v) ? v : null; const n = readNumber(String(v).trim()); return Number.isFinite(n) ? n : null; };
 export const sum = (xs) => round2(xs.reduce((s, x) => s + (Number(x) || 0), 0));
 export const str = (v) => String(v ?? '').trim();
 export const low = (v) => str(v).toLowerCase();
-/** Two amounts equal within a tolerance (default half a cent). */
-export const near = (a, b, tol = 0.005) => Math.abs(Number(a) - Number(b)) <= tol + 1e-9;
-/** A percentage with two decimals; 0 when the base is 0 (never NaN or Infinity). */
-export const pct = (part, whole) => (Number(whole) ? round2((Number(part) / Number(whole)) * 100) : 0);
-/** "$1,234.56" for letters and statements people read. Negative amounts as "-$12.00". */
-export function money(n, symbol = '$') {
-  const v = round2(Number(n) || 0); const s = Math.abs(v).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-  return `${v < 0 ? '-' : ''}${symbol}${s}`;
+/** part / whole as a percentage with one decimal, or null when whole is 0 or missing. */
+export const pct = (part, whole) => { const w = Number(whole); return w ? round1((Number(part) / w) * 100) : null; };
+
+/** Median of the finite numbers in xs, or null. */
+export function median(xs) {
+  const v = xs.map(Number).filter(Number.isFinite).sort((a, b) => a - b);
+  if (!v.length) return null;
+  const m = Math.floor(v.length / 2);
+  return v.length % 2 ? v[m] : round4((v[m - 1] + v[m]) / 2);
 }
 
-// -------------------------------------------------------------------- dates ----
+/** Group rows by a key function into a Map, keeping order. */
+export function groupBy(rows, key) {
+  const m = new Map();
+  for (const r of rows) { const k = key(r); if (!m.has(k)) m.set(k, []); m.get(k).push(r); }
+  return m;
+}
+
+/** Sorted plain object from a Map or object, so results never depend on row order. */
+export const sortedObject = (o) => Object.fromEntries([...(o instanceof Map ? o.entries() : Object.entries(o))].sort(([a], [b]) => (a < b ? -1 : a > b ? 1 : 0)));
+
+/** Compare two strings the same way on every machine. */
+export const cmp = (a, b) => (String(a) < String(b) ? -1 : String(a) > String(b) ? 1 : 0);
+
+// ------------------------------------------------------------------- names ----
+
+/** Key for matching an item, vendor or location name across files: case, accents and punctuation folded. */
+export const nameKey = (s) => foldText(str(s)).replace(/\b(the|and)\b/g, ' ').replace(/\s+/g, ' ').trim();
+
+/** Key for a person's name: "Rivera, Ana" and "Ana Rivera" give the same key. */
+export function personKey(s) {
+  const t = str(s);
+  if (!t) return '';
+  const m = /^([^,]+),\s*(.+)$/.exec(t);
+  const full = m ? `${m[2]} ${m[1]}` : t;
+  return foldText(full).split(' ').filter(Boolean).join(' ');
+}
+
+/** "Ana Rivera" from "Rivera, Ana"; other names as written. */
+export function displayName(s) {
+  const t = str(s);
+  const m = /^([^,]+),\s*(.+)$/.exec(t);
+  return m ? `${m[2].trim()} ${m[1].trim()}` : t;
+}
+
+// ------------------------------------------------------------------- dates ----
 
 const DAY = 86400000;
 const toMs = (v) => { const s = str(v); if (!s) return NaN; const iso = /^\d{4}-\d{2}-\d{2}$/.test(s) ? `${s}T00:00:00Z` : /[zZ]|[+-]\d{2}:?\d{2}$/.test(s) ? s : `${s.replace(' ', 'T')}Z`; return Date.parse(iso); };
 export const isoDate = (v) => { const t = toMs(v); return Number.isFinite(t) ? new Date(t).toISOString().slice(0, 10) : null; };
-export function daysBetween(a, b) { const x = toMs(a), y = toMs(b); return Number.isFinite(x) && Number.isFinite(y) ? Math.round((y - x) / DAY) : null; }
-export function addDays(d, n) { const t = toMs(d); return Number.isFinite(t) ? new Date(t + n * DAY).toISOString().slice(0, 10) : null; }
+export function daysBetween(a, b) { const x = toMs(isoDate(a)), y = toMs(isoDate(b)); return Number.isFinite(x) && Number.isFinite(y) ? Math.round((y - x) / DAY) : null; }
+export function hoursBetween(a, b) { const x = toMs(a), y = toMs(b); return Number.isFinite(x) && Number.isFinite(y) ? Math.round(((y - x) / 3600000) * 100) / 100 : null; }
+export function addDays(d, n) { const t = toMs(isoDate(d)); return Number.isFinite(t) ? new Date(t + n * DAY).toISOString().slice(0, 10) : null; }
 export const inWindow = (d, from, to) => { const x = isoDate(d); return !!x && (!from || x >= isoDate(from)) && (!to || x <= isoDate(to)); };
+/** Monday of the week a date falls in (YYYY-MM-DD). */
+export function weekStart(d) { const x = isoDate(d); if (!x) return null; const day = new Date(`${x}T00:00:00Z`).getUTCDay(); return addDays(x, -((day + 6) % 7)); }
+const DAYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+export const dayName = (d) => { const x = isoDate(d); return x ? DAYS[new Date(`${x}T00:00:00Z`).getUTCDay()] : null; };
+
+/** "$1,234.56" for letters and statements people read. Negative amounts as "-$12.00". */
+export function dollars(n, symbol = '$') {
+  const v = round2(Number(n) || 0); const s = Math.abs(v).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+  return `${v < 0 ? '-' : ''}${symbol}${s}`;
+}
+/** Two amounts equal within a tolerance (default half a cent). */
+export const near = (a, b, tol = 0.005) => Math.abs(Number(a) - Number(b)) <= tol + 1e-9;
+/** num() with 0 for blanks. */
+export const amt = (v) => num(v) ?? 0;
+
 /** "2026-11" from a date, or null. */
 export const monthOf = (d) => { const x = isoDate(d); return x ? x.slice(0, 7) : null; };
 /** Add months to a date, keeping the day where the month has it (Jan 31 + 1 = Feb 28). */
@@ -58,13 +106,14 @@ export function fiscalRange(fy, startMonth = 1) {
   return { start: s, end: addDays(addMonths(s, 12), -1) };
 }
 
+
 // -------------------------------------------------------------------- people ----
 
 const TITLES = /\b(mr|mrs|ms|miss|mx|dr|rev|reverend|fr|pastor|prof|hon|sir|dame|the)\b\.?/g;
 const SUFFIX = /\b(jr|sr|ii|iii|iv|phd|md|esq|cpa)\b\.?/g;
 /** A person or household name reduced for matching: no titles, suffixes, punctuation; "&" and "and" alike. */
 export function donorKey(name) {
-  return normalizeName(String(name || '').toLowerCase().replace(/&/g, ' and ').replace(TITLES, ' ').replace(SUFFIX, ' ')).replace(/\band\b/g, ' ').replace(/\s+/g, ' ').trim();
+  return foldText(String(name || '').toLowerCase().replace(/&/g, ' and ').replace(TITLES, ' ').replace(SUFFIX, ' ')).replace(/\band\b/g, ' ').replace(/\s+/g, ' ').trim();
 }
 /** Name tokens in order-free form ("Hartwell, Maple" and "Maple Hartwell" match). */
 export const nameTokens = (name) => donorKey(String(name || '').replace(',', ' ')).split(' ').filter(Boolean).sort().join(' ');
@@ -103,15 +152,6 @@ export function functionOf(v) {
   return null;
 }
 
-// ---------------------------------------------------------------- matching ----
-
-/** rows grouped by key(row), as a Map in first-seen order. */
-export function groupBy(rows, key) {
-  const m = new Map();
-  for (const r of rows) { const k = key(r); if (!m.has(k)) m.set(k, []); m.get(k).push(r); }
-  return m;
-}
-
 /**
  * Pair left rows with right rows one to one by amount (within tol) and date (within
  * `days`), nearest date first. The result does not depend on row order: both sides
@@ -138,12 +178,6 @@ export function pairByAmountDate(left, right, { amount = (x) => x.amount, date =
   return { pairs, left: leftOver, right: R.filter((r) => !used.has(r)) };
 }
 
-/** Sort items by a stable key list so results never depend on the order of the rows. */
-export function stableSort(items, ...keys) {
-  const k = (x) => keys.map((f) => { const v = typeof f === 'function' ? f(x) : x[f]; return typeof v === 'number' ? String(v.toFixed ? v.toFixed(2) : v).padStart(16, '0') : str(v); }).join('\u0001');
-  return [...items].sort((a, b) => { const x = k(a), y = k(b); return x < y ? -1 : x > y ? 1 : 0; });
-}
-
 /** Days past due put in buckets: [30, 60, 90] gives 'current', '1-30', '31-60', '61-90', '90+'. */
 export function ageBucket(days, buckets = [30, 60, 90]) {
   if (days === null || days === undefined || days <= 0) return 'current';
@@ -160,25 +194,24 @@ export function yes(v) {
   return null;
 }
 
+// ------------------------------------------------------------------ status ----
+
+/** Rank used to sort findings and pick an item's status: worst first. */
+export const STATUS_RANK = Object.freeze({ flag: 0, review: 1, watch: 2, ok: 3 });
+export const worst = (statuses) => statuses.reduce((w, s) => ((STATUS_RANK[s] ?? 3) < (STATUS_RANK[w] ?? 3) ? s : w), 'ok');
+
 /**
- * Findings in a fixed order (by code rank, then detail), so a report does not change
- * when the rows are reordered.
+ * One pass over items: rows of { [name]: key, count, ...sums } sorted by key.
+ * sums: { outputField: (item) => number }. Used by report sections so a file with
+ * thousands of vendors is not scanned once per vendor.
  */
-export function orderFindings(findings, order = []) {
-  const rank = (c) => { const i = order.indexOf(c); return i < 0 ? order.length : i; };
-  return findings.map((x, i) => [x, i]).sort((a, b) => rank(a[0].code) - rank(b[0].code) || (a[0].detail < b[0].detail ? -1 : a[0].detail > b[0].detail ? 1 : a[1] - b[1])).map(([x]) => x);
-}
-
-/** Totals by finding code: { code: { count, amount } }. */
-export function byFinding(items) {
-  const out = {};
-  for (const i of items) for (const f of i.findings || []) { const o = out[f.code] = out[f.code] || { count: 0, amount: 0 }; o.count++; o.amount = round2(o.amount + (Number(f.amount) || 0)); }
-  return Object.fromEntries(Object.entries(out).sort(([a], [b]) => (a < b ? -1 : 1)));
-}
-
-/** Count items by status: { ok: n, review: n, ... } with every listed status present. */
-export function byStatus(items, statuses) {
-  const out = Object.fromEntries(statuses.map((s) => [s, 0]));
-  for (const i of items) out[i.status] = (out[i.status] || 0) + 1;
-  return out;
+export function rollup(items, name, keyFn, sums = {}, { countWhen = null } = {}) {
+  const m = new Map();
+  for (const i of items) {
+    const k = keyFn(i); let e = m.get(k);
+    if (!e) { e = { [name]: k, count: 0 }; for (const f of Object.keys(sums)) e[f] = 0; m.set(k, e); }
+    if (!countWhen || countWhen(i)) e.count++;
+    for (const [f, fn] of Object.entries(sums)) e[f] += Number(fn(i)) || 0;
+  }
+  return [...m.values()].sort((a, b) => cmp(a[name], b[name])).map((e) => { for (const f of Object.keys(sums)) e[f] = round2(e[f]); return e; });
 }

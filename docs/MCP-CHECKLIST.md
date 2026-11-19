@@ -1,7 +1,7 @@
 # MCP quality checklist for Fairgive agents
 
 The rules below were first written for the Mythos family and are applied here to the
-30 Fairgive freight agents built on `fairgive-core`.
+32 Fairgive restaurant agents built on `fairgive-core`.
 
 ## What the check found on the 30 Fairgive agents (2026-11-16, ver 2)
 
