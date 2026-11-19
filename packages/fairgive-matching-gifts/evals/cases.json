@@ -1,0 +1,396 @@
+{
+  "suite": "fairgive-matching-gifts",
+  "root": "..",
+  "data_note": "Fictional gifts, employers and claims; names and e-mails are made up. Deterministic checks; no model is called.",
+  "cases": [
+    {
+      "id": "matching-totals",
+      "tool": "matching_check",
+      "args": {
+        "gifts": "fixtures/gifts.csv",
+        "employers": "fixtures/employers.csv",
+        "claims": "fixtures/claims.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.eligible_gifts": 6,
+          "result.expected_match": 5500,
+          "result.unclaimed": 2600,
+          "result.received": 2000,
+          "result.missed": 200,
+          "result.flag": 2,
+          "result.review": 3,
+          "result.watch": 1,
+          "result.ok": 1
+        }
+      }
+    },
+    {
+      "id": "every-planted-issue-found",
+      "tool": "matching_check",
+      "args": {
+        "gifts": "fixtures/gifts.csv",
+        "employers": "fixtures/employers.csv",
+        "claims": "fixtures/claims.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "contains": [
+          "match_not_claimed",
+          "match_deadline_soon",
+          "match_deadline_passed",
+          "match_received_differs",
+          "claim_pending_long",
+          "employer_not_in_list"
+        ],
+        "not_contains": [
+          "Juniper Vance",
+          "M-7",
+          "M-9"
+        ]
+      }
+    },
+    {
+      "id": "deadline-soon-explained",
+      "tool": "matching_explain",
+      "args": {
+        "gifts": "fixtures/gifts.csv",
+        "employers": "fixtures/employers.csv",
+        "claims": "fixtures/claims.csv",
+        "settings": "fixtures/settings.json",
+        "gift_id": "M-3"
+      },
+      "expect": {
+        "status": "executed",
+        "contains": [
+          "claim the Example Tech match of 2000 by 2026-11-28 (10 days)"
+        ]
+      }
+    },
+    {
+      "id": "reminder-after-approval",
+      "tool": "matching_draft_match_reminder",
+      "approve": "Dana Director",
+      "args": {
+        "gifts": "fixtures/gifts.csv",
+        "employers": "fixtures/employers.csv",
+        "claims": "fixtures/claims.csv",
+        "settings": "fixtures/settings.json",
+        "gift_id": "M-3",
+        "from": "Dana Director (fictional)"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.amount": 2000
+        },
+        "contains": [
+          "match_reminder-M-3.md"
+        ],
+        "not_contains": [
+          "Juniper Vance"
+        ]
+      }
+    },
+    {
+      "id": "without-claims-everything-is-open",
+      "tool": "matching_check",
+      "args": {
+        "gifts": "fixtures/gifts.csv",
+        "employers": "fixtures/employers.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.received": 0
+        }
+      }
+    },
+    {
+      "id": "no-reminder-for-a-paid-match",
+      "tool": "matching_draft_match_reminder",
+      "approve": "Dana Director",
+      "args": {
+        "gifts": "fixtures/gifts.csv",
+        "employers": "fixtures/employers.csv",
+        "claims": "fixtures/claims.csv",
+        "settings": "fixtures/settings.json",
+        "gift_id": "M-1"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "has no open match"
+        ]
+      }
+    },
+    {
+      "id": "missing-argument-named",
+      "tool": "matching_check",
+      "args": {},
+      "expect": {
+        "status": "error",
+        "contains": [
+          "gifts"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "file-outside-root-refused",
+      "tool": "matching_check",
+      "args": {
+        "gifts": "../../../outside.csv",
+        "employers": "fixtures/employers.csv",
+        "claims": "fixtures/claims.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "outside"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "invented-tool-name-refused",
+      "tool": "matching_pay_everything_now",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "review-mode-still-reads",
+      "tool": "matching_check",
+      "mode": "review",
+      "args": {
+        "gifts": "fixtures/gifts.csv",
+        "employers": "fixtures/employers.csv",
+        "claims": "fixtures/claims.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.eligible_gifts": 6,
+          "result.expected_match": 5500,
+          "result.unclaimed": 2600,
+          "result.received": 2000,
+          "result.missed": 200,
+          "result.flag": 2,
+          "result.review": 3,
+          "result.watch": 1,
+          "result.ok": 1
+        }
+      },
+      "generated": true
+    },
+    {
+      "id": "status-filter-keeps-totals",
+      "tool": "matching_check",
+      "args": {
+        "gifts": "fixtures/gifts.csv",
+        "employers": "fixtures/employers.csv",
+        "claims": "fixtures/claims.csv",
+        "settings": "fixtures/settings.json",
+        "status": "ok",
+        "limit": 1
+      },
+      "expect": {
+        "status": "executed",
+        "max": {
+          "result.items_shown": 1
+        },
+        "equals": {
+          "result.eligible_gifts": 6,
+          "result.expected_match": 5500,
+          "result.unclaimed": 2600,
+          "result.received": 2000,
+          "result.missed": 200,
+          "result.flag": 2,
+          "result.review": 3,
+          "result.watch": 1,
+          "result.ok": 1
+        }
+      },
+      "generated": true
+    },
+    {
+      "id": "explain-unknown-item-is-a-readable-error",
+      "tool": "matching_explain",
+      "args": {
+        "gifts": "fixtures/gifts.csv",
+        "employers": "fixtures/employers.csv",
+        "claims": "fixtures/claims.csv",
+        "settings": "fixtures/settings.json",
+        "gift_id": "No Such Thing Zz"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "not found"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "report-writes-two-files",
+      "tool": "matching_write_report",
+      "args": {
+        "gifts": "fixtures/gifts.csv",
+        "employers": "fixtures/employers.csv",
+        "claims": "fixtures/claims.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "length": {
+          "result.files": 2
+        },
+        "matches": [
+          "[0-9a-f]{64}"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "draft-waits-for-a-person",
+      "tool": "matching_draft_match_reminder",
+      "args": {
+        "gifts": "fixtures/gifts.csv",
+        "employers": "fixtures/employers.csv",
+        "claims": "fixtures/claims.csv",
+        "settings": "fixtures/settings.json",
+        "gift_id": "M-3",
+        "from": "Dana Director (fictional)"
+      },
+      "expect": {
+        "status": "needs_approval",
+        "decision": "ask"
+      },
+      "generated": true
+    },
+    {
+      "id": "review-mode-drafts-nothing",
+      "tool": "matching_draft_match_reminder",
+      "mode": "review",
+      "args": {
+        "gifts": "fixtures/gifts.csv",
+        "employers": "fixtures/employers.csv",
+        "claims": "fixtures/claims.csv",
+        "settings": "fixtures/settings.json",
+        "gift_id": "M-3",
+        "from": "Dana Director (fictional)"
+      },
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "request-stays-one-click-in-auto",
+      "tool": "matching_request_send",
+      "mode": "auto",
+      "auto_actions": [
+        "matching_draft_match_reminder"
+      ],
+      "args": {
+        "draft": "fairgive-out/matching/drafts/none.md",
+        "draft_sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+      },
+      "expect": {
+        "status": "needs_approval",
+        "decision": "ask"
+      },
+      "generated": true
+    },
+    {
+      "id": "refuses-email-send",
+      "tool": "email_send",
+      "mode": "auto",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "refuses-match-portal-submit",
+      "tool": "match_portal_submit",
+      "mode": "auto",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "recall-empty-memory",
+      "tool": "matching_recall",
+      "args": {},
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.total": 0
+        }
+      },
+      "generated": true
+    },
+    {
+      "id": "intl-de-matching-totals",
+      "tool": "matching_check",
+      "args": {
+        "gifts": "fixtures/intl/de/gifts.csv",
+        "employers": "fixtures/intl/de/employers.csv",
+        "claims": "fixtures/intl/de/claims.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.eligible_gifts": 6,
+          "result.expected_match": 5500,
+          "result.unclaimed": 2600,
+          "result.received": 2000,
+          "result.missed": 200,
+          "result.flag": 2,
+          "result.review": 3,
+          "result.watch": 1,
+          "result.ok": 1
+        }
+      },
+      "note": "German export of the same data (fixtures/intl/de); must match the English case \"matching-totals\"."
+    },
+    {
+      "id": "intl-ja-matching-totals",
+      "tool": "matching_check",
+      "args": {
+        "gifts": "fixtures/intl/ja/gifts.csv",
+        "employers": "fixtures/intl/ja/employers.csv",
+        "claims": "fixtures/intl/ja/claims.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.eligible_gifts": 6,
+          "result.expected_match": 5500,
+          "result.unclaimed": 2600,
+          "result.received": 2000,
+          "result.missed": 200,
+          "result.flag": 2,
+          "result.review": 3,
+          "result.watch": 1,
+          "result.ok": 1
+        }
+      },
+      "note": "Japanese export of the same data (fixtures/intl/ja); must match the English case \"matching-totals\"."
+    }
+  ]
+}

@@ -1,0 +1,9 @@
+txn_id;Zahlungsanbieter;Datum;Typ;Brutto;Gebühr;Netto;Auszahlungs-ID;payout_date;Spenden-ID;Erstattet;Spender
+T-1;Stripe;02.10.2026;Charge;100,00;2,50;97,50;PO-1;10.10.2026;G-1;0,00;Maple Hartwell
+T-2;Stripe;03.10.2026;Charge;200,00;7,00;193,00;PO-1;10.10.2026;G-2;0,00;Rowan Ellery
+T-3;Stripe;04.10.2026;Charge;50,00;1,40;48,60;PO-1;10.10.2026;G-3;0,00;Juniper Vance
+T-4;PayPal;05.10.2026;Donation;100,00;2,48;97,52;PO-2;12.10.2026;G-4;0,00;Tamsin Okafor
+T-5;PayPal;06.10.2026;Donation;250,00;5,47;244,53;PO-2;12.10.2026;;0,00;Corwin Achebe
+T-6;Stripe;07.10.2026;Charge;75,00;1,95;73,05;PO-1;10.10.2026;G-6;75,00;Liesel Marchetti
+T-7;Stripe;08.10.2026;Charge;30,00;0,96;29,04;PO-1;10.10.2026;G-7;0,00;Bram Halloway
+T-8;Givebutter;09.10.2026;Donation;40,00;0,00;40,00;PO-3;15.10.2026;G-8;0,00;Odessa Quill

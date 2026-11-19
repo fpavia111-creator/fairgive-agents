@@ -1,0 +1,4 @@
+employer,ratio,min_gift,max_per_year,deadline_days
+Example Bank,1,25,5000,365
+Example Tech,2,50,10000,90
+Example Foods,0.5,100,1000,30

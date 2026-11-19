@@ -1,0 +1,356 @@
+{
+  "suite": "fairgive-processor-fees",
+  "root": "..",
+  "data_note": "Fictional transactions, gifts and deposits; the rates are examples. Deterministic checks; no model is called.",
+  "cases": [
+    {
+      "id": "fee-totals",
+      "tool": "fees_check",
+      "args": {
+        "transactions": "fixtures/transactions.csv",
+        "gifts": "fixtures/gifts.csv",
+        "deposits": "fixtures/deposits.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.transactions": 8,
+          "result.gross": 845,
+          "result.fees": 21.76,
+          "result.fees_over_rate": 2.3,
+          "result.booked_net": 1.4,
+          "result.payouts_missing": 342.05,
+          "result.flag": 2,
+          "result.review": 3,
+          "result.watch": 1,
+          "result.ok": 5
+        }
+      }
+    },
+    {
+      "id": "every-planted-issue-found",
+      "tool": "fees_check",
+      "args": {
+        "transactions": "fixtures/transactions.csv",
+        "gifts": "fixtures/gifts.csv",
+        "deposits": "fixtures/deposits.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "contains": [
+          "fee_over_rate",
+          "gift_booked_net",
+          "gift_amount_differs",
+          "not_in_crm",
+          "fee_on_refund",
+          "payout_not_in_bank"
+        ],
+        "not_contains": [
+          "Juniper Vance",
+          "Corwin Achebe"
+        ]
+      }
+    },
+    {
+      "id": "net-booked-gift-explained",
+      "tool": "fees_explain",
+      "args": {
+        "transactions": "fixtures/transactions.csv",
+        "gifts": "fixtures/gifts.csv",
+        "settings": "fixtures/settings.json",
+        "item": "T-3"
+      },
+      "expect": {
+        "status": "executed",
+        "contains": [
+          "Gift G-3 is booked at 48.6, the net of T-3; the gift is 50 and the 1.4 fee is an expense"
+        ]
+      }
+    },
+    {
+      "id": "no-rates-no-rate-findings",
+      "tool": "fees_check",
+      "args": {
+        "transactions": "fixtures/transactions.csv",
+        "gifts": "fixtures/gifts.csv"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.fees_over_rate": 0
+        },
+        "not_contains": [
+          "fee_over_rate"
+        ]
+      }
+    },
+    {
+      "id": "payout-without-deposits-file",
+      "tool": "fees_check",
+      "args": {
+        "transactions": "fixtures/transactions.csv",
+        "gifts": "fixtures/gifts.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.payouts_missing": 823.24
+        }
+      }
+    },
+    {
+      "id": "paypal-activity-export",
+      "tool": "fees_check",
+      "args": {
+        "transactions": "fixtures/exports/paypal-activity.csv",
+        "gifts": "fixtures/gifts.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "contains": [
+          "paypal_activity",
+          "fee_over_rate"
+        ],
+        "equals": {
+          "result.transactions": 2,
+          "result.fees": 8.98
+        },
+        "not_contains": [
+          "Tamsin Okafor",
+          "tamsin.okafor@example.org"
+        ]
+      }
+    },
+    {
+      "id": "missing-argument-named",
+      "tool": "fees_check",
+      "args": {},
+      "expect": {
+        "status": "error",
+        "contains": [
+          "transactions"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "file-outside-root-refused",
+      "tool": "fees_check",
+      "args": {
+        "transactions": "../../../outside.csv",
+        "gifts": "fixtures/gifts.csv",
+        "deposits": "fixtures/deposits.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "outside"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "invented-tool-name-refused",
+      "tool": "fees_pay_everything_now",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "review-mode-still-reads",
+      "tool": "fees_check",
+      "mode": "review",
+      "args": {
+        "transactions": "fixtures/transactions.csv",
+        "gifts": "fixtures/gifts.csv",
+        "deposits": "fixtures/deposits.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.transactions": 8,
+          "result.gross": 845,
+          "result.fees": 21.76,
+          "result.fees_over_rate": 2.3,
+          "result.booked_net": 1.4,
+          "result.payouts_missing": 342.05,
+          "result.flag": 2,
+          "result.review": 3,
+          "result.watch": 1,
+          "result.ok": 5
+        }
+      },
+      "generated": true
+    },
+    {
+      "id": "status-filter-keeps-totals",
+      "tool": "fees_check",
+      "args": {
+        "transactions": "fixtures/transactions.csv",
+        "gifts": "fixtures/gifts.csv",
+        "deposits": "fixtures/deposits.csv",
+        "settings": "fixtures/settings.json",
+        "status": "ok",
+        "limit": 1
+      },
+      "expect": {
+        "status": "executed",
+        "max": {
+          "result.items_shown": 1
+        },
+        "equals": {
+          "result.transactions": 8,
+          "result.gross": 845,
+          "result.fees": 21.76,
+          "result.fees_over_rate": 2.3,
+          "result.booked_net": 1.4,
+          "result.payouts_missing": 342.05,
+          "result.flag": 2,
+          "result.review": 3,
+          "result.watch": 1,
+          "result.ok": 5
+        }
+      },
+      "generated": true
+    },
+    {
+      "id": "explain-unknown-item-is-a-readable-error",
+      "tool": "fees_explain",
+      "args": {
+        "transactions": "fixtures/transactions.csv",
+        "gifts": "fixtures/gifts.csv",
+        "deposits": "fixtures/deposits.csv",
+        "settings": "fixtures/settings.json",
+        "item": "No Such Thing Zz"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "not found"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "report-writes-two-files",
+      "tool": "fees_write_report",
+      "args": {
+        "transactions": "fixtures/transactions.csv",
+        "gifts": "fixtures/gifts.csv",
+        "deposits": "fixtures/deposits.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "length": {
+          "result.files": 2
+        },
+        "matches": [
+          "[0-9a-f]{64}"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "refuses-refund-issue",
+      "tool": "refund_issue",
+      "mode": "auto",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "refuses-bank-transfer",
+      "tool": "bank_transfer",
+      "mode": "auto",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "refuses-crm-update-records",
+      "tool": "crm_update_records",
+      "mode": "auto",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "recall-empty-memory",
+      "tool": "fees_recall",
+      "args": {},
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.total": 0
+        }
+      },
+      "generated": true
+    },
+    {
+      "id": "intl-de-fee-totals",
+      "tool": "fees_check",
+      "args": {
+        "transactions": "fixtures/intl/de/transactions.csv",
+        "gifts": "fixtures/intl/de/gifts.csv",
+        "deposits": "fixtures/intl/de/deposits.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.transactions": 8,
+          "result.gross": 845,
+          "result.fees": 21.76,
+          "result.fees_over_rate": 2.3,
+          "result.booked_net": 1.4,
+          "result.payouts_missing": 342.05,
+          "result.flag": 2,
+          "result.review": 3,
+          "result.watch": 1,
+          "result.ok": 5
+        }
+      },
+      "note": "German export of the same data (fixtures/intl/de); must match the English case \"fee-totals\"."
+    },
+    {
+      "id": "intl-ja-fee-totals",
+      "tool": "fees_check",
+      "args": {
+        "transactions": "fixtures/intl/ja/transactions.csv",
+        "gifts": "fixtures/intl/ja/gifts.csv",
+        "deposits": "fixtures/intl/ja/deposits.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.transactions": 8,
+          "result.gross": 845,
+          "result.fees": 21.76,
+          "result.fees_over_rate": 2.3,
+          "result.booked_net": 1.4,
+          "result.payouts_missing": 342.05,
+          "result.flag": 2,
+          "result.review": 3,
+          "result.watch": 1,
+          "result.ok": 5
+        }
+      },
+      "note": "Japanese export of the same data (fixtures/intl/ja); must match the English case \"fee-totals\"."
+    }
+  ]
+}

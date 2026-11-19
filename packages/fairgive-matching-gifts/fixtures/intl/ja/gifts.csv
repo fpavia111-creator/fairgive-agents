@@ -1,0 +1,10 @@
+寄付ID,寄付者ID,寄付者,メールアドレス,寄付日,金額,勤務先
+M-1,C-1,Maple Hartwell,maple.hartwell@example.org,2026/09/01,500.00,Example Bank
+M-2,C-2,Rowan Ellery,rowan.ellery@example.org,2026/10/01,300.00,Example Tech
+M-3,C-3,Juniper Vance,juniper.vance@example.org,2026/08/30,"1,000.00",Example Tech
+M-4,C-4,Tamsin Okafor,tamsin.okafor@example.org,2026/09/15,400.00,Example Foods
+M-5,C-5,Corwin Achebe,corwin.achebe@example.org,2026/03/01,"2,000.00",Example Bank
+M-6,C-6,Liesel Marchetti,liesel.marchetti@example.org,2026/07/01,100.00,Example Tech
+M-7,C-7,Bram Halloway,bram.halloway@example.org,2026/10/10,20.00,Example Bank
+M-8,C-8,Odessa Quill,odessa.quill@example.org,2026/10/20,250.00,Example Widgets Inc
+M-9,C-9,Priya Lindqvist,priya.lindqvist@example.org,2026/10/25,600.00,
