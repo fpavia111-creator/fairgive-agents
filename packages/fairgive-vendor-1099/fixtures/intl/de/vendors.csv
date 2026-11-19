@@ -1,0 +1,8 @@
+Lieferantennummer;Lieferant;entity_type;Steuernummer;w9_on_file;Adresse;attorney
+V-1;Bright Lines Design;Sole proprietor;123-45-6789;yes;4 Market Street Springfield;no
+V-2;Pat Kim Consulting;Individual;;no;;no
+V-3;Example Legal Group PC;Corporation;12-3456789;yes;1 Court Square Springfield;yes
+V-4;Example Supply Corp;Corporation;98-7654321;yes;9 Industrial Way Springfield;no
+V-5;River Tutoring LLC;LLC;12-34567;yes;2 River Road Springfield;no
+V-6;Jordan Avery;Individual;234-56-7890;yes;;no
+V-7;Hill Street Properties LLC;LLC;45-6789012;yes;10 Hill Street Springfield;no

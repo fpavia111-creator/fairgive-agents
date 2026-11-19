@@ -1,0 +1,5 @@
+{
+  "tax_year": 2026,
+  "threshold": 2000,
+  "exclude_methods": ["credit card", "card", "paypal", "venmo"]
+}

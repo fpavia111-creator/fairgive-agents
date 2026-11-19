@@ -1,0 +1,382 @@
+{
+  "suite": "fairgive-endowment-draw",
+  "root": "..",
+  "data_note": "Fictional endowment funds and market values; the policy figures are examples. Deterministic checks; no model is called.",
+  "cases": [
+    {
+      "id": "draw-totals",
+      "tool": "endowment_check",
+      "args": {
+        "funds": "fixtures/funds.csv",
+        "values": "fixtures/values.csv",
+        "draws": "fixtures/draws.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.funds": 3,
+          "result.spending_rate": 4.5,
+          "result.total_draw": 17272.5,
+          "result.market_value": 379000,
+          "result.underwater": 1,
+          "result.flag": 1,
+          "result.review": 1,
+          "result.ok": 1
+        }
+      }
+    },
+    {
+      "id": "every-planted-issue-found",
+      "tool": "endowment_check",
+      "args": {
+        "funds": "fixtures/funds.csv",
+        "values": "fixtures/values.csv",
+        "draws": "fixtures/draws.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "contains": [
+          "underwater",
+          "draw_differs",
+          "insufficient_history"
+        ],
+        "not_contains": [
+          "rate_over_prudence"
+        ]
+      }
+    },
+    {
+      "id": "music-endowment-explained",
+      "tool": "endowment_explain",
+      "args": {
+        "funds": "fixtures/funds.csv",
+        "values": "fixtures/values.csv",
+        "draws": "fixtures/draws.csv",
+        "settings": "fixtures/settings.json",
+        "fund": "ENDOW-B"
+      },
+      "expect": {
+        "status": "executed",
+        "contains": [
+          "10000 is booked as the draw; the policy gives 9375",
+          "below its corpus of 200000"
+        ]
+      }
+    },
+    {
+      "id": "high-rate-flagged",
+      "tool": "endowment_check",
+      "args": {
+        "funds": "fixtures/funds.csv",
+        "values": "fixtures/values.csv",
+        "settings": "fixtures/settings-high-rate.json"
+      },
+      "expect": {
+        "status": "executed",
+        "contains": [
+          "rate_over_prudence"
+        ]
+      }
+    },
+    {
+      "id": "no-spend-policy",
+      "tool": "endowment_check",
+      "args": {
+        "funds": "fixtures/funds.csv",
+        "values": "fixtures/values.csv",
+        "settings": "fixtures/settings-no-spend.json"
+      },
+      "expect": {
+        "status": "executed",
+        "contains": [
+          "underwater_no_draw"
+        ],
+        "equals": {
+          "result.total_draw": 7897.5
+        }
+      }
+    },
+    {
+      "id": "draw-memo-after-approval",
+      "tool": "endowment_draft_draw_memo",
+      "approve": "Dana Controller",
+      "args": {
+        "funds": "fixtures/funds.csv",
+        "values": "fixtures/values.csv",
+        "draws": "fixtures/draws.csv",
+        "settings": "fixtures/settings.json",
+        "from": "Dana Controller (fictional)"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.amount": 17272.5
+        },
+        "contains": [
+          "draw_memo-2027.md",
+          "TO CONFIRM"
+        ]
+      }
+    },
+    {
+      "id": "missing-argument-named",
+      "tool": "endowment_check",
+      "args": {},
+      "expect": {
+        "status": "error",
+        "contains": [
+          "funds"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "file-outside-root-refused",
+      "tool": "endowment_check",
+      "args": {
+        "funds": "../../../outside.csv",
+        "values": "fixtures/values.csv",
+        "draws": "fixtures/draws.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "outside"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "invented-tool-name-refused",
+      "tool": "endowment_pay_everything_now",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "review-mode-still-reads",
+      "tool": "endowment_check",
+      "mode": "review",
+      "args": {
+        "funds": "fixtures/funds.csv",
+        "values": "fixtures/values.csv",
+        "draws": "fixtures/draws.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.funds": 3,
+          "result.spending_rate": 4.5,
+          "result.total_draw": 17272.5,
+          "result.market_value": 379000,
+          "result.underwater": 1,
+          "result.flag": 1,
+          "result.review": 1,
+          "result.ok": 1
+        }
+      },
+      "generated": true
+    },
+    {
+      "id": "status-filter-keeps-totals",
+      "tool": "endowment_check",
+      "args": {
+        "funds": "fixtures/funds.csv",
+        "values": "fixtures/values.csv",
+        "draws": "fixtures/draws.csv",
+        "settings": "fixtures/settings.json",
+        "status": "ok",
+        "limit": 1
+      },
+      "expect": {
+        "status": "executed",
+        "max": {
+          "result.items_shown": 1
+        },
+        "equals": {
+          "result.funds": 3,
+          "result.spending_rate": 4.5,
+          "result.total_draw": 17272.5,
+          "result.market_value": 379000,
+          "result.underwater": 1,
+          "result.flag": 1,
+          "result.review": 1,
+          "result.ok": 1
+        }
+      },
+      "generated": true
+    },
+    {
+      "id": "explain-unknown-item-is-a-readable-error",
+      "tool": "endowment_explain",
+      "args": {
+        "funds": "fixtures/funds.csv",
+        "values": "fixtures/values.csv",
+        "draws": "fixtures/draws.csv",
+        "settings": "fixtures/settings.json",
+        "fund": "No Such Thing Zz"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "not found"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "report-writes-two-files",
+      "tool": "endowment_write_report",
+      "args": {
+        "funds": "fixtures/funds.csv",
+        "values": "fixtures/values.csv",
+        "draws": "fixtures/draws.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "length": {
+          "result.files": 2
+        },
+        "matches": [
+          "[0-9a-f]{64}"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "draft-waits-for-a-person",
+      "tool": "endowment_draft_draw_memo",
+      "args": {
+        "funds": "fixtures/funds.csv",
+        "values": "fixtures/values.csv",
+        "draws": "fixtures/draws.csv",
+        "settings": "fixtures/settings.json",
+        "from": "Dana Controller (fictional)"
+      },
+      "expect": {
+        "status": "needs_approval",
+        "decision": "ask"
+      },
+      "generated": true
+    },
+    {
+      "id": "review-mode-drafts-nothing",
+      "tool": "endowment_draft_draw_memo",
+      "mode": "review",
+      "args": {
+        "funds": "fixtures/funds.csv",
+        "values": "fixtures/values.csv",
+        "draws": "fixtures/draws.csv",
+        "settings": "fixtures/settings.json",
+        "from": "Dana Controller (fictional)"
+      },
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "request-stays-one-click-in-auto",
+      "tool": "endowment_request_transfer",
+      "mode": "auto",
+      "auto_actions": [
+        "endowment_draft_draw_memo"
+      ],
+      "args": {
+        "draft": "fairgive-out/endowment/drafts/none.md",
+        "draft_sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+      },
+      "expect": {
+        "status": "needs_approval",
+        "decision": "ask"
+      },
+      "generated": true
+    },
+    {
+      "id": "refuses-bank-transfer",
+      "tool": "bank_transfer",
+      "mode": "auto",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "refuses-ledger-post",
+      "tool": "ledger_post",
+      "mode": "auto",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "recall-empty-memory",
+      "tool": "endowment_recall",
+      "args": {},
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.total": 0
+        }
+      },
+      "generated": true
+    },
+    {
+      "id": "intl-de-draw-totals",
+      "tool": "endowment_check",
+      "args": {
+        "funds": "fixtures/intl/de/funds.csv",
+        "values": "fixtures/intl/de/values.csv",
+        "draws": "fixtures/intl/de/draws.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.funds": 3,
+          "result.spending_rate": 4.5,
+          "result.total_draw": 17272.5,
+          "result.market_value": 379000,
+          "result.underwater": 1,
+          "result.flag": 1,
+          "result.review": 1,
+          "result.ok": 1
+        }
+      },
+      "note": "German export of the same data (fixtures/intl/de); must match the English case \"draw-totals\"."
+    },
+    {
+      "id": "intl-ja-draw-totals",
+      "tool": "endowment_check",
+      "args": {
+        "funds": "fixtures/intl/ja/funds.csv",
+        "values": "fixtures/intl/ja/values.csv",
+        "draws": "fixtures/intl/ja/draws.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.funds": 3,
+          "result.spending_rate": 4.5,
+          "result.total_draw": 17272.5,
+          "result.market_value": 379000,
+          "result.underwater": 1,
+          "result.flag": 1,
+          "result.review": 1,
+          "result.ok": 1
+        }
+      },
+      "note": "Japanese export of the same data (fixtures/intl/ja); must match the English case \"draw-totals\"."
+    }
+  ]
+}

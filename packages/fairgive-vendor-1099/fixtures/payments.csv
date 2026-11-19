@@ -1,0 +1,10 @@
+payment_id,vendor_id,date,amount,method,category
+P-1,V-1,2026-03-01,2000.00,ACH,Design services
+P-2,V-1,2026-09-01,1500.00,ACH,Design services
+P-3,V-2,2026-05-15,2500.00,Check,Consulting
+P-4,V-3,2026-06-30,5000.00,Check,Legal services
+P-5,V-4,2026-07-01,9000.00,ACH,Supplies
+P-6,V-5,2026-08-01,2200.00,Check,Tutoring
+P-7,V-6,2026-04-01,1800.00,Check,Photography
+P-8,V-6,2026-10-01,900.00,Credit card,Photography
+P-9,V-7,2026-01-31,12000.00,ACH,Rent

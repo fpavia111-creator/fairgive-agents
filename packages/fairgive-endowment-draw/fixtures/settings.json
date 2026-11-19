@@ -1,0 +1,9 @@
+{
+  "spending_rate": 4.5,
+  "quarters": 12,
+  "value_date": "2026-06-30",
+  "fiscal_year": 2027,
+  "prudence_rate": 7,
+  "underwater_policy": "spend",
+  "organization": "Example Library Foundation (fictional)"
+}

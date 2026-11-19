@@ -1,0 +1,325 @@
+{
+  "suite": "fairgive-vendor-1099",
+  "root": "..",
+  "data_note": "Fictional vendors, taxpayer ids and payments. Prepares data only; files nothing; not tax advice. Deterministic checks; no model is called.",
+  "cases": [
+    {
+      "id": "readiness-totals",
+      "tool": "vendor_1099_check",
+      "args": {
+        "vendors": "fixtures/vendors.csv",
+        "payments": "fixtures/payments.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.tax_year": 2026,
+          "result.vendors_paid": 7,
+          "result.reportable": 5,
+          "result.reportable_amount": 25200,
+          "result.missing_w9": 1,
+          "result.tin_problems": 2,
+          "result.flag": 2,
+          "result.watch": 2,
+          "result.ok": 3
+        }
+      }
+    },
+    {
+      "id": "every-planted-issue-found-and-tins-masked",
+      "tool": "vendor_1099_check",
+      "args": {
+        "vendors": "fixtures/vendors.csv",
+        "payments": "fixtures/payments.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "contains": [
+          "needs_1099_no_w9",
+          "tin_missing",
+          "tin_malformed",
+          "attorney_reportable",
+          "corporation_exempt"
+        ],
+        "not_contains": [
+          "123-45-6789",
+          "12-3456789",
+          "234-56-7890",
+          "Jordan Avery"
+        ]
+      }
+    },
+    {
+      "id": "consultant-explained",
+      "tool": "vendor_1099_explain",
+      "args": {
+        "vendors": "fixtures/vendors.csv",
+        "payments": "fixtures/payments.csv",
+        "settings": "fixtures/settings.json",
+        "vendor_id": "V-2"
+      },
+      "expect": {
+        "status": "executed",
+        "contains": [
+          "Vendor V-2 was paid 2500 and there is no W-9 on file"
+        ]
+      }
+    },
+    {
+      "id": "older-threshold",
+      "tool": "vendor_1099_check",
+      "args": {
+        "vendors": "fixtures/vendors.csv",
+        "payments": "fixtures/payments.csv",
+        "settings": "fixtures/settings-600.json"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.reportable": 6
+        }
+      }
+    },
+    {
+      "id": "latest-year-by-default",
+      "tool": "vendor_1099_check",
+      "args": {
+        "vendors": "fixtures/vendors.csv",
+        "payments": "fixtures/payments.csv"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.tax_year": 2026,
+          "result.reportable": 5
+        }
+      }
+    },
+    {
+      "id": "photographer-under-threshold",
+      "tool": "vendor_1099_explain",
+      "args": {
+        "vendors": "fixtures/vendors.csv",
+        "payments": "fixtures/payments.csv",
+        "settings": "fixtures/settings.json",
+        "vendor_id": "V-6"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.item.paid": 1800,
+          "result.item.card_excluded": 900,
+          "result.item.reportable": false
+        }
+      }
+    },
+    {
+      "id": "missing-argument-named",
+      "tool": "vendor_1099_check",
+      "args": {},
+      "expect": {
+        "status": "error",
+        "contains": [
+          "vendors"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "file-outside-root-refused",
+      "tool": "vendor_1099_check",
+      "args": {
+        "vendors": "../../../outside.csv",
+        "payments": "fixtures/payments.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "outside"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "invented-tool-name-refused",
+      "tool": "vendor_1099_pay_everything_now",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "review-mode-still-reads",
+      "tool": "vendor_1099_check",
+      "mode": "review",
+      "args": {
+        "vendors": "fixtures/vendors.csv",
+        "payments": "fixtures/payments.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.tax_year": 2026,
+          "result.vendors_paid": 7,
+          "result.reportable": 5,
+          "result.reportable_amount": 25200,
+          "result.missing_w9": 1,
+          "result.tin_problems": 2,
+          "result.flag": 2,
+          "result.watch": 2,
+          "result.ok": 3
+        }
+      },
+      "generated": true
+    },
+    {
+      "id": "status-filter-keeps-totals",
+      "tool": "vendor_1099_check",
+      "args": {
+        "vendors": "fixtures/vendors.csv",
+        "payments": "fixtures/payments.csv",
+        "settings": "fixtures/settings.json",
+        "status": "ok",
+        "limit": 1
+      },
+      "expect": {
+        "status": "executed",
+        "max": {
+          "result.items_shown": 1
+        },
+        "equals": {
+          "result.tax_year": 2026,
+          "result.vendors_paid": 7,
+          "result.reportable": 5,
+          "result.reportable_amount": 25200,
+          "result.missing_w9": 1,
+          "result.tin_problems": 2,
+          "result.flag": 2,
+          "result.watch": 2,
+          "result.ok": 3
+        }
+      },
+      "generated": true
+    },
+    {
+      "id": "explain-unknown-item-is-a-readable-error",
+      "tool": "vendor_1099_explain",
+      "args": {
+        "vendors": "fixtures/vendors.csv",
+        "payments": "fixtures/payments.csv",
+        "settings": "fixtures/settings.json",
+        "vendor_id": "No Such Thing Zz"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "not found"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "report-writes-two-files",
+      "tool": "vendor_1099_write_report",
+      "args": {
+        "vendors": "fixtures/vendors.csv",
+        "payments": "fixtures/payments.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "length": {
+          "result.files": 2
+        },
+        "matches": [
+          "[0-9a-f]{64}"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "refuses-irs-file",
+      "tool": "irs_file",
+      "mode": "auto",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "refuses-payment-send",
+      "tool": "payment_send",
+      "mode": "auto",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "recall-empty-memory",
+      "tool": "vendor_1099_recall",
+      "args": {},
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.total": 0
+        }
+      },
+      "generated": true
+    },
+    {
+      "id": "intl-de-readiness-totals",
+      "tool": "vendor_1099_check",
+      "args": {
+        "vendors": "fixtures/intl/de/vendors.csv",
+        "payments": "fixtures/intl/de/payments.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.tax_year": 2026,
+          "result.vendors_paid": 7,
+          "result.reportable": 5,
+          "result.reportable_amount": 25200,
+          "result.missing_w9": 1,
+          "result.tin_problems": 2,
+          "result.flag": 2,
+          "result.watch": 2,
+          "result.ok": 3
+        }
+      },
+      "note": "German export of the same data (fixtures/intl/de); must match the English case \"readiness-totals\"."
+    },
+    {
+      "id": "intl-ja-readiness-totals",
+      "tool": "vendor_1099_check",
+      "args": {
+        "vendors": "fixtures/intl/ja/vendors.csv",
+        "payments": "fixtures/intl/ja/payments.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.tax_year": 2026,
+          "result.vendors_paid": 7,
+          "result.reportable": 5,
+          "result.reportable_amount": 25200,
+          "result.missing_w9": 1,
+          "result.tin_problems": 2,
+          "result.flag": 2,
+          "result.watch": 2,
+          "result.ok": 3
+        }
+      },
+      "note": "Japanese export of the same data (fixtures/intl/ja); must match the English case \"readiness-totals\"."
+    }
+  ]
+}
