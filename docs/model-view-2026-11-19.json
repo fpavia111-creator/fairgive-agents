@@ -1,0 +1,446 @@
+[
+  {
+    "agent": "fairgive-acknowledgements",
+    "masked": [
+      "donor",
+      "email"
+    ],
+    "text_in_clear": [
+      "donor_id",
+      "gift_id"
+    ],
+    "free_text_in_clear": [],
+    "plus": "amounts, quantities, dates, rates and finding codes in clear"
+  },
+  {
+    "agent": "fairgive-board-designated",
+    "masked": [],
+    "text_in_clear": [
+      "fund",
+      "fund_name"
+    ],
+    "free_text_in_clear": [],
+    "plus": "amounts, quantities, dates, rates and finding codes in clear"
+  },
+  {
+    "agent": "fairgive-daf-grants",
+    "masked": [
+      "advisor",
+      "donor"
+    ],
+    "text_in_clear": [
+      "daf_sponsor",
+      "gift_id",
+      "method",
+      "pledge_id"
+    ],
+    "free_text_in_clear": [
+      "daf_sponsor"
+    ],
+    "plus": "amounts, quantities, dates, rates and finding codes in clear"
+  },
+  {
+    "agent": "fairgive-duplicate-donors",
+    "masked": [
+      "address",
+      "donor",
+      "email",
+      "phone"
+    ],
+    "text_in_clear": [
+      "donor_id"
+    ],
+    "free_text_in_clear": [],
+    "plus": "amounts, quantities, dates, rates and finding codes in clear"
+  },
+  {
+    "agent": "fairgive-endowment-draw",
+    "masked": [],
+    "text_in_clear": [
+      "fund",
+      "fund_name"
+    ],
+    "free_text_in_clear": [],
+    "plus": "amounts, quantities, dates, rates and finding codes in clear"
+  },
+  {
+    "agent": "fairgive-event-revenue",
+    "masked": [
+      "buyer"
+    ],
+    "text_in_clear": [
+      "event",
+      "ticket_type"
+    ],
+    "free_text_in_clear": [],
+    "plus": "amounts, quantities, dates, rates and finding codes in clear"
+  },
+  {
+    "agent": "fairgive-expense-reports",
+    "masked": [
+      "employee"
+    ],
+    "text_in_clear": [
+      "category",
+      "grant",
+      "merchant",
+      "report_id"
+    ],
+    "free_text_in_clear": [
+      "merchant"
+    ],
+    "plus": "amounts, quantities, dates, rates and finding codes in clear"
+  },
+  {
+    "agent": "fairgive-form-990-data",
+    "masked": [
+      "address",
+      "donor",
+      "name"
+    ],
+    "text_in_clear": [
+      "donor_id",
+      "gift_id",
+      "gift_type",
+      "grantee",
+      "purpose",
+      "title"
+    ],
+    "free_text_in_clear": [
+      "grantee",
+      "purpose",
+      "title"
+    ],
+    "plus": "amounts, quantities, dates, rates and finding codes in clear"
+  },
+  {
+    "agent": "fairgive-functional-expenses",
+    "masked": [],
+    "text_in_clear": [
+      "account_name",
+      "basis",
+      "memo",
+      "program"
+    ],
+    "free_text_in_clear": [
+      "memo"
+    ],
+    "plus": "amounts, quantities, dates, rates and finding codes in clear"
+  },
+  {
+    "agent": "fairgive-fund-balances",
+    "masked": [],
+    "text_in_clear": [
+      "fund",
+      "fund_name",
+      "memo",
+      "restriction"
+    ],
+    "free_text_in_clear": [
+      "memo"
+    ],
+    "plus": "amounts, quantities, dates, rates and finding codes in clear"
+  },
+  {
+    "agent": "fairgive-gift-coding",
+    "masked": [
+      "donor"
+    ],
+    "text_in_clear": [
+      "appeal",
+      "default_fund",
+      "fund",
+      "fund_name",
+      "gift_id",
+      "memo"
+    ],
+    "free_text_in_clear": [
+      "memo"
+    ],
+    "plus": "amounts, quantities, dates, rates and finding codes in clear"
+  },
+  {
+    "agent": "fairgive-gift-deposits",
+    "masked": [
+      "donor"
+    ],
+    "text_in_clear": [
+      "batch",
+      "deposit_id",
+      "description",
+      "gift_id",
+      "gift_type",
+      "memo",
+      "method"
+    ],
+    "free_text_in_clear": [
+      "description",
+      "memo"
+    ],
+    "plus": "amounts, quantities, dates, rates and finding codes in clear"
+  },
+  {
+    "agent": "fairgive-giving-statements",
+    "masked": [
+      "address",
+      "giver"
+    ],
+    "text_in_clear": [
+      "fund",
+      "gift_id",
+      "giver_id",
+      "method"
+    ],
+    "free_text_in_clear": [],
+    "plus": "amounts, quantities, dates, rates and finding codes in clear"
+  },
+  {
+    "agent": "fairgive-grant-budgets",
+    "masked": [],
+    "text_in_clear": [
+      "grant",
+      "line",
+      "pool"
+    ],
+    "free_text_in_clear": [],
+    "plus": "amounts, quantities, dates, rates and finding codes in clear"
+  },
+  {
+    "agent": "fairgive-grant-drawdowns",
+    "masked": [],
+    "text_in_clear": [
+      "funder",
+      "grant"
+    ],
+    "free_text_in_clear": [],
+    "plus": "amounts, quantities, dates, rates and finding codes in clear"
+  },
+  {
+    "agent": "fairgive-grant-reports",
+    "masked": [
+      "owner"
+    ],
+    "text_in_clear": [
+      "frequency",
+      "funder",
+      "grant",
+      "report"
+    ],
+    "free_text_in_clear": [],
+    "plus": "amounts, quantities, dates, rates and finding codes in clear"
+  },
+  {
+    "agent": "fairgive-in-kind-gifts",
+    "masked": [
+      "donor"
+    ],
+    "text_in_clear": [
+      "category",
+      "description",
+      "gift_id",
+      "memo"
+    ],
+    "free_text_in_clear": [
+      "description",
+      "memo"
+    ],
+    "plus": "amounts, quantities, dates, rates and finding codes in clear"
+  },
+  {
+    "agent": "fairgive-indirect-costs",
+    "masked": [],
+    "text_in_clear": [
+      "base",
+      "grant"
+    ],
+    "free_text_in_clear": [],
+    "plus": "amounts, quantities, dates, rates and finding codes in clear"
+  },
+  {
+    "agent": "fairgive-lapsed-donors",
+    "masked": [
+      "donor"
+    ],
+    "text_in_clear": [
+      "donor_id"
+    ],
+    "free_text_in_clear": [],
+    "plus": "amounts, quantities, dates, rates and finding codes in clear"
+  },
+  {
+    "agent": "fairgive-liquidity",
+    "masked": [],
+    "text_in_clear": [
+      "account_name",
+      "category",
+      "restriction"
+    ],
+    "free_text_in_clear": [],
+    "plus": "amounts, quantities, dates, rates and finding codes in clear"
+  },
+  {
+    "agent": "fairgive-matching-gifts",
+    "masked": [
+      "donor",
+      "email"
+    ],
+    "text_in_clear": [
+      "donor_id",
+      "employer",
+      "gift_id"
+    ],
+    "free_text_in_clear": [
+      "employer"
+    ],
+    "plus": "amounts, quantities, dates, rates and finding codes in clear"
+  },
+  {
+    "agent": "fairgive-memberships",
+    "masked": [
+      "email",
+      "member"
+    ],
+    "text_in_clear": [
+      "level",
+      "member_id"
+    ],
+    "free_text_in_clear": [],
+    "plus": "amounts, quantities, dates, rates and finding codes in clear"
+  },
+  {
+    "agent": "fairgive-payroll-allocation",
+    "masked": [
+      "employee"
+    ],
+    "text_in_clear": [
+      "code",
+      "employee_id",
+      "period"
+    ],
+    "free_text_in_clear": [],
+    "plus": "amounts, quantities, dates, rates and finding codes in clear"
+  },
+  {
+    "agent": "fairgive-pledges",
+    "masked": [
+      "approved_by",
+      "donor",
+      "email"
+    ],
+    "text_in_clear": [
+      "donor_id",
+      "pledge_id",
+      "status"
+    ],
+    "free_text_in_clear": [],
+    "plus": "amounts, quantities, dates, rates and finding codes in clear"
+  },
+  {
+    "agent": "fairgive-processor-fees",
+    "masked": [
+      "donor",
+      "email"
+    ],
+    "text_in_clear": [
+      "deposit_id",
+      "gift_id",
+      "method",
+      "payout_id",
+      "processor",
+      "txn_id"
+    ],
+    "free_text_in_clear": [],
+    "plus": "amounts, quantities, dates, rates and finding codes in clear"
+  },
+  {
+    "agent": "fairgive-quid-pro-quo",
+    "masked": [
+      "donor"
+    ],
+    "text_in_clear": [
+      "benefit",
+      "gift_id"
+    ],
+    "free_text_in_clear": [
+      "benefit"
+    ],
+    "plus": "amounts, quantities, dates, rates and finding codes in clear"
+  },
+  {
+    "agent": "fairgive-recurring-gifts",
+    "masked": [
+      "donor",
+      "email"
+    ],
+    "text_in_clear": [
+      "donor_id",
+      "frequency",
+      "plan_id",
+      "processor"
+    ],
+    "free_text_in_clear": [],
+    "plus": "amounts, quantities, dates, rates and finding codes in clear"
+  },
+  {
+    "agent": "fairgive-refunds-chargebacks",
+    "masked": [
+      "donor"
+    ],
+    "text_in_clear": [
+      "gift_id",
+      "processor",
+      "status",
+      "txn_id"
+    ],
+    "free_text_in_clear": [],
+    "plus": "amounts, quantities, dates, rates and finding codes in clear"
+  },
+  {
+    "agent": "fairgive-restriction-releases",
+    "masked": [],
+    "text_in_clear": [
+      "fund",
+      "fund_name"
+    ],
+    "free_text_in_clear": [],
+    "plus": "amounts, quantities, dates, rates and finding codes in clear"
+  },
+  {
+    "agent": "fairgive-single-audit",
+    "masked": [],
+    "text_in_clear": [
+      "funder",
+      "grant",
+      "pass_through"
+    ],
+    "free_text_in_clear": [],
+    "plus": "amounts, quantities, dates, rates and finding codes in clear"
+  },
+  {
+    "agent": "fairgive-vendor-1099",
+    "masked": [
+      "address",
+      "tin",
+      "vendor"
+    ],
+    "text_in_clear": [
+      "entity_type",
+      "vendor_id"
+    ],
+    "free_text_in_clear": [],
+    "plus": "amounts, quantities, dates, rates and finding codes in clear"
+  },
+  {
+    "agent": "fairgive-volunteer-hours",
+    "masked": [
+      "volunteer"
+    ],
+    "text_in_clear": [
+      "program",
+      "role",
+      "volunteer_id"
+    ],
+    "free_text_in_clear": [],
+    "plus": "amounts, quantities, dates, rates and finding codes in clear"
+  }
+]
