@@ -29,10 +29,25 @@ export function processorFees({ transactions = [], gifts = [], deposits = [] }, 
     const po = str(t.payout_id); if (po) { const p = payouts.get(po) || { id: po, processor: str(t.processor), date: isoDate(t.payout_date), amount: 0 }; p.amount = round2(p.amount + net); if (isoDate(t.payout_date) && (!p.date || isoDate(t.payout_date) > p.date)) p.date = isoDate(t.payout_date); payouts.set(po, p); }
     items.push({ item: str(t.txn_id), processor: str(t.processor), date: isoDate(t.date), gross, fee, net, gift_id: str(t.gift_id), crm_amount: crm ?? null, donor: str(t.donor), status: statusOf(f, LEVELS), findings: f });
   }
+  // Deposits indexed once: by id, by every run of up to four words of the description (so
+  // "STRIPE TRANSFER PO-1" is found by "PO-1"), and by amount in cents. A file of 10,000 payouts
+  // and deposits is then not compared pair by pair.
   const used = new Set(); let missing = 0;
+  const deps = [...deposits].sort((a, b) => cmp(isoDate(a.date) || '', isoDate(b.date) || '') || cmp(str(a.deposit_id), str(b.deposit_id)) || (num(a.amount) || 0) - (num(b.amount) || 0));
+  const byKey = new Map(); const byCents = new Map();
+  const put = (m, k, x) => { if (!k) return; if (!m.has(k)) m.set(k, []); m.get(k).push(x); };
+  for (const x of deps) {
+    put(byKey, nameKey(x.deposit_id), x);
+    const w = nameKey(x.description).split(' ').filter(Boolean);
+    for (let i = 0; i < w.length; i++) for (let n = 1; n <= 4 && i + n <= w.length; n++) put(byKey, w.slice(i, i + n).join(' '), x);
+    put(byCents, Math.round((num(x.amount) || 0) * 100), x);
+  }
+  const tolC = Math.round(tol * 100);
   for (const p of [...payouts.values()].sort((a, b) => cmp(a.id, b.id))) {
-    let d = deposits.find((x) => !used.has(x) && (nameKey(x.deposit_id) === nameKey(p.id) || nameKey(x.description).includes(nameKey(p.id))));
-    if (!d) d = deposits.filter((x) => !used.has(x) && Math.abs((num(x.amount) || 0) - p.amount) <= tol && (!p.date || !isoDate(x.date) || (daysBetween(p.date, x.date) >= 0 && daysBetween(p.date, x.date) <= Number(s.payout_days ?? 5)))).sort((a, b) => cmp(isoDate(a.date) || '', isoDate(b.date) || ''))[0];
+    let d = (byKey.get(nameKey(p.id)) || []).find((x) => !used.has(x));
+    if (!d) { const c = Math.round(p.amount * 100); const cand = [];
+      for (let k = c - tolC; k <= c + tolC; k++) for (const x of byCents.get(k) || []) if (!used.has(x) && (!p.date || !isoDate(x.date) || (daysBetween(p.date, x.date) >= 0 && daysBetween(p.date, x.date) <= Number(s.payout_days ?? 5)))) cand.push(x);
+      d = cand.sort((a, b) => cmp(isoDate(a.date) || '', isoDate(b.date) || '') || cmp(str(a.deposit_id), str(b.deposit_id)))[0]; }
     const f = [];
     if (d) { used.add(d); if (Math.abs((num(d.amount) || 0) - p.amount) > tol) f.push(finding('payout_not_in_bank', `Payout ${p.id} nets to ${p.amount}; the bank deposit ${str(d.deposit_id) || isoDate(d.date)} is ${num(d.amount)}.`, p.amount - (num(d.amount) || 0))); }
     else { f.push(finding('payout_not_in_bank', `Payout ${p.id} (${p.processor}, ${p.amount} on ${p.date || 'no date'}) matches no bank deposit.`, p.amount)); missing += p.amount; }
