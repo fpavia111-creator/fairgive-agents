@@ -77,6 +77,7 @@
       "args": {
         "pledges": "fixtures/pledges.csv",
         "payments": "fixtures/payments.csv",
+        "writeoffs": "fixtures/writeoffs.csv",
         "settings": "fixtures/settings-discount.json"
       },
       "expect": {
@@ -128,7 +129,10 @@
       "expect": {
         "status": "executed",
         "contains": [
-          "No findings"
+          "paid_still_open"
+        ],
+        "not_contains": [
+          "overdue_90"
         ],
         "equals": {
           "result.item.paid": 5000,
