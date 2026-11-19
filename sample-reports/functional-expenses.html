@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Functional expenses</title>
+<style>
+:root{--bg:#fbfaf7;--fg:#1d1c1a;--mut:#6b6760;--line:#e4e0d8;--ok:#1f7a4d;--bad:#b42318;--warn:#a15c07;--card:#fff}
+@media (prefers-color-scheme:dark){:root{--bg:#161514;--fg:#ecebe8;--mut:#a29d94;--line:#34312d;--ok:#4ade80;--bad:#f87171;--warn:#fbbf24;--card:#1f1e1c}}
+body{margin:0;background:var(--bg);color:var(--fg);font:15px/1.5 system-ui,-apple-system,Segoe UI,"Hiragino Sans","Yu Gothic UI","Microsoft YaHei","PingFang SC","Malgun Gothic","Apple SD Gothic Neo","Noto Sans CJK",sans-serif}
+main{max-width:1040px;margin:0 auto;padding:24px 16px}
+h1{font-size:22px;margin:0 0 4px}h2{font-size:17px;margin:28px 0 8px}
+.mut{color:var(--mut)}.ok{color:var(--ok)}.bad{color:var(--bad)}.warn{color:var(--warn)}
+table{border-collapse:collapse;width:100%;background:var(--card);font-size:14px}
+th,td{border-bottom:1px solid var(--line);padding:6px 8px;text-align:left;vertical-align:top}
+th{font-weight:600}td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
+.tiles{display:flex;gap:12px;flex-wrap:wrap}.tile{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:10px 14px;min-width:120px}
+.tile b{display:block;font-size:22px}code{font-size:13px;overflow-wrap:anywhere}pre{overflow-x:auto}
+.wrap{overflow-x:auto;max-width:100%}svg,img{max-width:100%;height:auto}figure{margin:16px 0}p,li,h1,h2,h3{overflow-wrap:break-word}
+</style></head><body><main>
+<h1>Functional expenses</h1>
+<p class="mut">116,500.00 of expenses: program 63,400.00 (54.42%), management and general 31,000.00, fundraising 19,500.00, no function yet 2,600.00.</p>
+<h2>By function</h2><div class="wrap"><table><thead><tr><th scope="col">function</th><th scope="col">amount</th></tr></thead><tbody>
+<tr><td>program</td><td>63400</td></tr>
+<tr><td>management</td><td>31000</td></tr>
+<tr><td>fundraising</td><td>19500</td></tr>
+<tr><td>unassigned</td><td>2600</td></tr>
+</tbody></table></div>
+<h2>By finding</h2><div class="wrap"><table><thead><tr><th scope="col">code</th><th scope="col">count</th><th scope="col">amount</th></tr></thead><tbody>
+<tr><td>allocation_not_100</td><td>1</td><td>600</td></tr>
+<tr><td>expense_without_function</td><td>1</td><td>2000</td></tr>
+<tr><td>fundraising_coded_program</td><td>1</td><td>3000</td></tr>
+</tbody></table></div>
+<h2>All rows (6)</h2>
+<div class="wrap"><table><thead><tr><th scope="col">account</th><th scope="col">account name</th><th scope="col">program</th><th scope="col">management</th><th scope="col">fundraising</th><th scope="col">unassigned</th><th scope="col">total</th><th scope="col">status</th><th scope="col">reasons</th></tr></thead><tbody>
+<tr><td>6100</td><td>Utilities</td><td>3600</td><td>1200</td><td>600</td><td>600</td><td>6000</td><td>flag</td><td>Rule 6100 (Square feet) splits 90% across program, management and fundraising; 600 is left unassigned.</td></tr>
+<tr><td>7100</td><td>Supplies</td><td>0</td><td>0</td><td>0</td><td>2000</td><td>2000</td><td>flag</td><td>L7 on 7100 Supplies (2000) has no function, no department in the settings map and no allocation rule.</td></tr>
+<tr><td>7000</td><td>Printing</td><td>3000</td><td>0</td><td>0</td><td>0</td><td>3000</td><td>review</td><td>L6 on 7000 Printing (3000, &quot;Gala invitations&quot;) is coded to a program but mentions &quot;gala&quot;; it may be a fundraising cost.</td></tr>
+<tr><td>5000</td><td>Salaries</td><td>40000</td><td>25000</td><td>15000</td><td>0</td><td>80000</td><td>ok</td><td></td></tr>
+<tr><td>6000</td><td>Rent</td><td>16800</td><td>4800</td><td>2400</td><td>0</td><td>24000</td><td>ok</td><td></td></tr>
+<tr><td>7200</td><td>Travel</td><td>0</td><td>0</td><td>1500</td><td>0</td><td>1500</td><td>ok</td><td></td></tr>
+</tbody></table></div>
+<h2>Limits</h2><ul><li>Reads only the files you give it. It does not log in to a donor CRM, giving platform, payment processor, bank, payroll or accounting system, and changes nothing in them.</li><li>Thresholds, rates, dates and policies are settings in your own file, with working defaults; check them against your own policies, funder agreements and current rules before you rely on them.</li><li>Not legal, tax, audit or accounting advice. A person decides what to record, send, file or pay.</li></ul>
+<p class="mut" style="margin-top:32px">Written by a Fairgive agent from your files. Nothing was sent or paid.</p>
+</main></body></html>

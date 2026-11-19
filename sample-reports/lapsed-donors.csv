@@ -1,0 +1,9 @@
+donor_id,donor,segment,this_year,last_year,last_gift,status,findings,reasons,owner,decision
+C-2,Rowan Ellery,lybunt,0,1000,2026-03-01,flag,lybunt,Gave 1000 in FY2026 and nothing yet in FY2027 (last gift 2026-03-01).,,
+C-3,Juniper Vance,lybunt,0,500,2026-05-15,flag,lybunt,Gave 500 in FY2026 and nothing yet in FY2027 (last gift 2026-05-15).,,
+C-4,Tamsin Okafor,sybunt,0,0,2024-01-10,review,sybunt,"Last gave in FY2024 (300; last gift 2024-01-10), nothing in FY2026 or FY2027.",,
+C-5,Corwin Achebe,sybunt,0,0,2024-11-11,review,sybunt,"Last gave in FY2025 (75; last gift 2024-11-11), nothing in FY2026 or FY2027.",,
+C-7,Bram Halloway,downgraded,200,1000,2026-10-10,watch,downgraded,"FY2027 so far 200, against 1000 in FY2026.",,
+C-1,Maple Hartwell,retained,500,500,2026-09-01,ok,,,,
+C-6,Liesel Marchetti,new,50,0,2026-08-08,ok,,,,
+C-9,Priya Lindqvist,retained,100,100,2026-11-01,ok,,,,

@@ -1,0 +1,6 @@
+volunteer_id,volunteer,role,hours,value,skilled_hours,status,findings,reasons,owner,decision
+V-2,Rowan Ellery,Driver,3,90,0,flag,background_check_expired,Driver: the background check of 2022-05-01 is older than 3 years.,,
+V-3,Juniper Vance,Youth mentor,5,150,0,flag,background_check_missing waiver_missing,Youth mentor: no background check on file. No signed waiver on file.,,
+V-4,Tamsin Okafor,Pantry helper,22,660,0,review,shift_over_max duplicate_entry future_date,"14 hours on 2026-10-04, more than the 12 hour daily maximum in the settings. 3 hours on 2026-10-05 for Food pantry are entered more than once. 2 hours are dated 2026-12-01, after 2026-11-18.",,
+V-5,Corwin Achebe,Pro bono accountant,10,300,10,review,missing_program skilled_service_candidate,10 hours on 2026-10-10 have no program. 10 skilled hours (Pro bono accountant); they may count as contributed services in the in-kind log if they meet the criteria.,,
+V-1,Maple Hartwell,Youth mentor,8,240,0,ok,,,,

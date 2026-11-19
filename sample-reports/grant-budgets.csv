@@ -1,0 +1,11 @@
+item,grant,line,budget,actual,from_pools,remaining,status,findings,reasons,owner,decision
+G-ARTS / Salaries,G-ARTS,Salaries,30000,36000,36000,-6000,flag,line_over_budget,"G-ARTS / Salaries: actual 36000 against budget 30000, over by 6000 (20%; flexibility 10%).",,
+G-ARTS / Supplies,G-ARTS,Supplies,5000,5600,0,-600,flag,line_over_budget,"G-ARTS / Supplies: actual 5600 against budget 5000, over by 600 (12%; flexibility 10%).",,
+G-FED / Salaries,G-FED,Salaries,60000,45000,45000,15000,flag,outside_period,G-FED / Salaries: 25000 is dated outside the award period 2026-07-01 to 2027-06-30.,,
+G-FED / Supplies,G-FED,Supplies,8000,300,0,7700,flag,unallowable_cost,"G-FED / Supplies: entry E6 (300) mentions ""wine"", which the settings list as unallowable.",,
+Pool POOL-RENT,"G-ARTS 60%, G-FED 50%",allocation,,10000,,,flag,allocation_over_100,Pool POOL-RENT is split 110% across grants: 1000 more than the cost was charged.,,
+G-ARTS / Occupancy,G-ARTS,Occupancy,,6000,6000,,review,no_budget_line,G-ARTS / Occupancy: 6000 spent and no budget line.,,
+G-FED / Occupancy,G-FED,Occupancy,,5000,5000,,review,no_budget_line,G-FED / Occupancy: 5000 spent and no budget line.,,
+G-ARTS / Travel,G-ARTS,Travel,2000,2100,0,-100,watch,line_over_small,"G-ARTS / Travel: actual 2100 against budget 2000, over by 100 (5%; flexibility 10%).",,
+Pool POOL-STAFF,"G-ARTS 40%, G-FED 50%",allocation,,90000,,,watch,allocation_under_100,Pool POOL-STAFF is split 90% across grants; 9000 stays unallocated.,,
+G-FED / Equipment,G-FED,Equipment,10000,9000,0,1000,ok,,,,

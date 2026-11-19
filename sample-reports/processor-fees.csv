@@ -1,0 +1,12 @@
+item,processor,date,gross,fee,net,gift_id,crm_amount,status,findings,reasons,owner,decision
+T-2,Stripe,2026-10-03,200,7,193,G-2,200,flag,fee_over_rate,T-2 (Stripe): fee 7 on 200; the rate in the settings gives 4.7.,,
+T-3,Stripe,2026-10-04,50,1.4,48.6,G-3,48.6,flag,gift_booked_net,"Gift G-3 is booked at 48.6, the net of T-3; the gift is 50 and the 1.4 fee is an expense.",,
+Payout PO-2,PayPal,2026-10-12,,,342.05,,,review,payout_not_in_bank,"Payout PO-2 (PayPal, 342.05 on 2026-10-12) matches no bank deposit.",,
+T-5,PayPal,2026-10-06,250,5.47,244.53,,,review,not_in_crm,"T-5 (PayPal, 250 on 2026-10-06) has no gift in the CRM.",,
+T-7,Stripe,2026-10-08,30,0.96,29.04,G-7,25,review,gift_amount_differs,Gift G-7 is booked at 25; T-7 charged 30.,,
+T-6,Stripe,2026-10-07,75,1.95,73.05,G-6,75,watch,fee_on_refund,T-6 was refunded (75) and its 1.95 fee was not returned.,,
+Payout PO-1,Stripe,2026-10-10,,,441.19,,,ok,,,,
+Payout PO-3,Givebutter,2026-10-15,,,40,,,ok,,,,
+T-1,Stripe,2026-10-02,100,2.5,97.5,G-1,100,ok,,,,
+T-4,PayPal,2026-10-05,100,2.48,97.52,G-4,100,ok,,,,
+T-8,Givebutter,2026-10-09,40,0,40,G-8,40,ok,,,,

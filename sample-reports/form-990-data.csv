@@ -1,0 +1,11 @@
+item,schedule,name,detail,amount,status,findings,reasons,owner,decision
+Schedule B C-2,B,Rowan Ellery,no address,10000,flag,scheduleb_missing_address,"Contributor C-2 gave 10000 in 2026, at or over 5000, and has no address on file.",,
+Schedule I Example Arts Studio,I,Example Arts Studio,Youth art classes,6000,flag,schedulei_missing_ein,Grant of 6000 to Example Arts Studio has no EIN.,,
+Part VII Board Chair,Part VII,Sam Whitlow,Board Chair,0,review,officer_missing_hours,Board Chair has no average hours per week.,,
+Part VII Treasurer,Part VII,Pat Lindgren,Treasurer,,review,officer_missing_comp,Treasurer has no compensation entered (enter 0 when unpaid).,,
+Schedule B C-3,B,Juniper Vance,address on file,8000,review,scheduleb_noncash_no_description,Contributor C-3: noncash gift G-4 (8000) has no description.,,
+Schedule M noncash total,M,,noncash gifts,28000,watch,schedule_m_likely,"Noncash gifts in 2026 total 28000, over 25000; your preparer will look at Schedule M.",,
+Part VII Executive Director,Part VII,Dana Rivers,Executive Director,95000,ok,,,,
+Schedule B C-1,B,Maple Hartwell,address on file,6000,ok,,,,
+Schedule B C-5,B,Corwin Achebe,address on file,20000,ok,,,,
+Schedule I Example Food Bank,I,Example Food Bank,Food for families,7500,ok,,,,

@@ -1,0 +1,8 @@
+giver_id,giver,address,gifts,total,by_fund,status,findings,reasons,owner,decision
+GV-2,Rowan Ellery,,1,500,Missions 500,flag,giver_missing_address,Giver GV-2 gave 500 in 2026 and has no mailing address for the statement.,,
+GV-3,Juniper and Ozzie Vance,9 Pine Road Springfield,1,250,Tithe 250,review,refund_excluded,"Gift C-6 (250, 2026-06-06) was refunded and is left out of the statement.",,
+GV-6,Liesel Marchetti,8 Spruce Way Springfield,0,0,,review,gift_no_date,"Gift C-11 (60) has no date, so it is not on any year's statement.",,
+Unattributed,,,1,87.5,,watch,unattributed,1 contribution(s) totalling 87.5 in 2026 have no giver (loose offering) and are not on any statement.,,
+GV-1,Maple Hartwell,12 Elm Street Springfield,3,350,Building 150; Tithe 200,ok,,,,
+GV-4,Tamsin Okafor,77 Birch Lane Springfield,1,300,Tithe 300,ok,,,,
+GV-5,Corwin Achebe,5 Cedar Court Springfield,1,1000,Building 1000,ok,,,,

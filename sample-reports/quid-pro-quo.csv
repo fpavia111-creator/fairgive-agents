@@ -1,0 +1,9 @@
+gift_id,donor,gift_date,amount,benefit,benefit_value,deductible,receipt_deductible,status,findings,reasons,owner,decision
+Q-2,Rowan Ellery,2026-10-03,150,Gala dinner,60,90,150,flag,disclosure_missing deductible_wrong,"Payment Q-2 of 150 is over 75 and the donor received ""Gala dinner"" (60); no written disclosure is recorded. Payment Q-2: the receipt says 150 is deductible; payment 150 less benefit 60 is 90.",,
+Q-4,Tamsin Okafor,2026-09-15,500,Golf round and lunch,,,500,review,fmv_missing,"Payment Q-4 of 500 came with ""Golf round and lunch"" and no value for it, so the deductible part cannot be worked out.",,
+Q-6,Liesel Marchetti,2026-10-03,200,Auction item: weekend cabin,250,0,0,review,benefit_over_payment,"Payment Q-6 of 200 bought ""Auction item: weekend cabin"" valued at 250: nothing is a contribution.",,
+Q-3,Juniper Vance,2026-10-10,100,Logo tote bag,8,100,100,watch,insubstantial_benefit,"Payment Q-3: ""Logo tote bag"" (8) is within the insubstantial-benefit limits in the settings, so it can be treated as fully deductible.",,
+Q-1,Maple Hartwell,2026-10-03,250,Gala dinner,80,170,170,ok,,,,
+Q-5,Corwin Achebe,2026-09-20,60,T-shirt,20,40,40,ok,,,,
+Q-7,Bram Halloway,2026-10-05,1000,,,1000,1000,ok,,,,
+Q-8,Odessa Quill,2026-10-03,300,Gala dinner,90,210,210,ok,,,,

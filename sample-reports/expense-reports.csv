@@ -1,0 +1,6 @@
+report_id,employee,lines,amount,submitted,status,findings,reasons,owner,decision
+R-2,Rowan Ellery,2,210,2026-09-25,flag,mileage_over_rate receipt_missing,R-2: 120 claimed for 100 miles; at 0.7 a mile that is 70. R-2: Supplies of 90 on 2026-09-16 at Example Office Store has no receipt (limit 75).,,
+R-3,Juniper Vance,1,40,2026-10-15,flag,unallowable_on_grant late_submission,"R-3: 40 on 2026-08-01 charged to grant G-FED mentions ""wine"", which the settings list as unallowable. R-3 was sent on 2026-10-15, 75 days after its first expense (policy 60).",,
+R-5,Tamsin Okafor,1,50,2026-10-01,flag,duplicate_claim,R-5: Supplies of 50 at Example Office Store on 2026-09-20 was already claimed on R-4.,,
+R-1,Maple Hartwell,3,255,2026-09-20,review,meals_over_per_diem,"R-1: 75 of meals on 2026-09-10, over the 60 per diem by 15.",,
+R-4,Tamsin Okafor,1,50,2026-09-22,ok,,,,

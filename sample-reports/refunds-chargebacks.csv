@@ -1,0 +1,8 @@
+txn_id,processor,type,date,amount,gift_id,donor,event_status,status,findings,reasons,owner,decision
+RF-2,Stripe,refund,2026-10-12,100,G-2,Rowan Ellery,Succeeded,flag,refund_not_reversed_in_crm ack_sent_for_refunded,"RF-2: gift G-2 (100) was refunded in full and is still ""Received"" in the CRM. Gift G-2 was thanked on 2026-10-05 and then refunded; send a corrected letter.",,
+RF-3,PayPal,refund,2026-10-15,60,G-3,Juniper Vance,Completed,flag,refund_over_gift,RF-3: 60 refunded on a gift of 50.,,
+RF-4,Stripe,dispute,2026-11-08,250,G-4,Tamsin Okafor,Needs response,flag,dispute_evidence_due,"RF-4: evidence for the 250 dispute on gift G-4 is due on 2026-11-22, in 4 day(s). Gather the receipt and any thank-you letter for the person who responds.",,
+RF-5,Classy,refund,2026-11-01,20,G-5,Corwin Achebe,Succeeded,review,partial_refund_not_adjusted,RF-5: 20 of gift G-5 (100) was refunded and the gift still shows 100.,,
+RF-6,PayPal,refund,2026-11-03,40,,,Completed,review,refund_no_gift,RF-6: a 40 refund on 2026-11-03 has no gift id.,,
+RF-1,Stripe,refund,2026-10-10,75,G-6,Liesel Marchetti,Succeeded,ok,,,,
+RF-7,Stripe,dispute,2026-09-01,30,G-7,Bram Halloway,Won,ok,,,,

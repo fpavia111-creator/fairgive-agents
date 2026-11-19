@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Form 990 schedule data readiness</title>
+<style>
+:root{--bg:#fbfaf7;--fg:#1d1c1a;--mut:#6b6760;--line:#e4e0d8;--ok:#1f7a4d;--bad:#b42318;--warn:#a15c07;--card:#fff}
+@media (prefers-color-scheme:dark){:root{--bg:#161514;--fg:#ecebe8;--mut:#a29d94;--line:#34312d;--ok:#4ade80;--bad:#f87171;--warn:#fbbf24;--card:#1f1e1c}}
+body{margin:0;background:var(--bg);color:var(--fg);font:15px/1.5 system-ui,-apple-system,Segoe UI,"Hiragino Sans","Yu Gothic UI","Microsoft YaHei","PingFang SC","Malgun Gothic","Apple SD Gothic Neo","Noto Sans CJK",sans-serif}
+main{max-width:1040px;margin:0 auto;padding:24px 16px}
+h1{font-size:22px;margin:0 0 4px}h2{font-size:17px;margin:28px 0 8px}
+.mut{color:var(--mut)}.ok{color:var(--ok)}.bad{color:var(--bad)}.warn{color:var(--warn)}
+table{border-collapse:collapse;width:100%;background:var(--card);font-size:14px}
+th,td{border-bottom:1px solid var(--line);padding:6px 8px;text-align:left;vertical-align:top}
+th{font-weight:600}td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
+.tiles{display:flex;gap:12px;flex-wrap:wrap}.tile{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:10px 14px;min-width:120px}
+.tile b{display:block;font-size:22px}code{font-size:13px;overflow-wrap:anywhere}pre{overflow-x:auto}
+.wrap{overflow-x:auto;max-width:100%}svg,img{max-width:100%;height:auto}figure{margin:16px 0}p,li,h1,h2,h3{overflow-wrap:break-word}
+</style></head><body><main>
+<h1>Form 990 schedule data readiness</h1>
+<p class="mut">Tax year 2026: 4 Schedule B contributor(s), noncash 28000, 3 officer(s), 2 Schedule I grant(s); 5 line(s) with data to complete.</p>
+<h2>By schedule</h2><div class="wrap"><table><thead><tr><th scope="col">schedule</th><th scope="col">count</th></tr></thead><tbody>
+<tr><td>B</td><td>4</td></tr>
+<tr><td>I</td><td>2</td></tr>
+<tr><td>M</td><td>1</td></tr>
+<tr><td>Part VII</td><td>3</td></tr>
+</tbody></table></div>
+<h2>By finding</h2><div class="wrap"><table><thead><tr><th scope="col">code</th><th scope="col">count</th><th scope="col">amount</th></tr></thead><tbody>
+<tr><td>officer_missing_comp</td><td>1</td><td>0</td></tr>
+<tr><td>officer_missing_hours</td><td>1</td><td>0</td></tr>
+<tr><td>schedule_m_likely</td><td>1</td><td>28000</td></tr>
+<tr><td>scheduleb_missing_address</td><td>1</td><td>10000</td></tr>
+<tr><td>scheduleb_noncash_no_description</td><td>1</td><td>8000</td></tr>
+<tr><td>schedulei_missing_ein</td><td>1</td><td>6000</td></tr>
+</tbody></table></div>
+<h2>All rows (10)</h2>
+<div class="wrap"><table><thead><tr><th scope="col">item</th><th scope="col">schedule</th><th scope="col">name</th><th scope="col">detail</th><th scope="col">amount</th><th scope="col">status</th><th scope="col">reasons</th></tr></thead><tbody>
+<tr><td>Schedule B C-2</td><td>B</td><td>Rowan Ellery</td><td>no address</td><td>10000</td><td>flag</td><td>Contributor C-2 gave 10000 in 2026, at or over 5000, and has no address on file.</td></tr>
+<tr><td>Schedule I Example Arts Studio</td><td>I</td><td>Example Arts Studio</td><td>Youth art classes</td><td>6000</td><td>flag</td><td>Grant of 6000 to Example Arts Studio has no EIN.</td></tr>
+<tr><td>Part VII Board Chair</td><td>Part VII</td><td>Sam Whitlow</td><td>Board Chair</td><td>0</td><td>review</td><td>Board Chair has no average hours per week.</td></tr>
+<tr><td>Part VII Treasurer</td><td>Part VII</td><td>Pat Lindgren</td><td>Treasurer</td><td></td><td>review</td><td>Treasurer has no compensation entered (enter 0 when unpaid).</td></tr>
+<tr><td>Schedule B C-3</td><td>B</td><td>Juniper Vance</td><td>address on file</td><td>8000</td><td>review</td><td>Contributor C-3: noncash gift G-4 (8000) has no description.</td></tr>
+<tr><td>Schedule M noncash total</td><td>M</td><td></td><td>noncash gifts</td><td>28000</td><td>watch</td><td>Noncash gifts in 2026 total 28000, over 25000; your preparer will look at Schedule M.</td></tr>
+<tr><td>Part VII Executive Director</td><td>Part VII</td><td>Dana Rivers</td><td>Executive Director</td><td>95000</td><td>ok</td><td></td></tr>
+<tr><td>Schedule B C-1</td><td>B</td><td>Maple Hartwell</td><td>address on file</td><td>6000</td><td>ok</td><td></td></tr>
+<tr><td>Schedule B C-5</td><td>B</td><td>Corwin Achebe</td><td>address on file</td><td>20000</td><td>ok</td><td></td></tr>
+<tr><td>Schedule I Example Food Bank</td><td>I</td><td>Example Food Bank</td><td>Food for families</td><td>7500</td><td>ok</td><td></td></tr>
+</tbody></table></div>
+<h2>Limits</h2><ul><li>Reads only the files you give it. It does not log in to a donor CRM, giving platform, payment processor, bank, payroll or accounting system, and changes nothing in them.</li><li>Thresholds, rates, dates and policies are settings in your own file, with working defaults; check them against your own policies, funder agreements and current rules before you rely on them.</li><li>Not legal, tax, audit or accounting advice. A person decides what to record, send, file or pay.</li><li>Names, e-mails, phone numbers, street addresses and taxpayer ids of donors, members, volunteers, staff and vendors are masked in results returned to the AI model. The report and draft files written here keep the real values: keep them in a private folder.</li></ul>
+<p class="mut" style="margin-top:32px">Written by a Fairgive agent from your files. Nothing was sent or paid.</p>
+</main></body></html>

@@ -1,0 +1,10 @@
+gift_id,donor_id,donor,gift_date,amount,letter_date,letter_amount,status,findings,reasons,owner,decision
+G-10,C-10,Emeric Sato,2026-08-15,5000,,,flag,ack_missing,Gift G-10 of 5000 on 2026-08-15 has no acknowledgement letter after 95 days.,,
+G-2,C-2,Rowan Ellery,2026-09-01,1000,,,flag,ack_missing,Gift G-2 of 1000 on 2026-09-01 has no acknowledgement letter after 78 days.,,
+G-4,C-4,Tamsin Okafor,2026-10-20,300,2026-10-22,30,flag,ack_amount_differs,Gift G-4 is 300 but the letter says 30.,,
+G-5,C-5,Corwin Achebe,2026-10-25,750,2026-10-27,750,flag,ack_no_statement,The letter for gift G-5 has no statement about goods or services received.,,
+G-6,C-6,Liesel Marchetti,2026-10-28,400,2026-10-29,400,flag,ack_for_refunded_gift,Gift G-6 was refunded but a letter dated 2026-10-29 acknowledges 400. Send a corrected letter.,,
+G-3,C-3,Juniper Vance,2026-10-10,250,2026-11-15,250,watch,ack_late,Gift G-3: the letter went out 36 days after the gift (policy 30).,,
+G-7,C-7,Bram Halloway,2026-11-10,260,,,watch,ack_due_soon,Gift G-7 of 260 on 2026-11-10 has no letter yet; the policy allows 30 days (8 so far).,,
+G-1,C-1,Maple Hartwell,2026-10-01,500,2026-10-05,500,ok,,,,
+G-9,C-9,Priya Lindqvist,2026-10-03,50,2026-10-04,50,ok,,,,

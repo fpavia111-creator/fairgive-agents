@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Gift and deposit reconciliation</title>
+<style>
+:root{--bg:#fbfaf7;--fg:#1d1c1a;--mut:#6b6760;--line:#e4e0d8;--ok:#1f7a4d;--bad:#b42318;--warn:#a15c07;--card:#fff}
+@media (prefers-color-scheme:dark){:root{--bg:#161514;--fg:#ecebe8;--mut:#a29d94;--line:#34312d;--ok:#4ade80;--bad:#f87171;--warn:#fbbf24;--card:#1f1e1c}}
+body{margin:0;background:var(--bg);color:var(--fg);font:15px/1.5 system-ui,-apple-system,Segoe UI,"Hiragino Sans","Yu Gothic UI","Microsoft YaHei","PingFang SC","Malgun Gothic","Apple SD Gothic Neo","Noto Sans CJK",sans-serif}
+main{max-width:1040px;margin:0 auto;padding:24px 16px}
+h1{font-size:22px;margin:0 0 4px}h2{font-size:17px;margin:28px 0 8px}
+.mut{color:var(--mut)}.ok{color:var(--ok)}.bad{color:var(--bad)}.warn{color:var(--warn)}
+table{border-collapse:collapse;width:100%;background:var(--card);font-size:14px}
+th,td{border-bottom:1px solid var(--line);padding:6px 8px;text-align:left;vertical-align:top}
+th{font-weight:600}td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
+.tiles{display:flex;gap:12px;flex-wrap:wrap}.tile{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:10px 14px;min-width:120px}
+.tile b{display:block;font-size:22px}code{font-size:13px;overflow-wrap:anywhere}pre{overflow-x:auto}
+.wrap{overflow-x:auto;max-width:100%}svg,img{max-width:100%;height:auto}figure{margin:16px 0}p,li,h1,h2,h3{overflow-wrap:break-word}
+</style></head><body><main>
+<h1>Gift and deposit reconciliation</h1>
+<p class="mut">10 cash gift(s) for 2,620.00 and 5 deposit(s) for 1,715.00: not deposited 1,020.00, deposits short or over 10.00, deposits with no gift 250.00, in transit 125.00, ledger gap 905.00.</p>
+<h2>By status</h2><div class="wrap"><table><thead><tr><th scope="col">status</th><th scope="col">count</th><th scope="col">amount</th></tr></thead><tbody>
+<tr><td>flag</td><td>2</td><td>1595</td></tr>
+<tr><td>ok</td><td>4</td><td>1100</td></tr>
+<tr><td>review</td><td>2</td><td>7670</td></tr>
+<tr><td>watch</td><td>1</td><td>125</td></tr>
+</tbody></table></div>
+<h2>By finding</h2><div class="wrap"><table><thead><tr><th scope="col">code</th><th scope="col">count</th><th scope="col">amount</th></tr></thead><tbody>
+<tr><td>batch_total_mismatch</td><td>1</td><td>-10</td></tr>
+<tr><td>deposit_not_in_crm</td><td>1</td><td>250</td></tr>
+<tr><td>gl_differs</td><td>1</td><td>-905</td></tr>
+<tr><td>in_transit</td><td>1</td><td>125</td></tr>
+<tr><td>not_deposited</td><td>1</td><td>1020</td></tr>
+</tbody></table></div>
+<h2>All rows (9)</h2>
+<div class="wrap"><table><thead><tr><th scope="col">item</th><th scope="col">date</th><th scope="col">crm amount</th><th scope="col">deposit</th><th scope="col">deposit amount</th><th scope="col">gl amount</th><th scope="col">status</th><th scope="col">reasons</th></tr></thead><tbody>
+<tr><td>Batch B-102</td><td>2026-10-09</td><td>575</td><td>D-2</td><td>565</td><td></td><td>flag</td><td>Batch B-102: gifts total 575, deposit D-2 on 2026-10-12 is 565 (difference -10).</td></tr>
+<tr><td>Batch B-103</td><td>2026-10-14</td><td>1020</td><td></td><td></td><td></td><td>flag</td><td>Batch B-103 (1020, gifts G-1006, G-1007, latest 2026-10-14) matches no deposit by batch or by amount within 5 days.</td></tr>
+<tr><td>Deposit D-4</td><td>2026-10-25</td><td></td><td>D-4</td><td>250</td><td></td><td>review</td><td>Deposit D-4 on 2026-10-25 for 250 (Mobile deposit) matches no gift or batch in the CRM.</td></tr>
+<tr><td>Month 2026-10</td><td>2026-10</td><td>7420</td><td></td><td></td><td>6515</td><td>review</td><td>2026-10: the CRM has 7420 of gifts, the ledger has 6515 of contribution revenue (difference -905).</td></tr>
+<tr><td>Gift G-1011</td><td>2026-10-29</td><td>125</td><td></td><td></td><td></td><td>watch</td><td>Gift G-1011 (125, 2026-10-29) is newer than the deposit window before the last deposit in the file (2026-10-25); it may still be on its way.</td></tr>
+<tr><td>Batch B-100</td><td>2026-09-24</td><td>200</td><td>D-0</td><td>200</td><td></td><td>ok</td><td></td></tr>
+<tr><td>Batch B-101</td><td>2026-10-06</td><td>400</td><td>D-1</td><td>400</td><td></td><td>ok</td><td></td></tr>
+<tr><td>Gift G-1010</td><td>2026-10-20</td><td>300</td><td>D-3</td><td>300</td><td></td><td>ok</td><td></td></tr>
+<tr><td>Month 2026-09</td><td>2026-09</td><td>200</td><td></td><td></td><td>200</td><td>ok</td><td></td></tr>
+</tbody></table></div>
+<h2>Limits</h2><ul><li>Reads only the files you give it. It does not log in to a donor CRM, giving platform, payment processor, bank, payroll or accounting system, and changes nothing in them.</li><li>Thresholds, rates, dates and policies are settings in your own file, with working defaults; check them against your own policies, funder agreements and current rules before you rely on them.</li><li>Not legal, tax, audit or accounting advice. A person decides what to record, send, file or pay.</li><li>Names, e-mails, phone numbers, street addresses and taxpayer ids of donors, members, volunteers, staff and vendors are masked in results returned to the AI model. The report and draft files written here keep the real values: keep them in a private folder.</li></ul>
+<p class="mut" style="margin-top:32px">Written by a Fairgive agent from your files. Nothing was sent or paid.</p>
+</main></body></html>

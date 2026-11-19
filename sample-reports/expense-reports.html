@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Expense report checks</title>
+<style>
+:root{--bg:#fbfaf7;--fg:#1d1c1a;--mut:#6b6760;--line:#e4e0d8;--ok:#1f7a4d;--bad:#b42318;--warn:#a15c07;--card:#fff}
+@media (prefers-color-scheme:dark){:root{--bg:#161514;--fg:#ecebe8;--mut:#a29d94;--line:#34312d;--ok:#4ade80;--bad:#f87171;--warn:#fbbf24;--card:#1f1e1c}}
+body{margin:0;background:var(--bg);color:var(--fg);font:15px/1.5 system-ui,-apple-system,Segoe UI,"Hiragino Sans","Yu Gothic UI","Microsoft YaHei","PingFang SC","Malgun Gothic","Apple SD Gothic Neo","Noto Sans CJK",sans-serif}
+main{max-width:1040px;margin:0 auto;padding:24px 16px}
+h1{font-size:22px;margin:0 0 4px}h2{font-size:17px;margin:28px 0 8px}
+.mut{color:var(--mut)}.ok{color:var(--ok)}.bad{color:var(--bad)}.warn{color:var(--warn)}
+table{border-collapse:collapse;width:100%;background:var(--card);font-size:14px}
+th,td{border-bottom:1px solid var(--line);padding:6px 8px;text-align:left;vertical-align:top}
+th{font-weight:600}td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
+.tiles{display:flex;gap:12px;flex-wrap:wrap}.tile{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:10px 14px;min-width:120px}
+.tile b{display:block;font-size:22px}code{font-size:13px;overflow-wrap:anywhere}pre{overflow-x:auto}
+.wrap{overflow-x:auto;max-width:100%}svg,img{max-width:100%;height:auto}figure{margin:16px 0}p,li,h1,h2,h3{overflow-wrap:break-word}
+</style></head><body><main>
+<h1>Expense report checks</h1>
+<p class="mut">5 report(s) for 605.00: 230.00 on flagged lines, 1 duplicate claim(s).</p>
+<h2>By employee</h2><div class="wrap"><table><thead><tr><th scope="col">employee</th><th scope="col">count</th><th scope="col">amount</th></tr></thead><tbody>
+<tr><td>Juniper Vance</td><td>1</td><td>40</td></tr>
+<tr><td>Maple Hartwell</td><td>1</td><td>255</td></tr>
+<tr><td>Rowan Ellery</td><td>1</td><td>210</td></tr>
+<tr><td>Tamsin Okafor</td><td>2</td><td>100</td></tr>
+</tbody></table></div>
+<h2>By finding</h2><div class="wrap"><table><thead><tr><th scope="col">code</th><th scope="col">count</th><th scope="col">amount</th></tr></thead><tbody>
+<tr><td>duplicate_claim</td><td>1</td><td>50</td></tr>
+<tr><td>late_submission</td><td>1</td><td>0</td></tr>
+<tr><td>meals_over_per_diem</td><td>1</td><td>15</td></tr>
+<tr><td>mileage_over_rate</td><td>1</td><td>50</td></tr>
+<tr><td>receipt_missing</td><td>1</td><td>90</td></tr>
+<tr><td>unallowable_on_grant</td><td>1</td><td>40</td></tr>
+</tbody></table></div>
+<h2>All rows (5)</h2>
+<div class="wrap"><table><thead><tr><th scope="col">report id</th><th scope="col">employee</th><th scope="col">lines</th><th scope="col">amount</th><th scope="col">submitted</th><th scope="col">status</th><th scope="col">reasons</th></tr></thead><tbody>
+<tr><td>R-2</td><td>Rowan Ellery</td><td>2</td><td>210</td><td>2026-09-25</td><td>flag</td><td>R-2: 120 claimed for 100 miles; at 0.7 a mile that is 70. R-2: Supplies of 90 on 2026-09-16 at Example Office Store has no receipt (limit 75).</td></tr>
+<tr><td>R-3</td><td>Juniper Vance</td><td>1</td><td>40</td><td>2026-10-15</td><td>flag</td><td>R-3: 40 on 2026-08-01 charged to grant G-FED mentions &quot;wine&quot;, which the settings list as unallowable. R-3 was sent on 2026-10-15, 75 days after its first expense (policy 60).</td></tr>
+<tr><td>R-5</td><td>Tamsin Okafor</td><td>1</td><td>50</td><td>2026-10-01</td><td>flag</td><td>R-5: Supplies of 50 at Example Office Store on 2026-09-20 was already claimed on R-4.</td></tr>
+<tr><td>R-1</td><td>Maple Hartwell</td><td>3</td><td>255</td><td>2026-09-20</td><td>review</td><td>R-1: 75 of meals on 2026-09-10, over the 60 per diem by 15.</td></tr>
+<tr><td>R-4</td><td>Tamsin Okafor</td><td>1</td><td>50</td><td>2026-09-22</td><td>ok</td><td></td></tr>
+</tbody></table></div>
+<h2>Limits</h2><ul><li>Reads only the files you give it. It does not log in to a donor CRM, giving platform, payment processor, bank, payroll or accounting system, and changes nothing in them.</li><li>Thresholds, rates, dates and policies are settings in your own file, with working defaults; check them against your own policies, funder agreements and current rules before you rely on them.</li><li>Not legal, tax, audit or accounting advice. A person decides what to record, send, file or pay.</li><li>Names, e-mails, phone numbers, street addresses and taxpayer ids of donors, members, volunteers, staff and vendors are masked in results returned to the AI model. The report and draft files written here keep the real values: keep them in a private folder.</li></ul>
+<p class="mut" style="margin-top:32px">Written by a Fairgive agent from your files. Nothing was sent or paid.</p>
+</main></body></html>

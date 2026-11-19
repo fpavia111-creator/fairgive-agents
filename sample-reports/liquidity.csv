@@ -1,0 +1,13 @@
+account,account_name,category,restriction,balance,available,status,findings,reasons,owner,decision
+1030,Grant cash advance,Cash,With donor restrictions - purpose,15000,0,flag,restricted_marked_available,Account 1030 Grant cash advance (15000) is donor-restricted for a purpose but marked available within a year; it is left out until the restriction is met.,,
+1700,Suspense,,Without donor restrictions,5000,0,review,no_category,"Account 1700 Suspense (5000) has no category, so it is not counted.",,
+1210,Board reserve investments,Investments,Board designated,80000,0,watch,board_designated_excluded,"Account 1210 Board reserve investments (80000) is board designated and left out; the board can undo a designation, so say so in the note.",,
+1310,Pledges receivable - long term,Pledges receivable,Without donor restrictions,40000,0,watch,receivable_beyond_year,Account 1310 Pledges receivable - long term (40000) is due after one year and left out.,,
+1010,Operating cash,Cash,Without donor restrictions,120000,120000,ok,,,,
+1020,Restricted cash - youth,Cash,With donor restrictions - purpose,30000,0,ok,,,,
+1200,Investments,Investments,Without donor restrictions,200000,200000,ok,,,,
+1300,Pledges receivable - current,Pledges receivable,Without donor restrictions,50000,50000,ok,,,,
+1400,Grants receivable,Grants receivable,With donor restrictions - time,25000,25000,ok,,,,
+1500,Prepaid expenses,Prepaid,Without donor restrictions,8000,0,ok,,,,
+1600,Equipment,Property,Without donor restrictions,300000,0,ok,,,,
+Total available,,,,560000,395000,ok,,,,

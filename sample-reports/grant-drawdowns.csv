@@ -1,0 +1,5 @@
+grant,funder,basis,award,spent,drawn,available,status,findings,reasons,owner,decision
+G-CITY,Example City,reimbursement,15000,15000,17000,0,flag,draw_over_award overdrawn,G-CITY: 17000 drawn against an award of 15000. G-CITY: 17000 drawn but only 15000 of allowable costs; 2000 drawn ahead of costs on a reimbursement grant.,,
+G-FED,Example Federal Agency,reimbursement,100000,54000,27000,27000,flag,costs_outside_period stale_unreimbursed draw_available,"G-FED: 3000 of costs are dated outside the award period 2026-07-01 to 2027-06-30 and were left out. G-FED: 14000 of costs older than 45 days have not been drawn. G-FED: 27000 can be drawn (costs 54000, drawn 27000).",,
+G-ADV,Example Workforce Board,advance,20000,9000,15000,0,review,excess_cash,G-ADV (advance): 6000 drawn and not yet spent. Check how long the funder lets you hold advance cash.,,
+G-STATE,Example State Department,reimbursement,40000,28000,28000,0,review,pending_too_long,G-STATE: draw D5 for 8000 was requested 44 days ago and is not marked received.,,

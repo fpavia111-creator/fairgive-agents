@@ -1,0 +1,6 @@
+fund,fund_name,balance,designated_in,approved_designations,spent,approved_spending,status,findings,reasons,owner,decision
+All designated funds,,106000,,,,,flag,designations_over_unrestricted,"Board-designated balances total 106000, more than the 100000 of unrestricted net assets in the settings.",,
+RES-CAP,Capital replacement,16000,30000,30000,14000,10000,flag,spending_without_resolution,RES-CAP: 14000 spent from the fund; resolutions approve 10000 of spending.,,
+RES-NEW,Program innovation,-5000,20000,0,25000,0,flag,designation_without_resolution spending_without_resolution balance_below_zero,RES-NEW: 20000 was moved into the fund; resolutions approve 0. RES-NEW: 25000 spent from the fund; resolutions approve 0 of spending. RES-NEW is -5000.,,
+RES-SCH,Scholarship quasi-endowment,45000,40000,40000,0,0,review,undesignation_not_recorded reported_as_donor_restricted,"RES-SCH: the board released 15000; 0 has been moved out in the ledger. RES-SCH: 5000 sits in a donor-restricted net asset account, but a board-designated fund is without donor restrictions.",,
+RES-OP,Operating reserve,50000,50000,50000,0,0,ok,,,,

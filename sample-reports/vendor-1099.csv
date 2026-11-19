@@ -1,0 +1,8 @@
+vendor_id,vendor,entity_type,tin,paid,card_excluded,reportable,status,findings,reasons,owner,decision
+V-2,Pat Kim Consulting,Individual,,2500,0,yes,flag,needs_1099_no_w9 tin_missing address_missing,Vendor V-2 was paid 2500 and there is no W-9 on file. Ask for one before the filing season. Vendor V-2 has no taxpayer id. Vendor V-2 has no address for the form.,,
+V-5,River Tutoring LLC,LLC,12-34567,2200,0,yes,flag,tin_malformed,Vendor V-5 has a taxpayer id with 7 digits; it should have 9.,,
+V-3,Example Legal Group PC,Corporation,12-3456789,5000,0,yes,watch,attorney_reportable,Vendor V-3 is a corporation paid 5000 for legal services; attorney fees are usually reported even for corporations.,,
+V-4,Example Supply Corp,Corporation,98-7654321,9000,0,no,watch,corporation_exempt,Vendor V-4 (Corporation) was paid 9000; corporations are usually not reported. Confirm the W-9 says so.,,
+V-1,Bright Lines Design,Sole proprietor,123-45-6789,3500,0,yes,ok,,,,
+V-6,Jordan Avery,Individual,234-56-7890,1800,900,no,ok,,,,
+V-7,Hill Street Properties LLC,LLC,45-6789012,12000,0,yes,ok,,,,

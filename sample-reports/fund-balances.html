@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fund balances by restriction</title>
+<style>
+:root{--bg:#fbfaf7;--fg:#1d1c1a;--mut:#6b6760;--line:#e4e0d8;--ok:#1f7a4d;--bad:#b42318;--warn:#a15c07;--card:#fff}
+@media (prefers-color-scheme:dark){:root{--bg:#161514;--fg:#ecebe8;--mut:#a29d94;--line:#34312d;--ok:#4ade80;--bad:#f87171;--warn:#fbbf24;--card:#1f1e1c}}
+body{margin:0;background:var(--bg);color:var(--fg);font:15px/1.5 system-ui,-apple-system,Segoe UI,"Hiragino Sans","Yu Gothic UI","Microsoft YaHei","PingFang SC","Malgun Gothic","Apple SD Gothic Neo","Noto Sans CJK",sans-serif}
+main{max-width:1040px;margin:0 auto;padding:24px 16px}
+h1{font-size:22px;margin:0 0 4px}h2{font-size:17px;margin:28px 0 8px}
+.mut{color:var(--mut)}.ok{color:var(--ok)}.bad{color:var(--bad)}.warn{color:var(--warn)}
+table{border-collapse:collapse;width:100%;background:var(--card);font-size:14px}
+th,td{border-bottom:1px solid var(--line);padding:6px 8px;text-align:left;vertical-align:top}
+th{font-weight:600}td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
+.tiles{display:flex;gap:12px;flex-wrap:wrap}.tile{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:10px 14px;min-width:120px}
+.tile b{display:block;font-size:22px}code{font-size:13px;overflow-wrap:anywhere}pre{overflow-x:auto}
+.wrap{overflow-x:auto;max-width:100%}svg,img{max-width:100%;height:auto}figure{margin:16px 0}p,li,h1,h2,h3{overflow-wrap:break-word}
+</style></head><body><main>
+<h1>Fund balances by restriction</h1>
+<p class="mut">7 fund(s): without donor restrictions 65,000.00 (board designated 25,000.00), with donor restrictions 116,000.00 (perpetual 94,000.00). Restricted funds below zero 2,000.00, net assets in the wrong class 15,000.00, interfund gap 500.00.</p>
+<h2>By restriction class</h2><div class="wrap"><table><thead><tr><th scope="col">class</th><th scope="col">count</th><th scope="col">balance</th></tr></thead><tbody>
+<tr><td>unknown</td><td>2</td><td>800</td></tr>
+<tr><td>with donor restrictions</td><td>4</td><td>116000</td></tr>
+<tr><td>without donor restrictions</td><td>2</td><td>65000</td></tr>
+</tbody></table></div>
+<h2>By finding</h2><div class="wrap"><table><thead><tr><th scope="col">code</th><th scope="col">count</th><th scope="col">amount</th></tr></thead><tbody>
+<tr><td>interfund_not_zero</td><td>1</td><td>500</td></tr>
+<tr><td>negative_restricted_balance</td><td>1</td><td>-2000</td></tr>
+<tr><td>no_restriction_code</td><td>1</td><td>500</td></tr>
+<tr><td>perpetual_below_corpus</td><td>1</td><td>-6000</td></tr>
+<tr><td>unknown_fund</td><td>1</td><td>300</td></tr>
+<tr><td>wrong_net_asset_class</td><td>1</td><td>15000</td></tr>
+</tbody></table></div>
+<h2>All rows (9)</h2>
+<div class="wrap"><table><thead><tr><th scope="col">fund</th><th scope="col">fund name</th><th scope="col">class</th><th scope="col">kind</th><th scope="col">balance</th><th scope="col">status</th><th scope="col">reasons</th></tr></thead><tbody>
+<tr><td>CAPITAL</td><td>Building campaign</td><td>with donor restrictions</td><td>purpose</td><td>15000</td><td>flag</td><td>Fund CAPITAL is Purpose restricted but 15000 sits in net asset account 3100, which the settings map to the other class.</td></tr>
+<tr><td>ENDOW</td><td>Hartwell endowment</td><td>with donor restrictions</td><td>perpetual</td><td>94000</td><td>flag</td><td>Fund ENDOW is 94000, under its corpus (original gift value) of 100000 by 6000.</td></tr>
+<tr><td>Interfund</td><td>Due to and due from other funds</td><td></td><td>interfund</td><td>500</td><td>flag</td><td>Due-to and due-from lines across all funds add up to 500, not zero.</td></tr>
+<tr><td>YOUTH</td><td>Youth programs</td><td>with donor restrictions</td><td>purpose</td><td>-2000</td><td>flag</td><td>Fund YOUTH (with donor restrictions) is -2000: more was spent than the restricted gifts it holds.</td></tr>
+<tr><td>MISC</td><td>Miscellaneous</td><td>unknown</td><td></td><td>500</td><td>review</td><td>Fund MISC has no restriction code; its balance 500 is not counted in either class.</td></tr>
+<tr><td>OLDFUND</td><td></td><td>unknown</td><td></td><td>300</td><td>review</td><td>1 ledger line(s) use fund OLDFUND, which is not in the fund list (balance 300).</td></tr>
+<tr><td>BOARD-RES</td><td>Operating reserve</td><td>without donor restrictions</td><td>board</td><td>25000</td><td>ok</td><td></td></tr>
+<tr><td>GEN</td><td>General operating</td><td>without donor restrictions</td><td></td><td>40000</td><td>ok</td><td></td></tr>
+<tr><td>SCHOL-TIME</td><td>2027 scholarships</td><td>with donor restrictions</td><td>time</td><td>9000</td><td>ok</td><td></td></tr>
+</tbody></table></div>
+<h2>Limits</h2><ul><li>Reads only the files you give it. It does not log in to a donor CRM, giving platform, payment processor, bank, payroll or accounting system, and changes nothing in them.</li><li>Thresholds, rates, dates and policies are settings in your own file, with working defaults; check them against your own policies, funder agreements and current rules before you rely on them.</li><li>Not legal, tax, audit or accounting advice. A person decides what to record, send, file or pay.</li></ul>
+<p class="mut" style="margin-top:32px">Written by a Fairgive agent from your files. Nothing was sent or paid.</p>
+</main></body></html>

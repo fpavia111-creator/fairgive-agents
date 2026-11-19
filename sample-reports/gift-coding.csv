@@ -1,0 +1,9 @@
+gift_id,donor,gift_date,amount,fund,appeal,memo,suggested_fund,status,findings,reasons,owner,decision
+CG-2,Rowan Ellery,2026-10-02,500,GEN,FALL26,For the scholarship fund,SCHOL,flag,memo_names_restricted_purpose,"Gift CG-2 (500) says ""For the scholarship fund"", which names SCHOL (Scholarships), but it is coded to GEN.",,
+CG-6,Liesel Marchetti,2026-10-06,1000,GEN,CAP26,Capital campaign pledge payment,CAPITAL,flag,memo_names_restricted_purpose appeal_fund_mismatch,"Gift CG-6 (1000) says ""Capital campaign pledge payment"", which names CAPITAL (Capital campaign), but it is coded to GEN. Gift CG-6 came from appeal CAP26, whose default fund is CAPITAL, and is coded to GEN.",,
+CG-4,Tamsin Okafor,2026-10-04,75,OLD-GALA,,Gala table,,review,fund_inactive,"Gift CG-4 is coded to OLD-GALA, which is marked inactive.",,
+CG-5,Corwin Achebe,2026-10-05,60,MISC,,,,review,unknown_fund,"Gift CG-5 is coded to ""MISC"", which is not in the fund list.",,
+CG-8,Odessa Quill,2026-10-08,200,GEN,FALL26,Designated for the music program only,,review,memo_says_restricted,"Gift CG-8 (200) says ""Designated for the music program only"" but is coded to GEN, which is not restricted, and no fund matches the purpose.",,
+CG-7,Bram Halloway,2026-10-07,300,GEN,CAP26,,CAPITAL,watch,appeal_fund_mismatch,"Gift CG-7 came from appeal CAP26, whose default fund is CAPITAL, and is coded to GEN.",,
+CG-1,Maple Hartwell,2026-10-01,100,GEN,FALL26,,,ok,,,,
+CG-3,Juniper Vance,2026-10-03,250,YOUTH,FALL26,After-school program,GEN,ok,,,,

@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Quid pro quo disclosures</title>
+<style>
+:root{--bg:#fbfaf7;--fg:#1d1c1a;--mut:#6b6760;--line:#e4e0d8;--ok:#1f7a4d;--bad:#b42318;--warn:#a15c07;--card:#fff}
+@media (prefers-color-scheme:dark){:root{--bg:#161514;--fg:#ecebe8;--mut:#a29d94;--line:#34312d;--ok:#4ade80;--bad:#f87171;--warn:#fbbf24;--card:#1f1e1c}}
+body{margin:0;background:var(--bg);color:var(--fg);font:15px/1.5 system-ui,-apple-system,Segoe UI,"Hiragino Sans","Yu Gothic UI","Microsoft YaHei","PingFang SC","Malgun Gothic","Apple SD Gothic Neo","Noto Sans CJK",sans-serif}
+main{max-width:1040px;margin:0 auto;padding:24px 16px}
+h1{font-size:22px;margin:0 0 4px}h2{font-size:17px;margin:28px 0 8px}
+.mut{color:var(--mut)}.ok{color:var(--ok)}.bad{color:var(--bad)}.warn{color:var(--warn)}
+table{border-collapse:collapse;width:100%;background:var(--card);font-size:14px}
+th,td{border-bottom:1px solid var(--line);padding:6px 8px;text-align:left;vertical-align:top}
+th{font-weight:600}td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
+.tiles{display:flex;gap:12px;flex-wrap:wrap}.tile{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:10px 14px;min-width:120px}
+.tile b{display:block;font-size:22px}code{font-size:13px;overflow-wrap:anywhere}pre{overflow-x:auto}
+.wrap{overflow-x:auto;max-width:100%}svg,img{max-width:100%;height:auto}figure{margin:16px 0}p,li,h1,h2,h3{overflow-wrap:break-word}
+</style></head><body><main>
+<h1>Quid pro quo disclosures</h1>
+<p class="mut">8 payment(s), 7 with a benefit: 1 with no disclosure, 1 receipt(s) to correct (deductible overstated by 60.00).</p>
+<h2>By finding</h2><div class="wrap"><table><thead><tr><th scope="col">code</th><th scope="col">count</th><th scope="col">amount</th></tr></thead><tbody>
+<tr><td>benefit_over_payment</td><td>1</td><td>200</td></tr>
+<tr><td>deductible_wrong</td><td>1</td><td>60</td></tr>
+<tr><td>disclosure_missing</td><td>1</td><td>150</td></tr>
+<tr><td>fmv_missing</td><td>1</td><td>500</td></tr>
+<tr><td>insubstantial_benefit</td><td>1</td><td>0</td></tr>
+</tbody></table></div>
+<h2>All rows (8)</h2>
+<div class="wrap"><table><thead><tr><th scope="col">gift id</th><th scope="col">donor</th><th scope="col">amount</th><th scope="col">benefit</th><th scope="col">benefit value</th><th scope="col">deductible</th><th scope="col">receipt deductible</th><th scope="col">status</th><th scope="col">reasons</th></tr></thead><tbody>
+<tr><td>Q-2</td><td>Rowan Ellery</td><td>150</td><td>Gala dinner</td><td>60</td><td>90</td><td>150</td><td>flag</td><td>Payment Q-2 of 150 is over 75 and the donor received &quot;Gala dinner&quot; (60); no written disclosure is recorded. Payment Q-2: the receipt says 150 is deductible; payment 150 less benefit 60 is 90.</td></tr>
+<tr><td>Q-4</td><td>Tamsin Okafor</td><td>500</td><td>Golf round and lunch</td><td></td><td></td><td>500</td><td>review</td><td>Payment Q-4 of 500 came with &quot;Golf round and lunch&quot; and no value for it, so the deductible part cannot be worked out.</td></tr>
+<tr><td>Q-6</td><td>Liesel Marchetti</td><td>200</td><td>Auction item: weekend cabin</td><td>250</td><td>0</td><td>0</td><td>review</td><td>Payment Q-6 of 200 bought &quot;Auction item: weekend cabin&quot; valued at 250: nothing is a contribution.</td></tr>
+<tr><td>Q-3</td><td>Juniper Vance</td><td>100</td><td>Logo tote bag</td><td>8</td><td>100</td><td>100</td><td>watch</td><td>Payment Q-3: &quot;Logo tote bag&quot; (8) is within the insubstantial-benefit limits in the settings, so it can be treated as fully deductible.</td></tr>
+<tr><td>Q-1</td><td>Maple Hartwell</td><td>250</td><td>Gala dinner</td><td>80</td><td>170</td><td>170</td><td>ok</td><td></td></tr>
+<tr><td>Q-5</td><td>Corwin Achebe</td><td>60</td><td>T-shirt</td><td>20</td><td>40</td><td>40</td><td>ok</td><td></td></tr>
+<tr><td>Q-7</td><td>Bram Halloway</td><td>1000</td><td></td><td></td><td>1000</td><td>1000</td><td>ok</td><td></td></tr>
+<tr><td>Q-8</td><td>Odessa Quill</td><td>300</td><td>Gala dinner</td><td>90</td><td>210</td><td>210</td><td>ok</td><td></td></tr>
+</tbody></table></div>
+<h2>Limits</h2><ul><li>Reads only the files you give it. It does not log in to a donor CRM, giving platform, payment processor, bank, payroll or accounting system, and changes nothing in them.</li><li>Thresholds, rates, dates and policies are settings in your own file, with working defaults; check them against your own policies, funder agreements and current rules before you rely on them.</li><li>Not legal, tax, audit or accounting advice. A person decides what to record, send, file or pay.</li><li>Names, e-mails, phone numbers, street addresses and taxpayer ids of donors, members, volunteers, staff and vendors are masked in results returned to the AI model. The report and draft files written here keep the real values: keep them in a private folder.</li></ul>
+<p class="mut" style="margin-top:32px">Written by a Fairgive agent from your files. Nothing was sent or paid.</p>
+</main></body></html>

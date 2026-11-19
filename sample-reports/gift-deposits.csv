@@ -1,0 +1,10 @@
+item,kind,date,gifts,crm_amount,deposit,deposit_amount,gl_amount,status,findings,reasons,owner,decision
+Batch B-102,gifts,2026-10-09,G-1004 G-1005,575,D-2,565,,flag,batch_total_mismatch,"Batch B-102: gifts total 575, deposit D-2 on 2026-10-12 is 565 (difference -10).",,
+Batch B-103,gifts,2026-10-14,G-1006 G-1007,1020,,,,flag,not_deposited,"Batch B-103 (1020, gifts G-1006, G-1007, latest 2026-10-14) matches no deposit by batch or by amount within 5 days.",,
+Deposit D-4,deposit,2026-10-25,,,D-4,250,,review,deposit_not_in_crm,Deposit D-4 on 2026-10-25 for 250 (Mobile deposit) matches no gift or batch in the CRM.,,
+Month 2026-10,month,2026-10,,7420,,,6515,review,gl_differs,"2026-10: the CRM has 7420 of gifts, the ledger has 6515 of contribution revenue (difference -905).",,
+Gift G-1011,gifts,2026-10-29,G-1011,125,,,,watch,in_transit,"Gift G-1011 (125, 2026-10-29) is newer than the deposit window before the last deposit in the file (2026-10-25); it may still be on its way.",,
+Batch B-100,gifts,2026-09-24,G-0901,200,D-0,200,,ok,,,,
+Batch B-101,gifts,2026-10-06,G-1001 G-1002 G-1003,400,D-1,400,,ok,,,,
+Gift G-1010,gifts,2026-10-20,G-1010,300,D-3,300,,ok,,,,
+Month 2026-09,month,2026-09,,200,,,200,ok,,,,

@@ -1,0 +1,4 @@
+event,tickets,gross,exchange,contribution,unsplit,gl_exchange,gl_contribution,status,findings,reasons,owner,decision
+GOLF-26,7,3400,1800,1600,0,3400,0,flag,gl_exchange_differs gl_contribution_differs,GOLF-26: the ledger has 3400 of event (exchange) revenue; the split says 1800. GOLF-26: the ledger has 0 of contributions; the split says 1600.,,
+GALA-26,5,8200,1300,1900,5000,,,review,no_fmv_for_ticket_type ticket_below_fmv event_not_in_gl,"GALA-26 Sponsor: 5000 of sales with no fair market value for the ticket, so it cannot be split. GALA-26 Individual: 1 ticket(s) sold under their fair market value; no part of them is a contribution. GALA-26 has 8200 of sales and no ledger lines coded to it.",,
+RUN-26,40,1400,1000,400,0,1000,400,ok,,,,

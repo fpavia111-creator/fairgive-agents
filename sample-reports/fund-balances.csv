@@ -1,0 +1,10 @@
+fund,fund_name,class,kind,balance,corpus,status,findings,reasons,owner,decision
+CAPITAL,Building campaign,with donor restrictions,purpose,15000,,flag,wrong_net_asset_class,"Fund CAPITAL is Purpose restricted but 15000 sits in net asset account 3100, which the settings map to the other class.",,
+ENDOW,Hartwell endowment,with donor restrictions,perpetual,94000,100000,flag,perpetual_below_corpus,"Fund ENDOW is 94000, under its corpus (original gift value) of 100000 by 6000.",,
+Interfund,Due to and due from other funds,,interfund,500,,flag,interfund_not_zero,"Due-to and due-from lines across all funds add up to 500, not zero.",,
+YOUTH,Youth programs,with donor restrictions,purpose,-2000,,flag,negative_restricted_balance,Fund YOUTH (with donor restrictions) is -2000: more was spent than the restricted gifts it holds.,,
+MISC,Miscellaneous,unknown,,500,,review,no_restriction_code,Fund MISC has no restriction code; its balance 500 is not counted in either class.,,
+OLDFUND,,unknown,,300,,review,unknown_fund,"1 ledger line(s) use fund OLDFUND, which is not in the fund list (balance 300).",,
+BOARD-RES,Operating reserve,without donor restrictions,board,25000,,ok,,,,
+GEN,General operating,without donor restrictions,,40000,,ok,,,,
+SCHOL-TIME,2027 scholarships,with donor restrictions,time,9000,,ok,,,,

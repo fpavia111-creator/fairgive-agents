@@ -1,0 +1,8 @@
+gift_id,donor,employer,gift_date,amount,expected_match,deadline,claimed,received,status,findings,reasons,owner,decision
+M-3,Juniper Vance,Example Tech,2026-08-30,1000,2000,2026-11-28,,,flag,match_deadline_soon,Gift M-3: claim the Example Tech match of 2000 by 2026-11-28 (10 days).,,
+M-4,Tamsin Okafor,Example Foods,2026-09-15,400,200,2026-10-15,,,flag,match_deadline_passed,Gift M-4: the Example Foods match of 200 had to be claimed by 2026-10-15; no claim is recorded.,,
+M-2,Rowan Ellery,Example Tech,2026-10-01,300,600,2026-12-30,,,review,match_not_claimed,Gift M-2: Example Tech matches 2:1; 600 can be claimed until 2026-12-30.,,
+M-5,Corwin Achebe,Example Bank,2026-03-01,2000,2000,2027-03-01,2026-03-10,1500,review,match_received_differs,Gift M-5: Example Bank paid 1500; the program terms give 2000.,,
+M-8,Odessa Quill,Example Widgets Inc,2026-10-20,250,,,,,review,employer_not_in_list,"Gift M-8 (250) is from a donor who works at Example Widgets Inc, which is not in your matching program list. Check whether it matches gifts.",,
+M-6,Liesel Marchetti,Example Tech,2026-07-01,100,200,2026-09-29,2026-07-05,,watch,claim_pending_long,Gift M-6: the claim sent on 2026-07-05 (136 days ago) has not been paid.,,
+M-1,Maple Hartwell,Example Bank,2026-09-01,500,500,2027-09-01,2026-09-10,500,ok,,,,

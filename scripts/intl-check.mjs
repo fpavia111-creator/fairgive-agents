@@ -39,7 +39,11 @@ for (const n of agents) {
   const data = JSON.parse(readFileSync(join(PK, n, 'evals', 'cases.json'), 'utf8'));
   // intl-* cases already read German or Japanese files; translating those again tests nothing.
   const cases = (data.cases || data).filter((c) => !/^intl-/.test(c.id));
-  const csvCases = cases.filter((c) => argFiles(c.args).length);
+  // Named vendor layouts under fixtures/exports/ (Raiser's Edge NXT, NPSP, Bloomerang, PayPal, Aplos...)
+  // are recognised by the vendor's own English column names; translating their headers would test a file
+  // no vendor writes, so they are left out here (the same rule as the Fairwire family). Their mapping is
+  // covered by the English eval cases; the agents' own layouts are covered in all eight languages.
+  const csvCases = cases.filter((c) => argFiles(c.args).length && !argFiles(c.args).some(([, f]) => /fixtures[/]exports[/]/.test(f)));
   if (!csvCases.length) { summary.push({ agent: n, cases: 0 }); continue; }
   const base = await runEvals(manifest, strip(csvCases), { root: join(PK, n) });
   const passedEn = new Set(base.results.filter((r) => r.pass).map((r) => r.id));

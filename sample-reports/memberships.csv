@@ -1,0 +1,8 @@
+member_id,member,level,expires,last_payment,dues,status,findings,reasons,owner,decision
+MB-4,Tamsin Okafor,Patron,2027-05-01,2026-05-01,500,flag,paid_wrong_amount,Member MB-4 paid 400 on 2026-05-01; Patron dues are 500.,,
+MB-5,Corwin Achebe,Family,2026-10-15,2026-10-10,100,flag,paid_not_extended,Member MB-5 paid 100 on 2026-10-10 but the membership still ends on 2026-10-15.,,
+MB-3,Juniper Vance,Individual,2026-09-01,2025-09-01,50,review,lapsed,Member MB-3: the membership ended on 2026-09-01 (78 days ago) with no renewal.,,
+MB-6,Liesel Marchetti,Individual,2027-06-30,,50,review,active_without_payment,Member MB-6 is active until 2027-06-30 and no payment is on file for the current term.,,
+MB-2,Rowan Ellery,Family,2026-12-05,2025-12-05,100,watch,expiring_soon,"Member MB-2: the membership ends on 2026-12-05, in 17 days.",,
+MB-1,Maple Hartwell,Individual,2027-03-01,2026-03-01,50,ok,,,,
+MB-7,Bram Halloway,Patron,2027-01-31,2026-01-31,500,ok,,,,

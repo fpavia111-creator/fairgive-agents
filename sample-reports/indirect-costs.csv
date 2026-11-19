@@ -1,0 +1,4 @@
+grant,base_type,rate,direct,excluded,base,allowed,charged,status,findings,reasons,owner,decision
+G-FED,MTDC,28,240000,60000,180000,50400,52000,flag,subaward_over_cap indirect_overcharged rate_expired,G-FED: 30000 of subaward costs above the first 50000 of each subaward is left out of the base. G-FED: 52000 of indirect charged; 28% of the modified total direct cost base 180000 is 50400. G-FED: the rate ended on 2026-06-30 and costs run to 2026-09-30; check the rate that applies after it.,,
+G-NEW,MTDC,15,50000,0,50000,7500,5000,watch,indirect_undercharged,"G-NEW: 5000 of indirect charged; 15% of the base 50000 allows 7500, so 2500 is not recovered.",,
+G-FOUND,TDC,10,36000,0,36000,3600,3600,ok,,,,

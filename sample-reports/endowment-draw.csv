@@ -1,0 +1,4 @@
+fund,fund_name,corpus,latest_value,quarters_used,average_value,policy_draw,booked_draw,status,findings,reasons,owner,decision
+ENDOW-B,Music endowment,200000,190000,12,208333.33,9375,10000,flag,underwater draw_differs,"ENDOW-B is 190000, 10000 below its corpus of 200000. The board should look at the draw before it is made. ENDOW-B: 10000 is booked as the draw; the policy gives 9375 (4.5% of the 12-quarter average 208333.33).",,
+ENDOW-C,Library endowment,50000,57000,6,54500,2452.5,,review,insufficient_history,"ENDOW-C has 6 quarter-end value(s), fewer than the 12 the policy averages; the draw uses the 6 there are.",,
+ENDOW-A,Hartwell scholarship endowment,100000,132000,12,121000,5445,5445,ok,,,,

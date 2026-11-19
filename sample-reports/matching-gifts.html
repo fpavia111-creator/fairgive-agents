@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Matching gift claims</title>
+<style>
+:root{--bg:#fbfaf7;--fg:#1d1c1a;--mut:#6b6760;--line:#e4e0d8;--ok:#1f7a4d;--bad:#b42318;--warn:#a15c07;--card:#fff}
+@media (prefers-color-scheme:dark){:root{--bg:#161514;--fg:#ecebe8;--mut:#a29d94;--line:#34312d;--ok:#4ade80;--bad:#f87171;--warn:#fbbf24;--card:#1f1e1c}}
+body{margin:0;background:var(--bg);color:var(--fg);font:15px/1.5 system-ui,-apple-system,Segoe UI,"Hiragino Sans","Yu Gothic UI","Microsoft YaHei","PingFang SC","Malgun Gothic","Apple SD Gothic Neo","Noto Sans CJK",sans-serif}
+main{max-width:1040px;margin:0 auto;padding:24px 16px}
+h1{font-size:22px;margin:0 0 4px}h2{font-size:17px;margin:28px 0 8px}
+.mut{color:var(--mut)}.ok{color:var(--ok)}.bad{color:var(--bad)}.warn{color:var(--warn)}
+table{border-collapse:collapse;width:100%;background:var(--card);font-size:14px}
+th,td{border-bottom:1px solid var(--line);padding:6px 8px;text-align:left;vertical-align:top}
+th{font-weight:600}td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
+.tiles{display:flex;gap:12px;flex-wrap:wrap}.tile{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:10px 14px;min-width:120px}
+.tile b{display:block;font-size:22px}code{font-size:13px;overflow-wrap:anywhere}pre{overflow-x:auto}
+.wrap{overflow-x:auto;max-width:100%}svg,img{max-width:100%;height:auto}figure{margin:16px 0}p,li,h1,h2,h3{overflow-wrap:break-word}
+</style></head><body><main>
+<h1>Matching gift claims</h1>
+<p class="mut">6 matchable gift(s) as of 2026-11-18: expected match 5,500.00, not yet claimed 2,600.00, received 2,000.00, missed (deadline passed) 200.00.</p>
+<h2>By employer</h2><div class="wrap"><table><thead><tr><th scope="col">employer</th><th scope="col">count</th><th scope="col">expected match</th><th scope="col">received</th></tr></thead><tbody>
+<tr><td>Example Bank</td><td>2</td><td>2500</td><td>2000</td></tr>
+<tr><td>Example Foods</td><td>1</td><td>200</td><td>0</td></tr>
+<tr><td>Example Tech</td><td>3</td><td>2800</td><td>0</td></tr>
+<tr><td>Example Widgets Inc</td><td>1</td><td>0</td><td>0</td></tr>
+</tbody></table></div>
+<h2>By finding</h2><div class="wrap"><table><thead><tr><th scope="col">code</th><th scope="col">count</th><th scope="col">amount</th></tr></thead><tbody>
+<tr><td>claim_pending_long</td><td>1</td><td>200</td></tr>
+<tr><td>employer_not_in_list</td><td>1</td><td>0</td></tr>
+<tr><td>match_deadline_passed</td><td>1</td><td>200</td></tr>
+<tr><td>match_deadline_soon</td><td>1</td><td>2000</td></tr>
+<tr><td>match_not_claimed</td><td>1</td><td>600</td></tr>
+<tr><td>match_received_differs</td><td>1</td><td>500</td></tr>
+</tbody></table></div>
+<h2>All rows (7)</h2>
+<div class="wrap"><table><thead><tr><th scope="col">gift id</th><th scope="col">donor</th><th scope="col">employer</th><th scope="col">amount</th><th scope="col">expected match</th><th scope="col">deadline</th><th scope="col">received</th><th scope="col">status</th><th scope="col">reasons</th></tr></thead><tbody>
+<tr><td>M-3</td><td>Juniper Vance</td><td>Example Tech</td><td>1000</td><td>2000</td><td>2026-11-28</td><td></td><td>flag</td><td>Gift M-3: claim the Example Tech match of 2000 by 2026-11-28 (10 days).</td></tr>
+<tr><td>M-4</td><td>Tamsin Okafor</td><td>Example Foods</td><td>400</td><td>200</td><td>2026-10-15</td><td></td><td>flag</td><td>Gift M-4: the Example Foods match of 200 had to be claimed by 2026-10-15; no claim is recorded.</td></tr>
+<tr><td>M-2</td><td>Rowan Ellery</td><td>Example Tech</td><td>300</td><td>600</td><td>2026-12-30</td><td></td><td>review</td><td>Gift M-2: Example Tech matches 2:1; 600 can be claimed until 2026-12-30.</td></tr>
+<tr><td>M-5</td><td>Corwin Achebe</td><td>Example Bank</td><td>2000</td><td>2000</td><td>2027-03-01</td><td>1500</td><td>review</td><td>Gift M-5: Example Bank paid 1500; the program terms give 2000.</td></tr>
+<tr><td>M-8</td><td>Odessa Quill</td><td>Example Widgets Inc</td><td>250</td><td></td><td></td><td></td><td>review</td><td>Gift M-8 (250) is from a donor who works at Example Widgets Inc, which is not in your matching program list. Check whether it matches gifts.</td></tr>
+<tr><td>M-6</td><td>Liesel Marchetti</td><td>Example Tech</td><td>100</td><td>200</td><td>2026-09-29</td><td></td><td>watch</td><td>Gift M-6: the claim sent on 2026-07-05 (136 days ago) has not been paid.</td></tr>
+<tr><td>M-1</td><td>Maple Hartwell</td><td>Example Bank</td><td>500</td><td>500</td><td>2027-09-01</td><td>500</td><td>ok</td><td></td></tr>
+</tbody></table></div>
+<h2>Limits</h2><ul><li>Reads only the files you give it. It does not log in to a donor CRM, giving platform, payment processor, bank, payroll or accounting system, and changes nothing in them.</li><li>Thresholds, rates, dates and policies are settings in your own file, with working defaults; check them against your own policies, funder agreements and current rules before you rely on them.</li><li>Not legal, tax, audit or accounting advice. A person decides what to record, send, file or pay.</li><li>Names, e-mails, phone numbers, street addresses and taxpayer ids of donors, members, volunteers, staff and vendors are masked in results returned to the AI model. The report and draft files written here keep the real values: keep them in a private folder.</li></ul>
+<p class="mut" style="margin-top:32px">Written by a Fairgive agent from your files. Nothing was sent or paid.</p>
+</main></body></html>

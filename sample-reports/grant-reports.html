@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Grant reporting deadlines</title>
+<style>
+:root{--bg:#fbfaf7;--fg:#1d1c1a;--mut:#6b6760;--line:#e4e0d8;--ok:#1f7a4d;--bad:#b42318;--warn:#a15c07;--card:#fff}
+@media (prefers-color-scheme:dark){:root{--bg:#161514;--fg:#ecebe8;--mut:#a29d94;--line:#34312d;--ok:#4ade80;--bad:#f87171;--warn:#fbbf24;--card:#1f1e1c}}
+body{margin:0;background:var(--bg);color:var(--fg);font:15px/1.5 system-ui,-apple-system,Segoe UI,"Hiragino Sans","Yu Gothic UI","Microsoft YaHei","PingFang SC","Malgun Gothic","Apple SD Gothic Neo","Noto Sans CJK",sans-serif}
+main{max-width:1040px;margin:0 auto;padding:24px 16px}
+h1{font-size:22px;margin:0 0 4px}h2{font-size:17px;margin:28px 0 8px}
+.mut{color:var(--mut)}.ok{color:var(--ok)}.bad{color:var(--bad)}.warn{color:var(--warn)}
+table{border-collapse:collapse;width:100%;background:var(--card);font-size:14px}
+th,td{border-bottom:1px solid var(--line);padding:6px 8px;text-align:left;vertical-align:top}
+th{font-weight:600}td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
+.tiles{display:flex;gap:12px;flex-wrap:wrap}.tile{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:10px 14px;min-width:120px}
+.tile b{display:block;font-size:22px}code{font-size:13px;overflow-wrap:anywhere}pre{overflow-x:auto}
+.wrap{overflow-x:auto;max-width:100%}svg,img{max-width:100%;height:auto}figure{margin:16px 0}p,li,h1,h2,h3{overflow-wrap:break-word}
+</style></head><body><main>
+<h1>Grant reporting deadlines</h1>
+<p class="mut">12 report(s) for 4 grant(s) as of 2026-11-18: 2 overdue, 1 due soon, 1 sent late, 1 grant(s) with no schedule.</p>
+<h2>By grant</h2><div class="wrap"><table><thead><tr><th scope="col">grant</th><th scope="col">count</th></tr></thead><tbody>
+<tr><td>G-ARTS</td><td>3</td></tr>
+<tr><td>G-FED</td><td>4</td></tr>
+<tr><td>G-FOUND</td><td>5</td></tr>
+<tr><td>G-NEW</td><td>1</td></tr>
+</tbody></table></div>
+<h2>By finding</h2><div class="wrap"><table><thead><tr><th scope="col">code</th><th scope="col">count</th><th scope="col">amount</th></tr></thead><tbody>
+<tr><td>due_soon</td><td>1</td><td>0</td></tr>
+<tr><td>late_submission</td><td>1</td><td>0</td></tr>
+<tr><td>no_schedule</td><td>1</td><td>0</td></tr>
+<tr><td>overdue</td><td>2</td><td>0</td></tr>
+</tbody></table></div>
+<h2>All rows (13)</h2>
+<div class="wrap"><table><thead><tr><th scope="col">grant</th><th scope="col">report</th><th scope="col">period end</th><th scope="col">due</th><th scope="col">submitted</th><th scope="col">owner</th><th scope="col">status</th><th scope="col">reasons</th></tr></thead><tbody>
+<tr><td>G-FED</td><td>Financial report</td><td>2026-09-30</td><td>2026-10-30</td><td></td><td></td><td>flag</td><td>G-FED Financial report for the period ending 2026-09-30 was due on 2026-10-30 (19 day(s) ago) and is not in the submissions log.</td></tr>
+<tr><td>G-FOUND</td><td>Final report</td><td>2026-06-30</td><td>2026-09-28</td><td></td><td></td><td>flag</td><td>G-FOUND Final report for the period ending 2026-06-30 was due on 2026-09-28 (51 day(s) ago) and is not in the submissions log.</td></tr>
+<tr><td>G-NEW</td><td></td><td></td><td></td><td></td><td></td><td>review</td><td>G-NEW (Example Community Trust) has no reporting schedule.</td></tr>
+<tr><td>G-FED</td><td>Equipment inventory</td><td>2026-12-01</td><td>2026-12-01</td><td></td><td></td><td>watch</td><td>G-FED Equipment inventory for the period ending 2026-12-01 is due on 2026-12-01, in 13 day(s).</td></tr>
+<tr><td>G-FOUND</td><td>Quarterly update</td><td>2026-03-31</td><td>2026-04-30</td><td>2026-05-15</td><td></td><td>watch</td><td>G-FOUND Quarterly update for the period ending 2026-03-31 was sent on 2026-05-15, 15 day(s) after it was due on 2026-04-30.</td></tr>
+<tr><td>G-ARTS</td><td>Final report</td><td>2026-12-31</td><td>2027-03-01</td><td></td><td></td><td>ok</td><td></td></tr>
+<tr><td>G-ARTS</td><td>Interim narrative</td><td>2026-06-30</td><td>2026-07-30</td><td>2026-07-28</td><td></td><td>ok</td><td></td></tr>
+<tr><td>G-ARTS</td><td>Interim narrative</td><td>2026-12-31</td><td>2027-01-30</td><td></td><td></td><td>ok</td><td></td></tr>
+<tr><td>G-FED</td><td>Financial report</td><td>2026-12-31</td><td>2027-01-30</td><td></td><td></td><td>ok</td><td></td></tr>
+<tr><td>G-FED</td><td>Performance report</td><td>2026-12-31</td><td>2027-01-30</td><td></td><td></td><td>ok</td><td></td></tr>
+<tr><td>G-FOUND</td><td>Quarterly update</td><td>2025-09-30</td><td>2025-10-30</td><td>2025-10-20</td><td></td><td>ok</td><td></td></tr>
+<tr><td>G-FOUND</td><td>Quarterly update</td><td>2025-12-31</td><td>2026-01-30</td><td>2026-01-25</td><td></td><td>ok</td><td></td></tr>
+<tr><td>G-FOUND</td><td>Quarterly update</td><td>2026-06-30</td><td>2026-07-30</td><td>2026-07-20</td><td></td><td>ok</td><td></td></tr>
+</tbody></table></div>
+<h2>Limits</h2><ul><li>Reads only the files you give it. It does not log in to a donor CRM, giving platform, payment processor, bank, payroll or accounting system, and changes nothing in them.</li><li>Thresholds, rates, dates and policies are settings in your own file, with working defaults; check them against your own policies, funder agreements and current rules before you rely on them.</li><li>Not legal, tax, audit or accounting advice. A person decides what to record, send, file or pay.</li><li>Names, e-mails, phone numbers, street addresses and taxpayer ids of donors, members, volunteers, staff and vendors are masked in results returned to the AI model. The report and draft files written here keep the real values: keep them in a private folder.</li></ul>
+<p class="mut" style="margin-top:32px">Written by a Fairgive agent from your files. Nothing was sent or paid.</p>
+</main></body></html>

@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Duplicate donor records</title>
+<style>
+:root{--bg:#fbfaf7;--fg:#1d1c1a;--mut:#6b6760;--line:#e4e0d8;--ok:#1f7a4d;--bad:#b42318;--warn:#a15c07;--card:#fff}
+@media (prefers-color-scheme:dark){:root{--bg:#161514;--fg:#ecebe8;--mut:#a29d94;--line:#34312d;--ok:#4ade80;--bad:#f87171;--warn:#fbbf24;--card:#1f1e1c}}
+body{margin:0;background:var(--bg);color:var(--fg);font:15px/1.5 system-ui,-apple-system,Segoe UI,"Hiragino Sans","Yu Gothic UI","Microsoft YaHei","PingFang SC","Malgun Gothic","Apple SD Gothic Neo","Noto Sans CJK",sans-serif}
+main{max-width:1040px;margin:0 auto;padding:24px 16px}
+h1{font-size:22px;margin:0 0 4px}h2{font-size:17px;margin:28px 0 8px}
+.mut{color:var(--mut)}.ok{color:var(--ok)}.bad{color:var(--bad)}.warn{color:var(--warn)}
+table{border-collapse:collapse;width:100%;background:var(--card);font-size:14px}
+th,td{border-bottom:1px solid var(--line);padding:6px 8px;text-align:left;vertical-align:top}
+th{font-weight:600}td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
+.tiles{display:flex;gap:12px;flex-wrap:wrap}.tile{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:10px 14px;min-width:120px}
+.tile b{display:block;font-size:22px}code{font-size:13px;overflow-wrap:anywhere}pre{overflow-x:auto}
+.wrap{overflow-x:auto;max-width:100%}svg,img{max-width:100%;height:auto}figure{margin:16px 0}p,li,h1,h2,h3{overflow-wrap:break-word}
+</style></head><body><main>
+<h1>Duplicate donor records</h1>
+<p class="mut">12 record(s): 4 group(s), 2 likely duplicate(s), 1 to review, 1 household(s); 3 extra record(s) if every duplicate group were merged.</p>
+<h2>By rule</h2><div class="wrap"><table><thead><tr><th scope="col">rule</th><th scope="col">count</th></tr></thead><tbody>
+<tr><td>same_address</td><td>3</td></tr>
+<tr><td>same_email</td><td>1</td></tr>
+<tr><td>same_name</td><td>2</td></tr>
+<tr><td>same_phone</td><td>1</td></tr>
+<tr><td>similar_name</td><td>1</td></tr>
+</tbody></table></div>
+<h2>By finding</h2><div class="wrap"><table><thead><tr><th scope="col">code</th><th scope="col">count</th><th scope="col">amount</th></tr></thead><tbody>
+<tr><td>same_address</td><td>3</td><td>0</td></tr>
+<tr><td>same_email</td><td>1</td><td>0</td></tr>
+<tr><td>same_name</td><td>2</td><td>0</td></tr>
+<tr><td>same_phone</td><td>1</td><td>0</td></tr>
+<tr><td>similar_name</td><td>1</td><td>0</td></tr>
+</tbody></table></div>
+<h2>All rows (4)</h2>
+<div class="wrap"><table><thead><tr><th scope="col">group</th><th scope="col">records</th><th scope="col">names</th><th scope="col">rules</th><th scope="col">keep suggestion</th><th scope="col">gifts</th><th scope="col">status</th><th scope="col">reasons</th></tr></thead><tbody>
+<tr><td>C-1</td><td>C-1 + C-2</td><td>Maple Hartwell</td><td>same_address same_email same_name</td><td>C-1</td><td>3</td><td>flag</td><td>Records C-1 + C-2 share a street address. Records C-1 + C-2 share an e-mail address. Records C-1 + C-2 have the same name (Maple Hartwell).</td></tr>
+<tr><td>C-3</td><td>C-3 + C-4</td><td>Ellery, Rowan / Rowan Ellery</td><td>same_name same_phone</td><td>C-3</td><td>2</td><td>flag</td><td>Records C-3 + C-4 have the same name (Ellery, Rowan / Rowan Ellery). Records C-3 + C-4 share a phone number.</td></tr>
+<tr><td>C-5</td><td>C-5 + C-6</td><td>Juniper Vance / Juniper Vane</td><td>same_address similar_name</td><td>C-5</td><td>1</td><td>review</td><td>Records C-5 + C-6 share a street address. Records C-5 + C-6 have names that differ by a letter or two (Juniper Vance / Juniper Vane) in the same postal code.</td></tr>
+<tr><td>C-7</td><td>C-7 + C-8</td><td>Dayo Okafor / Tamsin Okafor</td><td>same_address</td><td>C-7</td><td>2</td><td>watch</td><td>Records C-7 + C-8 share a street address.</td></tr>
+</tbody></table></div>
+<h2>Limits</h2><ul><li>Reads only the files you give it. It does not log in to a donor CRM, giving platform, payment processor, bank, payroll or accounting system, and changes nothing in them.</li><li>Thresholds, rates, dates and policies are settings in your own file, with working defaults; check them against your own policies, funder agreements and current rules before you rely on them.</li><li>Not legal, tax, audit or accounting advice. A person decides what to record, send, file or pay.</li><li>Names, e-mails, phone numbers, street addresses and taxpayer ids of donors, members, volunteers, staff and vendors are masked in results returned to the AI model. The report and draft files written here keep the real values: keep them in a private folder.</li></ul>
+<p class="mut" style="margin-top:32px">Written by a Fairgive agent from your files. Nothing was sent or paid.</p>
+</main></body></html>

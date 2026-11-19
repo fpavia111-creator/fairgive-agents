@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Payment processor fees</title>
+<style>
+:root{--bg:#fbfaf7;--fg:#1d1c1a;--mut:#6b6760;--line:#e4e0d8;--ok:#1f7a4d;--bad:#b42318;--warn:#a15c07;--card:#fff}
+@media (prefers-color-scheme:dark){:root{--bg:#161514;--fg:#ecebe8;--mut:#a29d94;--line:#34312d;--ok:#4ade80;--bad:#f87171;--warn:#fbbf24;--card:#1f1e1c}}
+body{margin:0;background:var(--bg);color:var(--fg);font:15px/1.5 system-ui,-apple-system,Segoe UI,"Hiragino Sans","Yu Gothic UI","Microsoft YaHei","PingFang SC","Malgun Gothic","Apple SD Gothic Neo","Noto Sans CJK",sans-serif}
+main{max-width:1040px;margin:0 auto;padding:24px 16px}
+h1{font-size:22px;margin:0 0 4px}h2{font-size:17px;margin:28px 0 8px}
+.mut{color:var(--mut)}.ok{color:var(--ok)}.bad{color:var(--bad)}.warn{color:var(--warn)}
+table{border-collapse:collapse;width:100%;background:var(--card);font-size:14px}
+th,td{border-bottom:1px solid var(--line);padding:6px 8px;text-align:left;vertical-align:top}
+th{font-weight:600}td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
+.tiles{display:flex;gap:12px;flex-wrap:wrap}.tile{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:10px 14px;min-width:120px}
+.tile b{display:block;font-size:22px}code{font-size:13px;overflow-wrap:anywhere}pre{overflow-x:auto}
+.wrap{overflow-x:auto;max-width:100%}svg,img{max-width:100%;height:auto}figure{margin:16px 0}p,li,h1,h2,h3{overflow-wrap:break-word}
+</style></head><body><main>
+<h1>Payment processor fees</h1>
+<p class="mut">8 transaction(s): gross 845.00, fees 21.76 (2.58%); fees over the rate 2.30, fees taken out of gifts 1.40, payouts not in the bank 342.05.</p>
+<h2>By processor</h2><div class="wrap"><table><thead><tr><th scope="col">processor</th><th scope="col">count</th><th scope="col">gross</th><th scope="col">fee</th></tr></thead><tbody>
+<tr><td>Givebutter</td><td>1</td><td>40</td><td>0</td></tr>
+<tr><td>PayPal</td><td>2</td><td>350</td><td>7.95</td></tr>
+<tr><td>Stripe</td><td>5</td><td>455</td><td>13.81</td></tr>
+</tbody></table></div>
+<h2>By finding</h2><div class="wrap"><table><thead><tr><th scope="col">code</th><th scope="col">count</th><th scope="col">amount</th></tr></thead><tbody>
+<tr><td>fee_on_refund</td><td>1</td><td>1.95</td></tr>
+<tr><td>fee_over_rate</td><td>1</td><td>2.3</td></tr>
+<tr><td>gift_amount_differs</td><td>1</td><td>5</td></tr>
+<tr><td>gift_booked_net</td><td>1</td><td>1.4</td></tr>
+<tr><td>not_in_crm</td><td>1</td><td>250</td></tr>
+<tr><td>payout_not_in_bank</td><td>1</td><td>342.05</td></tr>
+</tbody></table></div>
+<h2>All rows (11)</h2>
+<div class="wrap"><table><thead><tr><th scope="col">item</th><th scope="col">processor</th><th scope="col">date</th><th scope="col">gross</th><th scope="col">fee</th><th scope="col">net</th><th scope="col">crm amount</th><th scope="col">status</th><th scope="col">reasons</th></tr></thead><tbody>
+<tr><td>T-2</td><td>Stripe</td><td>2026-10-03</td><td>200</td><td>7</td><td>193</td><td>200</td><td>flag</td><td>T-2 (Stripe): fee 7 on 200; the rate in the settings gives 4.7.</td></tr>
+<tr><td>T-3</td><td>Stripe</td><td>2026-10-04</td><td>50</td><td>1.4</td><td>48.6</td><td>48.6</td><td>flag</td><td>Gift G-3 is booked at 48.6, the net of T-3; the gift is 50 and the 1.4 fee is an expense.</td></tr>
+<tr><td>Payout PO-2</td><td>PayPal</td><td>2026-10-12</td><td></td><td></td><td>342.05</td><td></td><td>review</td><td>Payout PO-2 (PayPal, 342.05 on 2026-10-12) matches no bank deposit.</td></tr>
+<tr><td>T-5</td><td>PayPal</td><td>2026-10-06</td><td>250</td><td>5.47</td><td>244.53</td><td></td><td>review</td><td>T-5 (PayPal, 250 on 2026-10-06) has no gift in the CRM.</td></tr>
+<tr><td>T-7</td><td>Stripe</td><td>2026-10-08</td><td>30</td><td>0.96</td><td>29.04</td><td>25</td><td>review</td><td>Gift G-7 is booked at 25; T-7 charged 30.</td></tr>
+<tr><td>T-6</td><td>Stripe</td><td>2026-10-07</td><td>75</td><td>1.95</td><td>73.05</td><td>75</td><td>watch</td><td>T-6 was refunded (75) and its 1.95 fee was not returned.</td></tr>
+<tr><td>Payout PO-1</td><td>Stripe</td><td>2026-10-10</td><td></td><td></td><td>441.19</td><td></td><td>ok</td><td></td></tr>
+<tr><td>Payout PO-3</td><td>Givebutter</td><td>2026-10-15</td><td></td><td></td><td>40</td><td></td><td>ok</td><td></td></tr>
+<tr><td>T-1</td><td>Stripe</td><td>2026-10-02</td><td>100</td><td>2.5</td><td>97.5</td><td>100</td><td>ok</td><td></td></tr>
+<tr><td>T-4</td><td>PayPal</td><td>2026-10-05</td><td>100</td><td>2.48</td><td>97.52</td><td>100</td><td>ok</td><td></td></tr>
+<tr><td>T-8</td><td>Givebutter</td><td>2026-10-09</td><td>40</td><td>0</td><td>40</td><td>40</td><td>ok</td><td></td></tr>
+</tbody></table></div>
+<h2>Limits</h2><ul><li>Reads only the files you give it. It does not log in to a donor CRM, giving platform, payment processor, bank, payroll or accounting system, and changes nothing in them.</li><li>Thresholds, rates, dates and policies are settings in your own file, with working defaults; check them against your own policies, funder agreements and current rules before you rely on them.</li><li>Not legal, tax, audit or accounting advice. A person decides what to record, send, file or pay.</li><li>Names, e-mails, phone numbers, street addresses and taxpayer ids of donors, members, volunteers, staff and vendors are masked in results returned to the AI model. The report and draft files written here keep the real values: keep them in a private folder.</li></ul>
+<p class="mut" style="margin-top:32px">Written by a Fairgive agent from your files. Nothing was sent or paid.</p>
+</main></body></html>

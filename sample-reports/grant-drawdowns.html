@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Grant drawdowns</title>
+<style>
+:root{--bg:#fbfaf7;--fg:#1d1c1a;--mut:#6b6760;--line:#e4e0d8;--ok:#1f7a4d;--bad:#b42318;--warn:#a15c07;--card:#fff}
+@media (prefers-color-scheme:dark){:root{--bg:#161514;--fg:#ecebe8;--mut:#a29d94;--line:#34312d;--ok:#4ade80;--bad:#f87171;--warn:#fbbf24;--card:#1f1e1c}}
+body{margin:0;background:var(--bg);color:var(--fg);font:15px/1.5 system-ui,-apple-system,Segoe UI,"Hiragino Sans","Yu Gothic UI","Microsoft YaHei","PingFang SC","Malgun Gothic","Apple SD Gothic Neo","Noto Sans CJK",sans-serif}
+main{max-width:1040px;margin:0 auto;padding:24px 16px}
+h1{font-size:22px;margin:0 0 4px}h2{font-size:17px;margin:28px 0 8px}
+.mut{color:var(--mut)}.ok{color:var(--ok)}.bad{color:var(--bad)}.warn{color:var(--warn)}
+table{border-collapse:collapse;width:100%;background:var(--card);font-size:14px}
+th,td{border-bottom:1px solid var(--line);padding:6px 8px;text-align:left;vertical-align:top}
+th{font-weight:600}td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
+.tiles{display:flex;gap:12px;flex-wrap:wrap}.tile{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:10px 14px;min-width:120px}
+.tile b{display:block;font-size:22px}code{font-size:13px;overflow-wrap:anywhere}pre{overflow-x:auto}
+.wrap{overflow-x:auto;max-width:100%}svg,img{max-width:100%;height:auto}figure{margin:16px 0}p,li,h1,h2,h3{overflow-wrap:break-word}
+</style></head><body><main>
+<h1>Grant drawdowns</h1>
+<p class="mut">4 grant(s) as of 2026-11-18: costs 106,000.00, drawn 87,000.00, can draw 27,000.00 (14,000.00 older than the stale days); overdrawn 2,000.00, advance cash unspent 6,000.00, draws pending 8,000.00.</p>
+<h2>By finding</h2><div class="wrap"><table><thead><tr><th scope="col">code</th><th scope="col">count</th><th scope="col">amount</th></tr></thead><tbody>
+<tr><td>costs_outside_period</td><td>1</td><td>3000</td></tr>
+<tr><td>draw_available</td><td>1</td><td>27000</td></tr>
+<tr><td>draw_over_award</td><td>1</td><td>2000</td></tr>
+<tr><td>excess_cash</td><td>1</td><td>6000</td></tr>
+<tr><td>overdrawn</td><td>1</td><td>2000</td></tr>
+<tr><td>pending_too_long</td><td>1</td><td>8000</td></tr>
+<tr><td>stale_unreimbursed</td><td>1</td><td>14000</td></tr>
+</tbody></table></div>
+<h2>All rows (4)</h2>
+<div class="wrap"><table><thead><tr><th scope="col">grant</th><th scope="col">funder</th><th scope="col">basis</th><th scope="col">award</th><th scope="col">spent</th><th scope="col">drawn</th><th scope="col">available</th><th scope="col">status</th><th scope="col">reasons</th></tr></thead><tbody>
+<tr><td>G-CITY</td><td>Example City</td><td>reimbursement</td><td>15000</td><td>15000</td><td>17000</td><td>0</td><td>flag</td><td>G-CITY: 17000 drawn against an award of 15000. G-CITY: 17000 drawn but only 15000 of allowable costs; 2000 drawn ahead of costs on a reimbursement grant.</td></tr>
+<tr><td>G-FED</td><td>Example Federal Agency</td><td>reimbursement</td><td>100000</td><td>54000</td><td>27000</td><td>27000</td><td>flag</td><td>G-FED: 3000 of costs are dated outside the award period 2026-07-01 to 2027-06-30 and were left out. G-FED: 14000 of costs older than 45 days have not been drawn. G-FED: 27000 can be drawn (costs 54000, drawn 27000).</td></tr>
+<tr><td>G-ADV</td><td>Example Workforce Board</td><td>advance</td><td>20000</td><td>9000</td><td>15000</td><td>0</td><td>review</td><td>G-ADV (advance): 6000 drawn and not yet spent. Check how long the funder lets you hold advance cash.</td></tr>
+<tr><td>G-STATE</td><td>Example State Department</td><td>reimbursement</td><td>40000</td><td>28000</td><td>28000</td><td>0</td><td>review</td><td>G-STATE: draw D5 for 8000 was requested 44 days ago and is not marked received.</td></tr>
+</tbody></table></div>
+<h2>Limits</h2><ul><li>Reads only the files you give it. It does not log in to a donor CRM, giving platform, payment processor, bank, payroll or accounting system, and changes nothing in them.</li><li>Thresholds, rates, dates and policies are settings in your own file, with working defaults; check them against your own policies, funder agreements and current rules before you rely on them.</li><li>Not legal, tax, audit or accounting advice. A person decides what to record, send, file or pay.</li></ul>
+<p class="mut" style="margin-top:32px">Written by a Fairgive agent from your files. Nothing was sent or paid.</p>
+</main></body></html>

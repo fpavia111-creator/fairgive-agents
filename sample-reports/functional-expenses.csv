@@ -1,0 +1,7 @@
+account,account_name,program,management,fundraising,unassigned,total,status,findings,reasons,owner,decision
+6100,Utilities,3600,1200,600,600,6000,flag,allocation_not_100,"Rule 6100 (Square feet) splits 90% across program, management and fundraising; 600 is left unassigned.",,
+7100,Supplies,0,0,0,2000,2000,flag,expense_without_function,"L7 on 7100 Supplies (2000) has no function, no department in the settings map and no allocation rule.",,
+7000,Printing,3000,0,0,0,3000,review,fundraising_coded_program,"L6 on 7000 Printing (3000, ""Gala invitations"") is coded to a program but mentions ""gala""; it may be a fundraising cost.",,
+5000,Salaries,40000,25000,15000,0,80000,ok,,,,
+6000,Rent,16800,4800,2400,0,24000,ok,,,,
+7200,Travel,0,0,1500,0,1500,ok,,,,

@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>1099 readiness</title>
+<style>
+:root{--bg:#fbfaf7;--fg:#1d1c1a;--mut:#6b6760;--line:#e4e0d8;--ok:#1f7a4d;--bad:#b42318;--warn:#a15c07;--card:#fff}
+@media (prefers-color-scheme:dark){:root{--bg:#161514;--fg:#ecebe8;--mut:#a29d94;--line:#34312d;--ok:#4ade80;--bad:#f87171;--warn:#fbbf24;--card:#1f1e1c}}
+body{margin:0;background:var(--bg);color:var(--fg);font:15px/1.5 system-ui,-apple-system,Segoe UI,"Hiragino Sans","Yu Gothic UI","Microsoft YaHei","PingFang SC","Malgun Gothic","Apple SD Gothic Neo","Noto Sans CJK",sans-serif}
+main{max-width:1040px;margin:0 auto;padding:24px 16px}
+h1{font-size:22px;margin:0 0 4px}h2{font-size:17px;margin:28px 0 8px}
+.mut{color:var(--mut)}.ok{color:var(--ok)}.bad{color:var(--bad)}.warn{color:var(--warn)}
+table{border-collapse:collapse;width:100%;background:var(--card);font-size:14px}
+th,td{border-bottom:1px solid var(--line);padding:6px 8px;text-align:left;vertical-align:top}
+th{font-weight:600}td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
+.tiles{display:flex;gap:12px;flex-wrap:wrap}.tile{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:10px 14px;min-width:120px}
+.tile b{display:block;font-size:22px}code{font-size:13px;overflow-wrap:anywhere}pre{overflow-x:auto}
+.wrap{overflow-x:auto;max-width:100%}svg,img{max-width:100%;height:auto}figure{margin:16px 0}p,li,h1,h2,h3{overflow-wrap:break-word}
+</style></head><body><main>
+<h1>1099 readiness</h1>
+<p class="mut">Tax year 2026: 7 vendor(s) paid, 5 reportable for 25,200.00; 1 with no W-9, 2 with a taxpayer id problem.</p>
+<h2>By finding</h2><div class="wrap"><table><thead><tr><th scope="col">code</th><th scope="col">count</th><th scope="col">amount</th></tr></thead><tbody>
+<tr><td>address_missing</td><td>1</td><td>2500</td></tr>
+<tr><td>attorney_reportable</td><td>1</td><td>5000</td></tr>
+<tr><td>corporation_exempt</td><td>1</td><td>0</td></tr>
+<tr><td>needs_1099_no_w9</td><td>1</td><td>2500</td></tr>
+<tr><td>tin_malformed</td><td>1</td><td>2200</td></tr>
+<tr><td>tin_missing</td><td>1</td><td>2500</td></tr>
+</tbody></table></div>
+<h2>All rows (7)</h2>
+<div class="wrap"><table><thead><tr><th scope="col">vendor id</th><th scope="col">vendor</th><th scope="col">entity type</th><th scope="col">paid</th><th scope="col">card excluded</th><th scope="col">reportable</th><th scope="col">status</th><th scope="col">reasons</th></tr></thead><tbody>
+<tr><td>V-2</td><td>Pat Kim Consulting</td><td>Individual</td><td>2500</td><td>0</td><td>yes</td><td>flag</td><td>Vendor V-2 was paid 2500 and there is no W-9 on file. Ask for one before the filing season. Vendor V-2 has no taxpayer id. Vendor V-2 has no address for the form.</td></tr>
+<tr><td>V-5</td><td>River Tutoring LLC</td><td>LLC</td><td>2200</td><td>0</td><td>yes</td><td>flag</td><td>Vendor V-5 has a taxpayer id with 7 digits; it should have 9.</td></tr>
+<tr><td>V-3</td><td>Example Legal Group PC</td><td>Corporation</td><td>5000</td><td>0</td><td>yes</td><td>watch</td><td>Vendor V-3 is a corporation paid 5000 for legal services; attorney fees are usually reported even for corporations.</td></tr>
+<tr><td>V-4</td><td>Example Supply Corp</td><td>Corporation</td><td>9000</td><td>0</td><td>no</td><td>watch</td><td>Vendor V-4 (Corporation) was paid 9000; corporations are usually not reported. Confirm the W-9 says so.</td></tr>
+<tr><td>V-1</td><td>Bright Lines Design</td><td>Sole proprietor</td><td>3500</td><td>0</td><td>yes</td><td>ok</td><td></td></tr>
+<tr><td>V-6</td><td>Jordan Avery</td><td>Individual</td><td>1800</td><td>900</td><td>no</td><td>ok</td><td></td></tr>
+<tr><td>V-7</td><td>Hill Street Properties LLC</td><td>LLC</td><td>12000</td><td>0</td><td>yes</td><td>ok</td><td></td></tr>
+</tbody></table></div>
+<h2>Limits</h2><ul><li>Reads only the files you give it. It does not log in to a donor CRM, giving platform, payment processor, bank, payroll or accounting system, and changes nothing in them.</li><li>Thresholds, rates, dates and policies are settings in your own file, with working defaults; check them against your own policies, funder agreements and current rules before you rely on them.</li><li>Not legal, tax, audit or accounting advice. A person decides what to record, send, file or pay.</li><li>Names, e-mails, phone numbers, street addresses and taxpayer ids of donors, members, volunteers, staff and vendors are masked in results returned to the AI model. The report and draft files written here keep the real values: keep them in a private folder.</li></ul>
+<p class="mut" style="margin-top:32px">Written by a Fairgive agent from your files. Nothing was sent or paid.</p>
+</main></body></html>

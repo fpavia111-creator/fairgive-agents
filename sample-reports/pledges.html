@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pledges receivable</title>
+<style>
+:root{--bg:#fbfaf7;--fg:#1d1c1a;--mut:#6b6760;--line:#e4e0d8;--ok:#1f7a4d;--bad:#b42318;--warn:#a15c07;--card:#fff}
+@media (prefers-color-scheme:dark){:root{--bg:#161514;--fg:#ecebe8;--mut:#a29d94;--line:#34312d;--ok:#4ade80;--bad:#f87171;--warn:#fbbf24;--card:#1f1e1c}}
+body{margin:0;background:var(--bg);color:var(--fg);font:15px/1.5 system-ui,-apple-system,Segoe UI,"Hiragino Sans","Yu Gothic UI","Microsoft YaHei","PingFang SC","Malgun Gothic","Apple SD Gothic Neo","Noto Sans CJK",sans-serif}
+main{max-width:1040px;margin:0 auto;padding:24px 16px}
+h1{font-size:22px;margin:0 0 4px}h2{font-size:17px;margin:28px 0 8px}
+.mut{color:var(--mut)}.ok{color:var(--ok)}.bad{color:var(--bad)}.warn{color:var(--warn)}
+table{border-collapse:collapse;width:100%;background:var(--card);font-size:14px}
+th,td{border-bottom:1px solid var(--line);padding:6px 8px;text-align:left;vertical-align:top}
+th{font-weight:600}td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
+.tiles{display:flex;gap:12px;flex-wrap:wrap}.tile{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:10px 14px;min-width:120px}
+.tile b{display:block;font-size:22px}code{font-size:13px;overflow-wrap:anywhere}pre{overflow-x:auto}
+.wrap{overflow-x:auto;max-width:100%}svg,img{max-width:100%;height:auto}figure{margin:16px 0}p,li,h1,h2,h3{overflow-wrap:break-word}
+</style></head><body><main>
+<h1>Pledges receivable</h1>
+<p class="mut">8 pledge(s) as of 2026-11-18: receivable 7,700.00 (past due 5,100.00), conditional 10,000.00, written off 2,000.00.</p>
+<h2>Aging</h2><div class="wrap"><table><thead><tr><th scope="col">aging</th><th scope="col">count</th><th scope="col">past due</th><th scope="col">balance</th></tr></thead><tbody>
+<tr><td>1-30</td><td>1</td><td>100</td><td>200</td></tr>
+<tr><td>90+</td><td>1</td><td>5000</td><td>5000</td></tr>
+<tr><td>current</td><td>6</td><td>0</td><td>12500</td></tr>
+</tbody></table></div>
+<h2>By finding</h2><div class="wrap"><table><thead><tr><th scope="col">code</th><th scope="col">count</th><th scope="col">amount</th></tr></thead><tbody>
+<tr><td>conditional_booked</td><td>1</td><td>10000</td></tr>
+<tr><td>multi_year_not_discounted</td><td>1</td><td>2000</td></tr>
+<tr><td>overdue_90</td><td>1</td><td>5000</td></tr>
+<tr><td>overdue_installment</td><td>1</td><td>100</td></tr>
+<tr><td>overpaid</td><td>1</td><td>100</td></tr>
+<tr><td>paid_still_open</td><td>1</td><td>0</td></tr>
+<tr><td>writeoff_no_approval</td><td>1</td><td>2000</td></tr>
+</tbody></table></div>
+<h2>All rows (8)</h2>
+<div class="wrap"><table><thead><tr><th scope="col">pledge id</th><th scope="col">donor</th><th scope="col">total</th><th scope="col">paid</th><th scope="col">balance</th><th scope="col">past due</th><th scope="col">aging</th><th scope="col">status</th><th scope="col">reasons</th></tr></thead><tbody>
+<tr><td>PL-2</td><td>Rowan Ellery</td><td>5000</td><td>0</td><td>5000</td><td>5000</td><td>90+</td><td>flag</td><td>Pledge PL-2: 5000 was due by 2026-11-18, 0 paid; 5000 past due since 2026-06-30 (141 days).</td></tr>
+<tr><td>PL-4</td><td>Tamsin Okafor</td><td>1000</td><td>1100</td><td>0</td><td>0</td><td>current</td><td>flag</td><td>Pledge PL-4 is 1000 and 1100 was paid (100 over).</td></tr>
+<tr><td>PL-6</td><td>Liesel Marchetti</td><td>2000</td><td>0</td><td>0</td><td>0</td><td>current</td><td>flag</td><td>Pledge PL-6: 2000 written off on 2026-10-01 with no approver recorded.</td></tr>
+<tr><td>PL-1</td><td>Maple Hartwell</td><td>1200</td><td>1000</td><td>200</td><td>100</td><td>1-30</td><td>review</td><td>Pledge PL-1: 1100 was due by 2026-11-18, 1000 paid; 100 past due since 2026-11-15 (3 days).</td></tr>
+<tr><td>PL-3</td><td>Juniper Vance</td><td>600</td><td>600</td><td>0</td><td>0</td><td>current</td><td>review</td><td>Pledge PL-3 is paid in full (600) and still marked &quot;Open&quot;.</td></tr>
+<tr><td>PL-7</td><td>Bram Halloway</td><td>10000</td><td>0</td><td>10000</td><td>0</td><td>current</td><td>review</td><td>Pledge PL-7 is marked conditional with 10000 open. A conditional pledge is usually not booked until its condition is met; check how it is recorded.</td></tr>
+<tr><td>PL-5</td><td>Corwin Achebe</td><td>3000</td><td>1000</td><td>2000</td><td>0</td><td>current</td><td>watch</td><td>Pledge PL-5 runs to 2028-01-01, more than a year after 2025-12-01, and no discount rate is set for its present value.</td></tr>
+<tr><td>PL-8</td><td>Odessa Quill</td><td>500</td><td>0</td><td>500</td><td>0</td><td>current</td><td>ok</td><td></td></tr>
+</tbody></table></div>
+<h2>Limits</h2><ul><li>Reads only the files you give it. It does not log in to a donor CRM, giving platform, payment processor, bank, payroll or accounting system, and changes nothing in them.</li><li>Thresholds, rates, dates and policies are settings in your own file, with working defaults; check them against your own policies, funder agreements and current rules before you rely on them.</li><li>Not legal, tax, audit or accounting advice. A person decides what to record, send, file or pay.</li><li>Names, e-mails, phone numbers, street addresses and taxpayer ids of donors, members, volunteers, staff and vendors are masked in results returned to the AI model. The report and draft files written here keep the real values: keep them in a private folder.</li></ul>
+<p class="mut" style="margin-top:32px">Written by a Fairgive agent from your files. Nothing was sent or paid.</p>
+</main></body></html>

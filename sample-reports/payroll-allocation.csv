@@ -1,0 +1,6 @@
+item,employee_id,employee,period,gross,charged,effort_pct,grant_charges,status,findings,reasons,owner,decision
+E-2 2026-Q3,E-2,Rowan Ellery,2026-Q3,12000,12000,100,6000,flag,charge_differs_from_effort charge_differs_from_effort,E-2: ADMIN carries 50% of the pay charged (6000); effort says 75% (about 9000). E-2: G-FED carries 50% of the pay charged (6000); effort says 25% (about 3000).,,
+E-3 2026-Q3,E-3,Juniper Vance,2026-Q3,10000,10000,110,6000,flag,effort_over_100 charge_differs_from_effort certification_missing,E-3 reports 110% effort for 2026-Q3. E-3: YOUTH carries 40% of the pay charged (4000); effort says 50% (about 4545.45). E-3: 6000 charged to grants in 2026-Q3 and no effort certification is on file.,,
+E-5 2026-Q3,E-5,Corwin Achebe,2026-Q3,8000,8000,100,2000,flag,charge_differs_from_effort charged_without_effort,E-5: ADMIN carries 75% of the pay charged (6000); effort says 100% (about 8000). E-5: 2000 charged to G-FED in 2026-Q3 with no effort reported there.,,
+E-4 2026-Q3,E-4,Tamsin Okafor,2026-Q3,9000,7000,100,0,review,payroll_not_allocated,"E-4: payroll 9000 for 2026-Q3, 7000 charged to programs and grants; 2000 is not charged anywhere.",,
+E-1 2026-Q3,E-1,Maple Hartwell,2026-Q3,15000,15000,100,7500,ok,,,,

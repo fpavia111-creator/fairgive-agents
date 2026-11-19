@@ -1,0 +1,9 @@
+plan_id,donor_id,donor,processor,frequency,amount,monthly_equivalent,plan_status,last_charge,card_expiry,status,findings,reasons,owner,decision
+P-3,C-3,Juniper Vance,Givebutter,Monthly,20,20,active,2026-11-01,2028-05-31,flag,repeated_failures,Plan P-3: the last 2 charges failed (latest 2026-11-01).,,
+P-5,C-5,Corwin Achebe,PayPal,Monthly,30,30,cancelled,2026-10-20,2027-04-30,flag,charge_after_cancel,Plan P-5 was cancelled on 2026-09-30 but 30 was charged on 2026-10-20.,,
+P-4,C-4,Tamsin Okafor,Stripe,Monthly,100,100,active,2026-08-15,2027-09-30,review,missed_charge,Plan P-4 expected a charge on 2026-09-15 and none was attempted by 2026-11-18.,,
+P-8,C-8,Odessa Quill,Classy,Monthly,15,15,active,2026-11-01,2026-08-31,review,card_expired,Plan P-8: the card on file expired on 2026-08-31. Check whether the processor updated it.,,
+P-2,C-2,Rowan Ellery,Stripe,Monthly,50,50,active,2026-11-10,2026-11-30,watch,card_expiring,"Plan P-2: the card expires on 2026-11-30, 12 days from 2026-11-18.",,
+P-6,C-6,Liesel Marchetti,Stripe,Quarterly,150,50,active,2026-11-01,2028-10-31,watch,amount_changed,Plan P-6 is 150 but 175 was charged on 2026-11-01.,,
+P-1,C-1,Maple Hartwell,Stripe,Monthly,25,25,active,2026-11-05,2027-12-31,ok,,,,
+P-7,C-7,Bram Halloway,Stripe,Annual,500,41.67,active,2025-12-01,2029-01-31,ok,,,,

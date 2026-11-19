@@ -1,0 +1,6 @@
+fund,fund_name,restriction,release_date,inflow,spending,released,to_release,status,findings,reasons,owner,decision
+MUSIC,Music program,purpose,,1500,1000,2500,0,flag,release_over_spending release_over_balance,Fund MUSIC: 2500 released but only 1000 spent on its purpose (1500 too much). Fund MUSIC: 2500 released but the fund only received 1500 (1000 more than it had).,,
+SCHOL-2026,Scholarships for fall 2026,time,2026-09-01,10000,0,0,10000,flag,time_restriction_ended,"Fund SCHOL-2026: the time restriction ended on 2026-09-01 and 10000 is still restricted (inflow 10000, released 0).",,
+SCHOL-2027,Scholarships for fall 2027,time,2027-07-01,12000,0,2000,0,flag,release_before_time,Fund SCHOL-2027: 2000 was released before the restriction ends on 2027-07-01.,,
+YOUTH,Youth programs,purpose,,8000,5000,3000,2000,flag,release_due,Fund YOUTH: 5000 was spent on its purpose and 3000 released; 2000 more should be released (limited to the 8000 the fund received).,,
+CAPITAL,Building campaign,purpose,,20000,4000,4000,0,ok,,,,
