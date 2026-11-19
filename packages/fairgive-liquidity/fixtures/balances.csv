@@ -1,0 +1,12 @@
+account,account_name,category,balance,restriction,available_within_year
+1010,Operating cash,Cash,120000.00,Without donor restrictions,yes
+1020,Restricted cash - youth,Cash,30000.00,With donor restrictions - purpose,no
+1030,Grant cash advance,Cash,15000.00,With donor restrictions - purpose,yes
+1200,Investments,Investments,200000.00,Without donor restrictions,yes
+1210,Board reserve investments,Investments,80000.00,Board designated,yes
+1300,Pledges receivable - current,Pledges receivable,50000.00,Without donor restrictions,yes
+1310,Pledges receivable - long term,Pledges receivable,40000.00,Without donor restrictions,no
+1400,Grants receivable,Grants receivable,25000.00,With donor restrictions - time,yes
+1500,Prepaid expenses,Prepaid,8000.00,Without donor restrictions,yes
+1600,Equipment,Property,300000.00,Without donor restrictions,no
+1700,Suspense,,5000.00,Without donor restrictions,yes

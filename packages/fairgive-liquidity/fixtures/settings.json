@@ -1,0 +1,6 @@
+{
+  "annual_expenses": 1200000,
+  "min_months": 3,
+  "include_board_designated": false,
+  "financial_categories": ["cash", "investments", "receivable", "pledges receivable", "grants receivable", "accounts receivable"]
+}

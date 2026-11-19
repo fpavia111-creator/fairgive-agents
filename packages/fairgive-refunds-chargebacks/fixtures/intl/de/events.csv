@@ -1,0 +1,8 @@
+txn_id;Zahlungsanbieter;Typ;Datum;Betrag;Spenden-ID;Zustand;Fälligkeitsdatum
+RF-1;Stripe;Refund;10.10.2026;75,00;G-6;Succeeded;
+RF-2;Stripe;Refund;12.10.2026;100,00;G-2;Succeeded;
+RF-3;PayPal;Refund;15.10.2026;60,00;G-3;Completed;
+RF-4;Stripe;Dispute;08.11.2026;250,00;G-4;Needs response;22.11.2026
+RF-5;Classy;Refund;01.11.2026;20,00;G-5;Succeeded;
+RF-6;PayPal;Refund;03.11.2026;40,00;;Completed;
+RF-7;Stripe;Dispute;01.09.2026;30,00;G-7;Won;

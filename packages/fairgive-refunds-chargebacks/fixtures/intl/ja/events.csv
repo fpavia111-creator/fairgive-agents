@@ -1,0 +1,8 @@
+txn_id,決済代行,種類,日付,金額,寄付ID,ステータス,期日
+RF-1,Stripe,Refund,2026/10/10,75.00,G-6,Succeeded,
+RF-2,Stripe,Refund,2026/10/12,100.00,G-2,Succeeded,
+RF-3,PayPal,Refund,2026/10/15,60.00,G-3,Completed,
+RF-4,Stripe,Dispute,2026/11/08,250.00,G-4,Needs response,2026/11/22
+RF-5,Classy,Refund,2026/11/01,20.00,G-5,Succeeded,
+RF-6,PayPal,Refund,2026/11/03,40.00,,Completed,
+RF-7,Stripe,Dispute,2026/09/01,30.00,G-7,Won,

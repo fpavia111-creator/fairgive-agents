@@ -1,0 +1,2 @@
+id,Type,Source,Amount,Fee,Net,Created (UTC),gift_id,status
+txn_1,refund,ch_9,-100.00,0.00,-100.00,2026-10-12 09:00,G-2,Succeeded

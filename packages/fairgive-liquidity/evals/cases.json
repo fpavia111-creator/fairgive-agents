@@ -1,0 +1,308 @@
+{
+  "suite": "fairgive-liquidity",
+  "root": "..",
+  "data_note": "A fictional balance sheet. Data for the liquidity note, not an accounting opinion. Deterministic checks; no model is called.",
+  "cases": [
+    {
+      "id": "liquidity-totals",
+      "tool": "liquidity_check",
+      "args": {
+        "balances": "fixtures/balances.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.accounts": 11,
+          "result.financial_assets": 560000,
+          "result.available": 395000,
+          "result.months_covered": 3.95,
+          "result.flag": 1,
+          "result.review": 1,
+          "result.watch": 2,
+          "result.ok": 8
+        }
+      }
+    },
+    {
+      "id": "every-planted-issue-found",
+      "tool": "liquidity_check",
+      "args": {
+        "balances": "fixtures/balances.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "contains": [
+          "restricted_marked_available",
+          "board_designated_excluded",
+          "receivable_beyond_year",
+          "no_category"
+        ],
+        "not_contains": [
+          "low_liquidity"
+        ]
+      }
+    },
+    {
+      "id": "grant-advance-explained",
+      "tool": "liquidity_explain",
+      "args": {
+        "balances": "fixtures/balances.csv",
+        "settings": "fixtures/settings.json",
+        "account": "1030"
+      },
+      "expect": {
+        "status": "executed",
+        "contains": [
+          "is donor-restricted for a purpose but marked available within a year"
+        ],
+        "equals": {
+          "result.item.available": 0
+        }
+      }
+    },
+    {
+      "id": "board-designated-included",
+      "tool": "liquidity_check",
+      "args": {
+        "balances": "fixtures/balances.csv",
+        "settings": "fixtures/settings-board.json"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.available": 475000,
+          "result.months_covered": 4.75
+        }
+      }
+    },
+    {
+      "id": "no-expenses-no-months",
+      "tool": "liquidity_check",
+      "args": {
+        "balances": "fixtures/balances.csv"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.months_covered": null,
+          "result.available": 395000
+        }
+      }
+    },
+    {
+      "id": "thousands-separators-read",
+      "tool": "liquidity_check",
+      "args": {
+        "balances": "fixtures/exports/intacct-balances.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.available": 120000,
+          "result.months_covered": 1.2
+        },
+        "contains": [
+          "low_liquidity"
+        ]
+      }
+    },
+    {
+      "id": "missing-argument-named",
+      "tool": "liquidity_check",
+      "args": {},
+      "expect": {
+        "status": "error",
+        "contains": [
+          "balances"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "file-outside-root-refused",
+      "tool": "liquidity_check",
+      "args": {
+        "balances": "../../../outside.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "outside"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "invented-tool-name-refused",
+      "tool": "liquidity_pay_everything_now",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "review-mode-still-reads",
+      "tool": "liquidity_check",
+      "mode": "review",
+      "args": {
+        "balances": "fixtures/balances.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.accounts": 11,
+          "result.financial_assets": 560000,
+          "result.available": 395000,
+          "result.months_covered": 3.95,
+          "result.flag": 1,
+          "result.review": 1,
+          "result.watch": 2,
+          "result.ok": 8
+        }
+      },
+      "generated": true
+    },
+    {
+      "id": "status-filter-keeps-totals",
+      "tool": "liquidity_check",
+      "args": {
+        "balances": "fixtures/balances.csv",
+        "settings": "fixtures/settings.json",
+        "status": "ok",
+        "limit": 1
+      },
+      "expect": {
+        "status": "executed",
+        "max": {
+          "result.items_shown": 1
+        },
+        "equals": {
+          "result.accounts": 11,
+          "result.financial_assets": 560000,
+          "result.available": 395000,
+          "result.months_covered": 3.95,
+          "result.flag": 1,
+          "result.review": 1,
+          "result.watch": 2,
+          "result.ok": 8
+        }
+      },
+      "generated": true
+    },
+    {
+      "id": "explain-unknown-item-is-a-readable-error",
+      "tool": "liquidity_explain",
+      "args": {
+        "balances": "fixtures/balances.csv",
+        "settings": "fixtures/settings.json",
+        "account": "No Such Thing Zz"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "not found"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "report-writes-two-files",
+      "tool": "liquidity_write_report",
+      "args": {
+        "balances": "fixtures/balances.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "length": {
+          "result.files": 2
+        },
+        "matches": [
+          "[0-9a-f]{64}"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "refuses-bank-transfer",
+      "tool": "bank_transfer",
+      "mode": "auto",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "refuses-ledger-post",
+      "tool": "ledger_post",
+      "mode": "auto",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "recall-empty-memory",
+      "tool": "liquidity_recall",
+      "args": {},
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.total": 0
+        }
+      },
+      "generated": true
+    },
+    {
+      "id": "intl-de-liquidity-totals",
+      "tool": "liquidity_check",
+      "args": {
+        "balances": "fixtures/intl/de/balances.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.accounts": 11,
+          "result.financial_assets": 560000,
+          "result.available": 395000,
+          "result.months_covered": 3.95,
+          "result.flag": 1,
+          "result.review": 1,
+          "result.watch": 2,
+          "result.ok": 8
+        }
+      },
+      "note": "German export of the same data (fixtures/intl/de); must match the English case \"liquidity-totals\"."
+    },
+    {
+      "id": "intl-ja-liquidity-totals",
+      "tool": "liquidity_check",
+      "args": {
+        "balances": "fixtures/intl/ja/balances.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.accounts": 11,
+          "result.financial_assets": 560000,
+          "result.available": 395000,
+          "result.months_covered": 3.95,
+          "result.flag": 1,
+          "result.review": 1,
+          "result.watch": 2,
+          "result.ok": 8
+        }
+      },
+      "note": "Japanese export of the same data (fixtures/intl/ja); must match the English case \"liquidity-totals\"."
+    }
+  ]
+}

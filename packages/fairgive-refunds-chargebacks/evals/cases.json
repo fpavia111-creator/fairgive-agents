@@ -1,0 +1,326 @@
+{
+  "suite": "fairgive-refunds-chargebacks",
+  "root": "..",
+  "data_note": "Fictional refunds, disputes and gifts; names are made up. Deterministic checks; no model is called.",
+  "cases": [
+    {
+      "id": "refund-totals",
+      "tool": "refunds_check",
+      "args": {
+        "events": "fixtures/events.csv",
+        "gifts": "fixtures/gifts.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.events": 7,
+          "result.refunded": 295,
+          "result.disputed_open": 250,
+          "result.crm_to_fix": 2,
+          "result.flag": 3,
+          "result.review": 2,
+          "result.ok": 2
+        }
+      }
+    },
+    {
+      "id": "every-planted-issue-found",
+      "tool": "refunds_check",
+      "args": {
+        "events": "fixtures/events.csv",
+        "gifts": "fixtures/gifts.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "contains": [
+          "refund_not_reversed_in_crm",
+          "ack_sent_for_refunded",
+          "refund_over_gift",
+          "dispute_evidence_due",
+          "partial_refund_not_adjusted",
+          "refund_no_gift"
+        ],
+        "not_contains": [
+          "Rowan Ellery",
+          "Tamsin Okafor"
+        ]
+      }
+    },
+    {
+      "id": "unreversed-refund-explained",
+      "tool": "refunds_explain",
+      "args": {
+        "events": "fixtures/events.csv",
+        "gifts": "fixtures/gifts.csv",
+        "settings": "fixtures/settings.json",
+        "txn_id": "RF-2"
+      },
+      "expect": {
+        "status": "executed",
+        "contains": [
+          "gift G-2 (100) was refunded in full and is still",
+          "thanked on 2026-10-05"
+        ]
+      }
+    },
+    {
+      "id": "later-date-makes-the-dispute-overdue",
+      "tool": "refunds_check",
+      "args": {
+        "events": "fixtures/events.csv",
+        "gifts": "fixtures/gifts.csv",
+        "settings": "fixtures/settings-later.json"
+      },
+      "expect": {
+        "status": "executed",
+        "contains": [
+          "dispute_evidence_overdue"
+        ]
+      }
+    },
+    {
+      "id": "flagged-only",
+      "tool": "refunds_check",
+      "args": {
+        "events": "fixtures/events.csv",
+        "gifts": "fixtures/gifts.csv",
+        "settings": "fixtures/settings.json",
+        "status": "flag"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.items_shown": 3
+        }
+      }
+    },
+    {
+      "id": "stripe-balance-export",
+      "tool": "refunds_check",
+      "args": {
+        "events": "fixtures/exports/stripe-balance.csv",
+        "gifts": "fixtures/gifts.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.refunded": 100
+        },
+        "contains": [
+          "refund_not_reversed_in_crm"
+        ]
+      }
+    },
+    {
+      "id": "missing-argument-named",
+      "tool": "refunds_check",
+      "args": {},
+      "expect": {
+        "status": "error",
+        "contains": [
+          "events"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "file-outside-root-refused",
+      "tool": "refunds_check",
+      "args": {
+        "events": "../../../outside.csv",
+        "gifts": "fixtures/gifts.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "outside"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "invented-tool-name-refused",
+      "tool": "refunds_pay_everything_now",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "review-mode-still-reads",
+      "tool": "refunds_check",
+      "mode": "review",
+      "args": {
+        "events": "fixtures/events.csv",
+        "gifts": "fixtures/gifts.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.events": 7,
+          "result.refunded": 295,
+          "result.disputed_open": 250,
+          "result.crm_to_fix": 2,
+          "result.flag": 3,
+          "result.review": 2,
+          "result.ok": 2
+        }
+      },
+      "generated": true
+    },
+    {
+      "id": "status-filter-keeps-totals",
+      "tool": "refunds_check",
+      "args": {
+        "events": "fixtures/events.csv",
+        "gifts": "fixtures/gifts.csv",
+        "settings": "fixtures/settings.json",
+        "status": "ok",
+        "limit": 1
+      },
+      "expect": {
+        "status": "executed",
+        "max": {
+          "result.items_shown": 1
+        },
+        "equals": {
+          "result.events": 7,
+          "result.refunded": 295,
+          "result.disputed_open": 250,
+          "result.crm_to_fix": 2,
+          "result.flag": 3,
+          "result.review": 2,
+          "result.ok": 2
+        }
+      },
+      "generated": true
+    },
+    {
+      "id": "explain-unknown-item-is-a-readable-error",
+      "tool": "refunds_explain",
+      "args": {
+        "events": "fixtures/events.csv",
+        "gifts": "fixtures/gifts.csv",
+        "settings": "fixtures/settings.json",
+        "txn_id": "No Such Thing Zz"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "not found"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "report-writes-two-files",
+      "tool": "refunds_write_report",
+      "args": {
+        "events": "fixtures/events.csv",
+        "gifts": "fixtures/gifts.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "length": {
+          "result.files": 2
+        },
+        "matches": [
+          "[0-9a-f]{64}"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "refuses-refund-issue",
+      "tool": "refund_issue",
+      "mode": "auto",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "refuses-crm-update-records",
+      "tool": "crm_update_records",
+      "mode": "auto",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "refuses-dispute-respond",
+      "tool": "dispute_respond",
+      "mode": "auto",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "recall-empty-memory",
+      "tool": "refunds_recall",
+      "args": {},
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.total": 0
+        }
+      },
+      "generated": true
+    },
+    {
+      "id": "intl-de-refund-totals",
+      "tool": "refunds_check",
+      "args": {
+        "events": "fixtures/intl/de/events.csv",
+        "gifts": "fixtures/intl/de/gifts.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.events": 7,
+          "result.refunded": 295,
+          "result.disputed_open": 250,
+          "result.crm_to_fix": 2,
+          "result.flag": 3,
+          "result.review": 2,
+          "result.ok": 2
+        }
+      },
+      "note": "German export of the same data (fixtures/intl/de); must match the English case \"refund-totals\"."
+    },
+    {
+      "id": "intl-ja-refund-totals",
+      "tool": "refunds_check",
+      "args": {
+        "events": "fixtures/intl/ja/events.csv",
+        "gifts": "fixtures/intl/ja/gifts.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.events": 7,
+          "result.refunded": 295,
+          "result.disputed_open": 250,
+          "result.crm_to_fix": 2,
+          "result.flag": 3,
+          "result.review": 2,
+          "result.ok": 2
+        }
+      },
+      "note": "Japanese export of the same data (fixtures/intl/ja); must match the English case \"refund-totals\"."
+    }
+  ]
+}
