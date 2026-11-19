@@ -1,0 +1,322 @@
+{
+  "suite": "fairgive-quid-pro-quo",
+  "root": "..",
+  "data_note": "Fictional payments; names are made up. The limits are settings with 2025 IRS figures as defaults. Not tax advice. Deterministic checks; no model is called.",
+  "cases": [
+    {
+      "id": "qpq-totals",
+      "tool": "qpq_check",
+      "args": {
+        "payments": "fixtures/payments.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.payments": 8,
+          "result.with_benefit": 7,
+          "result.disclosures_missing": 1,
+          "result.receipts_to_correct": 1,
+          "result.overstated": 60,
+          "result.flag": 1,
+          "result.review": 2,
+          "result.watch": 1,
+          "result.ok": 4
+        }
+      }
+    },
+    {
+      "id": "every-planted-issue-found",
+      "tool": "qpq_check",
+      "args": {
+        "payments": "fixtures/payments.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "contains": [
+          "disclosure_missing",
+          "deductible_wrong",
+          "insubstantial_benefit",
+          "fmv_missing",
+          "benefit_over_payment"
+        ],
+        "not_contains": [
+          "Rowan Ellery",
+          "Juniper Vance"
+        ]
+      }
+    },
+    {
+      "id": "gala-payment-explained",
+      "tool": "qpq_explain",
+      "args": {
+        "payments": "fixtures/payments.csv",
+        "settings": "fixtures/settings.json",
+        "gift_id": "Q-2"
+      },
+      "expect": {
+        "status": "executed",
+        "contains": [
+          "the receipt says 150 is deductible; payment 150 less benefit 60 is 90"
+        ],
+        "equals": {
+          "result.item.deductible": 90
+        }
+      }
+    },
+    {
+      "id": "defaults-match-the-settings-file",
+      "tool": "qpq_check",
+      "args": {
+        "payments": "fixtures/payments.csv"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.disclosures_missing": 1,
+          "result.receipts_to_correct": 1
+        }
+      }
+    },
+    {
+      "id": "flagged-only",
+      "tool": "qpq_check",
+      "args": {
+        "payments": "fixtures/payments.csv",
+        "settings": "fixtures/settings.json",
+        "status": "flag"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.items_shown": 1
+        },
+        "contains": [
+          "Q-2"
+        ]
+      }
+    },
+    {
+      "id": "classy-export",
+      "tool": "qpq_check",
+      "args": {
+        "payments": "fixtures/exports/classy-transactions.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "contains": [
+          "classy_transactions"
+        ],
+        "equals": {
+          "result.payments": 1,
+          "result.receipts_to_correct": 0,
+          "result.disclosures_missing": 0
+        },
+        "not_contains": [
+          "Rowan Ellery"
+        ]
+      }
+    },
+    {
+      "id": "missing-argument-named",
+      "tool": "qpq_check",
+      "args": {},
+      "expect": {
+        "status": "error",
+        "contains": [
+          "payments"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "file-outside-root-refused",
+      "tool": "qpq_check",
+      "args": {
+        "payments": "../../../outside.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "outside"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "invented-tool-name-refused",
+      "tool": "qpq_pay_everything_now",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "review-mode-still-reads",
+      "tool": "qpq_check",
+      "mode": "review",
+      "args": {
+        "payments": "fixtures/payments.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.payments": 8,
+          "result.with_benefit": 7,
+          "result.disclosures_missing": 1,
+          "result.receipts_to_correct": 1,
+          "result.overstated": 60,
+          "result.flag": 1,
+          "result.review": 2,
+          "result.watch": 1,
+          "result.ok": 4
+        }
+      },
+      "generated": true
+    },
+    {
+      "id": "status-filter-keeps-totals",
+      "tool": "qpq_check",
+      "args": {
+        "payments": "fixtures/payments.csv",
+        "settings": "fixtures/settings.json",
+        "status": "ok",
+        "limit": 1
+      },
+      "expect": {
+        "status": "executed",
+        "max": {
+          "result.items_shown": 1
+        },
+        "equals": {
+          "result.payments": 8,
+          "result.with_benefit": 7,
+          "result.disclosures_missing": 1,
+          "result.receipts_to_correct": 1,
+          "result.overstated": 60,
+          "result.flag": 1,
+          "result.review": 2,
+          "result.watch": 1,
+          "result.ok": 4
+        }
+      },
+      "generated": true
+    },
+    {
+      "id": "explain-unknown-item-is-a-readable-error",
+      "tool": "qpq_explain",
+      "args": {
+        "payments": "fixtures/payments.csv",
+        "settings": "fixtures/settings.json",
+        "gift_id": "No Such Thing Zz"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "not found"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "report-writes-two-files",
+      "tool": "qpq_write_report",
+      "args": {
+        "payments": "fixtures/payments.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "length": {
+          "result.files": 2
+        },
+        "matches": [
+          "[0-9a-f]{64}"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "refuses-email-send",
+      "tool": "email_send",
+      "mode": "auto",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "refuses-irs-file",
+      "tool": "irs_file",
+      "mode": "auto",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "recall-empty-memory",
+      "tool": "qpq_recall",
+      "args": {},
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.total": 0
+        }
+      },
+      "generated": true
+    },
+    {
+      "id": "intl-de-qpq-totals",
+      "tool": "qpq_check",
+      "args": {
+        "payments": "fixtures/intl/de/payments.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.payments": 8,
+          "result.with_benefit": 7,
+          "result.disclosures_missing": 1,
+          "result.receipts_to_correct": 1,
+          "result.overstated": 60,
+          "result.flag": 1,
+          "result.review": 2,
+          "result.watch": 1,
+          "result.ok": 4
+        }
+      },
+      "note": "German export of the same data (fixtures/intl/de); must match the English case \"qpq-totals\"."
+    },
+    {
+      "id": "intl-ja-qpq-totals",
+      "tool": "qpq_check",
+      "args": {
+        "payments": "fixtures/intl/ja/payments.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.payments": 8,
+          "result.with_benefit": 7,
+          "result.disclosures_missing": 1,
+          "result.receipts_to_correct": 1,
+          "result.overstated": 60,
+          "result.flag": 1,
+          "result.review": 2,
+          "result.watch": 1,
+          "result.ok": 4
+        }
+      },
+      "note": "Japanese export of the same data (fixtures/intl/ja); must match the English case \"qpq-totals\"."
+    }
+  ]
+}

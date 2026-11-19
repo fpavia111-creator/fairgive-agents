@@ -1,0 +1,2 @@
+Transaction ID,Billing First Name,Billing Last Name,Transaction Date,Gross Transaction Amount,Campaign Name,Status,benefit,benefit_value,receipt_deductible,disclosure
+CL-1,Rowan,Ellery,10/03/2026,150.00,Gala,Success,Gala dinner,60.00,90.00,yes

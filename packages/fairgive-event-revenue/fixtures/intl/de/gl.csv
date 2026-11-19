@@ -1,0 +1,4 @@
+entry_id;Datum;Konto;Kontobezeichnung;Veranstaltung;Ausgang;Eingang;Verwendungszweck
+EV-1;30.06.2026;4300;Special events revenue;GOLF-26;;3.400,00;Golf outing
+EV-2;30.09.2026;4300;Special events revenue;RUN-26;;1.000,00;5K run
+EV-3;30.09.2026;4310;Special events contributions;RUN-26;;400,00;5K run

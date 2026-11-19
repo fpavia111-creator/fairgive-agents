@@ -1,0 +1,9 @@
+gift_id,donor,gift_date,amount,benefit,benefit_value,receipt_deductible,disclosure
+Q-1,Maple Hartwell,2026-10-03,250.00,Gala dinner,80.00,170.00,yes
+Q-2,Rowan Ellery,2026-10-03,150.00,Gala dinner,60.00,150.00,no
+Q-3,Juniper Vance,2026-10-10,100.00,Logo tote bag,8.00,100.00,no
+Q-4,Tamsin Okafor,2026-09-15,500.00,Golf round and lunch,,500.00,no
+Q-5,Corwin Achebe,2026-09-20,60.00,T-shirt,20.00,40.00,no
+Q-6,Liesel Marchetti,2026-10-03,200.00,Auction item: weekend cabin,250.00,0.00,yes
+Q-7,Bram Halloway,2026-10-05,1000.00,,,1000.00,
+Q-8,Odessa Quill,2026-10-03,300.00,Gala dinner,90.00,210.00,yes

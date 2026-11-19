@@ -1,0 +1,314 @@
+{
+  "suite": "fairgive-event-revenue",
+  "root": "..",
+  "data_note": "Three fictional events; buyer names are made up. Deterministic checks; no model is called.",
+  "cases": [
+    {
+      "id": "event-split-totals",
+      "tool": "events_check",
+      "args": {
+        "sales": "fixtures/sales.csv",
+        "ticket_types": "fixtures/ticket_types.csv",
+        "gl": "fixtures/gl.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.events": 3,
+          "result.gross": 13000,
+          "result.exchange": 4100,
+          "result.contribution": 3900,
+          "result.unsplit": 5000,
+          "result.flag": 1,
+          "result.review": 1,
+          "result.ok": 1
+        }
+      }
+    },
+    {
+      "id": "every-planted-issue-found",
+      "tool": "events_check",
+      "args": {
+        "sales": "fixtures/sales.csv",
+        "ticket_types": "fixtures/ticket_types.csv",
+        "gl": "fixtures/gl.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "contains": [
+          "no_fmv_for_ticket_type",
+          "ticket_below_fmv",
+          "event_not_in_gl",
+          "gl_exchange_differs",
+          "gl_contribution_differs"
+        ]
+      }
+    },
+    {
+      "id": "golf-explained",
+      "tool": "events_explain",
+      "args": {
+        "sales": "fixtures/sales.csv",
+        "ticket_types": "fixtures/ticket_types.csv",
+        "gl": "fixtures/gl.csv",
+        "settings": "fixtures/settings.json",
+        "event": "GOLF-26"
+      },
+      "expect": {
+        "status": "executed",
+        "contains": [
+          "the ledger has 3400 of event (exchange) revenue; the split says 1800",
+          "the ledger has 0 of contributions; the split says 1600"
+        ]
+      }
+    },
+    {
+      "id": "split-without-ledger",
+      "tool": "events_check",
+      "args": {
+        "sales": "fixtures/sales.csv",
+        "ticket_types": "fixtures/ticket_types.csv"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.exchange": 4100,
+          "result.contribution": 3900,
+          "result.flag": 0
+        }
+      }
+    },
+    {
+      "id": "ledger-without-account-settings",
+      "tool": "events_check",
+      "args": {
+        "sales": "fixtures/sales.csv",
+        "ticket_types": "fixtures/ticket_types.csv",
+        "gl": "fixtures/gl.csv"
+      },
+      "expect": {
+        "status": "executed",
+        "contains": [
+          "gl_contribution_differs"
+        ]
+      }
+    },
+    {
+      "id": "givebutter-ticket-export",
+      "tool": "events_check",
+      "args": {
+        "sales": "fixtures/exports/givebutter-tickets.csv",
+        "ticket_types": "fixtures/ticket_types.csv"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.gross": 70,
+          "result.exchange": 50,
+          "result.contribution": 20
+        }
+      }
+    },
+    {
+      "id": "missing-argument-named",
+      "tool": "events_check",
+      "args": {},
+      "expect": {
+        "status": "error",
+        "contains": [
+          "sales"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "file-outside-root-refused",
+      "tool": "events_check",
+      "args": {
+        "sales": "../../../outside.csv",
+        "ticket_types": "fixtures/ticket_types.csv",
+        "gl": "fixtures/gl.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "outside"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "invented-tool-name-refused",
+      "tool": "events_pay_everything_now",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "review-mode-still-reads",
+      "tool": "events_check",
+      "mode": "review",
+      "args": {
+        "sales": "fixtures/sales.csv",
+        "ticket_types": "fixtures/ticket_types.csv",
+        "gl": "fixtures/gl.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.events": 3,
+          "result.gross": 13000,
+          "result.exchange": 4100,
+          "result.contribution": 3900,
+          "result.unsplit": 5000,
+          "result.flag": 1,
+          "result.review": 1,
+          "result.ok": 1
+        }
+      },
+      "generated": true
+    },
+    {
+      "id": "status-filter-keeps-totals",
+      "tool": "events_check",
+      "args": {
+        "sales": "fixtures/sales.csv",
+        "ticket_types": "fixtures/ticket_types.csv",
+        "gl": "fixtures/gl.csv",
+        "settings": "fixtures/settings.json",
+        "status": "ok",
+        "limit": 1
+      },
+      "expect": {
+        "status": "executed",
+        "max": {
+          "result.items_shown": 1
+        },
+        "equals": {
+          "result.events": 3,
+          "result.gross": 13000,
+          "result.exchange": 4100,
+          "result.contribution": 3900,
+          "result.unsplit": 5000,
+          "result.flag": 1,
+          "result.review": 1,
+          "result.ok": 1
+        }
+      },
+      "generated": true
+    },
+    {
+      "id": "explain-unknown-item-is-a-readable-error",
+      "tool": "events_explain",
+      "args": {
+        "sales": "fixtures/sales.csv",
+        "ticket_types": "fixtures/ticket_types.csv",
+        "gl": "fixtures/gl.csv",
+        "settings": "fixtures/settings.json",
+        "event": "No Such Thing Zz"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "not found"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "report-writes-two-files",
+      "tool": "events_write_report",
+      "args": {
+        "sales": "fixtures/sales.csv",
+        "ticket_types": "fixtures/ticket_types.csv",
+        "gl": "fixtures/gl.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "length": {
+          "result.files": 2
+        },
+        "matches": [
+          "[0-9a-f]{64}"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "refuses-ledger-post",
+      "tool": "ledger_post",
+      "mode": "auto",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "recall-empty-memory",
+      "tool": "events_recall",
+      "args": {},
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.total": 0
+        }
+      },
+      "generated": true
+    },
+    {
+      "id": "intl-de-event-split-totals",
+      "tool": "events_check",
+      "args": {
+        "sales": "fixtures/intl/de/sales.csv",
+        "ticket_types": "fixtures/intl/de/ticket_types.csv",
+        "gl": "fixtures/intl/de/gl.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.events": 3,
+          "result.gross": 13000,
+          "result.exchange": 4100,
+          "result.contribution": 3900,
+          "result.unsplit": 5000,
+          "result.flag": 1,
+          "result.review": 1,
+          "result.ok": 1
+        }
+      },
+      "note": "German export of the same data (fixtures/intl/de); must match the English case \"event-split-totals\"."
+    },
+    {
+      "id": "intl-ja-event-split-totals",
+      "tool": "events_check",
+      "args": {
+        "sales": "fixtures/intl/ja/sales.csv",
+        "ticket_types": "fixtures/intl/ja/ticket_types.csv",
+        "gl": "fixtures/intl/ja/gl.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.events": 3,
+          "result.gross": 13000,
+          "result.exchange": 4100,
+          "result.contribution": 3900,
+          "result.unsplit": 5000,
+          "result.flag": 1,
+          "result.review": 1,
+          "result.ok": 1
+        }
+      },
+      "note": "Japanese export of the same data (fixtures/intl/ja); must match the English case \"event-split-totals\"."
+    }
+  ]
+}

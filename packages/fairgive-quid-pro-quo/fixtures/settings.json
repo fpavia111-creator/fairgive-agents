@@ -1,0 +1,7 @@
+{
+  "qpq_threshold": 75,
+  "low_cost_article": 13.60,
+  "low_cost_min_payment": 68,
+  "insubstantial_pct": 2,
+  "insubstantial_cap": 136
+}

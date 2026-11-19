@@ -1,0 +1,4 @@
+entry_id,日付,勘定科目,勘定科目名,イベント,出金,入金,摘要
+EV-1,2026/06/30,4300,Special events revenue,GOLF-26,,"3,400.00",Golf outing
+EV-2,2026/09/30,4300,Special events revenue,RUN-26,,"1,000.00",5K run
+EV-3,2026/09/30,4310,Special events contributions,RUN-26,,400.00,5K run
