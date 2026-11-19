@@ -1,0 +1,363 @@
+{
+  "suite": "fairgive-grant-budgets",
+  "root": "..",
+  "data_note": "Two fictional grants, budgets, pools and expenses. Deterministic checks; no model is called.",
+  "cases": [
+    {
+      "id": "grant-budget-totals",
+      "tool": "grant_budget_check",
+      "args": {
+        "grants": "fixtures/grants.csv",
+        "budget": "fixtures/budget.csv",
+        "expenses": "fixtures/expenses.csv",
+        "allocations": "fixtures/allocations.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.grants": 2,
+          "result.budget_total": 115000,
+          "result.actual_total": 109000,
+          "result.over_budget": 6700,
+          "result.outside_period": 25000,
+          "result.unallowable": 300,
+          "result.no_budget": 11000,
+          "result.flag": 5,
+          "result.review": 2,
+          "result.watch": 2,
+          "result.ok": 1
+        }
+      }
+    },
+    {
+      "id": "every-planted-issue-found",
+      "tool": "grant_budget_check",
+      "args": {
+        "grants": "fixtures/grants.csv",
+        "budget": "fixtures/budget.csv",
+        "expenses": "fixtures/expenses.csv",
+        "allocations": "fixtures/allocations.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "contains": [
+          "line_over_budget",
+          "line_over_small",
+          "no_budget_line",
+          "outside_period",
+          "unallowable_cost",
+          "allocation_under_100",
+          "allocation_over_100"
+        ]
+      }
+    },
+    {
+      "id": "federal-salaries-explained",
+      "tool": "grant_budget_explain",
+      "args": {
+        "grants": "fixtures/grants.csv",
+        "budget": "fixtures/budget.csv",
+        "expenses": "fixtures/expenses.csv",
+        "allocations": "fixtures/allocations.csv",
+        "settings": "fixtures/settings.json",
+        "item": "G-FED / Salaries"
+      },
+      "expect": {
+        "status": "executed",
+        "contains": [
+          "25000 is dated outside the award period 2026-07-01 to 2027-06-30"
+        ],
+        "equals": {
+          "result.item.actual": 45000,
+          "result.item.from_pools": 45000
+        }
+      }
+    },
+    {
+      "id": "without-allocations-pools-are-unknown",
+      "tool": "grant_budget_check",
+      "args": {
+        "grants": "fixtures/grants.csv",
+        "budget": "fixtures/budget.csv",
+        "expenses": "fixtures/expenses.csv"
+      },
+      "expect": {
+        "status": "executed",
+        "contains": [
+          "unknown_pool"
+        ],
+        "equals": {
+          "result.actual_total": 17000
+        }
+      }
+    },
+    {
+      "id": "wider-flexibility",
+      "tool": "grant_budget_check",
+      "args": {
+        "grants": "fixtures/grants.csv",
+        "budget": "fixtures/budget.csv",
+        "expenses": "fixtures/expenses.csv",
+        "allocations": "fixtures/allocations.csv",
+        "settings": "fixtures/settings-flex25.json"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.over_budget": 6700
+        },
+        "not_contains": [
+          "line_over_budget"
+        ]
+      }
+    },
+    {
+      "id": "intacct-gl-detail-export",
+      "tool": "grant_budget_check",
+      "args": {
+        "budget": "fixtures/budget.csv",
+        "expenses": "fixtures/exports/intacct-gl-detail.csv"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.actual_total": 5600,
+          "result.over_budget": 600
+        },
+        "contains": [
+          "line_over_budget"
+        ]
+      }
+    },
+    {
+      "id": "missing-argument-named",
+      "tool": "grant_budget_check",
+      "args": {},
+      "expect": {
+        "status": "error",
+        "contains": [
+          "budget"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "file-outside-root-refused",
+      "tool": "grant_budget_check",
+      "args": {
+        "grants": "../../../outside.csv",
+        "budget": "fixtures/budget.csv",
+        "expenses": "fixtures/expenses.csv",
+        "allocations": "fixtures/allocations.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "outside"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "invented-tool-name-refused",
+      "tool": "grant_budget_pay_everything_now",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "review-mode-still-reads",
+      "tool": "grant_budget_check",
+      "mode": "review",
+      "args": {
+        "grants": "fixtures/grants.csv",
+        "budget": "fixtures/budget.csv",
+        "expenses": "fixtures/expenses.csv",
+        "allocations": "fixtures/allocations.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.grants": 2,
+          "result.budget_total": 115000,
+          "result.actual_total": 109000,
+          "result.over_budget": 6700,
+          "result.outside_period": 25000,
+          "result.unallowable": 300,
+          "result.no_budget": 11000,
+          "result.flag": 5,
+          "result.review": 2,
+          "result.watch": 2,
+          "result.ok": 1
+        }
+      },
+      "generated": true
+    },
+    {
+      "id": "status-filter-keeps-totals",
+      "tool": "grant_budget_check",
+      "args": {
+        "grants": "fixtures/grants.csv",
+        "budget": "fixtures/budget.csv",
+        "expenses": "fixtures/expenses.csv",
+        "allocations": "fixtures/allocations.csv",
+        "settings": "fixtures/settings.json",
+        "status": "ok",
+        "limit": 1
+      },
+      "expect": {
+        "status": "executed",
+        "max": {
+          "result.items_shown": 1
+        },
+        "equals": {
+          "result.grants": 2,
+          "result.budget_total": 115000,
+          "result.actual_total": 109000,
+          "result.over_budget": 6700,
+          "result.outside_period": 25000,
+          "result.unallowable": 300,
+          "result.no_budget": 11000,
+          "result.flag": 5,
+          "result.review": 2,
+          "result.watch": 2,
+          "result.ok": 1
+        }
+      },
+      "generated": true
+    },
+    {
+      "id": "explain-unknown-item-is-a-readable-error",
+      "tool": "grant_budget_explain",
+      "args": {
+        "grants": "fixtures/grants.csv",
+        "budget": "fixtures/budget.csv",
+        "expenses": "fixtures/expenses.csv",
+        "allocations": "fixtures/allocations.csv",
+        "settings": "fixtures/settings.json",
+        "item": "No Such Thing Zz"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "not found"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "report-writes-two-files",
+      "tool": "grant_budget_write_report",
+      "args": {
+        "grants": "fixtures/grants.csv",
+        "budget": "fixtures/budget.csv",
+        "expenses": "fixtures/expenses.csv",
+        "allocations": "fixtures/allocations.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "length": {
+          "result.files": 2
+        },
+        "matches": [
+          "[0-9a-f]{64}"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "refuses-ledger-post",
+      "tool": "ledger_post",
+      "mode": "auto",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "refuses-funder-portal-submit",
+      "tool": "funder_portal_submit",
+      "mode": "auto",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "recall-empty-memory",
+      "tool": "grant_budget_recall",
+      "args": {},
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.total": 0
+        }
+      },
+      "generated": true
+    },
+    {
+      "id": "intl-de-grant-budget-totals",
+      "tool": "grant_budget_check",
+      "args": {
+        "grants": "fixtures/intl/de/grants.csv",
+        "budget": "fixtures/intl/de/budget.csv",
+        "expenses": "fixtures/intl/de/expenses.csv",
+        "allocations": "fixtures/intl/de/allocations.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.grants": 2,
+          "result.budget_total": 115000,
+          "result.actual_total": 109000,
+          "result.over_budget": 6700,
+          "result.outside_period": 25000,
+          "result.unallowable": 300,
+          "result.no_budget": 11000,
+          "result.flag": 5,
+          "result.review": 2,
+          "result.watch": 2,
+          "result.ok": 1
+        }
+      },
+      "note": "German export of the same data (fixtures/intl/de); must match the English case \"grant-budget-totals\"."
+    },
+    {
+      "id": "intl-ja-grant-budget-totals",
+      "tool": "grant_budget_check",
+      "args": {
+        "grants": "fixtures/intl/ja/grants.csv",
+        "budget": "fixtures/intl/ja/budget.csv",
+        "expenses": "fixtures/intl/ja/expenses.csv",
+        "allocations": "fixtures/intl/ja/allocations.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.grants": 2,
+          "result.budget_total": 115000,
+          "result.actual_total": 109000,
+          "result.over_budget": 6700,
+          "result.outside_period": 25000,
+          "result.unallowable": 300,
+          "result.no_budget": 11000,
+          "result.flag": 5,
+          "result.review": 2,
+          "result.watch": 2,
+          "result.ok": 1
+        }
+      },
+      "note": "Japanese export of the same data (fixtures/intl/ja); must match the English case \"grant-budget-totals\"."
+    }
+  ]
+}

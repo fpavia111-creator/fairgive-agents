@@ -1,0 +1,331 @@
+{
+  "suite": "fairgive-lapsed-donors",
+  "root": "..",
+  "data_note": "Fictional gifts; names are made up. Deterministic checks; no model is called.",
+  "cases": [
+    {
+      "id": "lybunt-sybunt-totals",
+      "tool": "lapsed_check",
+      "args": {
+        "gifts": "fixtures/gifts.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.donors": 8,
+          "result.last_year_donors": 5,
+          "result.retained": 3,
+          "result.retention_pct": 60,
+          "result.new_donors": 1,
+          "result.lybunt": 2,
+          "result.lybunt_amount": 1500,
+          "result.sybunt": 2,
+          "result.sybunt_amount": 375,
+          "result.flag": 2,
+          "result.review": 2,
+          "result.watch": 1,
+          "result.ok": 3
+        }
+      }
+    },
+    {
+      "id": "segments-and-masking",
+      "tool": "lapsed_check",
+      "args": {
+        "gifts": "fixtures/gifts.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "contains": [
+          "lybunt",
+          "sybunt",
+          "downgraded"
+        ],
+        "not_contains": [
+          "Rowan Ellery",
+          "Odessa Quill",
+          "C-8"
+        ]
+      }
+    },
+    {
+      "id": "lybunt-donor-explained",
+      "tool": "lapsed_explain",
+      "args": {
+        "gifts": "fixtures/gifts.csv",
+        "settings": "fixtures/settings.json",
+        "donor_id": "C-2"
+      },
+      "expect": {
+        "status": "executed",
+        "contains": [
+          "Gave 1000 in FY2026 and nothing yet in FY2027"
+        ]
+      }
+    },
+    {
+      "id": "calendar-year-default",
+      "tool": "lapsed_check",
+      "args": {
+        "gifts": "fixtures/gifts.csv"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.lybunt": 0
+        }
+      }
+    },
+    {
+      "id": "only-lybunt-shown",
+      "tool": "lapsed_check",
+      "args": {
+        "gifts": "fixtures/gifts.csv",
+        "settings": "fixtures/settings.json",
+        "status": "flag"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.items_shown": 2,
+          "result.lybunt": 2
+        }
+      }
+    },
+    {
+      "id": "bloomerang-export",
+      "tool": "lapsed_check",
+      "args": {
+        "gifts": "fixtures/exports/bloomerang-transactions.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "contains": [
+          "bloomerang_transactions"
+        ],
+        "equals": {
+          "result.lybunt": 1,
+          "result.new_donors": 1
+        }
+      }
+    },
+    {
+      "id": "missing-argument-named",
+      "tool": "lapsed_check",
+      "args": {},
+      "expect": {
+        "status": "error",
+        "contains": [
+          "gifts"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "file-outside-root-refused",
+      "tool": "lapsed_check",
+      "args": {
+        "gifts": "../../../outside.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "outside"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "invented-tool-name-refused",
+      "tool": "lapsed_pay_everything_now",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "review-mode-still-reads",
+      "tool": "lapsed_check",
+      "mode": "review",
+      "args": {
+        "gifts": "fixtures/gifts.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.donors": 8,
+          "result.last_year_donors": 5,
+          "result.retained": 3,
+          "result.retention_pct": 60,
+          "result.new_donors": 1,
+          "result.lybunt": 2,
+          "result.lybunt_amount": 1500,
+          "result.sybunt": 2,
+          "result.sybunt_amount": 375,
+          "result.flag": 2,
+          "result.review": 2,
+          "result.watch": 1,
+          "result.ok": 3
+        }
+      },
+      "generated": true
+    },
+    {
+      "id": "status-filter-keeps-totals",
+      "tool": "lapsed_check",
+      "args": {
+        "gifts": "fixtures/gifts.csv",
+        "settings": "fixtures/settings.json",
+        "status": "ok",
+        "limit": 1
+      },
+      "expect": {
+        "status": "executed",
+        "max": {
+          "result.items_shown": 1
+        },
+        "equals": {
+          "result.donors": 8,
+          "result.last_year_donors": 5,
+          "result.retained": 3,
+          "result.retention_pct": 60,
+          "result.new_donors": 1,
+          "result.lybunt": 2,
+          "result.lybunt_amount": 1500,
+          "result.sybunt": 2,
+          "result.sybunt_amount": 375,
+          "result.flag": 2,
+          "result.review": 2,
+          "result.watch": 1,
+          "result.ok": 3
+        }
+      },
+      "generated": true
+    },
+    {
+      "id": "explain-unknown-item-is-a-readable-error",
+      "tool": "lapsed_explain",
+      "args": {
+        "gifts": "fixtures/gifts.csv",
+        "settings": "fixtures/settings.json",
+        "donor_id": "No Such Thing Zz"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "not found"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "report-writes-two-files",
+      "tool": "lapsed_write_report",
+      "args": {
+        "gifts": "fixtures/gifts.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "length": {
+          "result.files": 2
+        },
+        "matches": [
+          "[0-9a-f]{64}"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "refuses-email-send",
+      "tool": "email_send",
+      "mode": "auto",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "refuses-crm-update-records",
+      "tool": "crm_update_records",
+      "mode": "auto",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "recall-empty-memory",
+      "tool": "lapsed_recall",
+      "args": {},
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.total": 0
+        }
+      },
+      "generated": true
+    },
+    {
+      "id": "intl-de-lybunt-sybunt-totals",
+      "tool": "lapsed_check",
+      "args": {
+        "gifts": "fixtures/intl/de/gifts.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.donors": 8,
+          "result.last_year_donors": 5,
+          "result.retained": 3,
+          "result.retention_pct": 60,
+          "result.new_donors": 1,
+          "result.lybunt": 2,
+          "result.lybunt_amount": 1500,
+          "result.sybunt": 2,
+          "result.sybunt_amount": 375,
+          "result.flag": 2,
+          "result.review": 2,
+          "result.watch": 1,
+          "result.ok": 3
+        }
+      },
+      "note": "German export of the same data (fixtures/intl/de); must match the English case \"lybunt-sybunt-totals\"."
+    },
+    {
+      "id": "intl-ja-lybunt-sybunt-totals",
+      "tool": "lapsed_check",
+      "args": {
+        "gifts": "fixtures/intl/ja/gifts.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.donors": 8,
+          "result.last_year_donors": 5,
+          "result.retained": 3,
+          "result.retention_pct": 60,
+          "result.new_donors": 1,
+          "result.lybunt": 2,
+          "result.lybunt_amount": 1500,
+          "result.sybunt": 2,
+          "result.sybunt_amount": 375,
+          "result.flag": 2,
+          "result.review": 2,
+          "result.watch": 1,
+          "result.ok": 3
+        }
+      },
+      "note": "Japanese export of the same data (fixtures/intl/ja); must match the English case \"lybunt-sybunt-totals\"."
+    }
+  ]
+}

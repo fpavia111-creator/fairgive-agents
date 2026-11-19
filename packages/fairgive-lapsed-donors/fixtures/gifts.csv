@@ -1,0 +1,14 @@
+gift_id,donor_id,donor,gift_date,amount
+G-1,C-1,Maple Hartwell,2025-12-01,500.00
+G-2,C-1,Maple Hartwell,2026-09-01,500.00
+G-3,C-2,Rowan Ellery,2026-03-01,1000.00
+G-4,C-3,Juniper Vance,2025-08-15,250.00
+G-5,C-3,Juniper Vance,2026-05-15,250.00
+G-6,C-4,Tamsin Okafor,2024-01-10,300.00
+G-7,C-5,Corwin Achebe,2024-11-11,75.00
+G-8,C-6,Liesel Marchetti,2026-08-08,50.00
+G-9,C-7,Bram Halloway,2026-02-02,1000.00
+G-10,C-7,Bram Halloway,2026-10-10,200.00
+G-11,C-8,Odessa Quill,2020-12-12,40.00
+G-12,C-9,Priya Lindqvist,2026-01-20,100.00
+G-13,C-9,Priya Lindqvist,2026-11-01,100.00

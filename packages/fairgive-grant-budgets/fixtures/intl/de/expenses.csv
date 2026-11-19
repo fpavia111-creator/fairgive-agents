@@ -1,0 +1,8 @@
+entry_id;Datum;Konto;Förderprojekt;Kategorie;Betrag;Verwendungszweck;pool
+E1;31.03.2026;6100;G-ARTS;Supplies;5.600,00;Art supplies;
+E2;30.04.2026;6300;G-ARTS;Travel;2.100,00;Workshop travel;
+E3;30.06.2026;5100;;Salaries;50.000,00;Program staff Q2;POOL-STAFF
+E4;30.09.2026;5100;;Salaries;40.000,00;Program staff Q3;POOL-STAFF
+E5;30.09.2026;6500;;Occupancy;10.000,00;Rent Q3;POOL-RENT
+E6;15.10.2026;6100;G-FED;Supplies;300,00;Wine for donor reception;
+E7;20.08.2026;6800;G-FED;Equipment;9.000,00;Laptops;
