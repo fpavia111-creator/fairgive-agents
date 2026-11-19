@@ -1,0 +1,8 @@
+entry_id,“ú•t,Š¨’è‰È–Ú,Š¨’è‰È–Ú–¼,Šî‹à,o‹à,“ü‹à,“E—v
+TR-1,2025/06/30,3150,Board designated transfers,RES-OP,,"50,000.00",Designation R-1
+TR-2,2025/06/30,3150,Board designated transfers,RES-CAP,,"30,000.00",Designation R-2
+JE-31,2026/04/15,5500,Building repairs,RES-CAP,"14,000.00",,Roof repair
+TR-3,2025/06/30,3150,Board designated transfers,RES-SCH,,"40,000.00",Designation R-3
+JE-32,2026/02/01,3200,Net assets with donor restrictions,RES-SCH,,"5,000.00",Gift recorded to the reserve
+TR-4,2026/01/15,3150,Board designated transfers,RES-NEW,,"20,000.00",Transfer
+JE-33,2026/06/30,5600,Program pilot costs,RES-NEW,"25,000.00",,Pilot

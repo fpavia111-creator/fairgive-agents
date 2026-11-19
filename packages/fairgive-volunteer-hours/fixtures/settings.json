@@ -1,0 +1,7 @@
+{
+  "as_of": "2026-11-18",
+  "hourly_value": 30,
+  "max_hours_per_day": 12,
+  "background_check_years": 3,
+  "roles_needing_check": ["youth mentor", "driver"]
+}

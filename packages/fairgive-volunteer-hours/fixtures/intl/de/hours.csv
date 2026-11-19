@@ -1,0 +1,10 @@
+entry_id;volunteer_id;Ehrenamtliche;Datum;Stunden;Programm;Rolle;skilled
+H-1;V-1;Maple Hartwell;01.10.2026;4;Youth mentoring;Youth mentor;no
+H-2;V-1;Maple Hartwell;08.10.2026;4;Youth mentoring;Youth mentor;no
+H-3;V-2;Rowan Ellery;02.10.2026;3;Meals on wheels;Driver;no
+H-4;V-3;Juniper Vance;03.10.2026;5;Youth mentoring;Youth mentor;no
+H-5;V-4;Tamsin Okafor;04.10.2026;14;Food pantry;Pantry helper;no
+H-6;V-4;Tamsin Okafor;05.10.2026;3;Food pantry;Pantry helper;no
+H-7;V-4;Tamsin Okafor;05.10.2026;3;Food pantry;Pantry helper;no
+H-8;V-4;Tamsin Okafor;01.12.2026;2;Food pantry;Pantry helper;no
+H-9;V-5;Corwin Achebe;10.10.2026;10;;Pro bono accountant;yes

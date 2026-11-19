@@ -1,0 +1,6 @@
+{
+  "transfer_accounts": ["3150"],
+  "expense_from": "5",
+  "net_asset_accounts": { "3200": "with" },
+  "unrestricted_net_assets": 100000
+}

@@ -1,0 +1,6 @@
+resolution_id,date,fund,action,amount
+R-1,2025-06-10,RES-OP,Designate,50000
+R-2,2025-06-10,RES-CAP,Designate,30000
+R-2b,2026-03-01,RES-CAP,Spend,10000
+R-3,2025-06-10,RES-SCH,Designate,40000
+R-4,2026-05-01,RES-SCH,Undesignate,15000

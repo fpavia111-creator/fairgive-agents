@@ -1,0 +1,8 @@
+entry_id;Datum;Konto;Kontobezeichnung;Fonds;Ausgang;Eingang;Verwendungszweck
+TR-1;30.06.2025;3150;Board designated transfers;RES-OP;;50.000,00;Designation R-1
+TR-2;30.06.2025;3150;Board designated transfers;RES-CAP;;30.000,00;Designation R-2
+JE-31;15.04.2026;5500;Building repairs;RES-CAP;14.000,00;;Roof repair
+TR-3;30.06.2025;3150;Board designated transfers;RES-SCH;;40.000,00;Designation R-3
+JE-32;01.02.2026;3200;Net assets with donor restrictions;RES-SCH;;5.000,00;Gift recorded to the reserve
+TR-4;15.01.2026;3150;Board designated transfers;RES-NEW;;20.000,00;Transfer
+JE-33;30.06.2026;5600;Program pilot costs;RES-NEW;25.000,00;;Pilot

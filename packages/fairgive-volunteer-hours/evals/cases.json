@@ -1,0 +1,325 @@
+{
+  "suite": "fairgive-volunteer-hours",
+  "root": "..",
+  "data_note": "Fictional volunteers and hours; names are made up; the hourly value is an example. Deterministic checks; no model is called.",
+  "cases": [
+    {
+      "id": "volunteer-totals",
+      "tool": "volunteers_check",
+      "args": {
+        "hours": "fixtures/hours.csv",
+        "volunteers": "fixtures/volunteers.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.volunteers": 5,
+          "result.hours": 48,
+          "result.value": 1440,
+          "result.skilled_hours": 10,
+          "result.checks_to_fix": 2,
+          "result.flag": 2,
+          "result.review": 2,
+          "result.ok": 1
+        }
+      }
+    },
+    {
+      "id": "every-planted-issue-found",
+      "tool": "volunteers_check",
+      "args": {
+        "hours": "fixtures/hours.csv",
+        "volunteers": "fixtures/volunteers.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "contains": [
+          "background_check_expired",
+          "background_check_missing",
+          "waiver_missing",
+          "shift_over_max",
+          "duplicate_entry",
+          "future_date",
+          "missing_program",
+          "skilled_service_candidate"
+        ],
+        "not_contains": [
+          "Tamsin Okafor",
+          "Juniper Vance"
+        ]
+      }
+    },
+    {
+      "id": "pantry-volunteer-explained",
+      "tool": "volunteers_explain",
+      "args": {
+        "hours": "fixtures/hours.csv",
+        "volunteers": "fixtures/volunteers.csv",
+        "settings": "fixtures/settings.json",
+        "volunteer_id": "V-4"
+      },
+      "expect": {
+        "status": "executed",
+        "contains": [
+          "14 hours on 2026-10-04, more than the 12 hour daily maximum"
+        ],
+        "equals": {
+          "result.item.hours": 22
+        }
+      }
+    },
+    {
+      "id": "hours-only",
+      "tool": "volunteers_check",
+      "args": {
+        "hours": "fixtures/hours.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.hours": 48
+        },
+        "contains": [
+          "background_check_missing"
+        ],
+        "not_contains": [
+          "background_check_expired"
+        ]
+      }
+    },
+    {
+      "id": "no-value-without-settings",
+      "tool": "volunteers_check",
+      "args": {
+        "hours": "fixtures/hours.csv"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.value": 0,
+          "result.checks_to_fix": 0
+        }
+      }
+    },
+    {
+      "id": "report-by-program",
+      "tool": "volunteers_write_report",
+      "args": {
+        "hours": "fixtures/hours.csv",
+        "volunteers": "fixtures/volunteers.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "contains": [
+          "volunteer-hours.csv"
+        ]
+      }
+    },
+    {
+      "id": "missing-argument-named",
+      "tool": "volunteers_check",
+      "args": {},
+      "expect": {
+        "status": "error",
+        "contains": [
+          "hours"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "file-outside-root-refused",
+      "tool": "volunteers_check",
+      "args": {
+        "hours": "../../../outside.csv",
+        "volunteers": "fixtures/volunteers.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "outside"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "invented-tool-name-refused",
+      "tool": "volunteers_pay_everything_now",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "review-mode-still-reads",
+      "tool": "volunteers_check",
+      "mode": "review",
+      "args": {
+        "hours": "fixtures/hours.csv",
+        "volunteers": "fixtures/volunteers.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.volunteers": 5,
+          "result.hours": 48,
+          "result.value": 1440,
+          "result.skilled_hours": 10,
+          "result.checks_to_fix": 2,
+          "result.flag": 2,
+          "result.review": 2,
+          "result.ok": 1
+        }
+      },
+      "generated": true
+    },
+    {
+      "id": "status-filter-keeps-totals",
+      "tool": "volunteers_check",
+      "args": {
+        "hours": "fixtures/hours.csv",
+        "volunteers": "fixtures/volunteers.csv",
+        "settings": "fixtures/settings.json",
+        "status": "ok",
+        "limit": 1
+      },
+      "expect": {
+        "status": "executed",
+        "max": {
+          "result.items_shown": 1
+        },
+        "equals": {
+          "result.volunteers": 5,
+          "result.hours": 48,
+          "result.value": 1440,
+          "result.skilled_hours": 10,
+          "result.checks_to_fix": 2,
+          "result.flag": 2,
+          "result.review": 2,
+          "result.ok": 1
+        }
+      },
+      "generated": true
+    },
+    {
+      "id": "explain-unknown-item-is-a-readable-error",
+      "tool": "volunteers_explain",
+      "args": {
+        "hours": "fixtures/hours.csv",
+        "volunteers": "fixtures/volunteers.csv",
+        "settings": "fixtures/settings.json",
+        "volunteer_id": "No Such Thing Zz"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "not found"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "report-writes-two-files",
+      "tool": "volunteers_write_report",
+      "args": {
+        "hours": "fixtures/hours.csv",
+        "volunteers": "fixtures/volunteers.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "length": {
+          "result.files": 2
+        },
+        "matches": [
+          "[0-9a-f]{64}"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "refuses-donor-data-delete",
+      "tool": "donor_data_delete",
+      "mode": "auto",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "refuses-email-send",
+      "tool": "email_send",
+      "mode": "auto",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "recall-empty-memory",
+      "tool": "volunteers_recall",
+      "args": {},
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.total": 0
+        }
+      },
+      "generated": true
+    },
+    {
+      "id": "intl-de-volunteer-totals",
+      "tool": "volunteers_check",
+      "args": {
+        "hours": "fixtures/intl/de/hours.csv",
+        "volunteers": "fixtures/intl/de/volunteers.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.volunteers": 5,
+          "result.hours": 48,
+          "result.value": 1440,
+          "result.skilled_hours": 10,
+          "result.checks_to_fix": 2,
+          "result.flag": 2,
+          "result.review": 2,
+          "result.ok": 1
+        }
+      },
+      "note": "German export of the same data (fixtures/intl/de); must match the English case \"volunteer-totals\"."
+    },
+    {
+      "id": "intl-ja-volunteer-totals",
+      "tool": "volunteers_check",
+      "args": {
+        "hours": "fixtures/intl/ja/hours.csv",
+        "volunteers": "fixtures/intl/ja/volunteers.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.volunteers": 5,
+          "result.hours": 48,
+          "result.value": 1440,
+          "result.skilled_hours": 10,
+          "result.checks_to_fix": 2,
+          "result.flag": 2,
+          "result.review": 2,
+          "result.ok": 1
+        }
+      },
+      "note": "Japanese export of the same data (fixtures/intl/ja); must match the English case \"volunteer-totals\"."
+    }
+  ]
+}

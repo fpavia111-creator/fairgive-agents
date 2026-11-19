@@ -1,0 +1,329 @@
+{
+  "suite": "fairgive-board-designated",
+  "root": "..",
+  "data_note": "Fictional board-designated funds, resolutions and ledger lines. Deterministic checks; no model is called.",
+  "cases": [
+    {
+      "id": "designated-totals",
+      "tool": "designated_check",
+      "args": {
+        "funds": "fixtures/funds.csv",
+        "resolutions": "fixtures/resolutions.csv",
+        "gl": "fixtures/gl.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.funds": 4,
+          "result.designated_total": 106000,
+          "result.unrestricted_net_assets": 100000,
+          "result.spending_without_resolution": 29000,
+          "result.flag": 3,
+          "result.review": 1,
+          "result.ok": 1
+        }
+      }
+    },
+    {
+      "id": "every-planted-issue-found",
+      "tool": "designated_check",
+      "args": {
+        "funds": "fixtures/funds.csv",
+        "resolutions": "fixtures/resolutions.csv",
+        "gl": "fixtures/gl.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "contains": [
+          "spending_without_resolution",
+          "undesignation_not_recorded",
+          "reported_as_donor_restricted",
+          "designation_without_resolution",
+          "balance_below_zero",
+          "designations_over_unrestricted"
+        ]
+      }
+    },
+    {
+      "id": "new-fund-explained",
+      "tool": "designated_explain",
+      "args": {
+        "funds": "fixtures/funds.csv",
+        "resolutions": "fixtures/resolutions.csv",
+        "gl": "fixtures/gl.csv",
+        "settings": "fixtures/settings.json",
+        "fund": "RES-NEW"
+      },
+      "expect": {
+        "status": "executed",
+        "contains": [
+          "20000 was moved into the fund; resolutions approve 0",
+          "RES-NEW is -5000"
+        ]
+      }
+    },
+    {
+      "id": "no-settings-no-transfer-checks",
+      "tool": "designated_check",
+      "args": {
+        "funds": "fixtures/funds.csv",
+        "resolutions": "fixtures/resolutions.csv",
+        "gl": "fixtures/gl.csv"
+      },
+      "expect": {
+        "status": "executed",
+        "not_contains": [
+          "designation_without_resolution",
+          "designations_over_unrestricted"
+        ],
+        "equals": {
+          "result.designated_total": 106000
+        }
+      }
+    },
+    {
+      "id": "flagged-only",
+      "tool": "designated_check",
+      "args": {
+        "funds": "fixtures/funds.csv",
+        "resolutions": "fixtures/resolutions.csv",
+        "gl": "fixtures/gl.csv",
+        "settings": "fixtures/settings.json",
+        "status": "flag"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.items_shown": 3
+        }
+      }
+    },
+    {
+      "id": "capital-fund-explained",
+      "tool": "designated_explain",
+      "args": {
+        "funds": "fixtures/funds.csv",
+        "resolutions": "fixtures/resolutions.csv",
+        "gl": "fixtures/gl.csv",
+        "settings": "fixtures/settings.json",
+        "fund": "RES-CAP"
+      },
+      "expect": {
+        "status": "executed",
+        "contains": [
+          "14000 spent from the fund; resolutions approve 10000 of spending"
+        ],
+        "equals": {
+          "result.item.balance": 16000
+        }
+      }
+    },
+    {
+      "id": "missing-argument-named",
+      "tool": "designated_check",
+      "args": {},
+      "expect": {
+        "status": "error",
+        "contains": [
+          "funds"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "file-outside-root-refused",
+      "tool": "designated_check",
+      "args": {
+        "funds": "../../../outside.csv",
+        "resolutions": "fixtures/resolutions.csv",
+        "gl": "fixtures/gl.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "outside"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "invented-tool-name-refused",
+      "tool": "designated_pay_everything_now",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "review-mode-still-reads",
+      "tool": "designated_check",
+      "mode": "review",
+      "args": {
+        "funds": "fixtures/funds.csv",
+        "resolutions": "fixtures/resolutions.csv",
+        "gl": "fixtures/gl.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.funds": 4,
+          "result.designated_total": 106000,
+          "result.unrestricted_net_assets": 100000,
+          "result.spending_without_resolution": 29000,
+          "result.flag": 3,
+          "result.review": 1,
+          "result.ok": 1
+        }
+      },
+      "generated": true
+    },
+    {
+      "id": "status-filter-keeps-totals",
+      "tool": "designated_check",
+      "args": {
+        "funds": "fixtures/funds.csv",
+        "resolutions": "fixtures/resolutions.csv",
+        "gl": "fixtures/gl.csv",
+        "settings": "fixtures/settings.json",
+        "status": "ok",
+        "limit": 1
+      },
+      "expect": {
+        "status": "executed",
+        "max": {
+          "result.items_shown": 1
+        },
+        "equals": {
+          "result.funds": 4,
+          "result.designated_total": 106000,
+          "result.unrestricted_net_assets": 100000,
+          "result.spending_without_resolution": 29000,
+          "result.flag": 3,
+          "result.review": 1,
+          "result.ok": 1
+        }
+      },
+      "generated": true
+    },
+    {
+      "id": "explain-unknown-item-is-a-readable-error",
+      "tool": "designated_explain",
+      "args": {
+        "funds": "fixtures/funds.csv",
+        "resolutions": "fixtures/resolutions.csv",
+        "gl": "fixtures/gl.csv",
+        "settings": "fixtures/settings.json",
+        "fund": "No Such Thing Zz"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "not found"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "report-writes-two-files",
+      "tool": "designated_write_report",
+      "args": {
+        "funds": "fixtures/funds.csv",
+        "resolutions": "fixtures/resolutions.csv",
+        "gl": "fixtures/gl.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "length": {
+          "result.files": 2
+        },
+        "matches": [
+          "[0-9a-f]{64}"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "refuses-ledger-post",
+      "tool": "ledger_post",
+      "mode": "auto",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "refuses-bank-transfer",
+      "tool": "bank_transfer",
+      "mode": "auto",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "recall-empty-memory",
+      "tool": "designated_recall",
+      "args": {},
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.total": 0
+        }
+      },
+      "generated": true
+    },
+    {
+      "id": "intl-de-designated-totals",
+      "tool": "designated_check",
+      "args": {
+        "funds": "fixtures/intl/de/funds.csv",
+        "resolutions": "fixtures/intl/de/resolutions.csv",
+        "gl": "fixtures/intl/de/gl.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.funds": 4,
+          "result.designated_total": 106000,
+          "result.unrestricted_net_assets": 100000,
+          "result.spending_without_resolution": 29000,
+          "result.flag": 3,
+          "result.review": 1,
+          "result.ok": 1
+        }
+      },
+      "note": "German export of the same data (fixtures/intl/de); must match the English case \"designated-totals\"."
+    },
+    {
+      "id": "intl-ja-designated-totals",
+      "tool": "designated_check",
+      "args": {
+        "funds": "fixtures/intl/ja/funds.csv",
+        "resolutions": "fixtures/intl/ja/resolutions.csv",
+        "gl": "fixtures/intl/ja/gl.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.funds": 4,
+          "result.designated_total": 106000,
+          "result.unrestricted_net_assets": 100000,
+          "result.spending_without_resolution": 29000,
+          "result.flag": 3,
+          "result.review": 1,
+          "result.ok": 1
+        }
+      },
+      "note": "Japanese export of the same data (fixtures/intl/ja); must match the English case \"designated-totals\"."
+    }
+  ]
+}
