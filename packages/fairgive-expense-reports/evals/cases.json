@@ -1,0 +1,305 @@
+{
+  "suite": "fairgive-expense-reports",
+  "root": "..",
+  "data_note": "Fictional expense reports; names are made up; the policy figures are examples. Deterministic checks; no model is called.",
+  "cases": [
+    {
+      "id": "expense-totals",
+      "tool": "expenses_check",
+      "args": {
+        "lines": "fixtures/lines.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.reports": 5,
+          "result.amount": 605,
+          "result.flagged_amount": 230,
+          "result.duplicates": 1,
+          "result.flag": 3,
+          "result.review": 1,
+          "result.ok": 1
+        }
+      }
+    },
+    {
+      "id": "every-planted-issue-found",
+      "tool": "expenses_check",
+      "args": {
+        "lines": "fixtures/lines.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "contains": [
+          "meals_over_per_diem",
+          "mileage_over_rate",
+          "receipt_missing",
+          "unallowable_on_grant",
+          "late_submission",
+          "duplicate_claim"
+        ],
+        "not_contains": [
+          "Juniper Vance",
+          "Tamsin Okafor"
+        ]
+      }
+    },
+    {
+      "id": "mileage-report-explained",
+      "tool": "expenses_explain",
+      "args": {
+        "lines": "fixtures/lines.csv",
+        "settings": "fixtures/settings.json",
+        "report_id": "R-2"
+      },
+      "expect": {
+        "status": "executed",
+        "contains": [
+          "120 claimed for 100 miles; at 0.7 a mile that is 70",
+          "has no receipt (limit 75)"
+        ]
+      }
+    },
+    {
+      "id": "defaults-skip-mileage-and-per-diem",
+      "tool": "expenses_check",
+      "args": {
+        "lines": "fixtures/lines.csv"
+      },
+      "expect": {
+        "status": "executed",
+        "not_contains": [
+          "mileage_over_rate",
+          "meals_over_per_diem"
+        ],
+        "contains": [
+          "receipt_missing",
+          "duplicate_claim"
+        ]
+      }
+    },
+    {
+      "id": "flagged-only",
+      "tool": "expenses_check",
+      "args": {
+        "lines": "fixtures/lines.csv",
+        "settings": "fixtures/settings.json",
+        "status": "flag"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.items_shown": 3
+        }
+      }
+    },
+    {
+      "id": "duplicate-explained",
+      "tool": "expenses_explain",
+      "args": {
+        "lines": "fixtures/lines.csv",
+        "settings": "fixtures/settings.json",
+        "report_id": "R-5"
+      },
+      "expect": {
+        "status": "executed",
+        "contains": [
+          "was already claimed on R-4"
+        ]
+      }
+    },
+    {
+      "id": "missing-argument-named",
+      "tool": "expenses_check",
+      "args": {},
+      "expect": {
+        "status": "error",
+        "contains": [
+          "lines"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "file-outside-root-refused",
+      "tool": "expenses_check",
+      "args": {
+        "lines": "../../../outside.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "outside"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "invented-tool-name-refused",
+      "tool": "expenses_pay_everything_now",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "review-mode-still-reads",
+      "tool": "expenses_check",
+      "mode": "review",
+      "args": {
+        "lines": "fixtures/lines.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.reports": 5,
+          "result.amount": 605,
+          "result.flagged_amount": 230,
+          "result.duplicates": 1,
+          "result.flag": 3,
+          "result.review": 1,
+          "result.ok": 1
+        }
+      },
+      "generated": true
+    },
+    {
+      "id": "status-filter-keeps-totals",
+      "tool": "expenses_check",
+      "args": {
+        "lines": "fixtures/lines.csv",
+        "settings": "fixtures/settings.json",
+        "status": "ok",
+        "limit": 1
+      },
+      "expect": {
+        "status": "executed",
+        "max": {
+          "result.items_shown": 1
+        },
+        "equals": {
+          "result.reports": 5,
+          "result.amount": 605,
+          "result.flagged_amount": 230,
+          "result.duplicates": 1,
+          "result.flag": 3,
+          "result.review": 1,
+          "result.ok": 1
+        }
+      },
+      "generated": true
+    },
+    {
+      "id": "explain-unknown-item-is-a-readable-error",
+      "tool": "expenses_explain",
+      "args": {
+        "lines": "fixtures/lines.csv",
+        "settings": "fixtures/settings.json",
+        "report_id": "No Such Thing Zz"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "not found"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "report-writes-two-files",
+      "tool": "expenses_write_report",
+      "args": {
+        "lines": "fixtures/lines.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "length": {
+          "result.files": 2
+        },
+        "matches": [
+          "[0-9a-f]{64}"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "refuses-payment-send",
+      "tool": "payment_send",
+      "mode": "auto",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "refuses-expense-approve",
+      "tool": "expense_approve",
+      "mode": "auto",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "recall-empty-memory",
+      "tool": "expenses_recall",
+      "args": {},
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.total": 0
+        }
+      },
+      "generated": true
+    },
+    {
+      "id": "intl-de-expense-totals",
+      "tool": "expenses_check",
+      "args": {
+        "lines": "fixtures/intl/de/lines.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.reports": 5,
+          "result.amount": 605,
+          "result.flagged_amount": 230,
+          "result.duplicates": 1,
+          "result.flag": 3,
+          "result.review": 1,
+          "result.ok": 1
+        }
+      },
+      "note": "German export of the same data (fixtures/intl/de); must match the English case \"expense-totals\"."
+    },
+    {
+      "id": "intl-ja-expense-totals",
+      "tool": "expenses_check",
+      "args": {
+        "lines": "fixtures/intl/ja/lines.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.reports": 5,
+          "result.amount": 605,
+          "result.flagged_amount": 230,
+          "result.duplicates": 1,
+          "result.flag": 3,
+          "result.review": 1,
+          "result.ok": 1
+        }
+      },
+      "note": "Japanese export of the same data (fixtures/intl/ja); must match the English case \"expense-totals\"."
+    }
+  ]
+}

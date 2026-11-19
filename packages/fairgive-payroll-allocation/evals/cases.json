@@ -1,0 +1,341 @@
+{
+  "suite": "fairgive-payroll-allocation",
+  "root": "..",
+  "data_note": "Fictional payroll, effort and charges; names are made up. Deterministic checks; no model is called.",
+  "cases": [
+    {
+      "id": "allocation-totals",
+      "tool": "payroll_alloc_check",
+      "args": {
+        "payroll": "fixtures/payroll.csv",
+        "effort": "fixtures/effort.csv",
+        "charges": "fixtures/charges.csv",
+        "certifications": "fixtures/certifications.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.employee_periods": 5,
+          "result.payroll": 54000,
+          "result.charged": 52000,
+          "result.unallocated": 2000,
+          "result.grant_charges_uncertified": 6000,
+          "result.flag": 3,
+          "result.review": 1,
+          "result.ok": 1
+        }
+      }
+    },
+    {
+      "id": "every-planted-issue-found",
+      "tool": "payroll_alloc_check",
+      "args": {
+        "payroll": "fixtures/payroll.csv",
+        "effort": "fixtures/effort.csv",
+        "charges": "fixtures/charges.csv",
+        "certifications": "fixtures/certifications.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "contains": [
+          "charge_differs_from_effort",
+          "effort_over_100",
+          "certification_missing",
+          "payroll_not_allocated",
+          "charged_without_effort"
+        ],
+        "not_contains": [
+          "Rowan Ellery",
+          "Corwin Achebe"
+        ]
+      }
+    },
+    {
+      "id": "hours-split-explained",
+      "tool": "payroll_alloc_explain",
+      "args": {
+        "payroll": "fixtures/payroll.csv",
+        "effort": "fixtures/effort.csv",
+        "charges": "fixtures/charges.csv",
+        "certifications": "fixtures/certifications.csv",
+        "settings": "fixtures/settings.json",
+        "item": "E-2 2026-Q3"
+      },
+      "expect": {
+        "status": "executed",
+        "contains": [
+          "G-FED carries 50% of the pay charged (6000); effort says 25% (about 3000)"
+        ]
+      }
+    },
+    {
+      "id": "without-certifications",
+      "tool": "payroll_alloc_check",
+      "args": {
+        "payroll": "fixtures/payroll.csv",
+        "effort": "fixtures/effort.csv",
+        "charges": "fixtures/charges.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.grant_charges_uncertified": 21500
+        }
+      }
+    },
+    {
+      "id": "wider-tolerance",
+      "tool": "payroll_alloc_check",
+      "args": {
+        "payroll": "fixtures/payroll.csv",
+        "effort": "fixtures/effort.csv",
+        "charges": "fixtures/charges.csv",
+        "certifications": "fixtures/certifications.csv",
+        "settings": "fixtures/settings-30.json"
+      },
+      "expect": {
+        "status": "executed",
+        "not_contains": [
+          "charge_differs_from_effort"
+        ]
+      }
+    },
+    {
+      "id": "without-payroll-register",
+      "tool": "payroll_alloc_check",
+      "args": {
+        "effort": "fixtures/effort.csv",
+        "charges": "fixtures/charges.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.unallocated": 0
+        },
+        "not_contains": [
+          "payroll_not_allocated"
+        ]
+      }
+    },
+    {
+      "id": "missing-argument-named",
+      "tool": "payroll_alloc_check",
+      "args": {},
+      "expect": {
+        "status": "error",
+        "contains": [
+          "effort"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "file-outside-root-refused",
+      "tool": "payroll_alloc_check",
+      "args": {
+        "payroll": "../../../outside.csv",
+        "effort": "fixtures/effort.csv",
+        "charges": "fixtures/charges.csv",
+        "certifications": "fixtures/certifications.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "outside"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "invented-tool-name-refused",
+      "tool": "payroll_alloc_pay_everything_now",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "review-mode-still-reads",
+      "tool": "payroll_alloc_check",
+      "mode": "review",
+      "args": {
+        "payroll": "fixtures/payroll.csv",
+        "effort": "fixtures/effort.csv",
+        "charges": "fixtures/charges.csv",
+        "certifications": "fixtures/certifications.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.employee_periods": 5,
+          "result.payroll": 54000,
+          "result.charged": 52000,
+          "result.unallocated": 2000,
+          "result.grant_charges_uncertified": 6000,
+          "result.flag": 3,
+          "result.review": 1,
+          "result.ok": 1
+        }
+      },
+      "generated": true
+    },
+    {
+      "id": "status-filter-keeps-totals",
+      "tool": "payroll_alloc_check",
+      "args": {
+        "payroll": "fixtures/payroll.csv",
+        "effort": "fixtures/effort.csv",
+        "charges": "fixtures/charges.csv",
+        "certifications": "fixtures/certifications.csv",
+        "settings": "fixtures/settings.json",
+        "status": "ok",
+        "limit": 1
+      },
+      "expect": {
+        "status": "executed",
+        "max": {
+          "result.items_shown": 1
+        },
+        "equals": {
+          "result.employee_periods": 5,
+          "result.payroll": 54000,
+          "result.charged": 52000,
+          "result.unallocated": 2000,
+          "result.grant_charges_uncertified": 6000,
+          "result.flag": 3,
+          "result.review": 1,
+          "result.ok": 1
+        }
+      },
+      "generated": true
+    },
+    {
+      "id": "explain-unknown-item-is-a-readable-error",
+      "tool": "payroll_alloc_explain",
+      "args": {
+        "payroll": "fixtures/payroll.csv",
+        "effort": "fixtures/effort.csv",
+        "charges": "fixtures/charges.csv",
+        "certifications": "fixtures/certifications.csv",
+        "settings": "fixtures/settings.json",
+        "item": "No Such Thing Zz"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "not found"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "report-writes-two-files",
+      "tool": "payroll_alloc_write_report",
+      "args": {
+        "payroll": "fixtures/payroll.csv",
+        "effort": "fixtures/effort.csv",
+        "charges": "fixtures/charges.csv",
+        "certifications": "fixtures/certifications.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "length": {
+          "result.files": 2
+        },
+        "matches": [
+          "[0-9a-f]{64}"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "refuses-payroll-submit",
+      "tool": "payroll_submit",
+      "mode": "auto",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "refuses-ledger-post",
+      "tool": "ledger_post",
+      "mode": "auto",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "recall-empty-memory",
+      "tool": "payroll_alloc_recall",
+      "args": {},
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.total": 0
+        }
+      },
+      "generated": true
+    },
+    {
+      "id": "intl-de-allocation-totals",
+      "tool": "payroll_alloc_check",
+      "args": {
+        "payroll": "fixtures/intl/de/payroll.csv",
+        "effort": "fixtures/intl/de/effort.csv",
+        "charges": "fixtures/intl/de/charges.csv",
+        "certifications": "fixtures/intl/de/certifications.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.employee_periods": 5,
+          "result.payroll": 54000,
+          "result.charged": 52000,
+          "result.unallocated": 2000,
+          "result.grant_charges_uncertified": 6000,
+          "result.flag": 3,
+          "result.review": 1,
+          "result.ok": 1
+        }
+      },
+      "note": "German export of the same data (fixtures/intl/de); must match the English case \"allocation-totals\"."
+    },
+    {
+      "id": "intl-ja-allocation-totals",
+      "tool": "payroll_alloc_check",
+      "args": {
+        "payroll": "fixtures/intl/ja/payroll.csv",
+        "effort": "fixtures/intl/ja/effort.csv",
+        "charges": "fixtures/intl/ja/charges.csv",
+        "certifications": "fixtures/intl/ja/certifications.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.employee_periods": 5,
+          "result.payroll": 54000,
+          "result.charged": 52000,
+          "result.unallocated": 2000,
+          "result.grant_charges_uncertified": 6000,
+          "result.flag": 3,
+          "result.review": 1,
+          "result.ok": 1
+        }
+      },
+      "note": "Japanese export of the same data (fixtures/intl/ja); must match the English case \"allocation-totals\"."
+    }
+  ]
+}

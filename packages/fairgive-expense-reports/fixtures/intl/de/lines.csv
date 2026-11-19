@@ -1,0 +1,9 @@
+Spesenbericht;Mitarbeiter;Datum;Kategorie;Betrag;Händler;Wareneingang;Förderkennzeichen;Verwendungszweck;Eingereicht am;miles (km)
+R-1;Maple Hartwell;10.09.2026;Meals;45,00;Example Cafe;yes;;Lunch at conference;20.09.2026;
+R-1;Maple Hartwell;10.09.2026;Meals;30,00;Example Diner;yes;;Dinner at conference;20.09.2026;
+R-1;Maple Hartwell;11.09.2026;Lodging;180,00;Example Inn;yes;;Conference hotel;20.09.2026;
+R-2;Rowan Ellery;15.09.2026;Mileage;120,00;;no;;Site visits;25.09.2026;160,9344
+R-2;Rowan Ellery;16.09.2026;Supplies;90,00;Example Office Store;no;;Printer toner;25.09.2026;
+R-3;Juniper Vance;01.08.2026;Meals;40,00;Example Bistro;yes;G-FED;Dinner with wine;15.10.2026;
+R-4;Tamsin Okafor;20.09.2026;Supplies;50,00;Example Office Store;yes;;Folders;22.09.2026;
+R-5;Tamsin Okafor;20.09.2026;Supplies;50,00;Example Office Store;yes;;Folders;01.10.2026;

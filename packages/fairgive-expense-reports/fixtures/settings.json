@@ -1,0 +1,8 @@
+{
+  "receipt_over": 75,
+  "per_diem": { "Meals": 60 },
+  "mileage_rate": 0.70,
+  "unallowable_words": ["alcohol", "wine", "beer", "liquor", "bar tab"],
+  "grant_codes": ["G-"],
+  "late_days": 60
+}
