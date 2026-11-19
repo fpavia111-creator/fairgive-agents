@@ -1,0 +1,12 @@
+寄付ID,寄付者ID,寄付者,寄付日,金額,基金,寄付種別,支払方法,バッチ番号
+G-0901,C-100,Maple Hartwell,2026/09/24,200.00,GEN,Cash,Check,B-100
+G-1001,C-101,Rowan Ellery,2026/10/05,100.00,GEN,Cash,Check,B-101
+G-1002,C-102,Juniper Vance,2026/10/05,250.00,GEN,Cash,Check,B-101
+G-1003,C-103,Tamsin Okafor,2026/10/06,50.00,YOUTH,Cash,Cash,B-101
+G-1004,C-104,Corwin Achebe,2026/10/09,500.00,GEN,Cash,Check,B-102
+G-1005,C-105,Liesel Marchetti,2026/10/09,75.00,GEN,Cash,Check,B-102
+G-1006,C-106,Bram Halloway,2026/10/14,"1,000.00",CAPITAL,Cash,Check,B-103
+G-1007,C-107,Odessa Quill,2026/10/14,20.00,GEN,Cash,Cash,B-103
+G-1010,C-108,Priya Lindqvist,2026/10/20,300.00,GEN,Cash,Credit Card,
+G-1011,C-109,Emeric Sato,2026/10/29,125.00,GEN,Cash,Credit Card,
+G-1012,C-110,Wren Castellano,2026/10/15,"5,000.00",ENDOW,Stock,Securities,

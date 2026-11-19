@@ -1,0 +1,56 @@
+{
+  "name": "fairgive-functional-expenses",
+  "version": "0.1.0",
+  "description": "Fairgive Functional Expenses: builds the natural-by-function expense table (program, management and general, fundraising) from your ledger and allocation rules, and flags expenses with no function, shared costs not allocated and allocation rules that do not add to 100%.",
+  "type": "module",
+  "license": "MIT",
+  "author": "Kurt Francisco",
+  "engines": {
+    "node": ">=20"
+  },
+  "main": "src/index.js",
+  "exports": {
+    ".": "./src/index.js",
+    "./package.json": "./package.json"
+  },
+  "bin": {
+    "fairgive-functional-expenses": "bin/fairgive-functional-expenses.js"
+  },
+  "files": [
+    "src",
+    "bin",
+    "fixtures",
+    "evals",
+    "README.md",
+    "CHANGELOG.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "test": "node scripts/run-tests.cjs",
+    "demo": "node bin/fairgive-functional-expenses.js demo",
+    "eval": "node bin/fairgive-functional-expenses.js eval"
+  },
+  "dependencies": {
+    "fairgive-core": "^0.1.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fpavia111-creator/fairgive-agents.git",
+    "directory": "packages/fairgive-functional-expenses"
+  },
+  "homepage": "https://github.com/fpavia111-creator/fairgive-agents/tree/main/packages/fairgive-functional-expenses#readme",
+  "bugs": {
+    "url": "https://github.com/fpavia111-creator/fairgive-agents/issues"
+  },
+  "keywords": [
+    "mcp",
+    "mcp-server",
+    "nonprofit",
+    "nonprofits",
+    "fundraising",
+    "fairgive",
+    "functional-expenses",
+    "form-990-part-ix",
+    "cost-allocation"
+  ]
+}

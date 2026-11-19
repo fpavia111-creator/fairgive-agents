@@ -1,0 +1,56 @@
+{
+  "name": "fairgive-gift-deposits",
+  "version": "0.1.0",
+  "description": "Fairgive Gift Deposits: matches gifts in your donor CRM to bank deposits and to contribution revenue in the general ledger, by batch, date and amount. Lists gifts never deposited, deposits with no gifts and months where the CRM and the GL disagree. Never posts or changes anything.",
+  "type": "module",
+  "license": "MIT",
+  "author": "Kurt Francisco",
+  "engines": {
+    "node": ">=20"
+  },
+  "main": "src/index.js",
+  "exports": {
+    ".": "./src/index.js",
+    "./package.json": "./package.json"
+  },
+  "bin": {
+    "fairgive-gift-deposits": "bin/fairgive-gift-deposits.js"
+  },
+  "files": [
+    "src",
+    "bin",
+    "fixtures",
+    "evals",
+    "README.md",
+    "CHANGELOG.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "test": "node scripts/run-tests.cjs",
+    "demo": "node bin/fairgive-gift-deposits.js demo",
+    "eval": "node bin/fairgive-gift-deposits.js eval"
+  },
+  "dependencies": {
+    "fairgive-core": "^0.1.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fpavia111-creator/fairgive-agents.git",
+    "directory": "packages/fairgive-gift-deposits"
+  },
+  "homepage": "https://github.com/fpavia111-creator/fairgive-agents/tree/main/packages/fairgive-gift-deposits#readme",
+  "bugs": {
+    "url": "https://github.com/fpavia111-creator/fairgive-agents/issues"
+  },
+  "keywords": [
+    "mcp",
+    "mcp-server",
+    "nonprofit",
+    "nonprofits",
+    "fundraising",
+    "fairgive",
+    "gift-reconciliation",
+    "bank-deposits",
+    "donor-crm"
+  ]
+}

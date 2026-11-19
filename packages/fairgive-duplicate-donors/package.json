@@ -1,0 +1,56 @@
+{
+  "name": "fairgive-duplicate-donors",
+  "version": "0.1.0",
+  "description": "Fairgive Duplicate Donors: finds likely duplicate donor records in a constituent export by e-mail, phone, address and name similarity, with the gifts on each record. Writes a merge worklist for a person. Never merges or deletes records.",
+  "type": "module",
+  "license": "MIT",
+  "author": "Kurt Francisco",
+  "engines": {
+    "node": ">=20"
+  },
+  "main": "src/index.js",
+  "exports": {
+    ".": "./src/index.js",
+    "./package.json": "./package.json"
+  },
+  "bin": {
+    "fairgive-duplicate-donors": "bin/fairgive-duplicate-donors.js"
+  },
+  "files": [
+    "src",
+    "bin",
+    "fixtures",
+    "evals",
+    "README.md",
+    "CHANGELOG.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "test": "node scripts/run-tests.cjs",
+    "demo": "node bin/fairgive-duplicate-donors.js demo",
+    "eval": "node bin/fairgive-duplicate-donors.js eval"
+  },
+  "dependencies": {
+    "fairgive-core": "^0.1.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fpavia111-creator/fairgive-agents.git",
+    "directory": "packages/fairgive-duplicate-donors"
+  },
+  "homepage": "https://github.com/fpavia111-creator/fairgive-agents/tree/main/packages/fairgive-duplicate-donors#readme",
+  "bugs": {
+    "url": "https://github.com/fpavia111-creator/fairgive-agents/issues"
+  },
+  "keywords": [
+    "mcp",
+    "mcp-server",
+    "nonprofit",
+    "nonprofits",
+    "fundraising",
+    "fairgive",
+    "duplicate-records",
+    "data-hygiene",
+    "donor-database"
+  ]
+}

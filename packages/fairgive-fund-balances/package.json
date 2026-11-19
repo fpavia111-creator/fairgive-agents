@@ -1,0 +1,56 @@
+{
+  "name": "fairgive-fund-balances",
+  "version": "0.1.0",
+  "description": "Fairgive Fund Balances: fund balances by restriction class from your fund list and ledger: restricted funds spent below zero, funds coded to the wrong net asset class, endowment corpus below the gift value and due-to/due-from that do not net to zero. Never posts entries.",
+  "type": "module",
+  "license": "MIT",
+  "author": "Kurt Francisco",
+  "engines": {
+    "node": ">=20"
+  },
+  "main": "src/index.js",
+  "exports": {
+    ".": "./src/index.js",
+    "./package.json": "./package.json"
+  },
+  "bin": {
+    "fairgive-fund-balances": "bin/fairgive-fund-balances.js"
+  },
+  "files": [
+    "src",
+    "bin",
+    "fixtures",
+    "evals",
+    "README.md",
+    "CHANGELOG.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "test": "node scripts/run-tests.cjs",
+    "demo": "node bin/fairgive-fund-balances.js demo",
+    "eval": "node bin/fairgive-fund-balances.js eval"
+  },
+  "dependencies": {
+    "fairgive-core": "^0.1.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fpavia111-creator/fairgive-agents.git",
+    "directory": "packages/fairgive-fund-balances"
+  },
+  "homepage": "https://github.com/fpavia111-creator/fairgive-agents/tree/main/packages/fairgive-fund-balances#readme",
+  "bugs": {
+    "url": "https://github.com/fpavia111-creator/fairgive-agents/issues"
+  },
+  "keywords": [
+    "mcp",
+    "mcp-server",
+    "nonprofit",
+    "nonprofits",
+    "fundraising",
+    "fairgive",
+    "net-assets",
+    "restricted-funds",
+    "fund-accounting"
+  ]
+}

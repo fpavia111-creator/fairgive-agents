@@ -1,0 +1,9 @@
+entry_id;Datum;Konto;Kontobezeichnung;Fonds;Ausgang;Eingang;Verwendungszweck
+JE-90;28.09.2026;4010;Contributions;GEN;;200,00;Batch B-100
+JE-101;07.10.2026;4010;Contributions;GEN;;350,00;Batch B-101
+JE-101;07.10.2026;4010;Contributions;YOUTH;;50,00;Batch B-101
+JE-102;12.10.2026;4010;Contributions;GEN;;565,00;Batch B-102
+JE-103;22.10.2026;4010;Contributions;GEN;;300,00;Card payout
+JE-104;25.10.2026;4010;Contributions;GEN;;250,00;Mobile deposit
+JE-105;15.10.2026;4020;Contributions - noncash;ENDOW;;5.000,00;Stock gift
+JE-106;30.10.2026;4800;Interest income;GEN;;80,00;Interest

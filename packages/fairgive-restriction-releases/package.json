@@ -1,0 +1,56 @@
+{
+  "name": "fairgive-restriction-releases",
+  "version": "0.1.0",
+  "description": "Fairgive Restriction Releases: compares spending on restricted purposes and time restrictions that have ended with the releases recorded. Lists releases still to record, releases over the spending or the balance, and drafts the release entry for your accountant. Never posts it.",
+  "type": "module",
+  "license": "MIT",
+  "author": "Kurt Francisco",
+  "engines": {
+    "node": ">=20"
+  },
+  "main": "src/index.js",
+  "exports": {
+    ".": "./src/index.js",
+    "./package.json": "./package.json"
+  },
+  "bin": {
+    "fairgive-restriction-releases": "bin/fairgive-restriction-releases.js"
+  },
+  "files": [
+    "src",
+    "bin",
+    "fixtures",
+    "evals",
+    "README.md",
+    "CHANGELOG.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "test": "node scripts/run-tests.cjs",
+    "demo": "node bin/fairgive-restriction-releases.js demo",
+    "eval": "node bin/fairgive-restriction-releases.js eval"
+  },
+  "dependencies": {
+    "fairgive-core": "^0.1.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fpavia111-creator/fairgive-agents.git",
+    "directory": "packages/fairgive-restriction-releases"
+  },
+  "homepage": "https://github.com/fpavia111-creator/fairgive-agents/tree/main/packages/fairgive-restriction-releases#readme",
+  "bugs": {
+    "url": "https://github.com/fpavia111-creator/fairgive-agents/issues"
+  },
+  "keywords": [
+    "mcp",
+    "mcp-server",
+    "nonprofit",
+    "nonprofits",
+    "fundraising",
+    "fairgive",
+    "release-from-restriction",
+    "restricted-funds",
+    "journal-entries"
+  ]
+}

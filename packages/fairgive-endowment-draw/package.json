@@ -1,0 +1,56 @@
+{
+  "name": "fairgive-endowment-draw",
+  "version": "0.1.0",
+  "description": "Fairgive Endowment Draw: works out each endowment fund's draw from your spending policy (rate times the average of past quarter-end values), flags underwater funds, too little history and rates over the prudence presumption in your settings, and drafts the draw memo.",
+  "type": "module",
+  "license": "MIT",
+  "author": "Kurt Francisco",
+  "engines": {
+    "node": ">=20"
+  },
+  "main": "src/index.js",
+  "exports": {
+    ".": "./src/index.js",
+    "./package.json": "./package.json"
+  },
+  "bin": {
+    "fairgive-endowment-draw": "bin/fairgive-endowment-draw.js"
+  },
+  "files": [
+    "src",
+    "bin",
+    "fixtures",
+    "evals",
+    "README.md",
+    "CHANGELOG.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "test": "node scripts/run-tests.cjs",
+    "demo": "node bin/fairgive-endowment-draw.js demo",
+    "eval": "node bin/fairgive-endowment-draw.js eval"
+  },
+  "dependencies": {
+    "fairgive-core": "^0.1.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fpavia111-creator/fairgive-agents.git",
+    "directory": "packages/fairgive-endowment-draw"
+  },
+  "homepage": "https://github.com/fpavia111-creator/fairgive-agents/tree/main/packages/fairgive-endowment-draw#readme",
+  "bugs": {
+    "url": "https://github.com/fpavia111-creator/fairgive-agents/issues"
+  },
+  "keywords": [
+    "mcp",
+    "mcp-server",
+    "nonprofit",
+    "nonprofits",
+    "fundraising",
+    "fairgive",
+    "endowment",
+    "spending-policy",
+    "upmifa"
+  ]
+}

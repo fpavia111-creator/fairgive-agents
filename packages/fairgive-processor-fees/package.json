@@ -1,0 +1,56 @@
+{
+  "name": "fairgive-processor-fees",
+  "version": "0.1.0",
+  "description": "Fairgive Processor Fees: checks Stripe, PayPal, Givebutter or Classy transactions against the fee rates in your settings: fees over the rate, gifts booked net of fees, donor-covered fees, refund fees and payouts missing from the bank. Never moves money.",
+  "type": "module",
+  "license": "MIT",
+  "author": "Kurt Francisco",
+  "engines": {
+    "node": ">=20"
+  },
+  "main": "src/index.js",
+  "exports": {
+    ".": "./src/index.js",
+    "./package.json": "./package.json"
+  },
+  "bin": {
+    "fairgive-processor-fees": "bin/fairgive-processor-fees.js"
+  },
+  "files": [
+    "src",
+    "bin",
+    "fixtures",
+    "evals",
+    "README.md",
+    "CHANGELOG.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "test": "node scripts/run-tests.cjs",
+    "demo": "node bin/fairgive-processor-fees.js demo",
+    "eval": "node bin/fairgive-processor-fees.js eval"
+  },
+  "dependencies": {
+    "fairgive-core": "^0.1.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fpavia111-creator/fairgive-agents.git",
+    "directory": "packages/fairgive-processor-fees"
+  },
+  "homepage": "https://github.com/fpavia111-creator/fairgive-agents/tree/main/packages/fairgive-processor-fees#readme",
+  "bugs": {
+    "url": "https://github.com/fpavia111-creator/fairgive-agents/issues"
+  },
+  "keywords": [
+    "mcp",
+    "mcp-server",
+    "nonprofit",
+    "nonprofits",
+    "fundraising",
+    "fairgive",
+    "payment-processing",
+    "stripe-fees",
+    "paypal-fees"
+  ]
+}

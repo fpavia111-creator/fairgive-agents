@@ -1,0 +1,56 @@
+{
+  "name": "fairgive-payroll-allocation",
+  "version": "0.1.0",
+  "description": "Fairgive Payroll Allocation: compares salaries charged to programs and grants with timesheets or effort reports: charges that differ from effort, effort over 100%, grant-funded staff with no effort certification and pay never allocated. Never changes payroll.",
+  "type": "module",
+  "license": "MIT",
+  "author": "Kurt Francisco",
+  "engines": {
+    "node": ">=20"
+  },
+  "main": "src/index.js",
+  "exports": {
+    ".": "./src/index.js",
+    "./package.json": "./package.json"
+  },
+  "bin": {
+    "fairgive-payroll-allocation": "bin/fairgive-payroll-allocation.js"
+  },
+  "files": [
+    "src",
+    "bin",
+    "fixtures",
+    "evals",
+    "README.md",
+    "CHANGELOG.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "test": "node scripts/run-tests.cjs",
+    "demo": "node bin/fairgive-payroll-allocation.js demo",
+    "eval": "node bin/fairgive-payroll-allocation.js eval"
+  },
+  "dependencies": {
+    "fairgive-core": "^0.1.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fpavia111-creator/fairgive-agents.git",
+    "directory": "packages/fairgive-payroll-allocation"
+  },
+  "homepage": "https://github.com/fpavia111-creator/fairgive-agents/tree/main/packages/fairgive-payroll-allocation#readme",
+  "bugs": {
+    "url": "https://github.com/fpavia111-creator/fairgive-agents/issues"
+  },
+  "keywords": [
+    "mcp",
+    "mcp-server",
+    "nonprofit",
+    "nonprofits",
+    "fundraising",
+    "fairgive",
+    "payroll-allocation",
+    "effort-reporting",
+    "grant-compliance"
+  ]
+}

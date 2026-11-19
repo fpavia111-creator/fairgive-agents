@@ -10,7 +10,7 @@ import { fileURLToPath } from 'node:url';
 
 const repo = join(dirname(fileURLToPath(import.meta.url)), '..');
 const [name, description, kw = ''] = process.argv.slice(2);
-if (!name || !/^fairgive-[a-z]+(-[a-z]+)*$/.test(name) || !description) { console.error('usage: new-agent.mjs fairgive-<job words> "<description>" kw1,kw2'); process.exit(2); }
+if (!name || !/^fairgive-[a-z0-9]+(-[a-z0-9]+)*$/.test(name) || !description) { console.error('usage: new-agent.mjs fairgive-<job words> "<description>" kw1,kw2'); process.exit(2); }
 const root = join(repo, 'packages', name);
 const prefix = name.replace(/^fairgive-/, '').replace(/-/g, '_'); // tool prefix: the job words
 const corePkg = JSON.parse(readFileSync(join(repo, 'packages/fairgive-core/package.json'), 'utf8'));
@@ -25,7 +25,7 @@ write('package.json', JSON.stringify({
   repository: { type: 'git', url: 'git+https://github.com/fpavia111-creator/fairgive-agents.git', directory: `packages/${name}` },
   homepage: `https://github.com/fpavia111-creator/fairgive-agents/tree/main/packages/${name}#readme`,
   bugs: { url: 'https://github.com/fpavia111-creator/fairgive-agents/issues' },
-  keywords: ['mcp', 'mcp-server', 'restaurant', 'restaurants', 'food-service', 'fairgive', ...kw.split(',').filter(Boolean)],
+  keywords: ['mcp', 'mcp-server', 'nonprofit', 'nonprofits', 'fundraising', 'fairgive', ...kw.split(',').filter(Boolean)],
 }, null, 2) + '\n');
 write(`bin/${name}.js`, `#!/usr/bin/env node\nimport { fileURLToPath } from 'node:url';\nimport { main } from 'fairgive-core';\nimport { manifest } from '../src/manifest.js';\nimport { demo } from '../src/demo.js';\n\nmain(manifest, { bin: '${name}', demo, evalFile: fileURLToPath(new URL('../evals/cases.json', import.meta.url)) });\n`);
 write('src/index.js', `export { manifest } from './manifest.js';\nexport * from './${process.argv[5] || 'logic'}.js';\n`, { keep: true });
@@ -90,11 +90,11 @@ import { manifest } from '../src/index.js';
 agentContract({ manifest, casesFile: fileURLToPath(new URL('../evals/cases.json', import.meta.url)) });
 `);
 write('src/demo.js', `import { fileURLToPath } from 'node:url';
-import { tableDemo } from 'fairgive-core';
+import { giveDemo } from 'fairgive-core';
 import { DEMO } from './manifest.js';
 
 export async function demo(manifest) {
-  await tableDemo(manifest, fileURLToPath(new URL('../fixtures', import.meta.url)), DEMO);
+  await giveDemo(manifest, fileURLToPath(new URL('../fixtures', import.meta.url)), DEMO);
 }
 `, { keep: true });
 console.log(`wrote ${root}`);

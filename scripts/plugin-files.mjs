@@ -16,9 +16,9 @@ for (const n of pkgs) {
   const desc = ((s) => s[0].toUpperCase() + s.slice(1))(p.description.replace(/^[A-Z]\w+ of [A-Z]\w+:\s*/, ''));
   want.set(join('packages', n, '.claude-plugin', 'plugin.json'), { name: n, version: p.version, description: desc, author: { name: p.author }, license: p.license, homepage: p.homepage, keywords: p.keywords });
   want.set(join('packages', n, '.mcp.json'), { mcpServers: { [n]: { command: 'npx', args: ['-y', `${n}@${p.version}`, 'mcp'] } } });
-  plugins.push({ name: n, source: `./packages/${n}`, description: desc, version: p.version, category: 'restaurants', keywords: [...new Set(p.keywords.filter((k) => !['mcp', 'mcp-server', 'fairgive'].includes(k)))] });
+  plugins.push({ name: n, source: `./packages/${n}`, description: desc, version: p.version, category: 'nonprofits', keywords: [...new Set(p.keywords.filter((k) => !['mcp', 'mcp-server', 'fairgive'].includes(k)))] });
 }
-want.set(join('.claude-plugin', 'marketplace.json'), { name: 'fairgive-restaurants', owner: { name: 'Fairgive' }, metadata: { description: 'Thirty-two restaurant, bar and cafe back-office agents. Each reads your exported files, writes reports locally and waits for a named person before anything that moves money, sends a message or changes a live system.' }, plugins });
+want.set(join('.claude-plugin', 'marketplace.json'), { name: 'fairgive-nonprofits', owner: { name: 'Fairgive' }, metadata: { description: 'Nonprofit, foundation, church and association back-office agents. Each reads your exported files, writes reports locally and waits for a named person before anything that moves money, sends a message, files with a government or changes a live system.' }, plugins });
 let stale = 0;
 for (const [rel, obj] of want) {
   const f = join(root, rel); const text = JSON.stringify(obj, null, 2) + '\n';

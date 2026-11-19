@@ -1,0 +1,56 @@
+{
+  "name": "fairgive-vendor-1099",
+  "version": "0.1.0",
+  "description": "Fairgive Vendor 1099: finds vendors paid at or over the 1099 threshold in your settings, with payments by card left out: no W-9 on file, no or malformed taxpayer id, missing address, attorneys paid as corporations. Taxpayer ids are masked. Files nothing.",
+  "type": "module",
+  "license": "MIT",
+  "author": "Kurt Francisco",
+  "engines": {
+    "node": ">=20"
+  },
+  "main": "src/index.js",
+  "exports": {
+    ".": "./src/index.js",
+    "./package.json": "./package.json"
+  },
+  "bin": {
+    "fairgive-vendor-1099": "bin/fairgive-vendor-1099.js"
+  },
+  "files": [
+    "src",
+    "bin",
+    "fixtures",
+    "evals",
+    "README.md",
+    "CHANGELOG.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "test": "node scripts/run-tests.cjs",
+    "demo": "node bin/fairgive-vendor-1099.js demo",
+    "eval": "node bin/fairgive-vendor-1099.js eval"
+  },
+  "dependencies": {
+    "fairgive-core": "^0.1.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fpavia111-creator/fairgive-agents.git",
+    "directory": "packages/fairgive-vendor-1099"
+  },
+  "homepage": "https://github.com/fpavia111-creator/fairgive-agents/tree/main/packages/fairgive-vendor-1099#readme",
+  "bugs": {
+    "url": "https://github.com/fpavia111-creator/fairgive-agents/issues"
+  },
+  "keywords": [
+    "mcp",
+    "mcp-server",
+    "nonprofit",
+    "nonprofits",
+    "fundraising",
+    "fairgive",
+    "1099-nec",
+    "w-9",
+    "vendor-compliance"
+  ]
+}

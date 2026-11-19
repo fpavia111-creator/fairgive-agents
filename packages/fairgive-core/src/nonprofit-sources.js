@@ -18,6 +18,16 @@ export function pick(set, names, changes = {}) {
   return out;
 }
 
+/** Export profiles limited to the fields an agent declares (a profile may only map declared fields). */
+export function fit(profiles, fields) {
+  return Object.freeze((profiles || []).map((p) => Object.freeze({ ...p, map: Object.fromEntries(Object.entries(p.map || {}).filter(([f]) => Object.hasOwn(fields, f))), ...(p.provides ? { provides: p.provides.filter((f) => Object.hasOwn(fields, f)) } : {}) })));
+}
+/** A source block for a manifest: pick fields from a set and fit its profiles to them. */
+export function sourceOf(label, args, set, names, profiles = [], changes = {}) {
+  const fields = pick(set, names, changes);
+  return { label, args, fields, ...(profiles.length ? { profiles: fit(profiles, fields) } : {}) };
+}
+
 // ------------------------------------------------------------------ gifts ----
 
 export const GIFT_FIELDS = Object.freeze({

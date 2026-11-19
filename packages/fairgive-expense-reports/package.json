@@ -1,0 +1,56 @@
+{
+  "name": "fairgive-expense-reports",
+  "version": "0.1.0",
+  "description": "Fairgive Expense Reports: checks staff expense report lines against your policy settings: missing receipts, meals over the per diem, mileage over the rate, alcohol and other unallowable costs charged to grants, duplicate claims and late submissions. Never pays or approves.",
+  "type": "module",
+  "license": "MIT",
+  "author": "Kurt Francisco",
+  "engines": {
+    "node": ">=20"
+  },
+  "main": "src/index.js",
+  "exports": {
+    ".": "./src/index.js",
+    "./package.json": "./package.json"
+  },
+  "bin": {
+    "fairgive-expense-reports": "bin/fairgive-expense-reports.js"
+  },
+  "files": [
+    "src",
+    "bin",
+    "fixtures",
+    "evals",
+    "README.md",
+    "CHANGELOG.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "test": "node scripts/run-tests.cjs",
+    "demo": "node bin/fairgive-expense-reports.js demo",
+    "eval": "node bin/fairgive-expense-reports.js eval"
+  },
+  "dependencies": {
+    "fairgive-core": "^0.1.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fpavia111-creator/fairgive-agents.git",
+    "directory": "packages/fairgive-expense-reports"
+  },
+  "homepage": "https://github.com/fpavia111-creator/fairgive-agents/tree/main/packages/fairgive-expense-reports#readme",
+  "bugs": {
+    "url": "https://github.com/fpavia111-creator/fairgive-agents/issues"
+  },
+  "keywords": [
+    "mcp",
+    "mcp-server",
+    "nonprofit",
+    "nonprofits",
+    "fundraising",
+    "fairgive",
+    "expense-reports",
+    "travel-policy",
+    "unallowable-costs"
+  ]
+}

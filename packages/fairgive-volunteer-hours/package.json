@@ -1,0 +1,56 @@
+{
+  "name": "fairgive-volunteer-hours",
+  "version": "0.1.0",
+  "description": "Fairgive Volunteer Hours: totals volunteer hours by program from your hours log, values them at your hourly rate setting, and flags shifts over your daily maximum, future dates, duplicate entries, missing programs, background checks due and skilled services to look at for recognition.",
+  "type": "module",
+  "license": "MIT",
+  "author": "Kurt Francisco",
+  "engines": {
+    "node": ">=20"
+  },
+  "main": "src/index.js",
+  "exports": {
+    ".": "./src/index.js",
+    "./package.json": "./package.json"
+  },
+  "bin": {
+    "fairgive-volunteer-hours": "bin/fairgive-volunteer-hours.js"
+  },
+  "files": [
+    "src",
+    "bin",
+    "fixtures",
+    "evals",
+    "README.md",
+    "CHANGELOG.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "test": "node scripts/run-tests.cjs",
+    "demo": "node bin/fairgive-volunteer-hours.js demo",
+    "eval": "node bin/fairgive-volunteer-hours.js eval"
+  },
+  "dependencies": {
+    "fairgive-core": "^0.1.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fpavia111-creator/fairgive-agents.git",
+    "directory": "packages/fairgive-volunteer-hours"
+  },
+  "homepage": "https://github.com/fpavia111-creator/fairgive-agents/tree/main/packages/fairgive-volunteer-hours#readme",
+  "bugs": {
+    "url": "https://github.com/fpavia111-creator/fairgive-agents/issues"
+  },
+  "keywords": [
+    "mcp",
+    "mcp-server",
+    "nonprofit",
+    "nonprofits",
+    "fundraising",
+    "fairgive",
+    "volunteer-management",
+    "volunteer-hours",
+    "in-kind-services"
+  ]
+}

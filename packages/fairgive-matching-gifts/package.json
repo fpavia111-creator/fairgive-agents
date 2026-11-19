@@ -1,0 +1,56 @@
+{
+  "name": "fairgive-matching-gifts",
+  "version": "0.1.0",
+  "description": "Fairgive Matching Gifts: finds gifts from donors whose employer matches, with the match amount, the claim deadline and the claims sent or received: eligible gifts not claimed, deadlines close or passed, matches received that differ. Drafts donor reminders. Never submits a claim.",
+  "type": "module",
+  "license": "MIT",
+  "author": "Kurt Francisco",
+  "engines": {
+    "node": ">=20"
+  },
+  "main": "src/index.js",
+  "exports": {
+    ".": "./src/index.js",
+    "./package.json": "./package.json"
+  },
+  "bin": {
+    "fairgive-matching-gifts": "bin/fairgive-matching-gifts.js"
+  },
+  "files": [
+    "src",
+    "bin",
+    "fixtures",
+    "evals",
+    "README.md",
+    "CHANGELOG.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "test": "node scripts/run-tests.cjs",
+    "demo": "node bin/fairgive-matching-gifts.js demo",
+    "eval": "node bin/fairgive-matching-gifts.js eval"
+  },
+  "dependencies": {
+    "fairgive-core": "^0.1.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fpavia111-creator/fairgive-agents.git",
+    "directory": "packages/fairgive-matching-gifts"
+  },
+  "homepage": "https://github.com/fpavia111-creator/fairgive-agents/tree/main/packages/fairgive-matching-gifts#readme",
+  "bugs": {
+    "url": "https://github.com/fpavia111-creator/fairgive-agents/issues"
+  },
+  "keywords": [
+    "mcp",
+    "mcp-server",
+    "nonprofit",
+    "nonprofits",
+    "fundraising",
+    "fairgive",
+    "matching-gifts",
+    "employer-match",
+    "corporate-giving"
+  ]
+}

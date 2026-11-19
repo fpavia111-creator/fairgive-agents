@@ -1,0 +1,12 @@
+Spenden-ID;Spendernummer;Spender;Spendendatum;Betrag;Fonds;Spendenart;Zahlungsart;Stapel
+G-0901;C-100;Maple Hartwell;24.09.2026;200,00;GEN;Cash;Check;B-100
+G-1001;C-101;Rowan Ellery;05.10.2026;100,00;GEN;Cash;Check;B-101
+G-1002;C-102;Juniper Vance;05.10.2026;250,00;GEN;Cash;Check;B-101
+G-1003;C-103;Tamsin Okafor;06.10.2026;50,00;YOUTH;Cash;Cash;B-101
+G-1004;C-104;Corwin Achebe;09.10.2026;500,00;GEN;Cash;Check;B-102
+G-1005;C-105;Liesel Marchetti;09.10.2026;75,00;GEN;Cash;Check;B-102
+G-1006;C-106;Bram Halloway;14.10.2026;1.000,00;CAPITAL;Cash;Check;B-103
+G-1007;C-107;Odessa Quill;14.10.2026;20,00;GEN;Cash;Cash;B-103
+G-1010;C-108;Priya Lindqvist;20.10.2026;300,00;GEN;Cash;Credit Card;
+G-1011;C-109;Emeric Sato;29.10.2026;125,00;GEN;Cash;Credit Card;
+G-1012;C-110;Wren Castellano;15.10.2026;5.000,00;ENDOW;Stock;Securities;

@@ -1,0 +1,7 @@
+deposit_id,date,amount,description,batch
+D-0,2026-09-28,200.00,Deposit checks,B-100
+D-1,2026-10-07,400.00,Deposit checks,B-101
+D-2,2026-10-12,565.00,Deposit checks,B-102
+D-3,2026-10-22,300.00,Card payout,
+D-4,2026-10-25,250.00,Mobile deposit,
+D-5,2026-10-30,80.00,Interest credit,

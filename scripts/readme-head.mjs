@@ -28,7 +28,7 @@ for (const n of readdirSync(PK).filter((x) => /^fairgive-(?!core$)/.test(x) && (
   const pkg = JSON.parse(readFileSync(join(PK, n, 'package.json'), 'utf8'));
   const desc = pkg.description.replace(/^[^:]+:\s*/, '');
   const L = [`# ${n}`, '', desc.charAt(0).toUpperCase() + desc.slice(1), '',
-    `Part of **Fairgive**, the restaurant, bar and cafe agents by Mythos Machines. The software is free (MIT); the paid part is a fixed-price setup on your own files. Every result is computed from your files with plain arithmetic, on your computer; no AI model is called by the tools.`, '',
+    `Part of **Fairgive**, the nonprofit, foundation, church and association back-office agents by Mythos Machines. The software is free (MIT); the paid part is a fixed-price setup on your own files. Every result is computed from your files with plain arithmetic, on your computer; no AI model is called by the tools.`, '',
     '## What it checks', '', manifest.tools[0].description, '',
     '| Finding | Example from the fictional demo data |', '|---|---|',
     ...[...examples.entries()].sort((a, b) => (a[0] < b[0] ? -1 : 1)).map(([code, e]) => `| \`${code}\` | ${esc(e.detail)} |`), '',

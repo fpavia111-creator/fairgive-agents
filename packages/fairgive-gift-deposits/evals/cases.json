@@ -1,0 +1,367 @@
+{
+  "suite": "fairgive-gift-deposits",
+  "root": "..",
+  "data_note": "Fictional gifts, deposits and ledger lines; names are made up. Deterministic checks; no model is called.",
+  "cases": [
+    {
+      "id": "reconciliation-totals",
+      "tool": "deposits_check",
+      "args": {
+        "gifts": "fixtures/gifts.csv",
+        "deposits": "fixtures/deposits.csv",
+        "gl": "fixtures/gl.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.gifts": 10,
+          "result.crm_cash_total": 2620,
+          "result.deposits": 5,
+          "result.not_deposited": 1020,
+          "result.deposit_short_or_over": 10,
+          "result.deposits_not_in_crm": 250,
+          "result.in_transit": 125,
+          "result.gl_gap": 905,
+          "result.flag": 2,
+          "result.review": 2,
+          "result.watch": 1,
+          "result.ok": 4
+        }
+      }
+    },
+    {
+      "id": "every-planted-issue-found",
+      "tool": "deposits_check",
+      "args": {
+        "gifts": "fixtures/gifts.csv",
+        "deposits": "fixtures/deposits.csv",
+        "gl": "fixtures/gl.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "contains": [
+          "batch_total_mismatch",
+          "not_deposited",
+          "deposit_not_in_crm",
+          "in_transit",
+          "gl_differs"
+        ],
+        "not_contains": [
+          "Emeric Sato",
+          "Priya Lindqvist",
+          "Maple Hartwell"
+        ]
+      }
+    },
+    {
+      "id": "short-batch-explained",
+      "tool": "deposits_explain",
+      "args": {
+        "gifts": "fixtures/gifts.csv",
+        "deposits": "fixtures/deposits.csv",
+        "settings": "fixtures/settings.json",
+        "item": "Batch B-102"
+      },
+      "expect": {
+        "status": "executed",
+        "contains": [
+          "gifts total 575, deposit D-2",
+          "difference -10"
+        ],
+        "equals": {
+          "result.item.deposit_amount": 565
+        }
+      }
+    },
+    {
+      "id": "without-the-ledger",
+      "tool": "deposits_check",
+      "args": {
+        "gifts": "fixtures/gifts.csv",
+        "deposits": "fixtures/deposits.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.gl_gap": 0,
+          "result.items_total": 7
+        },
+        "not_contains": [
+          "gl_differs"
+        ]
+      }
+    },
+    {
+      "id": "defaults-count-interest-as-a-deposit",
+      "tool": "deposits_check",
+      "args": {
+        "gifts": "fixtures/gifts.csv",
+        "deposits": "fixtures/deposits.csv"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.deposits": 6,
+          "result.deposits_not_in_crm": 330
+        }
+      }
+    },
+    {
+      "id": "npsp-export-and-one-deposit-for-three-gifts",
+      "tool": "deposits_check",
+      "args": {
+        "gifts": "fixtures/exports/npsp-opportunities.csv",
+        "deposits": "fixtures/exports/deposits-for-npsp.csv"
+      },
+      "expect": {
+        "status": "executed",
+        "contains": [
+          "npsp_opportunities"
+        ],
+        "equals": {
+          "result.gifts": 3,
+          "result.ok": 3,
+          "result.not_deposited": 0
+        }
+      }
+    },
+    {
+      "id": "missing-argument-named",
+      "tool": "deposits_check",
+      "args": {},
+      "expect": {
+        "status": "error",
+        "contains": [
+          "gifts"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "file-outside-root-refused",
+      "tool": "deposits_check",
+      "args": {
+        "gifts": "../../../outside.csv",
+        "deposits": "fixtures/deposits.csv",
+        "gl": "fixtures/gl.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "outside"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "invented-tool-name-refused",
+      "tool": "deposits_pay_everything_now",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "review-mode-still-reads",
+      "tool": "deposits_check",
+      "mode": "review",
+      "args": {
+        "gifts": "fixtures/gifts.csv",
+        "deposits": "fixtures/deposits.csv",
+        "gl": "fixtures/gl.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.gifts": 10,
+          "result.crm_cash_total": 2620,
+          "result.deposits": 5,
+          "result.not_deposited": 1020,
+          "result.deposit_short_or_over": 10,
+          "result.deposits_not_in_crm": 250,
+          "result.in_transit": 125,
+          "result.gl_gap": 905,
+          "result.flag": 2,
+          "result.review": 2,
+          "result.watch": 1,
+          "result.ok": 4
+        }
+      },
+      "generated": true
+    },
+    {
+      "id": "status-filter-keeps-totals",
+      "tool": "deposits_check",
+      "args": {
+        "gifts": "fixtures/gifts.csv",
+        "deposits": "fixtures/deposits.csv",
+        "gl": "fixtures/gl.csv",
+        "settings": "fixtures/settings.json",
+        "status": "ok",
+        "limit": 1
+      },
+      "expect": {
+        "status": "executed",
+        "max": {
+          "result.items_shown": 1
+        },
+        "equals": {
+          "result.gifts": 10,
+          "result.crm_cash_total": 2620,
+          "result.deposits": 5,
+          "result.not_deposited": 1020,
+          "result.deposit_short_or_over": 10,
+          "result.deposits_not_in_crm": 250,
+          "result.in_transit": 125,
+          "result.gl_gap": 905,
+          "result.flag": 2,
+          "result.review": 2,
+          "result.watch": 1,
+          "result.ok": 4
+        }
+      },
+      "generated": true
+    },
+    {
+      "id": "explain-unknown-item-is-a-readable-error",
+      "tool": "deposits_explain",
+      "args": {
+        "gifts": "fixtures/gifts.csv",
+        "deposits": "fixtures/deposits.csv",
+        "gl": "fixtures/gl.csv",
+        "settings": "fixtures/settings.json",
+        "item": "No Such Thing Zz"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "not found"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "report-writes-two-files",
+      "tool": "deposits_write_report",
+      "args": {
+        "gifts": "fixtures/gifts.csv",
+        "deposits": "fixtures/deposits.csv",
+        "gl": "fixtures/gl.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "length": {
+          "result.files": 2
+        },
+        "matches": [
+          "[0-9a-f]{64}"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "refuses-ledger-post",
+      "tool": "ledger_post",
+      "mode": "auto",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "refuses-crm-update-records",
+      "tool": "crm_update_records",
+      "mode": "auto",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "refuses-bank-transfer",
+      "tool": "bank_transfer",
+      "mode": "auto",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "recall-empty-memory",
+      "tool": "deposits_recall",
+      "args": {},
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.total": 0
+        }
+      },
+      "generated": true
+    },
+    {
+      "id": "intl-de-reconciliation-totals",
+      "tool": "deposits_check",
+      "args": {
+        "gifts": "fixtures/intl/de/gifts.csv",
+        "deposits": "fixtures/intl/de/deposits.csv",
+        "gl": "fixtures/intl/de/gl.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.gifts": 10,
+          "result.crm_cash_total": 2620,
+          "result.deposits": 5,
+          "result.not_deposited": 1020,
+          "result.deposit_short_or_over": 10,
+          "result.deposits_not_in_crm": 250,
+          "result.in_transit": 125,
+          "result.gl_gap": 905,
+          "result.flag": 2,
+          "result.review": 2,
+          "result.watch": 1,
+          "result.ok": 4
+        }
+      },
+      "note": "German export of the same data (fixtures/intl/de); must match the English case \"reconciliation-totals\"."
+    },
+    {
+      "id": "intl-ja-reconciliation-totals",
+      "tool": "deposits_check",
+      "args": {
+        "gifts": "fixtures/intl/ja/gifts.csv",
+        "deposits": "fixtures/intl/ja/deposits.csv",
+        "gl": "fixtures/intl/ja/gl.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.gifts": 10,
+          "result.crm_cash_total": 2620,
+          "result.deposits": 5,
+          "result.not_deposited": 1020,
+          "result.deposit_short_or_over": 10,
+          "result.deposits_not_in_crm": 250,
+          "result.in_transit": 125,
+          "result.gl_gap": 905,
+          "result.flag": 2,
+          "result.review": 2,
+          "result.watch": 1,
+          "result.ok": 4
+        }
+      },
+      "note": "Japanese export of the same data (fixtures/intl/ja); must match the English case \"reconciliation-totals\"."
+    }
+  ]
+}

@@ -1,0 +1,56 @@
+{
+  "name": "fairgive-giving-statements",
+  "version": "0.1.0",
+  "description": "Fairgive Giving Statements: builds year-end contribution statements per giver from your church or nonprofit giving records, and flags givers with no address, gifts dated in another year, refunds and loose offering with no giver. Drafts the statements for a person to send.",
+  "type": "module",
+  "license": "MIT",
+  "author": "Kurt Francisco",
+  "engines": {
+    "node": ">=20"
+  },
+  "main": "src/index.js",
+  "exports": {
+    ".": "./src/index.js",
+    "./package.json": "./package.json"
+  },
+  "bin": {
+    "fairgive-giving-statements": "bin/fairgive-giving-statements.js"
+  },
+  "files": [
+    "src",
+    "bin",
+    "fixtures",
+    "evals",
+    "README.md",
+    "CHANGELOG.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "test": "node scripts/run-tests.cjs",
+    "demo": "node bin/fairgive-giving-statements.js demo",
+    "eval": "node bin/fairgive-giving-statements.js eval"
+  },
+  "dependencies": {
+    "fairgive-core": "^0.1.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fpavia111-creator/fairgive-agents.git",
+    "directory": "packages/fairgive-giving-statements"
+  },
+  "homepage": "https://github.com/fpavia111-creator/fairgive-agents/tree/main/packages/fairgive-giving-statements#readme",
+  "bugs": {
+    "url": "https://github.com/fpavia111-creator/fairgive-agents/issues"
+  },
+  "keywords": [
+    "mcp",
+    "mcp-server",
+    "nonprofit",
+    "nonprofits",
+    "fundraising",
+    "fairgive",
+    "contribution-statements",
+    "church-giving",
+    "year-end-statements"
+  ]
+}

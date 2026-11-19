@@ -1,0 +1,6 @@
+{
+  "days": 5,
+  "noncash_types": ["Stock", "Securities", "In-Kind", "Gift in kind", "Noncash"],
+  "revenue_accounts": ["40"],
+  "ignore_deposit_words": ["interest"]
+}
