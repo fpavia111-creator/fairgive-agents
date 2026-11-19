@@ -1,0 +1,90 @@
+{
+  "product": "Fairgive",
+  "repo": "https://github.com/fpavia111-creator/fairgive-agents",
+  "try_it": [
+    "git clone https://github.com/fpavia111-creator/fairgive-agents",
+    "cd fairgive-agents",
+    "npm install",
+    "node packages/fairgive-gift-deposits/bin/fairgive-gift-deposits.js demo"
+  ],
+  "accuracy": {
+    "agents": 32,
+    "planted_found": 185,
+    "planted_total": 185,
+    "clean_rows": 575,
+    "clean_false_positives": 0,
+    "mutation_cases": 90,
+    "mutation_caught": 90,
+    "note": "On fictional test data, 19 Nov 2026. The clean set covers all 32 agents: the demo files with each planted problem removed, written by the same author as the rules. Measuring it found two wrong findings, now fixed (an auction item bought at exactly its value, and a partial refund the CRM had already reduced). Public data then went through four agents and showed one more rule to fix: duplicate-donor names were matched too loosely."
+  },
+  "real_data": [
+    [
+      "Federal Audit Clearinghouse (GSA): single audits filed by nonprofits",
+      "https://www.fac.gov/",
+      "2026-11-19",
+      "U.S. government data, public domain",
+      "fairgive-single-audit on 70 audits (472 federal award lines, fiscal years ending 2024-06-30 and 2025-12-31): federal spending equals the total each audit reports in 70 of 70, with the threshold for that year (750,000 or 1,000,000), and 0 disagreements with a separate re-count. 71 of 307 pass-through award lines have no pass-through id; the agent lists them for a person to enter or confirm."
+    ],
+    [
+      "IRS Form 990 e-file data (TEOS XML), January 2025 release, 90 returns",
+      "https://apps.irs.gov/pub/epostcard/990/xml/2025/2025_TEOS_XML_01A.zip",
+      "2026-11-19",
+      "IRS public information (U.S. government work)",
+      "fairgive-form-990-data on 2,427 Schedule I grants and 1,272 Part VII people from 53 Form 990 returns: 283 grants with no recipient EIN and 23 people with no hours for the filing organization, both the same as a separate count. fairgive-functional-expenses on 733 Part IX lines from 48 returns: program, management and fundraising totals equal each return's own totals in 48 of 48."
+    ],
+    [
+      "IRS Exempt Organizations Business Master File, Vermont extract",
+      "https://www.irs.gov/pub/irs-soi/eo_vt.csv",
+      "2026-11-19",
+      "IRS public information (U.S. government work)",
+      "fairgive-duplicate-donors on 6,626 registered organizations, each a different EIN. Before this pass it grouped 46 sets of different organizations by name (33 called similar, such as two different clubs in one town); the rule was fixed and now groups 17, of which 13 are a low-level 'same name in another postal code' (parishes and chapters) and 3 look like one organization registered twice. 150 retyped copies planted among them: 150 found."
+    ]
+  ],
+  "formats": [
+    ["Blackbaud Raiser's Edge NXT", "Gift list or query export (CSV)", "written from knowledge of the export; not yet checked against documentation or a real export"],
+    ["Blackbaud Raiser's Edge NXT", "Constituent list export (CSV)", "written from knowledge of the export; not yet checked against documentation or a real export"],
+    ["Blackbaud Financial Edge NXT", "Journal entry or account activity export", "written from knowledge of the export; not yet checked against documentation or a real export"],
+    ["Salesforce Nonprofit Success Pack", "Opportunities (donations) report export", "written from knowledge of the export; not yet checked against documentation or a real export"],
+    ["Salesforce Nonprofit Success Pack", "Contacts report export", "written from knowledge of the export; not yet checked against documentation or a real export"],
+    ["Bloomerang", "Transactions export", "written from knowledge of the export; not yet checked against documentation or a real export"],
+    ["Bloomerang", "Constituents export", "written from knowledge of the export; not yet checked against documentation or a real export"],
+    ["DonorPerfect", "Gift export (field names)", "written from knowledge of the export; not yet checked against documentation or a real export"],
+    ["Little Green Light", "Gifts export", "written from knowledge of the export; not yet checked against documentation or a real export"],
+    ["Neon CRM", "Donation report export", "written from knowledge of the export; not yet checked against documentation or a real export"],
+    ["Givebutter", "Transactions export", "written from knowledge of the export; not yet checked against documentation or a real export"],
+    ["GoFundMe Pro (Classy)", "Transactions export", "written from knowledge of the export; not yet checked against documentation or a real export"],
+    ["PayPal", "Activity download (CSV)", "written from knowledge of the export; not yet checked against documentation or a real export"],
+    ["Stripe", "Balance history export", "written from knowledge of the export; not yet checked against documentation or a real export"],
+    ["Stripe", "Payments export", "written from knowledge of the export; not yet checked against documentation or a real export"],
+    ["QuickBooks Online", "General Ledger report (CSV or Excel)", "written from knowledge of the export; not yet checked against documentation or a real export"],
+    ["QuickBooks Online", "Vendor contact list export", "written from knowledge of the export; not yet checked against documentation or a real export"],
+    ["Aplos", "Transactions export", "written from knowledge of the export; not yet checked against documentation or a real export"],
+    ["Sage Intacct", "General ledger detail report export", "written from knowledge of the export; not yet checked against documentation or a real export"],
+    ["Federal Audit Clearinghouse", "Federal awards and pass-through records (api.fac.gov), converted to the agent's columns by scripts/realdata.mjs", "tested on a public sample"],
+    ["IRS Form 990 e-file (TEOS XML)", "Schedule I, Part VII and Part IX, converted to the agents' columns by scripts/realdata.mjs", "tested on a public sample"],
+    ["IRS Exempt Organizations Business Master File", "State extract (eo_xx.csv), name and address columns", "tested on a public sample"]
+  ],
+  "human_review": [
+    ["Donor gifts starter", "The bookkeeper decides how to fix each batch or deposit that does not match, and a person sends any missing or corrected thank-you letter the agents drafted."],
+    ["Church pack", "The treasurer checks each giving statement before it goes out and decides about gifts with no giver or no date; statements and letters are sent by a person."],
+    ["Gifts and donors pack", "A person merges duplicate records in the CRM, recodes gifts, claims employer matches and answers card disputes; the agents never change the CRM, refund or charge a card."],
+    ["Events, members and volunteers pack", "The finance lead confirms the fair market value of each benefit and the disclosure wording; the volunteer coordinator decides on background checks and the hours that count."],
+    ["Grants pack", "The grants manager decides on cost transfers, drawdown requests and report submissions, and talks to the auditor about the single audit; nothing is drawn or submitted by the agents."],
+    ["Funds and net assets pack", "The controller decides on releases, transfers and the endowment draw, and the board approves designations; the agents prepare draft entries and post nothing."],
+    ["Year-end pack", "The preparer or auditor reviews the Form 990 data, the 1099 list and the functional split before anything is filed; the agents file nothing."],
+    ["Whole organization", "Every finding in every pack goes to a named person, who decides and acts; the agents only read files and write reports and drafts."],
+    ["Partner rollout", "Each client's own staff act on its findings, and the firm confirms each client's settings (fiscal year, thresholds, spending policy) with the client."]
+  ],
+  "common_problems": [
+    "Gift batches deposited short or never deposited, and contribution revenue in the ledger that does not match the CRM.",
+    "Gifts over 250 with no thank-you letter, a late letter, a wrong amount or no goods-or-services statement.",
+    "Gala and event payments receipted as fully deductible when the donor received a dinner or another benefit.",
+    "Gifts whose note names a restricted purpose coded to general operating, and restricted funds spent below zero.",
+    "Restricted money spent and never released, or released before its date or beyond what was spent.",
+    "Grant budget lines over budget, costs dated outside the award period, and indirect costs charged on more than the allowed base.",
+    "Pledges 90 days or more past due, and conditional pledges kept open as receivables.",
+    "Duplicate donor records that share an e-mail, a phone number or an address."
+  ],
+  "reaches_the_model": "When an assistant calls a tool, its model sees the result: amounts, dates, rates, finding codes, record ids (donor, gift, employee and volunteer ids) and text such as fund, grant and account names in clear. Donor, member, volunteer, staff, officer and vendor names, e-mails, phone numbers, street addresses and taxpayer ids are replaced by tokens such as M.H.#eb764c (checked with 261 fictional values in 22 agents, 0 leaks). Memos, notes and bank descriptions are sent as typed, so a name written only there reaches the model. The report and draft files written on your computer keep the real values. Results go to whatever model your assistant uses; for donor and staff data, use a model covered by your own agreements or a local model.",
+  "rules_maintained": "Every rule that changes with the law, a funder or your own policy is a setting, not code: the acknowledgement and quid pro quo thresholds and the IRS's yearly insubstantial-benefit figures, the single audit threshold and the de minimis indirect rate (both chosen by fiscal year or award date), the 1099 threshold (by tax year), the Form 990 schedule thresholds, appraisal and disposal periods, endowment spending and prudence rates, and your own receipt, mileage, per diem and background-check rules. Defaults live in each agent's src/logic.js, with the source and date in the review. Your values go in a settings JSON file merged over the defaults, and every result lists the settings it used. You change the file yourself, or support updates it when a figure changes."
+}

@@ -54,6 +54,9 @@ npm run hostile:args
 npm run bench
 npm run intl
 npm run masking
+npm run accuracy              # planted, clean and one-edit cases
+npm run model-view            # what reaches the AI model, per agent
+npm run realdata -- --download # public data (needs the network once)
 npm run release:check:offline
 ```
 
