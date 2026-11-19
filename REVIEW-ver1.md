@@ -71,7 +71,7 @@ All on this machine: Windows 10, Node 24.20.0.
 | `npm run release:check:offline` | first full run: every check passed except pack contents (a stray file, see below); after the fix the pack check passed (33 packages, 582 KB packed, no tests, state, output, keys or .npmrc) and a second full run on a clean tree passed: tests 812, evals 609/609, hostile 0 findings, pack 33 packages, npm names skipped offline (checked separately below) |
 | `npm run readme:check`, `npm run plugin:check` | generated README sections and the 65 plugin files match the agents |
 | `npm view <name>` for all 33 package names (read-only) | all 33 free (404), see `docs/npm-names-2026-11-18.md` |
-| MCP Registry step (`node ..\add-mcp-registry.cjs fairgive-agents fairgive.html`) | REGISTRY_RESULT |
+| MCP Registry step (`node ..\add-mcp-registry.cjs fairgive-agents fairgive.html`) | done: mcpName in all 32 agent package.json files, 32 server.json files, websiteUrl https://fair-agents.com/fairgive.html; nothing submitted to the registry |
 | Sample reports | `sample-reports/`: all 32 agents' reports (HTML and CSV) on their fictional demo files, in English, plus `index.html` |
 
 ## Found and fixed during the build
