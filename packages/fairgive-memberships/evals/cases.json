@@ -1,0 +1,413 @@
+{
+  "suite": "fairgive-memberships",
+  "root": "..",
+  "data_note": "Fictional members, payments and levels; names and e-mails are made up. Deterministic checks; no model is called.",
+  "cases": [
+    {
+      "id": "membership-totals",
+      "tool": "members_check",
+      "args": {
+        "members": "fixtures/members.csv",
+        "payments": "fixtures/payments.csv",
+        "levels": "fixtures/levels.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.members": 7,
+          "result.active": 5,
+          "result.expiring_soon": 1,
+          "result.lapsed": 1,
+          "result.expected_dues": 1200,
+          "result.dues_received_12m": 1150,
+          "result.flag": 2,
+          "result.review": 2,
+          "result.watch": 1,
+          "result.ok": 2
+        }
+      }
+    },
+    {
+      "id": "every-planted-issue-found",
+      "tool": "members_check",
+      "args": {
+        "members": "fixtures/members.csv",
+        "payments": "fixtures/payments.csv",
+        "levels": "fixtures/levels.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "contains": [
+          "expiring_soon",
+          "lapsed",
+          "paid_wrong_amount",
+          "paid_not_extended",
+          "active_without_payment"
+        ],
+        "not_contains": [
+          "Corwin Achebe",
+          "corwin.achebe@example.org"
+        ]
+      }
+    },
+    {
+      "id": "renewal-not-extended-explained",
+      "tool": "members_explain",
+      "args": {
+        "members": "fixtures/members.csv",
+        "payments": "fixtures/payments.csv",
+        "levels": "fixtures/levels.csv",
+        "settings": "fixtures/settings.json",
+        "member_id": "MB-5"
+      },
+      "expect": {
+        "status": "executed",
+        "contains": [
+          "paid 100 on 2026-10-10 but the membership still ends on 2026-10-15"
+        ]
+      }
+    },
+    {
+      "id": "renewal-notice-after-approval",
+      "tool": "members_draft_renewal_notice",
+      "approve": "Dana Director",
+      "args": {
+        "members": "fixtures/members.csv",
+        "payments": "fixtures/payments.csv",
+        "levels": "fixtures/levels.csv",
+        "settings": "fixtures/settings.json",
+        "member_id": "MB-2",
+        "from": "Dana Director (fictional)"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.amount": 100
+        },
+        "contains": [
+          "renewal_notice-MB-2.md"
+        ],
+        "not_contains": [
+          "Rowan Ellery"
+        ]
+      }
+    },
+    {
+      "id": "no-payments-file",
+      "tool": "members_check",
+      "args": {
+        "members": "fixtures/members.csv",
+        "levels": "fixtures/levels.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.dues_received_12m": 0
+        },
+        "contains": [
+          "active_without_payment"
+        ]
+      }
+    },
+    {
+      "id": "membership-export",
+      "tool": "members_check",
+      "args": {
+        "members": "fixtures/exports/neon-memberships.csv",
+        "levels": "fixtures/levels.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.members": 1,
+          "result.expiring_soon": 1
+        },
+        "not_contains": [
+          "Rowan Ellery"
+        ]
+      }
+    },
+    {
+      "id": "missing-argument-named",
+      "tool": "members_check",
+      "args": {},
+      "expect": {
+        "status": "error",
+        "contains": [
+          "members"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "file-outside-root-refused",
+      "tool": "members_check",
+      "args": {
+        "members": "../../../outside.csv",
+        "payments": "fixtures/payments.csv",
+        "levels": "fixtures/levels.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "outside"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "invented-tool-name-refused",
+      "tool": "members_pay_everything_now",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "review-mode-still-reads",
+      "tool": "members_check",
+      "mode": "review",
+      "args": {
+        "members": "fixtures/members.csv",
+        "payments": "fixtures/payments.csv",
+        "levels": "fixtures/levels.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.members": 7,
+          "result.active": 5,
+          "result.expiring_soon": 1,
+          "result.lapsed": 1,
+          "result.expected_dues": 1200,
+          "result.dues_received_12m": 1150,
+          "result.flag": 2,
+          "result.review": 2,
+          "result.watch": 1,
+          "result.ok": 2
+        }
+      },
+      "generated": true
+    },
+    {
+      "id": "status-filter-keeps-totals",
+      "tool": "members_check",
+      "args": {
+        "members": "fixtures/members.csv",
+        "payments": "fixtures/payments.csv",
+        "levels": "fixtures/levels.csv",
+        "settings": "fixtures/settings.json",
+        "status": "ok",
+        "limit": 1
+      },
+      "expect": {
+        "status": "executed",
+        "max": {
+          "result.items_shown": 1
+        },
+        "equals": {
+          "result.members": 7,
+          "result.active": 5,
+          "result.expiring_soon": 1,
+          "result.lapsed": 1,
+          "result.expected_dues": 1200,
+          "result.dues_received_12m": 1150,
+          "result.flag": 2,
+          "result.review": 2,
+          "result.watch": 1,
+          "result.ok": 2
+        }
+      },
+      "generated": true
+    },
+    {
+      "id": "explain-unknown-item-is-a-readable-error",
+      "tool": "members_explain",
+      "args": {
+        "members": "fixtures/members.csv",
+        "payments": "fixtures/payments.csv",
+        "levels": "fixtures/levels.csv",
+        "settings": "fixtures/settings.json",
+        "member_id": "No Such Thing Zz"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "not found"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "report-writes-two-files",
+      "tool": "members_write_report",
+      "args": {
+        "members": "fixtures/members.csv",
+        "payments": "fixtures/payments.csv",
+        "levels": "fixtures/levels.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "length": {
+          "result.files": 2
+        },
+        "matches": [
+          "[0-9a-f]{64}"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "draft-waits-for-a-person",
+      "tool": "members_draft_renewal_notice",
+      "args": {
+        "members": "fixtures/members.csv",
+        "payments": "fixtures/payments.csv",
+        "levels": "fixtures/levels.csv",
+        "settings": "fixtures/settings.json",
+        "member_id": "MB-2",
+        "from": "Dana Director (fictional)"
+      },
+      "expect": {
+        "status": "needs_approval",
+        "decision": "ask"
+      },
+      "generated": true
+    },
+    {
+      "id": "review-mode-drafts-nothing",
+      "tool": "members_draft_renewal_notice",
+      "mode": "review",
+      "args": {
+        "members": "fixtures/members.csv",
+        "payments": "fixtures/payments.csv",
+        "levels": "fixtures/levels.csv",
+        "settings": "fixtures/settings.json",
+        "member_id": "MB-2",
+        "from": "Dana Director (fictional)"
+      },
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "request-stays-one-click-in-auto",
+      "tool": "members_request_send",
+      "mode": "auto",
+      "auto_actions": [
+        "members_draft_renewal_notice"
+      ],
+      "args": {
+        "draft": "fairgive-out/members/drafts/none.md",
+        "draft_sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+      },
+      "expect": {
+        "status": "needs_approval",
+        "decision": "ask"
+      },
+      "generated": true
+    },
+    {
+      "id": "refuses-email-send",
+      "tool": "email_send",
+      "mode": "auto",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "refuses-crm-update-records",
+      "tool": "crm_update_records",
+      "mode": "auto",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "refuses-dues-charge",
+      "tool": "dues_charge",
+      "mode": "auto",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "recall-empty-memory",
+      "tool": "members_recall",
+      "args": {},
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.total": 0
+        }
+      },
+      "generated": true
+    },
+    {
+      "id": "intl-de-membership-totals",
+      "tool": "members_check",
+      "args": {
+        "members": "fixtures/intl/de/members.csv",
+        "payments": "fixtures/intl/de/payments.csv",
+        "levels": "fixtures/intl/de/levels.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.members": 7,
+          "result.active": 5,
+          "result.expiring_soon": 1,
+          "result.lapsed": 1,
+          "result.expected_dues": 1200,
+          "result.dues_received_12m": 1150,
+          "result.flag": 2,
+          "result.review": 2,
+          "result.watch": 1,
+          "result.ok": 2
+        }
+      },
+      "note": "German export of the same data (fixtures/intl/de); must match the English case \"membership-totals\"."
+    },
+    {
+      "id": "intl-ja-membership-totals",
+      "tool": "members_check",
+      "args": {
+        "members": "fixtures/intl/ja/members.csv",
+        "payments": "fixtures/intl/ja/payments.csv",
+        "levels": "fixtures/intl/ja/levels.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.members": 7,
+          "result.active": 5,
+          "result.expiring_soon": 1,
+          "result.lapsed": 1,
+          "result.expected_dues": 1200,
+          "result.dues_received_12m": 1150,
+          "result.flag": 2,
+          "result.review": 2,
+          "result.watch": 1,
+          "result.ok": 2
+        }
+      },
+      "note": "Japanese export of the same data (fixtures/intl/ja); must match the English case \"membership-totals\"."
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+寄付ID,寄付者ID,寄付者,日付,金額,基金,支払方法,献金袋番号,ステータス
+C-1,GV-1,Maple Hartwell,2026/01/04,100.00,Tithe,Check,101,
+C-2,GV-1,Maple Hartwell,2026/02/01,100.00,Tithe,Check,101,
+C-3,GV-1,Maple Hartwell,2026/12/27,150.00,Building,Online,101,
+C-4,GV-2,Rowan Ellery,2026/03/03,500.00,Missions,Check,102,
+C-5,GV-3,Juniper and Ozzie Vance,2026/05/05,250.00,Tithe,Online,103,
+C-6,GV-3,Juniper and Ozzie Vance,2026/06/06,250.00,Tithe,Online,103,Refunded
+C-7,GV-4,Tamsin Okafor,2025/12/28,200.00,Tithe,Check,104,
+C-8,GV-4,Tamsin Okafor,2026/04/04,300.00,Tithe,Check,104,
+C-9,GV-5,Corwin Achebe,2026/07/07,"1,000.00",Building,Check,105,
+C-10,,,2026/03/08,87.50,Loose offering,Cash,,
+C-11,GV-6,Liesel Marchetti,,60.00,Tithe,Cash,106,

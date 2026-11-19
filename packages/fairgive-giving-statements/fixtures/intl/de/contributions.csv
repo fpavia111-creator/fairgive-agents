@@ -1,0 +1,12 @@
+Spenden-ID;Spendernummer;Spender;Datum;Betrag;Fonds;Zahlungsart;Umschlagnummer;Zustand
+C-1;GV-1;Maple Hartwell;04.01.2026;100,00;Tithe;Check;101;
+C-2;GV-1;Maple Hartwell;01.02.2026;100,00;Tithe;Check;101;
+C-3;GV-1;Maple Hartwell;27.12.2026;150,00;Building;Online;101;
+C-4;GV-2;Rowan Ellery;03.03.2026;500,00;Missions;Check;102;
+C-5;GV-3;Juniper and Ozzie Vance;05.05.2026;250,00;Tithe;Online;103;
+C-6;GV-3;Juniper and Ozzie Vance;06.06.2026;250,00;Tithe;Online;103;Refunded
+C-7;GV-4;Tamsin Okafor;28.12.2025;200,00;Tithe;Check;104;
+C-8;GV-4;Tamsin Okafor;04.04.2026;300,00;Tithe;Check;104;
+C-9;GV-5;Corwin Achebe;07.07.2026;1.000,00;Building;Check;105;
+C-10;;;08.03.2026;87,50;Loose offering;Cash;;
+C-11;GV-6;Liesel Marchetti;;60,00;Tithe;Cash;106;

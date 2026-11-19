@@ -1,0 +1,385 @@
+{
+  "suite": "fairgive-giving-statements",
+  "root": "..",
+  "data_note": "Fictional giving records; names and addresses are made up. Deterministic checks; no model is called.",
+  "cases": [
+    {
+      "id": "statement-totals",
+      "tool": "statements_check",
+      "args": {
+        "contributions": "fixtures/contributions.csv",
+        "givers": "fixtures/givers.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.year": 2026,
+          "result.givers": 6,
+          "result.statement_total": 2400,
+          "result.unattributed": 87.5,
+          "result.refunds_excluded": 250,
+          "result.missing_address": 1,
+          "result.flag": 1,
+          "result.review": 2,
+          "result.watch": 1,
+          "result.ok": 3
+        }
+      }
+    },
+    {
+      "id": "every-planted-issue-found",
+      "tool": "statements_check",
+      "args": {
+        "contributions": "fixtures/contributions.csv",
+        "givers": "fixtures/givers.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "contains": [
+          "giver_missing_address",
+          "refund_excluded",
+          "gift_no_date",
+          "unattributed"
+        ],
+        "not_contains": [
+          "Maple Hartwell",
+          "12 Elm Street"
+        ]
+      }
+    },
+    {
+      "id": "refund-explained",
+      "tool": "statements_explain",
+      "args": {
+        "contributions": "fixtures/contributions.csv",
+        "givers": "fixtures/givers.csv",
+        "settings": "fixtures/settings.json",
+        "giver_id": "GV-3"
+      },
+      "expect": {
+        "status": "executed",
+        "contains": [
+          "Gift C-6 (250, 2026-06-06) was refunded"
+        ],
+        "equals": {
+          "result.item.total": 250
+        }
+      }
+    },
+    {
+      "id": "statement-draft-after-approval",
+      "tool": "statements_draft_statement",
+      "approve": "Dana Treasurer",
+      "args": {
+        "contributions": "fixtures/contributions.csv",
+        "givers": "fixtures/givers.csv",
+        "settings": "fixtures/settings.json",
+        "giver_id": "GV-1",
+        "from": "Dana Treasurer (fictional)"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.amount": 350
+        },
+        "contains": [
+          "statement-GV-1.md"
+        ],
+        "not_contains": [
+          "Maple Hartwell"
+        ]
+      }
+    },
+    {
+      "id": "without-givers-file-every-giver-lacks-an-address",
+      "tool": "statements_check",
+      "args": {
+        "contributions": "fixtures/contributions.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.missing_address": 6
+        }
+      }
+    },
+    {
+      "id": "unattributed-is-not-a-statement",
+      "tool": "statements_draft_statement",
+      "approve": "Dana Treasurer",
+      "args": {
+        "contributions": "fixtures/contributions.csv",
+        "settings": "fixtures/settings.json",
+        "giver_id": "Unattributed"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "not found"
+        ]
+      }
+    },
+    {
+      "id": "missing-argument-named",
+      "tool": "statements_check",
+      "args": {},
+      "expect": {
+        "status": "error",
+        "contains": [
+          "contributions"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "file-outside-root-refused",
+      "tool": "statements_check",
+      "args": {
+        "contributions": "../../../outside.csv",
+        "givers": "fixtures/givers.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "outside"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "invented-tool-name-refused",
+      "tool": "statements_pay_everything_now",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "review-mode-still-reads",
+      "tool": "statements_check",
+      "mode": "review",
+      "args": {
+        "contributions": "fixtures/contributions.csv",
+        "givers": "fixtures/givers.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.year": 2026,
+          "result.givers": 6,
+          "result.statement_total": 2400,
+          "result.unattributed": 87.5,
+          "result.refunds_excluded": 250,
+          "result.missing_address": 1,
+          "result.flag": 1,
+          "result.review": 2,
+          "result.watch": 1,
+          "result.ok": 3
+        }
+      },
+      "generated": true
+    },
+    {
+      "id": "status-filter-keeps-totals",
+      "tool": "statements_check",
+      "args": {
+        "contributions": "fixtures/contributions.csv",
+        "givers": "fixtures/givers.csv",
+        "settings": "fixtures/settings.json",
+        "status": "ok",
+        "limit": 1
+      },
+      "expect": {
+        "status": "executed",
+        "max": {
+          "result.items_shown": 1
+        },
+        "equals": {
+          "result.year": 2026,
+          "result.givers": 6,
+          "result.statement_total": 2400,
+          "result.unattributed": 87.5,
+          "result.refunds_excluded": 250,
+          "result.missing_address": 1,
+          "result.flag": 1,
+          "result.review": 2,
+          "result.watch": 1,
+          "result.ok": 3
+        }
+      },
+      "generated": true
+    },
+    {
+      "id": "explain-unknown-item-is-a-readable-error",
+      "tool": "statements_explain",
+      "args": {
+        "contributions": "fixtures/contributions.csv",
+        "givers": "fixtures/givers.csv",
+        "settings": "fixtures/settings.json",
+        "giver_id": "No Such Thing Zz"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "not found"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "report-writes-two-files",
+      "tool": "statements_write_report",
+      "args": {
+        "contributions": "fixtures/contributions.csv",
+        "givers": "fixtures/givers.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "length": {
+          "result.files": 2
+        },
+        "matches": [
+          "[0-9a-f]{64}"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "draft-waits-for-a-person",
+      "tool": "statements_draft_statement",
+      "args": {
+        "contributions": "fixtures/contributions.csv",
+        "givers": "fixtures/givers.csv",
+        "settings": "fixtures/settings.json",
+        "giver_id": "GV-1",
+        "from": "Dana Treasurer (fictional)"
+      },
+      "expect": {
+        "status": "needs_approval",
+        "decision": "ask"
+      },
+      "generated": true
+    },
+    {
+      "id": "review-mode-drafts-nothing",
+      "tool": "statements_draft_statement",
+      "mode": "review",
+      "args": {
+        "contributions": "fixtures/contributions.csv",
+        "givers": "fixtures/givers.csv",
+        "settings": "fixtures/settings.json",
+        "giver_id": "GV-1",
+        "from": "Dana Treasurer (fictional)"
+      },
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "request-stays-one-click-in-auto",
+      "tool": "statements_request_send",
+      "mode": "auto",
+      "auto_actions": [
+        "statements_draft_statement"
+      ],
+      "args": {
+        "draft": "fairgive-out/statements/drafts/none.md",
+        "draft_sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+      },
+      "expect": {
+        "status": "needs_approval",
+        "decision": "ask"
+      },
+      "generated": true
+    },
+    {
+      "id": "refuses-email-send",
+      "tool": "email_send",
+      "mode": "auto",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "refuses-crm-update-records",
+      "tool": "crm_update_records",
+      "mode": "auto",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "recall-empty-memory",
+      "tool": "statements_recall",
+      "args": {},
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.total": 0
+        }
+      },
+      "generated": true
+    },
+    {
+      "id": "intl-de-statement-totals",
+      "tool": "statements_check",
+      "args": {
+        "contributions": "fixtures/intl/de/contributions.csv",
+        "givers": "fixtures/intl/de/givers.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.year": 2026,
+          "result.givers": 6,
+          "result.statement_total": 2400,
+          "result.unattributed": 87.5,
+          "result.refunds_excluded": 250,
+          "result.missing_address": 1,
+          "result.flag": 1,
+          "result.review": 2,
+          "result.watch": 1,
+          "result.ok": 3
+        }
+      },
+      "note": "German export of the same data (fixtures/intl/de); must match the English case \"statement-totals\"."
+    },
+    {
+      "id": "intl-ja-statement-totals",
+      "tool": "statements_check",
+      "args": {
+        "contributions": "fixtures/intl/ja/contributions.csv",
+        "givers": "fixtures/intl/ja/givers.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.year": 2026,
+          "result.givers": 6,
+          "result.statement_total": 2400,
+          "result.unattributed": 87.5,
+          "result.refunds_excluded": 250,
+          "result.missing_address": 1,
+          "result.flag": 1,
+          "result.review": 2,
+          "result.watch": 1,
+          "result.ok": 3
+        }
+      },
+      "note": "Japanese export of the same data (fixtures/intl/ja); must match the English case \"statement-totals\"."
+    }
+  ]
+}
