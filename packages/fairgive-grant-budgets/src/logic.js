@@ -12,9 +12,13 @@ const LEVELS = { line_over_budget: 'flag', outside_period: 'flag', unallowable_c
 export function grantBudgets({ grants = [], budget = [], expenses = [], allocations = [] }, s = DEFAULTS) {
   const tol = Number(s.tolerance ?? 0.01);
   const G = new Map(); for (const g of grants) if (str(g.grant)) G.set(nameKey(g.grant), { grant: str(g.grant), start: isoDate(g.award_start), end: isoDate(g.award_end), award: num(g.award_amount) });
-  const pools = new Map(); for (const a of allocations) { const k = nameKey(a.pool); if (!k) continue; if (!pools.has(k)) pools.set(k, { pool: str(a.pool), shares: [] }); pools.get(k).shares.push({ grant: str(a.grant), pct: num(a.pct) || 0 }); }
+  // One share per pool and grant: a table that lists the same grant twice for a pool adds the
+  // percentages (and the pool total then shows over 100%), instead of splitting each cost twice.
+  const pools = new Map(); for (const a of allocations) { const k = nameKey(a.pool); if (!k) continue; if (!pools.has(k)) pools.set(k, { pool: str(a.pool), byGrant: new Map() }); const m = pools.get(k).byGrant; const g = nameKey(a.grant); const e = m.get(g) || { grant: str(a.grant), pct: 0 }; e.pct = round2(e.pct + (num(a.pct) || 0)); m.set(g, e); }
+  for (const p of pools.values()) p.shares = [...p.byGrant.values()].sort((x, y) => cmp(x.grant, y.grant));
   const words = (s.unallowable_words || []).map((w) => str(w).toLowerCase()).filter(Boolean);
-  const bad = (text) => words.find((w) => new RegExp(`\\b${w.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\b`, 'i').test(text));
+  const wordRes = words.map((w) => [w, new RegExp(`\\b${w.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\b`, 'i')]);
+  const bad = (text) => (wordRes.find(([, re]) => re.test(text)) || [])[0];
   const lines = new Map();
   const lineOf = (grant, line) => { const k = `${nameKey(grant)}|${nameKey(line)}`; if (!lines.has(k)) lines.set(k, { grant: str(grant), line: str(line) || '(no line)', budget: null, actual: 0, outside: 0, unallowable: [], from_pools: 0 }); return lines.get(k); };
   for (const b of budget) if (str(b.grant)) { const e = lineOf(b.grant, b.line); e.budget = round2((e.budget || 0) + (num(b.budget_amount) || 0)); }
@@ -41,8 +45,9 @@ export function grantBudgets({ grants = [], budget = [], expenses = [], allocati
     for (const u of e.unallowable.sort((a, b) => cmp(a.entry, b.entry))) f.push(finding('unallowable_cost', `${e.grant} / ${e.line}: entry ${u.entry} (${u.amount}) mentions "${u.word}", which the settings list as unallowable.`, u.amount));
     items.push({ item: `${e.grant} / ${e.line}`, grant: e.grant, line: e.line, budget: e.budget, actual: e.actual, from_pools: e.from_pools, remaining: e.budget === null ? null : round2(e.budget - e.actual), status: statusOf(f, LEVELS), findings: f });
   }
+  const spentBy = new Map(); for (const e of lines.values()) spentBy.set(nameKey(e.grant), round2((spentBy.get(nameKey(e.grant)) || 0) + e.actual));
   for (const g of [...G.values()].sort((a, b) => cmp(a.grant, b.grant))) {
-    const spent = round2([...lines.values()].filter((e) => nameKey(e.grant) === nameKey(g.grant)).reduce((t, e) => t + e.actual, 0));
+    const spent = spentBy.get(nameKey(g.grant)) || 0;
     if (g.award !== null && spent - g.award > tol) { const f = [finding('over_award', `${g.grant}: ${spent} charged against an award of ${g.award}.`, spent - g.award)]; items.push({ item: `${g.grant} / total`, grant: g.grant, line: 'total', budget: g.award, actual: spent, from_pools: null, remaining: round2(g.award - spent), status: statusOf(f, LEVELS), findings: f }); }
   }
   for (const p of [...pools.values()].sort((a, b) => cmp(a.pool, b.pool))) {

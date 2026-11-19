@@ -5,7 +5,7 @@
 // 2. A deposit nothing matched is a deposit with no gift in the CRM.
 // 3. Contribution revenue in the ledger (credits to the revenue accounts) is compared with
 //    the CRM total month by month, noncash gifts included.
-import { str, num, round2, isoDate, daysBetween, monthOf, pairByAmountDate, glAmount, finding, statusOf, cmp, nameKey } from 'fairgive-core';
+import { str, num, round2, isoDate, daysBetween, addDays, monthOf, pairByAmountDate, glAmount, finding, statusOf, cmp, nameKey } from 'fairgive-core';
 
 export const DEFAULTS = Object.freeze({ days: 5, tolerance: 0.01, noncash_types: ['Stock', 'Securities', 'In-Kind', 'Gift in kind', 'Noncash', 'Property'], revenue_accounts: ['4'], ignore_deposit_words: [] });
 const LEVELS = { not_deposited: 'flag', batch_total_mismatch: 'flag', deposit_not_in_crm: 'review', gl_differs: 'review', in_transit: 'watch', no_gift_date: 'review' };
@@ -43,8 +43,12 @@ export function reconcile({ gifts = [], deposits = [], gl = [] }, s = DEFAULTS) 
   // Several unbatched gifts deposited together: a deposit equal to the sum of every
   // unmatched unbatched gift dated in the window before it.
   const loose = p.left.filter((e) => !e.batch && e.date).sort((a, b) => cmp(a.date, b.date) || cmp(a.item, b.item));
+  const firstOnOrAfter = (d) => { let lo = 0, hi = loose.length; while (lo < hi) { const mid = (lo + hi) >> 1; if (loose[mid].date < d) lo = mid + 1; else hi = mid; } return lo; };
   for (const d of p.right.filter((x) => !used.has(x) && isoDate(x.date)).sort((a, b) => cmp(isoDate(a.date), isoDate(b.date)) || cmp(a.id, b.id))) {
-    const end = isoDate(d.date); const win = loose.filter((e) => !e.deposit && e.date <= end && daysBetween(e.date, end) <= Number(s.days ?? 5));
+    // Only the gifts dated inside the window are looked at (binary search on the sorted dates), so a
+    // file of 10,000 gifts and deposits is not compared pair by pair.
+    const end = isoDate(d.date); const start = addDays(end, -Number(s.days ?? 5)); const win = [];
+    for (let i = firstOnOrAfter(start); i < loose.length && loose[i].date <= end; i++) if (!loose[i].deposit) win.push(loose[i]);
     if (win.length > 1 && Math.abs(round2(win.reduce((t, e) => t + e.total, 0)) - d.amount) <= tol) { used.add(d); for (const e of win) { e.deposit = d; e.shared = true; } }
   }
   for (const e of groups.values()) {
