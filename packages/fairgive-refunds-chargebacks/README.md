@@ -20,7 +20,7 @@ Matches each processor refund and card dispute to its CRM gift: full refunds who
 |---|---|
 | `ack_sent_for_refunded` | Gift G-2 was thanked on 2026-10-05 and then refunded; send a corrected letter. |
 | `dispute_evidence_due` | RF-4: evidence for the 250 dispute on gift G-4 is due on 2026-11-22, in 4 day(s). Gather the receipt and any thank-you letter for the person who responds. |
-| `partial_refund_not_adjusted` | RF-5: 20 of gift G-5 (100) was refunded and the gift still shows 100. |
+| `partial_refund_not_adjusted` | RF-5: 20 of gift G-5 (100) was refunded, and the gift shows 100 with a status ("Received") that does not say it was reduced. If the gift was 120 and has been reduced already, mark it partially refunded; otherwise reduce it to 80. |
 | `refund_no_gift` | RF-6: a 40 refund on 2026-11-03 has no gift id. |
 | `refund_not_reversed_in_crm` | RF-2: gift G-2 (100) was refunded in full and is still "Received" in the CRM. |
 | `refund_over_gift` | RF-3: 60 refunded on a gift of 50. |

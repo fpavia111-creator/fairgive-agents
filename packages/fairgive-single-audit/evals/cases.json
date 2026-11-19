@@ -56,7 +56,7 @@
       "expect": {
         "status": "executed",
         "contains": [
-          "comes through Example County Community Action but has no pass-through award id"
+          "comes through Example County Community Action and has no pass-through award id"
         ],
         "equals": {
           "result.item.federal_spending": 180000

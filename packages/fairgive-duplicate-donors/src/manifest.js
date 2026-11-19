@@ -12,14 +12,14 @@ export const DEMO = { title: 'Fairgive Duplicate Donors', files: { constituents:
 export const manifest = giveAgent({
   pkg, prefix: 'dupes',
   description: pkg.description.replace(/^[^:]+:\s*/, ''),
-  check: { title: 'Duplicate donor records', description: 'Groups constituent records that share an e-mail (without +tags), a phone number, the same name in any order, a street address, or a name a letter or two apart in the same postal code. Shared office e-mails in the settings are ignored. Groups linked only by address are households to look at. Each group shows its records, the rules that linked them, the gifts on them and the oldest record as the one to keep.' },
+  check: { title: 'Duplicate donor records', description: 'Groups constituent records that share an e-mail (without +tags), a phone number, the same name in any order (legal-form words such as Inc left out), a street address, or a name a letter or two apart in one word in the same postal code (numbers must match). The same name in two postal codes is listed at a lower level. Shared office e-mails in the settings are ignored. Groups linked only by address are households to look at. Each group shows its records, the rules that linked them, the gifts on them and the oldest record as the one to keep.' },
   args: files, required: ['constituents'],
   sources: {
     constituents: sourceOf('Constituents', ['constituents'], CONSTITUENT_FIELDS, ['donor_id', 'donor', 'email', 'phone', 'address', 'postal', 'created'], CONSTITUENT_PROFILES),
     gifts: sourceOf('Gifts', ['gifts'], GIFT_FIELDS, ['gift_id', 'donor_id', 'gift_date', 'amount']),
   },
   settings: { defaults: DEFAULTS, schema: { type: 'object', additionalProperties: false, properties: {
-    name_similarity: { type: 'number', minimum: 0.5, maximum: 1, description: 'How close two names in one postal code must be to be grouped, 0 to 1 (default 0.92)' },
+    name_similarity: { type: 'number', minimum: 0.5, maximum: 1, description: 'Two names in one postal code are grouped when every word matches but one, and that word is at least this close (Jaro-Winkler, 0 to 1; default 0.92); words with numbers must match exactly' },
     shared_emails: { type: 'array', items: { type: 'string' }, description: 'E-mail addresses several people use (office@, info@) that should not link records' },
     max_ids_shown: { type: 'integer', minimum: 2, maximum: 100, description: 'Record ids shown per group before "and n more" (default 12)' },
   } } },

@@ -20,7 +20,7 @@ export function singleAudit({ grants = [], expenses = [] }, s = DEFAULTS) {
   for (const g of [...G.values()].filter((x) => x.federal && x.spent).sort((a, b) => cmp(a.grant, b.grant))) {
     const k = g.aln || '(no ALN)'; if (!byAln.has(k)) byAln.set(k, { aln: k, grants: [], total: 0, f: [] }); const e = byAln.get(k); e.grants.push(g.grant); e.total = round2(e.total + g.spent);
     if (!g.aln) e.f.push(finding('missing_aln', `${g.grant} (${g.funder || 'no funder'}) is federal but has no assistance listing number; ${g.spent} cannot be placed on the schedule.`, g.spent));
-    if (g.pass && !g.passId) e.f.push(finding('pass_through_missing_id', `${g.grant} comes through ${g.pass} but has no pass-through award id for the schedule.`, g.spent));
+    if (g.pass && !g.passId) e.f.push(finding('pass_through_missing_id', `${g.grant} comes through ${g.pass} and has no pass-through award id. The schedule shows the id the pass-through entity assigned: enter it, or confirm that none was assigned.`, g.spent));
   }
   let total = 0;
   for (const e of [...byAln.values()].sort((a, b) => cmp(a.aln, b.aln))) { total += e.total; items.push({ item: `ALN ${e.aln}`, aln: e.aln, grants: e.grants.join(' '), federal_spending: e.total, share_pct: 0, status: statusOf(e.f, LEVELS), findings: e.f }); }

@@ -14,7 +14,7 @@ Exports you already have, saved as files on your computer (CSV, Excel, JSON; see
 
 ## What it checks
 
-Groups constituent records that share an e-mail (without +tags), a phone number, the same name in any order, a street address, or a name a letter or two apart in the same postal code. Shared office e-mails in the settings are ignored. Groups linked only by address are households to look at. Each group shows its records, the rules that linked them, the gifts on them and the oldest record as the one to keep.
+Groups constituent records that share an e-mail (without +tags), a phone number, the same name in any order (legal-form words such as Inc left out), a street address, or a name a letter or two apart in one word in the same postal code (numbers must match). The same name in two postal codes is listed at a lower level. Shared office e-mails in the settings are ignored. Groups linked only by address are households to look at. Each group shows its records, the rules that linked them, the gifts on them and the oldest record as the one to keep.
 
 | Finding | Example from the fictional demo data |
 |---|---|
@@ -22,7 +22,7 @@ Groups constituent records that share an e-mail (without +tags), a phone number,
 | `same_email` | Records C-1 + C-2 share an e-mail address. |
 | `same_name` | Records C-1 + C-2 have the same name (M.H.#eb764c). |
 | `same_phone` | Records C-3 + C-4 share a phone number. |
-| `similar_name` | Records C-5 + C-6 have names that differ by a letter or two (J.V.#c84c20 / J.V.#fc93a9) in the same postal code. |
+| `similar_name` | Records C-5 + C-6 have names that differ by a letter or two in one word (J.V.#c84c20 / J.V.#fc93a9) in the same postal code. |
 
 Each item gets the most serious level of its findings: **flag** (act on it), **review** (data is missing or unclear; a person looks), **watch** (worth knowing) or **ok**. Every finding names the numbers it was worked out from.
 
@@ -32,7 +32,7 @@ Put the ones you want to change in a JSON file and pass it as `settings`; anythi
 
 | Setting | Default | Meaning |
 |---|---|---|
-| `name_similarity` | `0.92` | How close two names in one postal code must be to be grouped, 0 to 1 (default 0.92) |
+| `name_similarity` | `0.92` | Two names in one postal code are grouped when every word matches but one, and that word is at least this close (Jaro-Winkler, 0 to 1; default 0.92); words with numbers must match exactly |
 | `shared_emails` | `[]` | E-mail addresses several people use (office@, info@) that should not link records |
 | `max_ids_shown` | `12` | Record ids shown per group before "and n more" (default 12) |
 
@@ -72,7 +72,7 @@ Audit log: <demo folder>/.fairgive/audit.jsonl
 
 | Tool | What it does | Policy |
 |---|---|---|
-| `dupes_check` | Groups constituent records that share an e-mail (without +tags), a phone number, the same name in any order, a street address, or a name a letter or two apart in the same postal code. | runs |
+| `dupes_check` | Groups constituent records that share an e-mail (without +tags), a phone number, the same name in any order (legal-form words such as Inc left out), a street address, or a name a letter or two apart in one word in the… | runs |
 | `dupes_explain` | Show one group (its first record id) from dupes_check with every finding, the numbers behind it and the setting it was checked against. | runs |
 | `dupes_write_report` | Write duplicate-donors.csv (one row per item, with blank owner and decision columns) and duplicate-donors.html into out_dir (default fairgive-out/dupes). | runs |
 | `dupes_recall` | Search this agent's own memory of the customer's setup: accepted facts (in use) and facts waiting for a person. | runs |

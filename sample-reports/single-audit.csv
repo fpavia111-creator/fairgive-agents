@@ -1,6 +1,6 @@
 item,aln,grants,federal_spending,share_pct,status,findings,reasons,owner,decision
 Total federal spending,,,1040000,100,flag,threshold_met,"Federal award spending in FY2026 is 1040000, at or over the 1000000 threshold in the settings. Talk to your auditor about a single audit.",,
 ALN (no ALN),(no ALN),G-NOALN,60000,5.8,review,missing_aln,G-NOALN (Example Federal Labor Agency) is federal but has no assistance listing number; 60000 cannot be placed on the schedule.,,
-ALN 93.568,93.568,G-HHS,180000,17.3,review,pass_through_missing_id,G-HHS comes through Example County Community Action but has no pass-through award id for the schedule.,,
+ALN 93.568,93.568,G-HHS,180000,17.3,review,pass_through_missing_id,"G-HHS comes through Example County Community Action and has no pass-through award id. The schedule shows the id the pass-through entity assigned: enter it, or confirm that none was assigned.",,
 ALN 10.555,10.555,G-USDA,150000,14.4,ok,,,,
 ALN 84.287,84.287,G-ED1 G-ED2,650000,62.5,ok,,,,

@@ -19,7 +19,7 @@ Totals spending on federal grants in the fiscal year by assistance listing numbe
 | Finding | Example from the fictional demo data |
 |---|---|
 | `missing_aln` | G-NOALN (Example Federal Labor Agency) is federal but has no assistance listing number; 60000 cannot be placed on the schedule. |
-| `pass_through_missing_id` | G-HHS comes through Example County Community Action but has no pass-through award id for the schedule. |
+| `pass_through_missing_id` | G-HHS comes through Example County Community Action and has no pass-through award id. The schedule shows the id the pass-through entity assigned: enter it, or confirm that none was assigned. |
 | `threshold_met` | Federal award spending in FY2026 is 1040000, at or over the 1000000 threshold in the settings. Talk to your auditor about a single audit. |
 
 Each item gets the most serious level of its findings: **flag** (act on it), **review** (data is missing or unclear; a person looks), **watch** (worth knowing) or **ok**. Every finding names the numbers it was worked out from.
@@ -53,7 +53,7 @@ Fairgive Single Audit demo (fictional nonprofit data), Auto mode on
 
 ▶ Explain ALN 93.568
   status: executed  decision: allow
-  ALN 93.568: review. G-HHS comes through Example County Community Action but has no pass-through award id for the schedule.
+  ALN 93.568: review. G-HHS comes through Example County Community Action and has no pass-through award id. The schedule shows the id the pass-through entity assigned: enter it, or confirm that none was assigned.
 
 ▶ Write the report (CSV worklist and HTML page)
   status: executed  decision: allow
