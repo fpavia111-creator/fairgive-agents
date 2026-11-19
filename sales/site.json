@@ -1,0 +1,72 @@
+{
+  "product": "Fairgive",
+  "industry": "Nonprofits, foundations, churches and associations",
+  "kicker": "Nonprofits, foundations, churches and associations",
+  "lede": "Thirty-two small agents that check a nonprofit's back office from the files it already exports, gifts and deposits, donor letters, restricted funds, grants, events, memberships, endowments and year-end data, and wait for a named person before anything is paid, sent, filed or changed.",
+  "from": "$1,000",
+  "packages": [
+    ["$1,000 · One organization", "Donor gifts starter", "Gifts against bank deposits and the ledger, acknowledgement letters, duplicate donor records (3 agents)"],
+    ["$1,200 · One congregation", "Church pack", "Year-end giving statements, gifts against deposits, acknowledgements, duplicate records, recurring gifts, vendor 1099 readiness (6 agents)"],
+    ["$1,800 · One organization", "Gifts and donors pack", "Deposits, letters, duplicates, recurring gifts, lapsed donors, gift coding, matching gifts, DAF grants, refunds, processor fees (10 agents)"],
+    ["$1,500 · One organization", "Events, members and volunteers pack", "Quid pro quo disclosures, event revenue split, in-kind gifts, memberships, giving statements, volunteer hours (6 agents)"],
+    ["$2,500 · One organization", "Grants pack", "Budget against actual with shared costs, indirect cost base and rates, reporting calendar, drawdowns, single audit threshold, payroll against effort (6 agents)"],
+    ["$1,800 · One organization", "Funds and net assets pack", "Fund balances by restriction, releases, board-designated funds, endowment draw, liquidity, pledges receivable (6 agents)"],
+    ["$1,500 · One organization", "Year-end pack", "Functional expenses, expense reports, vendor 1099 readiness, Form 990 schedule data (4 agents)"],
+    ["$6,500 · One organization", "Whole organization", "All 32 agents, mapped to your exports and set to your policies, one training session"],
+    ["$15,000 · Up to 20 client organizations", "Partner rollout", "For accounting firms, fiscal sponsors and networks serving many nonprofits: all 32 agents, one shared setup, each client's exports mapped"]
+  ],
+  "support": "Support after setup: $150 a month for one pack, $350 a month for the whole organization, $90 a month per client organization in a partner rollout. Includes export changes, threshold and rate updates, and a monthly check-in.",
+  "notes": [
+    "Reads the files you export; it does not log in to your donor CRM, giving platform, payment processor, bank, payroll or accounting system.",
+    "Thresholds and rates (acknowledgement and quid pro quo figures, single audit threshold, de minimis rate, 1099 threshold, spending policy) are settings your accountant or auditor confirms; the defaults are examples.",
+    "Column layouts for Raiser's Edge NXT, Salesforce NPSP, Bloomerang, DonorPerfect, Little Green Light, Neon, Givebutter, Classy, PayPal, Stripe, QuickBooks Online, Aplos, Sage Intacct and Financial Edge NXT were written from knowledge of those systems; the first setup confirms them on your files.",
+    "It prepares data for Form 990, 1099s and grant reports; it files nothing and gives no tax or legal advice.",
+    "Report pages can be read in nine languages; those translations are Claude's and have not been reviewed by native speakers."
+  ],
+  "warn": "Your files, reports and drafts stay on your computer. Donor, member, volunteer, staff and vendor names, e-mails, phones, addresses and taxpayer ids are masked in anything sent to an AI model. The agents never pay, refund, charge a card, move money, post to the books, change the CRM, file with the IRS, a state or a funder, or send a letter; those wait for one named person or are refused.",
+  "groups": [
+    ["Gifts and donors", [
+      ["Gifts against deposits", "Gifts in the CRM matched to bank deposits and to contribution revenue in the ledger, by batch, date and amount"],
+      ["Acknowledgement letters", "Gifts over your threshold with no letter, late letters, wrong amounts, no goods-or-services statement, letters for refunded gifts"],
+      ["Duplicate donors", "Records that share an e-mail, phone, address or a name a letter or two apart, grouped for a person to merge"],
+      ["Recurring gifts", "Failed and missed monthly gifts, cards about to expire, charges after a cancellation"],
+      ["Lapsed donors", "Donors who gave last year or earlier and not this year, and retention by fiscal year"],
+      ["Gift coding", "Notes that name a restricted purpose on the wrong fund, inactive funds, appeals coded away from their fund"],
+      ["Matching gifts", "Gifts from donors whose employer matches, with the amount and the claim deadline"],
+      ["Donor-advised fund grants", "DAF grants credited to the advisor, used for event benefits or applied to a personal pledge"],
+      ["Refunds and chargebacks", "Refunds still standing as gifts in the CRM, letters for refunded gifts, dispute evidence deadlines"],
+      ["Processor fees", "Stripe, PayPal, Givebutter and Classy fees against your rate, gifts booked net, payouts missing from the bank"]
+    ]],
+    ["Events, members and volunteers", [
+      ["Quid pro quo", "Payments over the threshold where the donor received something and the receipt has no disclosure or the wrong deductible amount"],
+      ["Event revenue", "Tickets split into the exchange part and the contribution part, against your ledger"],
+      ["In-kind gifts", "Gifts with no value or method, values from the donor only, appraisal thresholds, services to decide on"],
+      ["Memberships", "Memberships expiring or lapsed, dues that do not match the level, renewals that did not extend"],
+      ["Giving statements", "Year-end contribution statements per giver, with refunds, undated gifts and loose offering set apart"],
+      ["Volunteer hours", "Hours by program and their value, long or duplicate entries, background checks due"]
+    ]],
+    ["Grants", [
+      ["Grant budgets", "Budget against actual by grant and line, with shared costs split across several grants"],
+      ["Indirect costs", "The modified total direct cost base rebuilt per grant and the rate applied, against the indirect charged"],
+      ["Grant reports", "Every report period from each grant's schedule, overdue and due-soon reports, a calendar file"],
+      ["Drawdowns", "What can be drawn, costs carried too long, draws ahead of costs or over the award"],
+      ["Single audit threshold", "Federal spending by assistance listing number against the threshold in your settings"],
+      ["Payroll against effort", "Salary charged to programs and grants against timesheets and effort certifications"]
+    ]],
+    ["Funds, net assets and cash", [
+      ["Fund balances", "Balances by restriction class, restricted funds below zero, endowments below corpus, interfund gaps"],
+      ["Releases from restriction", "Spending and ended time restrictions not yet released, releases in error, a draft entry"],
+      ["Board-designated funds", "Designations and spending against the board's resolutions"],
+      ["Endowment draw", "Each fund's draw from your spending policy, underwater funds, booked draws that differ"],
+      ["Liquidity", "Financial assets available within one year and the months of expenses they cover"],
+      ["Pledges receivable", "Aging, overdue installments, overpaid pledges, write-offs with no approver, multi-year pledges"]
+    ]],
+    ["Expenses and year-end", [
+      ["Functional expenses", "Every expense given a function (program, management, fundraising) and the natural-by-function table"],
+      ["Expense reports", "Missing receipts, meals over per diem, mileage over the rate, unallowable costs on grants, duplicate claims"],
+      ["Vendor 1099 readiness", "Vendors paid over the threshold with no W-9, no or malformed taxpayer id, attorneys paid as corporations"],
+      ["Form 990 data", "Schedule B contributors with addresses, noncash totals, officer hours and pay, grants paid with EINs"]
+    ]]
+  ],
+  "closing": "Each one does one job, on your computer, from a file you export. Nothing is paid, sent, filed or changed until a person you name says so."
+}

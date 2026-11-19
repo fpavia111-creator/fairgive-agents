@@ -1,6 +1,6 @@
 # fairgive-core
 
-The shared core for **Fairgive**, the restaurant, bar and cafe back-office agents by Mythos Machines: small MCP agents that each own one job and cannot act outside it. It started as a copy of lodestar-core (the freight family) with the Windows fixes of 18 November 2026; the freight code was replaced by restaurant helpers.
+The shared core for **Fairgive**, the nonprofit, foundation, church and association back-office agents by Mythos Machines: small MCP agents that each own one job and cannot act outside it. It started from the Fairtable core (itself a copy of lodestar-core with the Windows fixes of 18 November 2026 and the later fixes for path length, GBK headers, header case and multi-word tool prefixes); the restaurant code was replaced by nonprofit helpers.
 
 - **Pack manifest** — name, version, a declared model pin, the tool allowlist and the policy. `defineManifest()` fails closed: an unpinned model (`latest`), a tool without a rule, a write marked `allow`, or a one-click action marked `allow` are rejected at load time.
 - **Talos-style policy** — every tool call gets `allow`, `ask` or `block`. Unknown tools are blocked. The default is block.
@@ -21,13 +21,13 @@ The shared core for **Fairgive**, the restaurant, bar and cafe back-office agent
 
 MIT, Node ≥ 20, no runtime dependencies.
 
-## Restaurant helpers and the table-agent kit
+## Nonprofit helpers and the agent kit
 
 Fairgive adds three modules to the shared core:
 
-- `restaurant.js`: kitchen units (oz, lb, g, kg, fl oz, ml, cl, l, cup, tbsp, tsp, pt, qt, gal, each, dozen) and conversions, distributor pack sizes ("6/5 LB", "12/750ML", "8/12 CT") and the price per unit they give, overnight shifts, dayparts, week starts, name keys that match "Rivera, Ana" with "Ana Rivera", median and percentages.
-- `restaurant-sources.js`: shared column vocabularies for POS item sales, invoice lines, recipes, inventory counts, timecards, schedules, voids and comps, delivery-app statements and reservations, with profiles for named exports (Toast, Square, Clover, Lightspeed, Revel, 7shifts, Homebase, MarginEdge, Restaurant365, xtraCHEF, Sysco, US Foods, DoorDash, Uber Eats, Grubhub, OpenTable, Resy). Every layout is marked "recalled": written from knowledge of the export, not checked against a live account.
-- `table-kit.js`: `tableAgent()` builds a whole agent from a short description: a check tool, an explain tool, a report tool (CSV worklist with blank owner and decision columns, HTML page in nine languages), an optional draft and one-click request pair, memory tools with a name-alias kind, and refused tools. It reads every source through the core, keeps only the declared columns, trims values and sorts rows, so a result never depends on row order, column order or stray columns. Fields marked `personal` (staff, guest and client names, phones, emails) are masked in everything returned to the AI model; files written on the customer's machine keep the real values.
+- `giving.js`: fiscal years named by the year they end in, month and date arithmetic, donor name keys ("Hartwell, Maple" and "Rev. Maple Hartwell" match), e-mail, phone and postal keys, restriction classes in ASU 2016-14 words (with the old three-class names), functional classes (program, management and general, fundraising), one-to-one matching by amount and date, aging buckets, yes/no cells.
+- `nonprofit-sources.js`: shared column vocabularies for CRM gifts, constituents, bank deposits, processor transactions, ledger detail, funds and grants, with profiles for named exports (Raiser's Edge NXT, Salesforce NPSP, Bloomerang, DonorPerfect, Little Green Light, Neon, Givebutter, Classy, PayPal, Stripe, QuickBooks Online, Aplos, Sage Intacct, Financial Edge NXT). Every layout is marked "recalled": written from knowledge of the export, not checked against a live account. Fields marked `personal` are masked for the model.
+- `give-kit.js`: `giveAgent()` builds a whole agent from a short description: a check tool, an explain tool, a report tool (CSV worklist with blank owner and decision columns plus an HTML page in nine languages), an optional draft and one-click request pair, optional memory of name aliases, refused tools, and masking of personal values in every result returned to the model.
 
 ## Install
 

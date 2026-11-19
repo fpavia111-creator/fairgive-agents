@@ -2,9 +2,9 @@
 
 ## 0.1.0 (unreleased, Fairgive ver 1, 18 Nov 2026)
 
-- Started from lodestar-core (with the 18 Nov Windows fixes). Freight, parcel and X12 code removed.
-- Added restaurant.js (units, pack sizes, shifts, dayparts, name keys), restaurant-sources.js (POS, invoice, recipe, count, timecard, schedule, check-line, delivery-app and reservation vocabularies with named export profiles), table-kit.js (tableAgent, masking of personal fields) and tableDemo.
-- Export catalog, column dictionary (eight languages) and report text (nine languages) rewritten for restaurants.
+- Started from the Fairtable core (lodestar-core with the 18 Nov Windows fixes, plus the later fixes: paths over 1,024 characters refused, short GBK headers that read as UTF-8, headers in another letter case re-keyed, multi-word tool prefixes for memory and approvals). Restaurant code removed.
+- Added giving.js (fiscal years, donor name keys, restriction and function classes, amount-and-date matching, aging), nonprofit-sources.js (gift, constituent, deposit, processor, ledger, fund and grant vocabularies with named export profiles and `pick`, `fit`, `sourceOf`, `glAmount`), give-kit.js (`giveAgent`, masking of personal fields, nonprofit refused-tool set) and `giveDemo`.
+- Export catalog (19 named nonprofit exports), column dictionary (about 45 nonprofit concepts in eight languages) and report text (titles and section headings for every Fairgive report in nine languages) written for nonprofits.
 
 The entries below are lodestar-core history, kept because the code they describe is shared.
 
