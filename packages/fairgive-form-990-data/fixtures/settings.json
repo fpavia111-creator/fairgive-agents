@@ -1,0 +1,7 @@
+{
+  "tax_year": 2026,
+  "fiscal_year_start": 1,
+  "schedule_b_threshold": 5000,
+  "schedule_m_threshold": 25000,
+  "schedule_i_threshold": 5000
+}

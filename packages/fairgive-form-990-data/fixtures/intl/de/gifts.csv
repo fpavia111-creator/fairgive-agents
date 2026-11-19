@@ -1,0 +1,8 @@
+Spenden-ID;Spendernummer;Spender;Adresse;Spendendatum;Betrag;Spendenart;Beschreibung
+G-1;C-1;Maple Hartwell;12 Elm Street Springfield;01.02.2026;3.000,00;Cash;
+G-2;C-1;Maple Hartwell;12 Elm Street Springfield;01.08.2026;3.000,00;Cash;
+G-3;C-2;Rowan Ellery;;15.03.2026;10.000,00;Cash;
+G-4;C-3;Juniper Vance;9 Pine Road Springfield;05.05.2026;8.000,00;Stock;
+G-5;C-4;Tamsin Okafor;77 Birch Lane Springfield;06.06.2026;4.000,00;Cash;
+G-6;C-5;Corwin Achebe;5 Cedar Court Springfield;09.09.2026;20.000,00;Noncash;Painting for the auction
+G-7;C-6;Liesel Marchetti;8 Spruce Way Springfield;20.12.2025;5.000,00;Cash;

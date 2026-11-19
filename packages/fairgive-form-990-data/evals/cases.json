@@ -1,0 +1,323 @@
+{
+  "suite": "fairgive-form-990-data",
+  "root": "..",
+  "data_note": "Fictional gifts, officers and grants. Prepares data only; files nothing; not tax advice. Deterministic checks; no model is called.",
+  "cases": [
+    {
+      "id": "form-990-data-totals",
+      "tool": "form990_check",
+      "args": {
+        "gifts": "fixtures/gifts.csv",
+        "officers": "fixtures/officers.csv",
+        "grants_paid": "fixtures/grants_paid.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.tax_year": 2026,
+          "result.schedule_b_contributors": 4,
+          "result.noncash_total": 28000,
+          "result.officers": 3,
+          "result.schedule_i_grants": 2,
+          "result.gaps": 5,
+          "result.flag": 2,
+          "result.review": 3,
+          "result.watch": 1,
+          "result.ok": 4
+        }
+      }
+    },
+    {
+      "id": "every-planted-issue-found",
+      "tool": "form990_check",
+      "args": {
+        "gifts": "fixtures/gifts.csv",
+        "officers": "fixtures/officers.csv",
+        "grants_paid": "fixtures/grants_paid.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "contains": [
+          "scheduleb_missing_address",
+          "scheduleb_noncash_no_description",
+          "schedule_m_likely",
+          "officer_missing_hours",
+          "officer_missing_comp",
+          "schedulei_missing_ein"
+        ],
+        "not_contains": [
+          "Rowan Ellery",
+          "Sam Whitlow",
+          "9 Pine Road"
+        ]
+      }
+    },
+    {
+      "id": "contributor-without-address-explained",
+      "tool": "form990_explain",
+      "args": {
+        "gifts": "fixtures/gifts.csv",
+        "settings": "fixtures/settings.json",
+        "item": "Schedule B C-2"
+      },
+      "expect": {
+        "status": "executed",
+        "contains": [
+          "Contributor C-2 gave 10000 in 2026"
+        ]
+      }
+    },
+    {
+      "id": "gifts-only",
+      "tool": "form990_check",
+      "args": {
+        "gifts": "fixtures/gifts.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.officers": 0,
+          "result.schedule_i_grants": 0,
+          "result.schedule_b_contributors": 4
+        }
+      }
+    },
+    {
+      "id": "higher-schedule-b-threshold",
+      "tool": "form990_check",
+      "args": {
+        "gifts": "fixtures/gifts.csv",
+        "settings": "fixtures/settings-10k.json"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.schedule_b_contributors": 2
+        }
+      }
+    },
+    {
+      "id": "latest-year-by-default",
+      "tool": "form990_check",
+      "args": {
+        "gifts": "fixtures/gifts.csv"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.tax_year": 2026
+        }
+      }
+    },
+    {
+      "id": "missing-argument-named",
+      "tool": "form990_check",
+      "args": {},
+      "expect": {
+        "status": "error",
+        "contains": [
+          "gifts"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "file-outside-root-refused",
+      "tool": "form990_check",
+      "args": {
+        "gifts": "../../../outside.csv",
+        "officers": "fixtures/officers.csv",
+        "grants_paid": "fixtures/grants_paid.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "outside"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "invented-tool-name-refused",
+      "tool": "form990_pay_everything_now",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "review-mode-still-reads",
+      "tool": "form990_check",
+      "mode": "review",
+      "args": {
+        "gifts": "fixtures/gifts.csv",
+        "officers": "fixtures/officers.csv",
+        "grants_paid": "fixtures/grants_paid.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.tax_year": 2026,
+          "result.schedule_b_contributors": 4,
+          "result.noncash_total": 28000,
+          "result.officers": 3,
+          "result.schedule_i_grants": 2,
+          "result.gaps": 5,
+          "result.flag": 2,
+          "result.review": 3,
+          "result.watch": 1,
+          "result.ok": 4
+        }
+      },
+      "generated": true
+    },
+    {
+      "id": "status-filter-keeps-totals",
+      "tool": "form990_check",
+      "args": {
+        "gifts": "fixtures/gifts.csv",
+        "officers": "fixtures/officers.csv",
+        "grants_paid": "fixtures/grants_paid.csv",
+        "settings": "fixtures/settings.json",
+        "status": "ok",
+        "limit": 1
+      },
+      "expect": {
+        "status": "executed",
+        "max": {
+          "result.items_shown": 1
+        },
+        "equals": {
+          "result.tax_year": 2026,
+          "result.schedule_b_contributors": 4,
+          "result.noncash_total": 28000,
+          "result.officers": 3,
+          "result.schedule_i_grants": 2,
+          "result.gaps": 5,
+          "result.flag": 2,
+          "result.review": 3,
+          "result.watch": 1,
+          "result.ok": 4
+        }
+      },
+      "generated": true
+    },
+    {
+      "id": "explain-unknown-item-is-a-readable-error",
+      "tool": "form990_explain",
+      "args": {
+        "gifts": "fixtures/gifts.csv",
+        "officers": "fixtures/officers.csv",
+        "grants_paid": "fixtures/grants_paid.csv",
+        "settings": "fixtures/settings.json",
+        "item": "No Such Thing Zz"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "not found"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "report-writes-two-files",
+      "tool": "form990_write_report",
+      "args": {
+        "gifts": "fixtures/gifts.csv",
+        "officers": "fixtures/officers.csv",
+        "grants_paid": "fixtures/grants_paid.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "length": {
+          "result.files": 2
+        },
+        "matches": [
+          "[0-9a-f]{64}"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "refuses-irs-file",
+      "tool": "irs_file",
+      "mode": "auto",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "recall-empty-memory",
+      "tool": "form990_recall",
+      "args": {},
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.total": 0
+        }
+      },
+      "generated": true
+    },
+    {
+      "id": "intl-de-form-990-data-totals",
+      "tool": "form990_check",
+      "args": {
+        "gifts": "fixtures/intl/de/gifts.csv",
+        "officers": "fixtures/intl/de/officers.csv",
+        "grants_paid": "fixtures/intl/de/grants_paid.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.tax_year": 2026,
+          "result.schedule_b_contributors": 4,
+          "result.noncash_total": 28000,
+          "result.officers": 3,
+          "result.schedule_i_grants": 2,
+          "result.gaps": 5,
+          "result.flag": 2,
+          "result.review": 3,
+          "result.watch": 1,
+          "result.ok": 4
+        }
+      },
+      "note": "German export of the same data (fixtures/intl/de); must match the English case \"form-990-data-totals\"."
+    },
+    {
+      "id": "intl-ja-form-990-data-totals",
+      "tool": "form990_check",
+      "args": {
+        "gifts": "fixtures/intl/ja/gifts.csv",
+        "officers": "fixtures/intl/ja/officers.csv",
+        "grants_paid": "fixtures/intl/ja/grants_paid.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.tax_year": 2026,
+          "result.schedule_b_contributors": 4,
+          "result.noncash_total": 28000,
+          "result.officers": 3,
+          "result.schedule_i_grants": 2,
+          "result.gaps": 5,
+          "result.flag": 2,
+          "result.review": 3,
+          "result.watch": 1,
+          "result.ok": 4
+        }
+      },
+      "note": "Japanese export of the same data (fixtures/intl/ja); must match the English case \"form-990-data-totals\"."
+    }
+  ]
+}
