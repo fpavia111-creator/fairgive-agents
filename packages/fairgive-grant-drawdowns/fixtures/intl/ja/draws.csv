@@ -1,0 +1,9 @@
+draw_id,助成番号,日付,交付済額,ステータス
+D1,G-FED,2026/08/15,"12,000.00",Received
+D2,G-FED,2026/09/20,"15,000.00",Received
+D3,G-STATE,2026/04/20,"10,000.00",Received
+D4,G-STATE,2026/07/25,"10,000.00",Received
+D5,G-STATE,2026/10/05,"8,000.00",Requested
+D6,G-ADV,2026/07/05,"15,000.00",Received
+D7,G-CITY,2026/06/10,"9,000.00",Received
+D8,G-CITY,2026/09/10,"8,000.00",Received

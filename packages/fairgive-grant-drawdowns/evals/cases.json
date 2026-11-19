@@ -1,0 +1,397 @@
+{
+  "suite": "fairgive-grant-drawdowns",
+  "root": "..",
+  "data_note": "Fictional grants, costs and draws. Deterministic checks; no model is called.",
+  "cases": [
+    {
+      "id": "drawdown-totals",
+      "tool": "drawdowns_check",
+      "args": {
+        "grants": "fixtures/grants.csv",
+        "expenses": "fixtures/expenses.csv",
+        "draws": "fixtures/draws.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.grants": 4,
+          "result.spent": 106000,
+          "result.drawn": 87000,
+          "result.available_to_draw": 27000,
+          "result.stale": 14000,
+          "result.overdrawn": 2000,
+          "result.excess_cash": 6000,
+          "result.pending": 8000,
+          "result.flag": 2,
+          "result.review": 2
+        }
+      }
+    },
+    {
+      "id": "every-planted-issue-found",
+      "tool": "drawdowns_check",
+      "args": {
+        "grants": "fixtures/grants.csv",
+        "expenses": "fixtures/expenses.csv",
+        "draws": "fixtures/draws.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "contains": [
+          "draw_available",
+          "stale_unreimbursed",
+          "costs_outside_period",
+          "pending_too_long",
+          "excess_cash",
+          "overdrawn",
+          "draw_over_award"
+        ]
+      }
+    },
+    {
+      "id": "federal-grant-explained",
+      "tool": "drawdowns_explain",
+      "args": {
+        "grants": "fixtures/grants.csv",
+        "expenses": "fixtures/expenses.csv",
+        "draws": "fixtures/draws.csv",
+        "settings": "fixtures/settings.json",
+        "grant": "G-FED"
+      },
+      "expect": {
+        "status": "executed",
+        "contains": [
+          "27000 can be drawn (costs 54000, drawn 27000)",
+          "14000 of costs older than 45 days"
+        ]
+      }
+    },
+    {
+      "id": "draw-request-after-approval",
+      "tool": "drawdowns_draft_draw_request",
+      "approve": "Dana Controller",
+      "args": {
+        "grants": "fixtures/grants.csv",
+        "expenses": "fixtures/expenses.csv",
+        "draws": "fixtures/draws.csv",
+        "settings": "fixtures/settings.json",
+        "grant": "G-FED",
+        "from": "Dana Controller (fictional)"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.amount": 27000
+        },
+        "contains": [
+          "draw_request-G-FED.md",
+          "TO CONFIRM"
+        ]
+      }
+    },
+    {
+      "id": "nothing-to-draw-is-a-readable-error",
+      "tool": "drawdowns_draft_draw_request",
+      "approve": "Dana Controller",
+      "args": {
+        "grants": "fixtures/grants.csv",
+        "expenses": "fixtures/expenses.csv",
+        "draws": "fixtures/draws.csv",
+        "settings": "fixtures/settings.json",
+        "grant": "G-CITY"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "nothing to draw on G-CITY"
+        ]
+      }
+    },
+    {
+      "id": "intacct-costs-export",
+      "tool": "drawdowns_check",
+      "args": {
+        "grants": "fixtures/grants.csv",
+        "expenses": "fixtures/exports/intacct-gl-detail.csv",
+        "draws": "fixtures/draws.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.spent": 27000
+        }
+      }
+    },
+    {
+      "id": "missing-argument-named",
+      "tool": "drawdowns_check",
+      "args": {},
+      "expect": {
+        "status": "error",
+        "contains": [
+          "grants"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "file-outside-root-refused",
+      "tool": "drawdowns_check",
+      "args": {
+        "grants": "../../../outside.csv",
+        "expenses": "fixtures/expenses.csv",
+        "draws": "fixtures/draws.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "outside"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "invented-tool-name-refused",
+      "tool": "drawdowns_pay_everything_now",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "review-mode-still-reads",
+      "tool": "drawdowns_check",
+      "mode": "review",
+      "args": {
+        "grants": "fixtures/grants.csv",
+        "expenses": "fixtures/expenses.csv",
+        "draws": "fixtures/draws.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.grants": 4,
+          "result.spent": 106000,
+          "result.drawn": 87000,
+          "result.available_to_draw": 27000,
+          "result.stale": 14000,
+          "result.overdrawn": 2000,
+          "result.excess_cash": 6000,
+          "result.pending": 8000,
+          "result.flag": 2,
+          "result.review": 2
+        }
+      },
+      "generated": true
+    },
+    {
+      "id": "status-filter-keeps-totals",
+      "tool": "drawdowns_check",
+      "args": {
+        "grants": "fixtures/grants.csv",
+        "expenses": "fixtures/expenses.csv",
+        "draws": "fixtures/draws.csv",
+        "settings": "fixtures/settings.json",
+        "status": "ok",
+        "limit": 1
+      },
+      "expect": {
+        "status": "executed",
+        "max": {
+          "result.items_shown": 1
+        },
+        "equals": {
+          "result.grants": 4,
+          "result.spent": 106000,
+          "result.drawn": 87000,
+          "result.available_to_draw": 27000,
+          "result.stale": 14000,
+          "result.overdrawn": 2000,
+          "result.excess_cash": 6000,
+          "result.pending": 8000,
+          "result.flag": 2,
+          "result.review": 2
+        }
+      },
+      "generated": true
+    },
+    {
+      "id": "explain-unknown-item-is-a-readable-error",
+      "tool": "drawdowns_explain",
+      "args": {
+        "grants": "fixtures/grants.csv",
+        "expenses": "fixtures/expenses.csv",
+        "draws": "fixtures/draws.csv",
+        "settings": "fixtures/settings.json",
+        "grant": "No Such Thing Zz"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "not found"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "report-writes-two-files",
+      "tool": "drawdowns_write_report",
+      "args": {
+        "grants": "fixtures/grants.csv",
+        "expenses": "fixtures/expenses.csv",
+        "draws": "fixtures/draws.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "length": {
+          "result.files": 2
+        },
+        "matches": [
+          "[0-9a-f]{64}"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "draft-waits-for-a-person",
+      "tool": "drawdowns_draft_draw_request",
+      "args": {
+        "grants": "fixtures/grants.csv",
+        "expenses": "fixtures/expenses.csv",
+        "draws": "fixtures/draws.csv",
+        "settings": "fixtures/settings.json",
+        "grant": "G-FED",
+        "from": "Dana Controller (fictional)"
+      },
+      "expect": {
+        "status": "needs_approval",
+        "decision": "ask"
+      },
+      "generated": true
+    },
+    {
+      "id": "review-mode-drafts-nothing",
+      "tool": "drawdowns_draft_draw_request",
+      "mode": "review",
+      "args": {
+        "grants": "fixtures/grants.csv",
+        "expenses": "fixtures/expenses.csv",
+        "draws": "fixtures/draws.csv",
+        "settings": "fixtures/settings.json",
+        "grant": "G-FED",
+        "from": "Dana Controller (fictional)"
+      },
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "request-stays-one-click-in-auto",
+      "tool": "drawdowns_request_submit",
+      "mode": "auto",
+      "auto_actions": [
+        "drawdowns_draft_draw_request"
+      ],
+      "args": {
+        "draft": "fairgive-out/drawdowns/drafts/none.md",
+        "draft_sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+      },
+      "expect": {
+        "status": "needs_approval",
+        "decision": "ask"
+      },
+      "generated": true
+    },
+    {
+      "id": "refuses-funder-portal-submit",
+      "tool": "funder_portal_submit",
+      "mode": "auto",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "refuses-bank-transfer",
+      "tool": "bank_transfer",
+      "mode": "auto",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "recall-empty-memory",
+      "tool": "drawdowns_recall",
+      "args": {},
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.total": 0
+        }
+      },
+      "generated": true
+    },
+    {
+      "id": "intl-de-drawdown-totals",
+      "tool": "drawdowns_check",
+      "args": {
+        "grants": "fixtures/intl/de/grants.csv",
+        "expenses": "fixtures/intl/de/expenses.csv",
+        "draws": "fixtures/intl/de/draws.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.grants": 4,
+          "result.spent": 106000,
+          "result.drawn": 87000,
+          "result.available_to_draw": 27000,
+          "result.stale": 14000,
+          "result.overdrawn": 2000,
+          "result.excess_cash": 6000,
+          "result.pending": 8000,
+          "result.flag": 2,
+          "result.review": 2
+        }
+      },
+      "note": "German export of the same data (fixtures/intl/de); must match the English case \"drawdown-totals\"."
+    },
+    {
+      "id": "intl-ja-drawdown-totals",
+      "tool": "drawdowns_check",
+      "args": {
+        "grants": "fixtures/intl/ja/grants.csv",
+        "expenses": "fixtures/intl/ja/expenses.csv",
+        "draws": "fixtures/intl/ja/draws.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.grants": 4,
+          "result.spent": 106000,
+          "result.drawn": 87000,
+          "result.available_to_draw": 27000,
+          "result.stale": 14000,
+          "result.overdrawn": 2000,
+          "result.excess_cash": 6000,
+          "result.pending": 8000,
+          "result.flag": 2,
+          "result.review": 2
+        }
+      },
+      "note": "Japanese export of the same data (fixtures/intl/ja); must match the English case \"drawdown-totals\"."
+    }
+  ]
+}

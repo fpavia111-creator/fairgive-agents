@@ -1,0 +1,318 @@
+{
+  "suite": "fairgive-single-audit",
+  "root": "..",
+  "data_note": "Fictional grants and spending. Data for an auditor, not a determination. Deterministic checks; no model is called.",
+  "cases": [
+    {
+      "id": "federal-spending-totals",
+      "tool": "single_audit_check",
+      "args": {
+        "grants": "fixtures/grants.csv",
+        "expenses": "fixtures/expenses.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.federal_grants": 5,
+          "result.federal_spending": 1040000,
+          "result.threshold": 1000000,
+          "result.threshold_pct": 104,
+          "result.alns": 4,
+          "result.flag": 1,
+          "result.review": 2,
+          "result.ok": 2
+        }
+      }
+    },
+    {
+      "id": "every-planted-issue-found",
+      "tool": "single_audit_check",
+      "args": {
+        "grants": "fixtures/grants.csv",
+        "expenses": "fixtures/expenses.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "contains": [
+          "threshold_met",
+          "missing_aln",
+          "pass_through_missing_id"
+        ],
+        "not_contains": [
+          "G-FOUND"
+        ]
+      }
+    },
+    {
+      "id": "pass-through-line-explained",
+      "tool": "single_audit_explain",
+      "args": {
+        "grants": "fixtures/grants.csv",
+        "expenses": "fixtures/expenses.csv",
+        "settings": "fixtures/settings.json",
+        "item": "ALN 93.568"
+      },
+      "expect": {
+        "status": "executed",
+        "contains": [
+          "comes through Example County Community Action but has no pass-through award id"
+        ],
+        "equals": {
+          "result.item.federal_spending": 180000
+        }
+      }
+    },
+    {
+      "id": "higher-threshold-only-approaching",
+      "tool": "single_audit_check",
+      "args": {
+        "grants": "fixtures/grants.csv",
+        "expenses": "fixtures/expenses.csv",
+        "settings": "fixtures/settings-higher.json"
+      },
+      "expect": {
+        "status": "executed",
+        "contains": [
+          "approaching_threshold"
+        ],
+        "not_contains": [
+          "threshold_met"
+        ]
+      }
+    },
+    {
+      "id": "latest-year-by-default",
+      "tool": "single_audit_check",
+      "args": {
+        "grants": "fixtures/grants.csv",
+        "expenses": "fixtures/expenses.csv"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.federal_spending": 1040000
+        }
+      }
+    },
+    {
+      "id": "intacct-export",
+      "tool": "single_audit_check",
+      "args": {
+        "grants": "fixtures/grants.csv",
+        "expenses": "fixtures/exports/intacct-gl-detail.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.federal_spending": 450000,
+          "result.alns": 1
+        }
+      }
+    },
+    {
+      "id": "missing-argument-named",
+      "tool": "single_audit_check",
+      "args": {},
+      "expect": {
+        "status": "error",
+        "contains": [
+          "grants"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "file-outside-root-refused",
+      "tool": "single_audit_check",
+      "args": {
+        "grants": "../../../outside.csv",
+        "expenses": "fixtures/expenses.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "outside"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "invented-tool-name-refused",
+      "tool": "single_audit_pay_everything_now",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "review-mode-still-reads",
+      "tool": "single_audit_check",
+      "mode": "review",
+      "args": {
+        "grants": "fixtures/grants.csv",
+        "expenses": "fixtures/expenses.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.federal_grants": 5,
+          "result.federal_spending": 1040000,
+          "result.threshold": 1000000,
+          "result.threshold_pct": 104,
+          "result.alns": 4,
+          "result.flag": 1,
+          "result.review": 2,
+          "result.ok": 2
+        }
+      },
+      "generated": true
+    },
+    {
+      "id": "status-filter-keeps-totals",
+      "tool": "single_audit_check",
+      "args": {
+        "grants": "fixtures/grants.csv",
+        "expenses": "fixtures/expenses.csv",
+        "settings": "fixtures/settings.json",
+        "status": "ok",
+        "limit": 1
+      },
+      "expect": {
+        "status": "executed",
+        "max": {
+          "result.items_shown": 1
+        },
+        "equals": {
+          "result.federal_grants": 5,
+          "result.federal_spending": 1040000,
+          "result.threshold": 1000000,
+          "result.threshold_pct": 104,
+          "result.alns": 4,
+          "result.flag": 1,
+          "result.review": 2,
+          "result.ok": 2
+        }
+      },
+      "generated": true
+    },
+    {
+      "id": "explain-unknown-item-is-a-readable-error",
+      "tool": "single_audit_explain",
+      "args": {
+        "grants": "fixtures/grants.csv",
+        "expenses": "fixtures/expenses.csv",
+        "settings": "fixtures/settings.json",
+        "item": "No Such Thing Zz"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "not found"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "report-writes-two-files",
+      "tool": "single_audit_write_report",
+      "args": {
+        "grants": "fixtures/grants.csv",
+        "expenses": "fixtures/expenses.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "length": {
+          "result.files": 2
+        },
+        "matches": [
+          "[0-9a-f]{64}"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "refuses-irs-file",
+      "tool": "irs_file",
+      "mode": "auto",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "refuses-funder-portal-submit",
+      "tool": "funder_portal_submit",
+      "mode": "auto",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "recall-empty-memory",
+      "tool": "single_audit_recall",
+      "args": {},
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.total": 0
+        }
+      },
+      "generated": true
+    },
+    {
+      "id": "intl-de-federal-spending-totals",
+      "tool": "single_audit_check",
+      "args": {
+        "grants": "fixtures/intl/de/grants.csv",
+        "expenses": "fixtures/intl/de/expenses.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.federal_grants": 5,
+          "result.federal_spending": 1040000,
+          "result.threshold": 1000000,
+          "result.threshold_pct": 104,
+          "result.alns": 4,
+          "result.flag": 1,
+          "result.review": 2,
+          "result.ok": 2
+        }
+      },
+      "note": "German export of the same data (fixtures/intl/de); must match the English case \"federal-spending-totals\"."
+    },
+    {
+      "id": "intl-ja-federal-spending-totals",
+      "tool": "single_audit_check",
+      "args": {
+        "grants": "fixtures/intl/ja/grants.csv",
+        "expenses": "fixtures/intl/ja/expenses.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.federal_grants": 5,
+          "result.federal_spending": 1040000,
+          "result.threshold": 1000000,
+          "result.threshold_pct": 104,
+          "result.alns": 4,
+          "result.flag": 1,
+          "result.review": 2,
+          "result.ok": 2
+        }
+      },
+      "note": "Japanese export of the same data (fixtures/intl/ja); must match the English case \"federal-spending-totals\"."
+    }
+  ]
+}
