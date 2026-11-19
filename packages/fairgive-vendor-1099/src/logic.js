@@ -2,14 +2,18 @@
 // (the processor reports them). Vendors paid at or over the threshold are reportable
 // unless they are corporations (attorneys are reported anyway). Reportable vendors need a
 // W-9, a well-formed taxpayer id and an address. Files nothing; the threshold and the
-// rules are settings your preparer confirms.
+// rules are settings your preparer confirms. With no threshold set, it follows the tax year:
+// 600 for payments through 2025 and 2,000 for payments in 2026 (the amount after 2026 is
+// indexed for inflation, so set it each year from the IRS's figure).
 import { str, num, round2, isoDate, yes, finding, statusOf, cmp, nameKey } from 'fairgive-core';
 
-export const DEFAULTS = Object.freeze({ tax_year: null, threshold: 2000, exclude_methods: ['credit card', 'card', 'paypal', 'venmo'] });
+export const DEFAULTS = Object.freeze({ tax_year: null, threshold: null, exclude_methods: ['credit card', 'card', 'paypal', 'venmo'] });
+export const thresholdFor = (year, s = DEFAULTS) => num(s.threshold) ?? (year && year <= 2025 ? 600 : 2000);
 const LEVELS = { needs_1099_no_w9: 'flag', tin_missing: 'flag', tin_malformed: 'flag', address_missing: 'review', unknown_vendor: 'review', attorney_reportable: 'watch', corporation_exempt: 'watch' };
 
 export function vendor1099({ vendors = [], payments = [] }, s = DEFAULTS) {
   const year = Number(s.tax_year) || Math.max(...payments.map((p) => Number((isoDate(p.date) || '').slice(0, 4)) || 0), 0) || null;
+  const threshold = thresholdFor(year, s);
   const V = new Map(); for (const v of vendors) if (str(v.vendor_id)) V.set(nameKey(v.vendor_id), v);
   const excl = (m) => (s.exclude_methods || []).some((x) => nameKey(x) && nameKey(m) === nameKey(x));
   const by = new Map();
@@ -19,8 +23,8 @@ export function vendor1099({ vendors = [], payments = [] }, s = DEFAULTS) {
     const v = V.get(k); const f = [];
     if (!v) { f.push(finding('unknown_vendor', `Vendor ${e.id} was paid ${e.paid} and is not in the vendor list.`, e.paid)); items.push({ vendor_id: e.id, vendor: '', entity_type: '', tin: '', paid: e.paid, card_excluded: e.excluded, reportable: null, status: statusOf(f, LEVELS), findings: f }); continue; }
     const corp = /corp|inc\b|incorporated|\bpc\b|professional corporation|s corp|c corp/i.test(str(v.entity_type)); const attorney = yes(v.attorney) === true;
-    let reportable = e.paid >= Number(s.threshold ?? 2000) && (!corp || attorney);
-    if (e.paid >= Number(s.threshold ?? 2000) && corp && !attorney) f.push(finding('corporation_exempt', `Vendor ${e.id} (${str(v.entity_type)}) was paid ${e.paid}; corporations are usually not reported. Confirm the W-9 says so.`));
+    let reportable = e.paid >= threshold && (!corp || attorney);
+    if (e.paid >= threshold && corp && !attorney) f.push(finding('corporation_exempt', `Vendor ${e.id} (${str(v.entity_type)}) was paid ${e.paid}; corporations are usually not reported. Confirm the W-9 says so.`));
     if (reportable && corp && attorney) f.push(finding('attorney_reportable', `Vendor ${e.id} is a corporation paid ${e.paid} for legal services; attorney fees are usually reported even for corporations.`, e.paid));
     if (reportable) {
       if (yes(v.w9_on_file) !== true) f.push(finding('needs_1099_no_w9', `Vendor ${e.id} was paid ${e.paid} and there is no W-9 on file. Ask for one before the filing season.`, e.paid));
@@ -32,5 +36,5 @@ export function vendor1099({ vendors = [], payments = [] }, s = DEFAULTS) {
     }
     items.push({ vendor_id: e.id, vendor: str(v.vendor), entity_type: str(v.entity_type), tin: str(v.tin), paid: e.paid, card_excluded: e.excluded, reportable, status: statusOf(f, LEVELS), findings: f });
   }
-  return { items, totals: { tax_year: year, vendors_paid: items.length, reportable: T.reportable, reportable_amount: round2(T.amount), missing_w9: T.no_w9, tin_problems: T.tin }, extra: {} };
+  return { items, totals: { tax_year: year, threshold, vendors_paid: items.length, reportable: T.reportable, reportable_amount: round2(T.amount), missing_w9: T.no_w9, tin_problems: T.tin }, extra: {} };
 }

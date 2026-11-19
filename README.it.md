@@ -31,7 +31,7 @@ Ogni agente ha una `demo` su file fittizi, un `eval` con i propri casi di prova 
 
 - **Un compito ciascuno.** Ogni agente ha il proprio elenco di strumenti; qualsiasi altro nome viene bloccato.
 - **Nulla di vincolante accade da sé.** Nessun agente paga, rimborsa, addebita carte, registra scritture, modifica il CRM, presenta moduli o invia lettere. Viene rifiutato o attende il clic di una persona indicata per nome, anche in modalità Auto.
-- **I dati personali sono mascherati.** Nomi, e-mail, telefoni, indirizzi e codici fiscali sono sostituiti da codici in tutto ciò che torna al modello di IA. I file sul vostro computer conservano i valori reali.
+- **I dati personali sono mascherati.** Nomi, e-mail, telefoni, indirizzi e codici fiscali sono sostituiti da codici in tutto ciò che torna al modello di IA. I file sul vostro computer conservano i valori reali. Il testo libero (note, causali bancarie) viene inviato così com’è: un nome scritto lì è mascherato solo se compare anche in una colonna mascherata.
 - **Solo file locali.** Nessuna chiamata di rete, nessuna telemetria, nessuna credenziale. Ogni chiamata finisce in un registro di audit concatenato in `.fairgive/`.
 - **Le vostre regole.** Soglie, aliquote, date e politiche sono impostazioni nel vostro file; il risultato indica sempre quali sono state usate.
 

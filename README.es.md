@@ -31,7 +31,7 @@ Cada agente tiene una `demo` con archivos ficticios, un `eval` con sus propios c
 
 - **Una tarea cada uno.** Cada agente tiene su propia lista de herramientas; cualquier otro nombre se bloquea.
 - **Nada vinculante ocurre solo.** Ningún agente paga, reembolsa, cobra tarjetas, registra asientos, cambia el CRM, presenta formularios ni envía cartas. Eso se rechaza o espera el clic de una persona identificada, incluso en modo Auto.
-- **Los datos personales se enmascaran.** Nombres, correos, teléfonos, direcciones e identificadores fiscales se sustituyen por fichas en todo lo que recibe el modelo de IA. Los archivos en su computadora conservan los valores reales.
+- **Los datos personales se enmascaran.** Nombres, correos, teléfonos, direcciones e identificadores fiscales se sustituyen por fichas en todo lo que recibe el modelo de IA. Los archivos en su computadora conservan los valores reales. El texto libre (notas, conceptos bancarios) se envía tal cual: un nombre escrito allí solo se enmascara si también está en una columna enmascarada.
 - **Solo archivos locales.** Sin llamadas de red, sin telemetría, sin credenciales. Cada llamada queda en un registro de auditoría encadenado en `.fairgive/`.
 - **Sus reglas.** Umbrales, tasas, fechas y políticas son configuraciones en su propio archivo; el resultado siempre indica cuáles se usaron.
 

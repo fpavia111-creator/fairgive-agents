@@ -45,3 +45,12 @@ test('a payment to a vendor not in the list needs review', () => {
   const r = vendor1099({ vendors: [], payments: [p('Z', 100)] }, S);
   assert.equal(one(r, 'Z').findings[0].code, 'unknown_vendor');
 });
+
+test('with no threshold set, the threshold follows the tax year: 600 through 2025, 2000 in 2026 (final pass)', async () => {
+  const { vendor1099, thresholdFor } = await import('../src/logic.js');
+  const vendors = [{ vendor_id: 'V1', vendor: 'Pat Kim Consulting', entity_type: 'Individual', tin: '345-67-8901', w9_on_file: 'yes', address: '7 Lake Road' }];
+  const paid = (year) => [{ payment_id: 'P1', vendor_id: 'V1', date: `${year}-05-01`, amount: 1000, method: 'Check' }];
+  assert.equal(thresholdFor(2025), 600); assert.equal(thresholdFor(2026), 2000); assert.equal(thresholdFor(2025, { threshold: 700 }), 700);
+  assert.equal(vendor1099({ vendors, payments: paid(2025) }, { tax_year: 2025 }).items[0].reportable, true);
+  assert.equal(vendor1099({ vendors, payments: paid(2026) }, { tax_year: 2026 }).items[0].reportable, false);
+});

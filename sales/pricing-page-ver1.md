@@ -39,4 +39,4 @@ Included: installation on your computer, mapping your exports, your settings (ac
 
 Not included: paying, refunding, charging cards, moving money, posting to your books, changing your CRM, filing a Form 990, a 1099 or anything else with the IRS, a state or a funder, or sending letters (the agents never do these; a person on your team does). Legal, tax, audit or accounting advice. Logging in to your CRM, giving platform, processor, bank or funder portal.
 
-Your files and reports stay on your computer. Donor, member, volunteer, staff and vendor names, e-mails, phones, addresses and taxpayer ids are masked in anything the agents send to an AI model.
+Your files and reports stay on your computer. Donor, member, volunteer, staff and vendor names, e-mails, phones, addresses and taxpayer ids are masked in what the agents send to an AI model; a name typed into a memo or note is sent as written unless it is also in a name column.

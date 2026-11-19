@@ -31,7 +31,7 @@ Chaque agent a une `demo` sur des fichiers fictifs, un `eval` avec ses propres c
 
 - **Une tâche chacun.** Chaque agent a sa propre liste d’outils ; tout autre nom d’outil est bloqué.
 - **Rien d’engageant ne se fait tout seul.** Aucun agent ne paie, ne rembourse, ne débite une carte, ne passe d’écriture, ne modifie le CRM, ne dépose de formulaire ni n’envoie de lettre. Ces actions sont refusées ou attendent le clic d’une personne nommée, même en mode Auto.
-- **Les données personnelles sont masquées.** Noms, e-mails, téléphones, adresses et identifiants fiscaux sont remplacés par des jetons dans tout ce qui est renvoyé au modèle d’IA. Les fichiers écrits sur votre ordinateur gardent les vraies valeurs.
+- **Les données personnelles sont masquées.** Noms, e-mails, téléphones, adresses et identifiants fiscaux sont remplacés par des jetons dans tout ce qui est renvoyé au modèle d’IA. Les fichiers écrits sur votre ordinateur gardent les vraies valeurs. Le texte libre (notes, libellés bancaires) est envoyé tel quel : un nom tapé là n’est masqué que s’il figure aussi dans une colonne masquée.
 - **Fichiers locaux uniquement.** Aucun appel réseau, aucune télémétrie, aucun identifiant. Chaque appel est inscrit dans un journal d’audit chaîné sous `.fairgive/`.
 - **Vos règles.** Seuils, taux, dates et politiques sont des paramètres dans votre propre fichier ; le résultat indique toujours ceux qui ont été utilisés.
 

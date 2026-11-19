@@ -31,7 +31,7 @@ Jeder Agent hat eine `demo` mit fiktiven Dateien, ein `eval` mit eigenen Testfä
 
 - **Je eine Aufgabe.** Jeder Agent hat seine eigene Werkzeugliste; jeder andere Werkzeugname wird blockiert.
 - **Nichts Verbindliches geschieht von selbst.** Kein Agent zahlt, erstattet, belastet Karten, bucht, ändert das CRM, reicht Formulare ein oder versendet Briefe. Das wird abgelehnt oder wartet auf den Klick einer namentlich genannten Person, auch im Auto-Modus.
-- **Personenbezogene Daten werden maskiert.** Namen, E-Mails, Telefonnummern, Anschriften und Steuernummern werden in allem, was an das KI-Modell geht, durch Kürzel ersetzt. Die Dateien auf Ihrem Rechner behalten die echten Werte.
+- **Personenbezogene Daten werden maskiert.** Namen, E-Mails, Telefonnummern, Anschriften und Steuernummern werden in allem, was an das KI-Modell geht, durch Kürzel ersetzt. Die Dateien auf Ihrem Rechner behalten die echten Werte. Freitext (Notizen, Verwendungszwecke) wird so gesendet, wie er geschrieben wurde: ein dort getippter Name wird nur maskiert, wenn er auch in einer maskierten Spalte steht.
 - **Nur lokale Dateien.** Keine Netzwerkaufrufe, keine Telemetrie, keine Zugangsdaten. Jeder Aufruf landet in einem hash-verketteten Prüfprotokoll unter `.fairgive/`.
 - **Ihre Regeln.** Schwellen, Sätze, Fristen und Richtlinien sind Einstellungen in Ihrer eigenen Datei; das Ergebnis nennt immer die verwendeten Einstellungen.
 

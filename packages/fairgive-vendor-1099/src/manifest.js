@@ -19,7 +19,7 @@ export const manifest = giveAgent({
   sources: { vendors: { label: 'Vendors', args: ['vendors'], fields: VF }, payments: { label: 'Vendor payments', args: ['payments'], fields: PF } },
   settings: { defaults: DEFAULTS, schema: { type: 'object', additionalProperties: false, properties: {
     tax_year: { type: ['integer', 'null'], minimum: 2000, maximum: 2100, description: 'Tax year (default: the latest year in the payments)' },
-    threshold: { type: 'number', minimum: 0, description: 'Payments at or over this make a vendor reportable (default 2000 for payments in 2026; 600 for earlier years; your preparer confirms)' },
+    threshold: { type: 'number', minimum: 0, description: 'Payments at or over this make a vendor reportable (left unset: 600 for payments through 2025 and 2000 for payments in 2026; after 2026 the IRS indexes it for inflation, so set it each year; your preparer confirms)' },
     exclude_methods: { type: 'array', items: { type: 'string' }, description: 'Payment methods left out because the processor reports them (card, PayPal...)' },
   } } },
   run: ({ rows, settings }) => vendor1099(rows, settings),

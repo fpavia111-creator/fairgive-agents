@@ -23,7 +23,7 @@
     "It prepares data for Form 990, 1099s and grant reports; it files nothing and gives no tax or legal advice.",
     "Report pages can be read in nine languages; those translations are Claude's and have not been reviewed by native speakers."
   ],
-  "warn": "Your files, reports and drafts stay on your computer. Donor, member, volunteer, staff and vendor names, e-mails, phones, addresses and taxpayer ids are masked in anything sent to an AI model. The agents never pay, refund, charge a card, move money, post to the books, change the CRM, file with the IRS, a state or a funder, or send a letter; those wait for one named person or are refused.",
+  "warn": "Your files, reports and drafts stay on your computer. Donor, member, volunteer, staff and vendor names, e-mails, phones, addresses and taxpayer ids are masked in what is sent to an AI model; a name typed into a memo or note is sent as written unless it is also in a name column. The agents never pay, refund, charge a card, move money, post to the books, change the CRM, file with the IRS, a state or a funder, or send a letter; those wait for one named person or are refused.",
   "groups": [
     ["Gifts and donors", [
       ["Gifts against deposits", "Gifts in the CRM matched to bank deposits and to contribution revenue in the ledger, by batch, date and amount"],
