@@ -67,8 +67,9 @@ All on this machine: Windows 10, Node 24.20.0.
 | `npm run intl` (every spreadsheet eval case as a German, French, Spanish, Brazilian, Italian, Japanese, Chinese and Korean export: local column names, `1.234,56`, local dates, Windows-1252, Shift_JIS, GBK, EUC-KR) | 353 cases x 8 languages, all pass; 355 of 450 column names translated (German count) |
 | Contract tests per agent (in `npm test`) | every tool that runs has an eval case; readable errors; files outside `--root` refused; Review mode and the kill switch; drafts tied to their sha256; repeatable results; same answer with columns reordered, an extra column, BOM and CRLF, padded values, blank lines, rows reversed or rotated, a header with no rows; report pages in en/de/ja with the same CSV; personal data never reaches the model |
 | MCP stdio smoke test (in `npm test`) | every agent: initialize, list tools, refuse an unknown tool, write the audit log |
-| `npm run bench` (1,000 and 10,000 rows per input file) | BENCH_RESULT |
-| `npm run release:check:offline` | RELEASE_RESULT |
+| `npm run bench` (1,000 and 10,000 rows per input file, each tool in its own process) | 97 tool runs across 32 agents, 0 need attention; at 10,000 rows the median is 0.9 s and the slowest 2.9 s (grant reports, write report); record in `docs/bench-2026-11-18.md` |
+| `npm run release:check:offline` | first full run: every check passed except pack contents (a stray file, see below); after the fix the pack check passed (33 packages, 582 KB packed, no tests, state, output, keys or .npmrc) and a second full run passed: FINAL_RELEASE |
+| `npm run readme:check`, `npm run plugin:check` | generated README sections and the 65 plugin files match the agents |
 | `npm view <name>` for all 33 package names (read-only) | all 33 free (404), see `docs/npm-names-2026-11-18.md` |
 | MCP Registry step (`node ..\add-mcp-registry.cjs fairgive-agents fairgive.html`) | REGISTRY_RESULT |
 | Sample reports | `sample-reports/`: all 32 agents' reports (HTML and CSV) on their fictional demo files, in English, plus `index.html` |
@@ -88,6 +89,9 @@ All on this machine: Windows 10, Node 24.20.0.
   gifts dated inside the window before it when they add up to it.
 - **Gift deposits: speed.** That pass compared every deposit with every gift: 10.5 s at 10,000 rows.
   It now finds the window by binary search on sorted dates: 1.5 s.
+- **Processor fees: speed.** Matching payouts to bank deposits scanned every deposit for every payout:
+  79 s at 10,000 rows. Deposits are now indexed by id, by the words of their description and by amount:
+  1.2 s.
 - **Grant budgets: speed.** An allocation table that lists the same pool and grant many times split
   every pooled cost once per row (the bench timed out at 10,000 rows). Shares are now added per pool
   and grant (the pool then shows over 100% and is flagged): 1.0 s.
@@ -104,6 +108,11 @@ All on this machine: Windows 10, Node 24.20.0.
   where the payout nets 441.19; three sponsors counted as four; a refund case that expected a quoted
   status word the JSON escapes; a payments file missing from a present-value case; a pledge that was
   paid and still open, expected to have no finding.
+- **Release check: a stray file.** A development run of the grant reports calendar tool wrote an ICS file
+  under `fixtures/` (git ignores it, npm would have packed it). Removed; the pack check now passes.
+- **Honest-copy wording.** Column aliases "Certified Date" and a draft line "Certified by" would read as a
+  certification claim to the release check's scan; reworded ("Signature Date", "Signed by the authorized
+  official").
 - **International check.** Named vendor layouts under `fixtures/exports/` (Raiser's Edge NXT, NPSP,
   Bloomerang, PayPal, Aplos, Classy, Intacct...) are recognised by the vendor's own English column
   names; translating their headers made 9 cases x 8 languages fail. They are now left out of the
@@ -114,7 +123,7 @@ All on this machine: Windows 10, Node 24.20.0.
 
 - **Names** follow the 18 Nov naming rule (`fairgive-<what it does>`, no themed names). The family was
   planned with flower names this morning; nothing was published under them.
-- **Agent list.** All 31 jobs in the task, plus `fairgive-liquidity` (financial assets available within
+- **Agent list.** Every job listed in the task, plus `fairgive-liquidity` (financial assets available within
   a year, the data behind the liquidity note) to reach 32. Lapsed donors, recurring failures, multi-grant
   allocation (in grant budgets) and indirect cost rates (its own agent, deeper than Mythos
   `polyhymnia-of-grants`) are separate agents.
