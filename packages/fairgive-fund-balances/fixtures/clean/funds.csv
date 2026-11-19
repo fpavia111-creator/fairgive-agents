@@ -1,0 +1,8 @@
+fund,fund_name,restriction,corpus
+GEN,General operating,Without donor restrictions,
+BOARD-RES,Operating reserve,Board designated,
+YOUTH,Youth programs,Purpose restricted,
+CAPITAL,Building campaign,Purpose restricted,
+SCHOL-TIME,2027 scholarships,Time restricted,
+ENDOW,Hartwell endowment,Perpetual,100000
+MISC,Miscellaneous,Without donor restrictions,

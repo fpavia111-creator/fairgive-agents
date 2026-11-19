@@ -40,3 +40,10 @@ test('a payment with no benefit is fully deductible and ok', () => {
   const r = quidProQuo({ payments: [{ gift_id: 'A', amount: 1000, receipt_deductible: 1000 }] }, DEFAULTS);
   assert.deepEqual(codes(r, 'A'), []); assert.equal(r.items[0].deductible, 1000);
 });
+
+test('an auction item bought at its value is in order; a value above the payment is listed (final pass)', () => {
+  const r = quidProQuo({ payments: [p('A', 200, 200, { receipt_deductible: 0 }), p('B', 200, 250, { receipt_deductible: 0, disclosure: 'yes' }), p('C', 200, 200, { receipt_deductible: 50 })] }, DEFAULTS);
+  assert.deepEqual(codes(r, 'A'), []);
+  assert.deepEqual(codes(r, 'B'), ['benefit_over_payment']);
+  assert.deepEqual(codes(r, 'C'), ['deductible_wrong']);
+});

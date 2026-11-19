@@ -1,0 +1,12 @@
+entry_id,date,account,account_name,fund,debit,credit,memo
+JE-90,2026-09-28,4010,Contributions,GEN,,200.00,Batch B-100
+JE-101,2026-10-07,4010,Contributions,GEN,,350.00,Batch B-101
+JE-101,2026-10-07,4010,Contributions,YOUTH,,50.00,Batch B-101
+JE-102,2026-10-12,4010,Contributions,GEN,,575.00,Batch B-102
+JE-103,2026-10-22,4010,Contributions,GEN,,300.00,Card payout
+JE-104,2026-10-25,4010,Contributions,GEN,,250.00,Mobile deposit
+JE-105,2026-10-15,4020,Contributions - noncash,ENDOW,,5000.00,Stock gift
+JE-106,2026-10-30,4800,Interest income,GEN,,80.00,Interest
+JE-107,2026-10-16,4010,Contributions,CAPITAL,,1000.00,Batch B-103
+JE-107,2026-10-16,4010,Contributions,GEN,,20.00,Batch B-103
+JE-108,2026-10-31,4010,Contributions,GEN,,125.00,Card payout

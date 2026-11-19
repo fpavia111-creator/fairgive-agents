@@ -1,0 +1,9 @@
+grant,report,frequency,due_days_after,due_date
+G-ARTS,Interim narrative,Semiannual,30,
+G-ARTS,Final report,Final,60,
+G-FED,Financial report,Quarterly,30,
+G-FED,Performance report,Semiannual,30,
+G-FED,Equipment inventory,Once,,2026-12-01
+G-FOUND,Quarterly update,Quarterly,30,
+G-FOUND,Final report,Final,90,
+G-NEW,Final report,Final,60,

@@ -1,0 +1,8 @@
+gift_id,donor,gift_date,amount,status,ack_date
+G-2,Rowan Ellery,2026-10-01,100.00,Refunded,
+G-3,Juniper Vance,2026-10-02,50.00,Refunded,
+G-4,Tamsin Okafor,2026-10-20,250.00,Received,2026-10-22
+G-5,Corwin Achebe,2026-10-25,80.00,Partially refunded,
+G-6,Liesel Marchetti,2026-10-07,75.00,Refunded,
+G-7,Bram Halloway,2026-08-15,30.00,Received,
+G-8,Odessa Quill,2026-10-30,40.00,Refunded,

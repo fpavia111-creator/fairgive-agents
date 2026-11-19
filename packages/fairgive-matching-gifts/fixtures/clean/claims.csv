@@ -1,0 +1,7 @@
+gift_id,submitted_date,status,received_amount,received_date
+M-1,2026-09-10,Paid,500.00,2026-10-20
+M-5,2026-03-10,Paid,2000.00,2026-05-01
+M-6,2026-07-05,Paid,200.00,2026-09-01
+M-3,2026-11-01,Submitted,,
+M-4,2026-09-30,Paid,200.00,2026-10-30
+M-2,2026-10-15,Submitted,,

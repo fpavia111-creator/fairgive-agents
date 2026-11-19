@@ -21,11 +21,15 @@ export function quidProQuo({ payments = [] }, s = DEFAULTS) {
     let deductible = amount;
     if (benefit && v === null) f.push(finding('fmv_missing', `Payment ${str(p.gift_id)} of ${amount} came with "${benefit}" and no value for it, so the deductible part cannot be worked out.`, amount));
     else if (v !== null && v > 0) {
-      if (v >= amount) f.push(finding('benefit_over_payment', `Payment ${str(p.gift_id)} of ${amount} bought "${benefit}" valued at ${v}: nothing is a contribution.`, amount));
+      // A buyer who paid exactly the value (an auction item at its value) made no contribution and
+      // that is in order; a value above the payment is listed so a person checks the value.
+      if (v - amount > tol) f.push(finding('benefit_over_payment', `Payment ${str(p.gift_id)} of ${amount} bought "${benefit}" valued at ${v}: nothing is a contribution.`, amount));
       if (insubstantial(amount, v, s)) { f.push(finding('insubstantial_benefit', `Payment ${str(p.gift_id)}: "${benefit}" (${v}) is within the insubstantial-benefit limits in the settings, so it can be treated as fully deductible.`)); }
       else {
         deductible = round2(Math.max(0, amount - v));
-        if (amount > Number(s.qpq_threshold) && yes(p.disclosure) !== true) f.push(finding('disclosure_missing', `Payment ${str(p.gift_id)} of ${amount} is over ${s.qpq_threshold} and the donor received "${benefit}" (${v}); no written disclosure is recorded.`, amount));
+        // The disclosure is for a payment that is partly a contribution: none is needed when the
+        // benefit is worth the whole payment.
+        if (amount > Number(s.qpq_threshold) && amount - v > tol && yes(p.disclosure) !== true) f.push(finding('disclosure_missing', `Payment ${str(p.gift_id)} of ${amount} is over ${s.qpq_threshold} and the donor received "${benefit}" (${v}); no written disclosure is recorded.`, amount));
         if (stated !== null && Math.abs(stated - deductible) > tol) f.push(finding('deductible_wrong', `Payment ${str(p.gift_id)}: the receipt says ${stated} is deductible; payment ${amount} less benefit ${v} is ${deductible}.`, stated - deductible));
       }
     }

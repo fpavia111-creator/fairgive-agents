@@ -1,0 +1,9 @@
+entry_id,date,account,account_name,program,function,debit,credit,memo
+L1,2026-06-30,5000,Salaries,Youth,,40000.00,,Youth program staff
+L2,2026-06-30,5000,Salaries,Admin,,25000.00,,Finance and HR
+L3,2026-06-30,5000,Salaries,Development,,15000.00,,Development staff
+L4,2026-06-30,6000,Rent,Shared,,24000.00,,Office rent
+L5,2026-06-30,6100,Utilities,Shared,,6000.00,,Utilities
+L6,2026-06-30,7000,Printing,Development,,3000.00,,Gala invitations
+L7,2026-06-30,7100,Supplies,Admin,,2000.00,,Office supplies
+L8,2026-06-30,7200,Travel,,Fundraising,1500.00,,Donor visits

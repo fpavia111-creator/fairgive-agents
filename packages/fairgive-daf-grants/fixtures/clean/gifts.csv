@@ -1,0 +1,9 @@
+gift_id,donor_id,donor,gift_date,amount,method,daf_sponsor,advisor,pledge_id,benefit_value,ack_says_deductible
+D-1,ORG-1,Example Charitable Gift Fund,2026-03-01,1000.00,DAF grant,Example Charitable Gift Fund,Maple Hartwell,,,no
+D-2,ORG-3,Example Community Foundation,2026-04-01,2500.00,Donor advised fund,Example Community Foundation,Rowan Ellery,,,no
+D-3,ORG-1,Example Charitable Gift Fund,2026-04-15,500.00,DAF grant,Example Charitable Gift Fund,Juniper Vance,,,no
+D-4,ORG-2,Example National Philanthropic Trust,2026-05-01,5000.00,DAF grant,Example National Philanthropic Trust,Tamsin Okafor,,,no
+D-5,ORG-1,Example Charitable Gift Fund,2026-06-01,750.00,DAF grant,Example Charitable Gift Fund,Corwin Achebe,,,no
+D-6,ORG-3,Example Community Foundation,2026-07-01,300.00,DAF,Example Community Foundation,Liesel Marchetti,,,no
+G-7,C-7,Bram Halloway,2026-07-02,100.00,Check,,,,,yes
+G-8,C-8,Odessa Quill,2026-07-03,50.00,Credit Card,,,,,yes

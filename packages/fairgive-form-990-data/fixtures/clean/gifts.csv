@@ -1,0 +1,8 @@
+gift_id,donor_id,donor,address,gift_date,amount,gift_type,description
+G-1,C-1,Maple Hartwell,12 Elm Street Springfield,2026-02-01,3000.00,Cash,
+G-2,C-1,Maple Hartwell,12 Elm Street Springfield,2026-08-01,3000.00,Cash,
+G-3,C-2,Rowan Ellery,4 Oak Avenue Springfield,2026-03-15,10000.00,Cash,
+G-4,C-3,Juniper Vance,9 Pine Road Springfield,2026-05-05,8000.00,Stock,100 shares of a listed company
+G-5,C-4,Tamsin Okafor,77 Birch Lane Springfield,2026-06-06,4000.00,Cash,
+G-6,C-5,Corwin Achebe,5 Cedar Court Springfield,2026-09-09,12000.00,Noncash,Painting for the auction
+G-7,C-6,Liesel Marchetti,8 Spruce Way Springfield,2025-12-20,5000.00,Cash,

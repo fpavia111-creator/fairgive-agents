@@ -1,0 +1,8 @@
+entry_id,date,account,account_name,fund,debit,credit,memo
+TR-1,2025-06-30,3150,Board designated transfers,RES-OP,,50000.00,Designation R-1
+TR-2,2025-06-30,3150,Board designated transfers,RES-CAP,,30000.00,Designation R-2
+JE-31,2026-04-15,5500,Building repairs,RES-CAP,14000.00,,Roof repair
+TR-3,2025-06-30,3150,Board designated transfers,RES-SCH,,40000.00,Designation R-3
+TR-4,2026-01-15,3150,Board designated transfers,RES-NEW,,20000.00,Transfer
+JE-33,2026-06-30,5600,Program pilot costs,RES-NEW,20000.00,,Pilot
+TR-5,2026-05-01,3150,Board designated transfers,RES-SCH,15000.00,,Undesignation R-4

@@ -1,0 +1,13 @@
+entry_id,date,grant,category,amount,subaward_id,memo
+X-1,2026-03-31,G-FED,Salaries,100000.00,,Program staff
+X-2,2026-03-31,G-FED,Fringe,30000.00,,Benefits
+X-3,2026-04-15,G-FED,Equipment,20000.00,,Lab equipment
+X-4,2026-05-15,G-FED,Participant support,10000.00,,Stipends
+X-5,2026-06-30,G-FED,Subaward,50000.00,SUB-1,Partner organization
+X-6,2026-06-30,G-FED,Indirect,50400.00,,Indirect charged
+X-7,2026-06-30,G-NEW,Salaries,40000.00,,Program staff
+X-8,2026-06-30,G-NEW,Supplies,10000.00,,Supplies
+X-9,2026-06-30,G-NEW,Indirect,7500.00,,Indirect charged
+X-10,2026-06-30,G-FOUND,Salaries,30000.00,,Program staff
+X-11,2026-06-30,G-FOUND,Rent,6000.00,,Program space
+X-12,2026-06-30,G-FOUND,Indirect,3600.00,,Indirect charged

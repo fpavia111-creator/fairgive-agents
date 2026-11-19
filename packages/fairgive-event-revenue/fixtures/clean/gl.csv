@@ -1,0 +1,7 @@
+entry_id,date,account,account_name,event,debit,credit,memo
+EV-1,2026-06-30,4300,Special events revenue,GOLF-26,,1800.00,Golf outing
+EV-2,2026-09-30,4300,Special events revenue,RUN-26,,1000.00,5K run
+EV-3,2026-09-30,4310,Special events contributions,RUN-26,,400.00,5K run
+EV-4,2026-04-30,4300,Special events revenue,GALA-26,,2520.00,Gala
+EV-5,2026-04-30,4310,Special events contributions,GALA-26,,5830.00,Gala
+EV-6,2026-06-30,4310,Special events contributions,GOLF-26,,1600.00,Golf outing

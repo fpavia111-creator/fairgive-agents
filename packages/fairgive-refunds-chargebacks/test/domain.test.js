@@ -43,3 +43,10 @@ test('refund amounts written as negatives are read as positive', () => {
   const r = refunds({ events: [ev('A', -100, 'G1')], gifts: [gift('G1', 100, { status: 'Refunded' })] }, S);
   assert.equal(r.totals.refunded, 100); assert.deepEqual(codes(r, 'A'), []);
 });
+
+test('a partial refund on a gift marked partially refunded is in order; an unmarked one is listed with both readings (final pass)', () => {
+  const r = refunds({ events: [ev('A', 20, 'G1'), ev('B', 20, 'G2')], gifts: [gift('G1', 80, { status: 'Partially refunded' }), gift('G2', 100)] }, S);
+  assert.deepEqual(codes(r, 'A'), []);
+  assert.deepEqual(codes(r, 'B'), ['partial_refund_not_adjusted']);
+  assert.match(r.items.find((i) => i.txn_id === 'B').findings[0].detail, /reduce it to 80/);
+});

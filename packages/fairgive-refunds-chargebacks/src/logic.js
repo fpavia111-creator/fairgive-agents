@@ -26,7 +26,7 @@ export function refunds({ events = [], gifts = [] }, s = DEFAULTS) {
       if (!g) f.push(finding('refund_no_gift', `${str(e.txn_id)}: a ${a} refund on ${isoDate(e.date) || 'no date'} ${str(e.gift_id) ? `names gift ${str(e.gift_id)}, which is not in the CRM export` : 'has no gift id'}.`, a));
       else { const amount = num(g.amount) || 0;
         if (a - amount > tol) f.push(finding('refund_over_gift', `${str(e.txn_id)}: ${a} refunded on a gift of ${amount}.`, a - amount));
-        else if (amount - a > tol) { if (!REVERSED.test(str(g.status))) f.push(finding('partial_refund_not_adjusted', `${str(e.txn_id)}: ${a} of gift ${str(g.gift_id)} (${amount}) was refunded and the gift still shows ${amount}.`, a)); }
+        else if (amount - a > tol) { if (!REVERSED.test(str(g.status))) f.push(finding('partial_refund_not_adjusted', `${str(e.txn_id)}: ${a} of gift ${str(g.gift_id)} (${amount}) was refunded, and the gift shows ${amount} with a status ("${str(g.status) || 'none'}") that does not say it was reduced. If the gift was ${round2(amount + a)} and has been reduced already, mark it partially refunded; otherwise reduce it to ${round2(amount - a)}.`, a)); }
         else if (!REVERSED.test(str(g.status))) f.push(finding('refund_not_reversed_in_crm', `${str(e.txn_id)}: gift ${str(g.gift_id)} (${amount}) was refunded in full and is still "${str(g.status) || 'not marked'}" in the CRM.`, a));
         if (a >= amount - tol && isoDate(g.ack_date)) f.push(finding('ack_sent_for_refunded', `Gift ${str(g.gift_id)} was thanked on ${isoDate(g.ack_date)} and then refunded; send a corrected letter.`, a)); }
     }

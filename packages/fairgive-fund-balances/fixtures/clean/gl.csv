@@ -1,0 +1,15 @@
+entry_id,date,account,account_name,fund,debit,credit,memo
+OB-1,2026-07-01,3100,Net assets without donor restrictions,GEN,,50000.00,Opening balance
+JE-11,2026-09-30,4010,Contributions,GEN,,20000.00,Q1 gifts
+JE-12,2026-09-30,5000,Program expenses,GEN,30000.00,,Q1 spending
+OB-2,2026-07-01,3100,Net assets without donor restrictions,BOARD-RES,,25000.00,Opening balance
+OB-3,2026-07-01,3200,Net assets with donor restrictions,YOUTH,,5000.00,Opening balance
+JE-13,2026-09-30,4010,Contributions,YOUTH,,2000.00,Q1 gifts
+JE-14,2026-09-30,5100,Youth program expenses,YOUTH,7000.00,,Q1 spending
+OB-4,2026-07-01,3200,Net assets with donor restrictions,CAPITAL,,15000.00,Opening balance
+OB-5,2026-07-01,3200,Net assets with donor restrictions,SCHOL-TIME,,8000.00,Opening balance
+JE-15,2026-09-30,4010,Contributions,SCHOL-TIME,,1000.00,Q1 gifts
+OB-6,2026-07-01,3300,Net assets with donor restrictions - perpetual,ENDOW,,100000.00,Opening balance
+JE-17,2026-09-30,4010,Contributions,MISC,,500.00,Q1 gifts
+JE-19,2026-09-30,1900,Due from other funds,GEN,4000.00,,Interfund
+JE-19,2026-09-30,2900,Due to other funds,YOUTH,,4000.00,Interfund
