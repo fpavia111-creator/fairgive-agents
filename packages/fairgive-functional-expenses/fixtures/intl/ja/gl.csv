@@ -1,0 +1,9 @@
+entry_id,日付,勘定科目,勘定科目名,プログラム,機能区分,出金,入金,摘要
+L1,2026/06/30,5000,Salaries,Youth,,"40,000.00",,Youth program staff
+L2,2026/06/30,5000,Salaries,Admin,,"25,000.00",,Finance and HR
+L3,2026/06/30,5000,Salaries,Development,,"15,000.00",,Development staff
+L4,2026/06/30,6000,Rent,Shared,,"24,000.00",,Office rent
+L5,2026/06/30,6100,Utilities,Shared,,"6,000.00",,Utilities
+L6,2026/06/30,7000,Printing,Youth,,"3,000.00",,Gala invitations
+L7,2026/06/30,7100,Supplies,,,"2,000.00",,Office supplies
+L8,2026/06/30,7200,Travel,,Fundraising,"1,500.00",,Donor visits

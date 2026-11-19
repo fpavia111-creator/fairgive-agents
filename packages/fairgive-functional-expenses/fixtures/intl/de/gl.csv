@@ -1,0 +1,9 @@
+entry_id;Datum;Konto;Kontobezeichnung;Programm;Funktionsbereich;Ausgang;Eingang;Verwendungszweck
+L1;30.06.2026;5000;Salaries;Youth;;40.000,00;;Youth program staff
+L2;30.06.2026;5000;Salaries;Admin;;25.000,00;;Finance and HR
+L3;30.06.2026;5000;Salaries;Development;;15.000,00;;Development staff
+L4;30.06.2026;6000;Rent;Shared;;24.000,00;;Office rent
+L5;30.06.2026;6100;Utilities;Shared;;6.000,00;;Utilities
+L6;30.06.2026;7000;Printing;Youth;;3.000,00;;Gala invitations
+L7;30.06.2026;7100;Supplies;;;2.000,00;;Office supplies
+L8;30.06.2026;7200;Travel;;Fundraising;1.500,00;;Donor visits

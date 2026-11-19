@@ -1,0 +1,318 @@
+{
+  "suite": "fairgive-functional-expenses",
+  "root": "..",
+  "data_note": "Fictional expense lines and allocation rules. Deterministic checks; no model is called.",
+  "cases": [
+    {
+      "id": "functional-totals",
+      "tool": "functional_check",
+      "args": {
+        "gl": "fixtures/gl.csv",
+        "rules": "fixtures/rules.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.total": 116500,
+          "result.program": 63400,
+          "result.management": 31000,
+          "result.fundraising": 19500,
+          "result.unassigned": 2600,
+          "result.program_pct": 54.42,
+          "result.flag": 2,
+          "result.review": 1,
+          "result.ok": 3
+        }
+      }
+    },
+    {
+      "id": "every-planted-issue-found",
+      "tool": "functional_check",
+      "args": {
+        "gl": "fixtures/gl.csv",
+        "rules": "fixtures/rules.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "contains": [
+          "allocation_not_100",
+          "fundraising_coded_program",
+          "expense_without_function"
+        ]
+      }
+    },
+    {
+      "id": "utilities-explained",
+      "tool": "functional_explain",
+      "args": {
+        "gl": "fixtures/gl.csv",
+        "rules": "fixtures/rules.csv",
+        "settings": "fixtures/settings.json",
+        "account": "6100"
+      },
+      "expect": {
+        "status": "executed",
+        "contains": [
+          "splits 90% across program, management and fundraising; 600 is left unassigned"
+        ]
+      }
+    },
+    {
+      "id": "without-rules-shared-costs-are-unassigned",
+      "tool": "functional_check",
+      "args": {
+        "gl": "fixtures/gl.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.unassigned": 32000
+        }
+      }
+    },
+    {
+      "id": "without-department-map",
+      "tool": "functional_check",
+      "args": {
+        "gl": "fixtures/gl.csv",
+        "rules": "fixtures/rules.csv"
+      },
+      "expect": {
+        "status": "executed",
+        "contains": [
+          "expense_without_function"
+        ],
+        "equals": {
+          "result.fundraising": 4500
+        }
+      }
+    },
+    {
+      "id": "aplos-export-with-tags",
+      "tool": "functional_check",
+      "args": {
+        "gl": "fixtures/exports/aplos-transactions.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "contains": [
+          "aplos_transactions"
+        ],
+        "equals": {
+          "result.program": 40000,
+          "result.management": 25000
+        }
+      }
+    },
+    {
+      "id": "missing-argument-named",
+      "tool": "functional_check",
+      "args": {},
+      "expect": {
+        "status": "error",
+        "contains": [
+          "gl"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "file-outside-root-refused",
+      "tool": "functional_check",
+      "args": {
+        "gl": "../../../outside.csv",
+        "rules": "fixtures/rules.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "outside"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "invented-tool-name-refused",
+      "tool": "functional_pay_everything_now",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "review-mode-still-reads",
+      "tool": "functional_check",
+      "mode": "review",
+      "args": {
+        "gl": "fixtures/gl.csv",
+        "rules": "fixtures/rules.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.total": 116500,
+          "result.program": 63400,
+          "result.management": 31000,
+          "result.fundraising": 19500,
+          "result.unassigned": 2600,
+          "result.program_pct": 54.42,
+          "result.flag": 2,
+          "result.review": 1,
+          "result.ok": 3
+        }
+      },
+      "generated": true
+    },
+    {
+      "id": "status-filter-keeps-totals",
+      "tool": "functional_check",
+      "args": {
+        "gl": "fixtures/gl.csv",
+        "rules": "fixtures/rules.csv",
+        "settings": "fixtures/settings.json",
+        "status": "ok",
+        "limit": 1
+      },
+      "expect": {
+        "status": "executed",
+        "max": {
+          "result.items_shown": 1
+        },
+        "equals": {
+          "result.total": 116500,
+          "result.program": 63400,
+          "result.management": 31000,
+          "result.fundraising": 19500,
+          "result.unassigned": 2600,
+          "result.program_pct": 54.42,
+          "result.flag": 2,
+          "result.review": 1,
+          "result.ok": 3
+        }
+      },
+      "generated": true
+    },
+    {
+      "id": "explain-unknown-item-is-a-readable-error",
+      "tool": "functional_explain",
+      "args": {
+        "gl": "fixtures/gl.csv",
+        "rules": "fixtures/rules.csv",
+        "settings": "fixtures/settings.json",
+        "account": "No Such Thing Zz"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "not found"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "report-writes-two-files",
+      "tool": "functional_write_report",
+      "args": {
+        "gl": "fixtures/gl.csv",
+        "rules": "fixtures/rules.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "length": {
+          "result.files": 2
+        },
+        "matches": [
+          "[0-9a-f]{64}"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "refuses-ledger-post",
+      "tool": "ledger_post",
+      "mode": "auto",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "refuses-irs-file",
+      "tool": "irs_file",
+      "mode": "auto",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "recall-empty-memory",
+      "tool": "functional_recall",
+      "args": {},
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.total": 0
+        }
+      },
+      "generated": true
+    },
+    {
+      "id": "intl-de-functional-totals",
+      "tool": "functional_check",
+      "args": {
+        "gl": "fixtures/intl/de/gl.csv",
+        "rules": "fixtures/intl/de/rules.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.total": 116500,
+          "result.program": 63400,
+          "result.management": 31000,
+          "result.fundraising": 19500,
+          "result.unassigned": 2600,
+          "result.program_pct": 54.42,
+          "result.flag": 2,
+          "result.review": 1,
+          "result.ok": 3
+        }
+      },
+      "note": "German export of the same data (fixtures/intl/de); must match the English case \"functional-totals\"."
+    },
+    {
+      "id": "intl-ja-functional-totals",
+      "tool": "functional_check",
+      "args": {
+        "gl": "fixtures/intl/ja/gl.csv",
+        "rules": "fixtures/intl/ja/rules.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.total": 116500,
+          "result.program": 63400,
+          "result.management": 31000,
+          "result.fundraising": 19500,
+          "result.unassigned": 2600,
+          "result.program_pct": 54.42,
+          "result.flag": 2,
+          "result.review": 1,
+          "result.ok": 3
+        }
+      },
+      "note": "Japanese export of the same data (fixtures/intl/ja); must match the English case \"functional-totals\"."
+    }
+  ]
+}

@@ -1,0 +1,5 @@
+{
+  "expense_from": "5",
+  "department_functions": { "Youth": "program", "Admin": "management", "Development": "fundraising" },
+  "fundraising_words": ["gala", "appeal", "donor", "fundraising", "campaign mailing", "auction"]
+}

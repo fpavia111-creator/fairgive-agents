@@ -1,0 +1,299 @@
+{
+  "suite": "fairgive-daf-grants",
+  "root": "..",
+  "data_note": "Fictional gifts, sponsors and advisors. Not tax advice. Deterministic checks; no model is called.",
+  "cases": [
+    {
+      "id": "daf-totals",
+      "tool": "daf_check",
+      "args": {
+        "gifts": "fixtures/gifts.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.daf_gifts": 6,
+          "result.daf_amount": 10050,
+          "result.sponsors": 3,
+          "result.to_review": 5,
+          "result.flag": 2,
+          "result.review": 3,
+          "result.ok": 1
+        }
+      }
+    },
+    {
+      "id": "every-planted-issue-found",
+      "tool": "daf_check",
+      "args": {
+        "gifts": "fixtures/gifts.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "contains": [
+          "daf_hard_credit_to_advisor",
+          "daf_paid_benefit",
+          "daf_applied_to_pledge",
+          "daf_ack_says_deductible",
+          "daf_sponsor_unknown"
+        ],
+        "not_contains": [
+          "G-7",
+          "Juniper Vance",
+          "Rowan Ellery"
+        ]
+      }
+    },
+    {
+      "id": "gala-tickets-explained",
+      "tool": "daf_explain",
+      "args": {
+        "gifts": "fixtures/gifts.csv",
+        "settings": "fixtures/settings.json",
+        "gift_id": "D-3"
+      },
+      "expect": {
+        "status": "executed",
+        "contains": [
+          "240 of the DAF grant paid for benefits"
+        ]
+      }
+    },
+    {
+      "id": "default-words",
+      "tool": "daf_check",
+      "args": {
+        "gifts": "fixtures/gifts.csv"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.daf_gifts": 6
+        }
+      }
+    },
+    {
+      "id": "flagged-only",
+      "tool": "daf_check",
+      "args": {
+        "gifts": "fixtures/gifts.csv",
+        "settings": "fixtures/settings.json",
+        "status": "flag"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.items_shown": 2
+        }
+      }
+    },
+    {
+      "id": "sponsor-filter-in-report",
+      "tool": "daf_write_report",
+      "args": {
+        "gifts": "fixtures/gifts.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "contains": [
+          "daf-grants.csv",
+          "daf-grants.html"
+        ]
+      }
+    },
+    {
+      "id": "missing-argument-named",
+      "tool": "daf_check",
+      "args": {},
+      "expect": {
+        "status": "error",
+        "contains": [
+          "gifts"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "file-outside-root-refused",
+      "tool": "daf_check",
+      "args": {
+        "gifts": "../../../outside.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "outside"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "invented-tool-name-refused",
+      "tool": "daf_pay_everything_now",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "review-mode-still-reads",
+      "tool": "daf_check",
+      "mode": "review",
+      "args": {
+        "gifts": "fixtures/gifts.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.daf_gifts": 6,
+          "result.daf_amount": 10050,
+          "result.sponsors": 3,
+          "result.to_review": 5,
+          "result.flag": 2,
+          "result.review": 3,
+          "result.ok": 1
+        }
+      },
+      "generated": true
+    },
+    {
+      "id": "status-filter-keeps-totals",
+      "tool": "daf_check",
+      "args": {
+        "gifts": "fixtures/gifts.csv",
+        "settings": "fixtures/settings.json",
+        "status": "ok",
+        "limit": 1
+      },
+      "expect": {
+        "status": "executed",
+        "max": {
+          "result.items_shown": 1
+        },
+        "equals": {
+          "result.daf_gifts": 6,
+          "result.daf_amount": 10050,
+          "result.sponsors": 3,
+          "result.to_review": 5,
+          "result.flag": 2,
+          "result.review": 3,
+          "result.ok": 1
+        }
+      },
+      "generated": true
+    },
+    {
+      "id": "explain-unknown-item-is-a-readable-error",
+      "tool": "daf_explain",
+      "args": {
+        "gifts": "fixtures/gifts.csv",
+        "settings": "fixtures/settings.json",
+        "gift_id": "No Such Thing Zz"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "not found"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "report-writes-two-files",
+      "tool": "daf_write_report",
+      "args": {
+        "gifts": "fixtures/gifts.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "length": {
+          "result.files": 2
+        },
+        "matches": [
+          "[0-9a-f]{64}"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "refuses-crm-update-records",
+      "tool": "crm_update_records",
+      "mode": "auto",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "refuses-email-send",
+      "tool": "email_send",
+      "mode": "auto",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "recall-empty-memory",
+      "tool": "daf_recall",
+      "args": {},
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.total": 0
+        }
+      },
+      "generated": true
+    },
+    {
+      "id": "intl-de-daf-totals",
+      "tool": "daf_check",
+      "args": {
+        "gifts": "fixtures/intl/de/gifts.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.daf_gifts": 6,
+          "result.daf_amount": 10050,
+          "result.sponsors": 3,
+          "result.to_review": 5,
+          "result.flag": 2,
+          "result.review": 3,
+          "result.ok": 1
+        }
+      },
+      "note": "German export of the same data (fixtures/intl/de); must match the English case \"daf-totals\"."
+    },
+    {
+      "id": "intl-ja-daf-totals",
+      "tool": "daf_check",
+      "args": {
+        "gifts": "fixtures/intl/ja/gifts.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.daf_gifts": 6,
+          "result.daf_amount": 10050,
+          "result.sponsors": 3,
+          "result.to_review": 5,
+          "result.flag": 2,
+          "result.review": 3,
+          "result.ok": 1
+        }
+      },
+      "note": "Japanese export of the same data (fixtures/intl/ja); must match the English case \"daf-totals\"."
+    }
+  ]
+}
