@@ -1,0 +1,4 @@
+Constituent ID,First Name,Last Name,Email Address,Phone Number,Preferred Address Line 1,Preferred ZIP
+R-1,Maple,Hartwell,maple.hartwell@example.org,555-201-0001,12 Elm Street,30301
+R-2,Maple,Hartwell,maple.hartwell@example.org,,12 Elm St.,30301
+R-3,Odessa,Quill,odessa.quill@example.org,555-201-0012,3 Willow Place,30308

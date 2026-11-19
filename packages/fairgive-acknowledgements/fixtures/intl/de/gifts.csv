@@ -1,0 +1,11 @@
+Spenden-ID;Spendernummer;Spender;E-Mail-Adresse;Spendendatum;Betrag;Fonds;Zustand
+G-1;C-1;Maple Hartwell;maple.hartwell@example.org;01.10.2026;500,00;GEN;Received
+G-2;C-2;Rowan Ellery;rowan.ellery@example.org;01.09.2026;1.000,00;GEN;Received
+G-3;C-3;Juniper Vance;juniper.vance@example.org;10.10.2026;250,00;YOUTH;Received
+G-4;C-4;Tamsin Okafor;tamsin.okafor@example.org;20.10.2026;300,00;GEN;Received
+G-5;C-5;Corwin Achebe;corwin.achebe@example.org;25.10.2026;750,00;CAPITAL;Received
+G-6;C-6;Liesel Marchetti;liesel.marchetti@example.org;28.10.2026;400,00;GEN;Refunded
+G-7;C-7;Bram Halloway;bram.halloway@example.org;10.11.2026;260,00;GEN;Received
+G-8;C-8;Odessa Quill;odessa.quill@example.org;02.10.2026;100,00;GEN;Received
+G-9;C-9;Priya Lindqvist;priya.lindqvist@example.org;03.10.2026;50,00;GEN;Received
+G-10;C-10;Emeric Sato;emeric.sato@example.org;15.08.2026;5.000,00;ENDOW;Received

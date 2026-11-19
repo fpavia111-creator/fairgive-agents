@@ -1,0 +1,9 @@
+plan_id;Spendernummer;Spender;E-Mail-Adresse;Betrag;frequency;Eintrittsdatum;Zustand;Austrittsdatum;Ablaufdatum;Zahlungsanbieter
+P-1;C-1;Maple Hartwell;maple.hartwell@example.org;25,00;Monthly;05.01.2026;Active;;12/2027;Stripe
+P-2;C-2;Rowan Ellery;rowan.ellery@example.org;50,00;Monthly;10.03.2026;Active;;11/2026;Stripe
+P-3;C-3;Juniper Vance;juniper.vance@example.org;20,00;Monthly;01.02.2026;Active;;05/2028;Givebutter
+P-4;C-4;Tamsin Okafor;tamsin.okafor@example.org;100,00;Monthly;15.01.2026;Active;;09/2027;Stripe
+P-5;C-5;Corwin Achebe;corwin.achebe@example.org;30,00;Monthly;01.06.2026;Cancelled;30.09.2026;04/2027;PayPal
+P-6;C-6;Liesel Marchetti;liesel.marchetti@example.org;150,00;Quarterly;01.02.2026;Active;;10/2028;Stripe
+P-7;C-7;Bram Halloway;bram.halloway@example.org;500,00;Annual;01.12.2025;Active;;01/2029;Stripe
+P-8;C-8;Odessa Quill;odessa.quill@example.org;15,00;Monthly;01.06.2026;Active;;08/2026;Classy

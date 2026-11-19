@@ -1,0 +1,372 @@
+{
+  "suite": "fairgive-acknowledgements",
+  "root": "..",
+  "data_note": "Fictional gifts and letters; names and e-mail addresses are made up. Deterministic checks; no model is called.",
+  "cases": [
+    {
+      "id": "acknowledgement-totals",
+      "tool": "acks_check",
+      "args": {
+        "gifts": "fixtures/gifts.csv",
+        "letters": "fixtures/letters.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.gifts_checked": 9,
+          "result.missing_letters": 2,
+          "result.missing_amount": 6000,
+          "result.letters_to_fix": 3,
+          "result.flag": 5,
+          "result.watch": 2,
+          "result.ok": 2
+        }
+      }
+    },
+    {
+      "id": "every-planted-issue-found-and-names-masked",
+      "tool": "acks_check",
+      "args": {
+        "gifts": "fixtures/gifts.csv",
+        "letters": "fixtures/letters.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "contains": [
+          "ack_missing",
+          "ack_late",
+          "ack_amount_differs",
+          "ack_no_statement",
+          "ack_for_refunded_gift",
+          "ack_due_soon"
+        ],
+        "not_contains": [
+          "Rowan Ellery",
+          "Emeric Sato",
+          "maple.hartwell@example.org"
+        ]
+      }
+    },
+    {
+      "id": "wrong-amount-explained",
+      "tool": "acks_explain",
+      "args": {
+        "gifts": "fixtures/gifts.csv",
+        "letters": "fixtures/letters.csv",
+        "settings": "fixtures/settings.json",
+        "gift_id": "G-4"
+      },
+      "expect": {
+        "status": "executed",
+        "contains": [
+          "Gift G-4 is 300 but the letter says 30"
+        ]
+      }
+    },
+    {
+      "id": "defaults-without-settings",
+      "tool": "acks_check",
+      "args": {
+        "gifts": "fixtures/gifts.csv",
+        "letters": "fixtures/letters.csv"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.missing_letters": 2
+        }
+      }
+    },
+    {
+      "id": "letter-draft-after-approval",
+      "tool": "acks_draft_letter",
+      "approve": "Dana Director",
+      "args": {
+        "gifts": "fixtures/gifts.csv",
+        "letters": "fixtures/letters.csv",
+        "settings": "fixtures/settings.json",
+        "donor_id": "C-2",
+        "from": "Dana Director (fictional)"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.amount": 1000
+        },
+        "contains": [
+          "letter-C-2.md"
+        ],
+        "not_contains": [
+          "Rowan Ellery"
+        ]
+      }
+    },
+    {
+      "id": "lgl-export-without-letters",
+      "tool": "acks_check",
+      "args": {
+        "gifts": "fixtures/exports/lgl-gifts.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "contains": [
+          "lgl_gifts"
+        ],
+        "equals": {
+          "result.gifts_checked": 1,
+          "result.missing_amount": 1000
+        }
+      }
+    },
+    {
+      "id": "missing-argument-named",
+      "tool": "acks_check",
+      "args": {},
+      "expect": {
+        "status": "error",
+        "contains": [
+          "gifts"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "file-outside-root-refused",
+      "tool": "acks_check",
+      "args": {
+        "gifts": "../../../outside.csv",
+        "letters": "fixtures/letters.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "outside"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "invented-tool-name-refused",
+      "tool": "acks_pay_everything_now",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "review-mode-still-reads",
+      "tool": "acks_check",
+      "mode": "review",
+      "args": {
+        "gifts": "fixtures/gifts.csv",
+        "letters": "fixtures/letters.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.gifts_checked": 9,
+          "result.missing_letters": 2,
+          "result.missing_amount": 6000,
+          "result.letters_to_fix": 3,
+          "result.flag": 5,
+          "result.watch": 2,
+          "result.ok": 2
+        }
+      },
+      "generated": true
+    },
+    {
+      "id": "status-filter-keeps-totals",
+      "tool": "acks_check",
+      "args": {
+        "gifts": "fixtures/gifts.csv",
+        "letters": "fixtures/letters.csv",
+        "settings": "fixtures/settings.json",
+        "status": "ok",
+        "limit": 1
+      },
+      "expect": {
+        "status": "executed",
+        "max": {
+          "result.items_shown": 1
+        },
+        "equals": {
+          "result.gifts_checked": 9,
+          "result.missing_letters": 2,
+          "result.missing_amount": 6000,
+          "result.letters_to_fix": 3,
+          "result.flag": 5,
+          "result.watch": 2,
+          "result.ok": 2
+        }
+      },
+      "generated": true
+    },
+    {
+      "id": "explain-unknown-item-is-a-readable-error",
+      "tool": "acks_explain",
+      "args": {
+        "gifts": "fixtures/gifts.csv",
+        "letters": "fixtures/letters.csv",
+        "settings": "fixtures/settings.json",
+        "gift_id": "No Such Thing Zz"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "not found"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "report-writes-two-files",
+      "tool": "acks_write_report",
+      "args": {
+        "gifts": "fixtures/gifts.csv",
+        "letters": "fixtures/letters.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "length": {
+          "result.files": 2
+        },
+        "matches": [
+          "[0-9a-f]{64}"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "draft-waits-for-a-person",
+      "tool": "acks_draft_letter",
+      "args": {
+        "gifts": "fixtures/gifts.csv",
+        "letters": "fixtures/letters.csv",
+        "settings": "fixtures/settings.json",
+        "donor_id": "C-2",
+        "from": "Dana Director (fictional)"
+      },
+      "expect": {
+        "status": "needs_approval",
+        "decision": "ask"
+      },
+      "generated": true
+    },
+    {
+      "id": "review-mode-drafts-nothing",
+      "tool": "acks_draft_letter",
+      "mode": "review",
+      "args": {
+        "gifts": "fixtures/gifts.csv",
+        "letters": "fixtures/letters.csv",
+        "settings": "fixtures/settings.json",
+        "donor_id": "C-2",
+        "from": "Dana Director (fictional)"
+      },
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "request-stays-one-click-in-auto",
+      "tool": "acks_request_send",
+      "mode": "auto",
+      "auto_actions": [
+        "acks_draft_letter"
+      ],
+      "args": {
+        "draft": "fairgive-out/acks/drafts/none.md",
+        "draft_sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+      },
+      "expect": {
+        "status": "needs_approval",
+        "decision": "ask"
+      },
+      "generated": true
+    },
+    {
+      "id": "refuses-email-send",
+      "tool": "email_send",
+      "mode": "auto",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "refuses-crm-update-records",
+      "tool": "crm_update_records",
+      "mode": "auto",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "recall-empty-memory",
+      "tool": "acks_recall",
+      "args": {},
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.total": 0
+        }
+      },
+      "generated": true
+    },
+    {
+      "id": "intl-de-acknowledgement-totals",
+      "tool": "acks_check",
+      "args": {
+        "gifts": "fixtures/intl/de/gifts.csv",
+        "letters": "fixtures/intl/de/letters.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.gifts_checked": 9,
+          "result.missing_letters": 2,
+          "result.missing_amount": 6000,
+          "result.letters_to_fix": 3,
+          "result.flag": 5,
+          "result.watch": 2,
+          "result.ok": 2
+        }
+      },
+      "note": "German export of the same data (fixtures/intl/de); must match the English case \"acknowledgement-totals\"."
+    },
+    {
+      "id": "intl-ja-acknowledgement-totals",
+      "tool": "acks_check",
+      "args": {
+        "gifts": "fixtures/intl/ja/gifts.csv",
+        "letters": "fixtures/intl/ja/letters.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.gifts_checked": 9,
+          "result.missing_letters": 2,
+          "result.missing_amount": 6000,
+          "result.letters_to_fix": 3,
+          "result.flag": 5,
+          "result.watch": 2,
+          "result.ok": 2
+        }
+      },
+      "note": "Japanese export of the same data (fixtures/intl/ja); must match the English case \"acknowledgement-totals\"."
+    }
+  ]
+}

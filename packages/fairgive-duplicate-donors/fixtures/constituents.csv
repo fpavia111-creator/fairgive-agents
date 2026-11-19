@@ -1,0 +1,13 @@
+donor_id,donor,email,phone,address,postal,created
+C-1,Maple Hartwell,maple.hartwell@example.org,555-201-0001,12 Elm Street,30301,2019-04-02
+C-2,Maple Hartwell,Maple.Hartwell+news@example.org,,12 Elm St.,30301,2025-11-30
+C-3,Rowan Ellery,rowan.ellery@example.org,555-201-0003,4 Oak Avenue,30302,2020-01-15
+C-4,"Ellery, Rowan",,(555) 201-0003,,30302,2026-02-01
+C-5,Juniper Vance,juniper.vance@example.org,,9 Pine Road,30303,2021-06-10
+C-6,Juniper Vane,,,9 Pine Rd,30303,2026-05-05
+C-7,Tamsin Okafor,tamsin.okafor@example.org,555-201-0007,77 Birch Lane,30304,2018-09-09
+C-8,Dayo Okafor,dayo.okafor@example.org,555-201-0008,77 Birch Ln,30304,2022-03-03
+C-9,Corwin Achebe,office@example.org,555-201-0009,5 Cedar Court,30305,2017-02-02
+C-10,Liesel Marchetti,office@example.org,555-201-0010,8 Spruce Way,30306,2023-08-08
+C-11,Bram Halloway,bram.halloway@example.org,555-201-0011,21 Maple Drive,30307,2016-12-12
+C-12,Odessa Quill,odessa.quill@example.org,555-201-0012,3 Willow Place,30308,2024-10-10

@@ -1,0 +1,9 @@
+plan_id,donor_id,donor,email,amount,frequency,start_date,status,cancel_date,card_expiry,processor
+P-1,C-1,Maple Hartwell,maple.hartwell@example.org,25.00,Monthly,2026-01-05,Active,,12/2027,Stripe
+P-2,C-2,Rowan Ellery,rowan.ellery@example.org,50.00,Monthly,2026-03-10,Active,,11/2026,Stripe
+P-3,C-3,Juniper Vance,juniper.vance@example.org,20.00,Monthly,2026-02-01,Active,,05/2028,Givebutter
+P-4,C-4,Tamsin Okafor,tamsin.okafor@example.org,100.00,Monthly,2026-01-15,Active,,09/2027,Stripe
+P-5,C-5,Corwin Achebe,corwin.achebe@example.org,30.00,Monthly,2026-06-01,Cancelled,2026-09-30,04/2027,PayPal
+P-6,C-6,Liesel Marchetti,liesel.marchetti@example.org,150.00,Quarterly,2026-02-01,Active,,10/2028,Stripe
+P-7,C-7,Bram Halloway,bram.halloway@example.org,500.00,Annual,2025-12-01,Active,,01/2029,Stripe
+P-8,C-8,Odessa Quill,odessa.quill@example.org,15.00,Monthly,2026-06-01,Active,,08/2026,Classy

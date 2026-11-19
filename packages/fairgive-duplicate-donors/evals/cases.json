@@ -1,0 +1,329 @@
+{
+  "suite": "fairgive-duplicate-donors",
+  "root": "..",
+  "data_note": "Fictional constituent records; every name, e-mail, phone and address is made up. Deterministic checks; no model is called.",
+  "cases": [
+    {
+      "id": "duplicate-groups",
+      "tool": "dupes_check",
+      "args": {
+        "constituents": "fixtures/constituents.csv",
+        "gifts": "fixtures/gifts.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.records": 12,
+          "result.groups": 4,
+          "result.likely_duplicates": 2,
+          "result.to_review": 1,
+          "result.households": 1,
+          "result.extra_records": 3,
+          "result.flag": 2,
+          "result.review": 1,
+          "result.watch": 1
+        }
+      }
+    },
+    {
+      "id": "every-rule-found-and-personal-data-masked",
+      "tool": "dupes_check",
+      "args": {
+        "constituents": "fixtures/constituents.csv",
+        "gifts": "fixtures/gifts.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "contains": [
+          "same_email",
+          "same_phone",
+          "same_name",
+          "similar_name",
+          "same_address"
+        ],
+        "not_contains": [
+          "Maple Hartwell",
+          "Juniper Vane",
+          "maple.hartwell@example.org",
+          "555-201-0003",
+          "77 Birch Lane"
+        ]
+      }
+    },
+    {
+      "id": "phone-group-explained",
+      "tool": "dupes_explain",
+      "args": {
+        "constituents": "fixtures/constituents.csv",
+        "gifts": "fixtures/gifts.csv",
+        "settings": "fixtures/settings.json",
+        "group": "C-3"
+      },
+      "expect": {
+        "status": "executed",
+        "contains": [
+          "Records C-3 + C-4 share a phone number"
+        ],
+        "equals": {
+          "result.item.gifts": 2,
+          "result.item.gift_amount": 1000
+        }
+      }
+    },
+    {
+      "id": "shared-email-pairs-without-settings",
+      "tool": "dupes_check",
+      "args": {
+        "constituents": "fixtures/constituents.csv"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.groups": 5,
+          "result.likely_duplicates": 3
+        }
+      }
+    },
+    {
+      "id": "stricter-similarity-drops-the-misspelling",
+      "tool": "dupes_check",
+      "args": {
+        "constituents": "fixtures/constituents.csv",
+        "settings": "fixtures/settings-strict.json"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.groups": 4,
+          "result.to_review": 0
+        }
+      }
+    },
+    {
+      "id": "re-nxt-export",
+      "tool": "dupes_check",
+      "args": {
+        "constituents": "fixtures/exports/re-nxt-constituents.csv"
+      },
+      "expect": {
+        "status": "executed",
+        "contains": [
+          "re_nxt_constituents",
+          "R-1 + R-2"
+        ],
+        "equals": {
+          "result.groups": 1,
+          "result.likely_duplicates": 1
+        }
+      }
+    },
+    {
+      "id": "missing-argument-named",
+      "tool": "dupes_check",
+      "args": {},
+      "expect": {
+        "status": "error",
+        "contains": [
+          "constituents"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "file-outside-root-refused",
+      "tool": "dupes_check",
+      "args": {
+        "constituents": "../../../outside.csv",
+        "gifts": "fixtures/gifts.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "outside"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "invented-tool-name-refused",
+      "tool": "dupes_pay_everything_now",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "review-mode-still-reads",
+      "tool": "dupes_check",
+      "mode": "review",
+      "args": {
+        "constituents": "fixtures/constituents.csv",
+        "gifts": "fixtures/gifts.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.records": 12,
+          "result.groups": 4,
+          "result.likely_duplicates": 2,
+          "result.to_review": 1,
+          "result.households": 1,
+          "result.extra_records": 3,
+          "result.flag": 2,
+          "result.review": 1,
+          "result.watch": 1
+        }
+      },
+      "generated": true
+    },
+    {
+      "id": "status-filter-keeps-totals",
+      "tool": "dupes_check",
+      "args": {
+        "constituents": "fixtures/constituents.csv",
+        "gifts": "fixtures/gifts.csv",
+        "settings": "fixtures/settings.json",
+        "status": "ok",
+        "limit": 1
+      },
+      "expect": {
+        "status": "executed",
+        "max": {
+          "result.items_shown": 1
+        },
+        "equals": {
+          "result.records": 12,
+          "result.groups": 4,
+          "result.likely_duplicates": 2,
+          "result.to_review": 1,
+          "result.households": 1,
+          "result.extra_records": 3,
+          "result.flag": 2,
+          "result.review": 1,
+          "result.watch": 1
+        }
+      },
+      "generated": true
+    },
+    {
+      "id": "explain-unknown-item-is-a-readable-error",
+      "tool": "dupes_explain",
+      "args": {
+        "constituents": "fixtures/constituents.csv",
+        "gifts": "fixtures/gifts.csv",
+        "settings": "fixtures/settings.json",
+        "group": "No Such Thing Zz"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "not found"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "report-writes-two-files",
+      "tool": "dupes_write_report",
+      "args": {
+        "constituents": "fixtures/constituents.csv",
+        "gifts": "fixtures/gifts.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "length": {
+          "result.files": 2
+        },
+        "matches": [
+          "[0-9a-f]{64}"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "refuses-crm-update-records",
+      "tool": "crm_update_records",
+      "mode": "auto",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "refuses-donor-data-delete",
+      "tool": "donor_data_delete",
+      "mode": "auto",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "recall-empty-memory",
+      "tool": "dupes_recall",
+      "args": {},
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.total": 0
+        }
+      },
+      "generated": true
+    },
+    {
+      "id": "intl-de-duplicate-groups",
+      "tool": "dupes_check",
+      "args": {
+        "constituents": "fixtures/intl/de/constituents.csv",
+        "gifts": "fixtures/intl/de/gifts.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.records": 12,
+          "result.groups": 4,
+          "result.likely_duplicates": 2,
+          "result.to_review": 1,
+          "result.households": 1,
+          "result.extra_records": 3,
+          "result.flag": 2,
+          "result.review": 1,
+          "result.watch": 1
+        }
+      },
+      "note": "German export of the same data (fixtures/intl/de); must match the English case \"duplicate-groups\"."
+    },
+    {
+      "id": "intl-ja-duplicate-groups",
+      "tool": "dupes_check",
+      "args": {
+        "constituents": "fixtures/intl/ja/constituents.csv",
+        "gifts": "fixtures/intl/ja/gifts.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.records": 12,
+          "result.groups": 4,
+          "result.likely_duplicates": 2,
+          "result.to_review": 1,
+          "result.households": 1,
+          "result.extra_records": 3,
+          "result.flag": 2,
+          "result.review": 1,
+          "result.watch": 1
+        }
+      },
+      "note": "Japanese export of the same data (fixtures/intl/ja); must match the English case \"duplicate-groups\"."
+    }
+  ]
+}

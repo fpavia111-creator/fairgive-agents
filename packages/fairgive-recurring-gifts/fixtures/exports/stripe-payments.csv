@@ -1,0 +1,3 @@
+id,Created (UTC),Amount,Amount Refunded,Status,Customer Email,plan_id
+ch_1,2026-10-05 10:00,25.00,0.00,Paid,maple.hartwell@example.org,P-1
+ch_2,2026-11-05 10:00,25.00,0.00,Failed,maple.hartwell@example.org,P-1

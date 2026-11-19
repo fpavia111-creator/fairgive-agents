@@ -1,0 +1,11 @@
+寄付ID,寄付者ID,寄付者,メールアドレス,寄付日,金額,基金,ステータス
+G-1,C-1,Maple Hartwell,maple.hartwell@example.org,2026/10/01,500.00,GEN,Received
+G-2,C-2,Rowan Ellery,rowan.ellery@example.org,2026/09/01,"1,000.00",GEN,Received
+G-3,C-3,Juniper Vance,juniper.vance@example.org,2026/10/10,250.00,YOUTH,Received
+G-4,C-4,Tamsin Okafor,tamsin.okafor@example.org,2026/10/20,300.00,GEN,Received
+G-5,C-5,Corwin Achebe,corwin.achebe@example.org,2026/10/25,750.00,CAPITAL,Received
+G-6,C-6,Liesel Marchetti,liesel.marchetti@example.org,2026/10/28,400.00,GEN,Refunded
+G-7,C-7,Bram Halloway,bram.halloway@example.org,2026/11/10,260.00,GEN,Received
+G-8,C-8,Odessa Quill,odessa.quill@example.org,2026/10/02,100.00,GEN,Received
+G-9,C-9,Priya Lindqvist,priya.lindqvist@example.org,2026/10/03,50.00,GEN,Received
+G-10,C-10,Emeric Sato,emeric.sato@example.org,2026/08/15,"5,000.00",ENDOW,Received

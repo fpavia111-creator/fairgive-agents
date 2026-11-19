@@ -1,0 +1,404 @@
+{
+  "suite": "fairgive-recurring-gifts",
+  "root": "..",
+  "data_note": "Fictional recurring plans and charges; names and e-mails are made up. Deterministic checks; no model is called.",
+  "cases": [
+    {
+      "id": "recurring-totals",
+      "tool": "recurring_check",
+      "args": {
+        "plans": "fixtures/plans.csv",
+        "charges": "fixtures/charges.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.plans": 8,
+          "result.active": 7,
+          "result.monthly_value": 301.67,
+          "result.at_risk_monthly": 185,
+          "result.failing": 1,
+          "result.missed": 1,
+          "result.cards_to_update": 2,
+          "result.flag": 2,
+          "result.review": 2,
+          "result.watch": 2,
+          "result.ok": 2
+        }
+      }
+    },
+    {
+      "id": "every-planted-issue-found",
+      "tool": "recurring_check",
+      "args": {
+        "plans": "fixtures/plans.csv",
+        "charges": "fixtures/charges.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "contains": [
+          "repeated_failures",
+          "missed_charge",
+          "card_expired",
+          "card_expiring",
+          "charge_after_cancel",
+          "amount_changed"
+        ],
+        "not_contains": [
+          "Juniper Vance",
+          "juniper.vance@example.org",
+          "Odessa Quill"
+        ]
+      }
+    },
+    {
+      "id": "failing-plan-explained",
+      "tool": "recurring_explain",
+      "args": {
+        "plans": "fixtures/plans.csv",
+        "charges": "fixtures/charges.csv",
+        "settings": "fixtures/settings.json",
+        "plan_id": "P-3"
+      },
+      "expect": {
+        "status": "executed",
+        "contains": [
+          "the last 2 charges failed (latest 2026-11-01)"
+        ]
+      }
+    },
+    {
+      "id": "three-failures-needed",
+      "tool": "recurring_check",
+      "args": {
+        "plans": "fixtures/plans.csv",
+        "charges": "fixtures/charges.csv",
+        "settings": "fixtures/settings-three.json"
+      },
+      "expect": {
+        "status": "executed",
+        "contains": [
+          "failed_last_charge"
+        ],
+        "not_contains": [
+          "repeated_failures"
+        ]
+      }
+    },
+    {
+      "id": "card-note-after-approval",
+      "tool": "recurring_draft_card_note",
+      "approve": "Dana Director",
+      "args": {
+        "plans": "fixtures/plans.csv",
+        "charges": "fixtures/charges.csv",
+        "settings": "fixtures/settings.json",
+        "plan_id": "P-3",
+        "from": "Dana Director (fictional)"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.amount": 20
+        },
+        "contains": [
+          "card_note-P-3.md",
+          "TO CONFIRM"
+        ],
+        "not_contains": [
+          "Juniper Vance"
+        ]
+      }
+    },
+    {
+      "id": "stripe-payments-export",
+      "tool": "recurring_check",
+      "args": {
+        "plans": "fixtures/plans.csv",
+        "charges": "fixtures/exports/stripe-payments.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "contains": [
+          "failed_last_charge"
+        ]
+      }
+    },
+    {
+      "id": "missing-argument-named",
+      "tool": "recurring_check",
+      "args": {},
+      "expect": {
+        "status": "error",
+        "contains": [
+          "plans"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "file-outside-root-refused",
+      "tool": "recurring_check",
+      "args": {
+        "plans": "../../../outside.csv",
+        "charges": "fixtures/charges.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "outside"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "invented-tool-name-refused",
+      "tool": "recurring_pay_everything_now",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "review-mode-still-reads",
+      "tool": "recurring_check",
+      "mode": "review",
+      "args": {
+        "plans": "fixtures/plans.csv",
+        "charges": "fixtures/charges.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.plans": 8,
+          "result.active": 7,
+          "result.monthly_value": 301.67,
+          "result.at_risk_monthly": 185,
+          "result.failing": 1,
+          "result.missed": 1,
+          "result.cards_to_update": 2,
+          "result.flag": 2,
+          "result.review": 2,
+          "result.watch": 2,
+          "result.ok": 2
+        }
+      },
+      "generated": true
+    },
+    {
+      "id": "status-filter-keeps-totals",
+      "tool": "recurring_check",
+      "args": {
+        "plans": "fixtures/plans.csv",
+        "charges": "fixtures/charges.csv",
+        "settings": "fixtures/settings.json",
+        "status": "ok",
+        "limit": 1
+      },
+      "expect": {
+        "status": "executed",
+        "max": {
+          "result.items_shown": 1
+        },
+        "equals": {
+          "result.plans": 8,
+          "result.active": 7,
+          "result.monthly_value": 301.67,
+          "result.at_risk_monthly": 185,
+          "result.failing": 1,
+          "result.missed": 1,
+          "result.cards_to_update": 2,
+          "result.flag": 2,
+          "result.review": 2,
+          "result.watch": 2,
+          "result.ok": 2
+        }
+      },
+      "generated": true
+    },
+    {
+      "id": "explain-unknown-item-is-a-readable-error",
+      "tool": "recurring_explain",
+      "args": {
+        "plans": "fixtures/plans.csv",
+        "charges": "fixtures/charges.csv",
+        "settings": "fixtures/settings.json",
+        "plan_id": "No Such Thing Zz"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "not found"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "report-writes-two-files",
+      "tool": "recurring_write_report",
+      "args": {
+        "plans": "fixtures/plans.csv",
+        "charges": "fixtures/charges.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "length": {
+          "result.files": 2
+        },
+        "matches": [
+          "[0-9a-f]{64}"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "draft-waits-for-a-person",
+      "tool": "recurring_draft_card_note",
+      "args": {
+        "plans": "fixtures/plans.csv",
+        "charges": "fixtures/charges.csv",
+        "settings": "fixtures/settings.json",
+        "plan_id": "P-3",
+        "from": "Dana Director (fictional)"
+      },
+      "expect": {
+        "status": "needs_approval",
+        "decision": "ask"
+      },
+      "generated": true
+    },
+    {
+      "id": "review-mode-drafts-nothing",
+      "tool": "recurring_draft_card_note",
+      "mode": "review",
+      "args": {
+        "plans": "fixtures/plans.csv",
+        "charges": "fixtures/charges.csv",
+        "settings": "fixtures/settings.json",
+        "plan_id": "P-3",
+        "from": "Dana Director (fictional)"
+      },
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "request-stays-one-click-in-auto",
+      "tool": "recurring_request_send",
+      "mode": "auto",
+      "auto_actions": [
+        "recurring_draft_card_note"
+      ],
+      "args": {
+        "draft": "fairgive-out/recurring/drafts/none.md",
+        "draft_sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+      },
+      "expect": {
+        "status": "needs_approval",
+        "decision": "ask"
+      },
+      "generated": true
+    },
+    {
+      "id": "refuses-email-send",
+      "tool": "email_send",
+      "mode": "auto",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "refuses-refund-issue",
+      "tool": "refund_issue",
+      "mode": "auto",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "refuses-card-charge",
+      "tool": "card_charge",
+      "mode": "auto",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "recall-empty-memory",
+      "tool": "recurring_recall",
+      "args": {},
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.total": 0
+        }
+      },
+      "generated": true
+    },
+    {
+      "id": "intl-de-recurring-totals",
+      "tool": "recurring_check",
+      "args": {
+        "plans": "fixtures/intl/de/plans.csv",
+        "charges": "fixtures/intl/de/charges.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.plans": 8,
+          "result.active": 7,
+          "result.monthly_value": 301.67,
+          "result.at_risk_monthly": 185,
+          "result.failing": 1,
+          "result.missed": 1,
+          "result.cards_to_update": 2,
+          "result.flag": 2,
+          "result.review": 2,
+          "result.watch": 2,
+          "result.ok": 2
+        }
+      },
+      "note": "German export of the same data (fixtures/intl/de); must match the English case \"recurring-totals\"."
+    },
+    {
+      "id": "intl-ja-recurring-totals",
+      "tool": "recurring_check",
+      "args": {
+        "plans": "fixtures/intl/ja/plans.csv",
+        "charges": "fixtures/intl/ja/charges.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.plans": 8,
+          "result.active": 7,
+          "result.monthly_value": 301.67,
+          "result.at_risk_monthly": 185,
+          "result.failing": 1,
+          "result.missed": 1,
+          "result.cards_to_update": 2,
+          "result.flag": 2,
+          "result.review": 2,
+          "result.watch": 2,
+          "result.ok": 2
+        }
+      },
+      "note": "Japanese export of the same data (fixtures/intl/ja); must match the English case \"recurring-totals\"."
+    }
+  ]
+}
