@@ -1,0 +1,319 @@
+{
+  "suite": "fairgive-indirect-costs",
+  "root": "..",
+  "data_note": "Fictional grants and costs; the rates and caps are settings and award terms a person confirms. Deterministic checks; no model is called.",
+  "cases": [
+    {
+      "id": "indirect-totals",
+      "tool": "indirect_check",
+      "args": {
+        "grants": "fixtures/grants.csv",
+        "expenses": "fixtures/expenses.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.grants": 3,
+          "result.base": 266000,
+          "result.allowed": 61500,
+          "result.charged": 60600,
+          "result.overcharged": 1600,
+          "result.not_recovered": 2500,
+          "result.flag": 1,
+          "result.watch": 1,
+          "result.ok": 1
+        }
+      }
+    },
+    {
+      "id": "every-planted-issue-found",
+      "tool": "indirect_check",
+      "args": {
+        "grants": "fixtures/grants.csv",
+        "expenses": "fixtures/expenses.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "contains": [
+          "indirect_overcharged",
+          "rate_expired",
+          "subaward_over_cap",
+          "indirect_undercharged"
+        ]
+      }
+    },
+    {
+      "id": "federal-grant-explained",
+      "tool": "indirect_explain",
+      "args": {
+        "grants": "fixtures/grants.csv",
+        "expenses": "fixtures/expenses.csv",
+        "settings": "fixtures/settings.json",
+        "grant": "G-FED"
+      },
+      "expect": {
+        "status": "executed",
+        "contains": [
+          "52000 of indirect charged; 28% of the modified total direct cost base 180000 is 50400"
+        ],
+        "equals": {
+          "result.item.excluded": 60000
+        }
+      }
+    },
+    {
+      "id": "defaults-match",
+      "tool": "indirect_check",
+      "args": {
+        "grants": "fixtures/grants.csv",
+        "expenses": "fixtures/expenses.csv"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.allowed": 61500
+        }
+      }
+    },
+    {
+      "id": "older-subaward-cap-by-setting",
+      "tool": "indirect_check",
+      "args": {
+        "grants": "fixtures/grants.csv",
+        "expenses": "fixtures/expenses.csv",
+        "settings": "fixtures/settings-cap25.json"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.base": 241000
+        }
+      }
+    },
+    {
+      "id": "de-minimis-explained",
+      "tool": "indirect_explain",
+      "args": {
+        "grants": "fixtures/grants.csv",
+        "expenses": "fixtures/expenses.csv",
+        "settings": "fixtures/settings.json",
+        "grant": "G-NEW"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.item.rate": 15,
+          "result.item.allowed": 7500
+        }
+      }
+    },
+    {
+      "id": "missing-argument-named",
+      "tool": "indirect_check",
+      "args": {},
+      "expect": {
+        "status": "error",
+        "contains": [
+          "grants"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "file-outside-root-refused",
+      "tool": "indirect_check",
+      "args": {
+        "grants": "../../../outside.csv",
+        "expenses": "fixtures/expenses.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "outside"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "invented-tool-name-refused",
+      "tool": "indirect_pay_everything_now",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "review-mode-still-reads",
+      "tool": "indirect_check",
+      "mode": "review",
+      "args": {
+        "grants": "fixtures/grants.csv",
+        "expenses": "fixtures/expenses.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.grants": 3,
+          "result.base": 266000,
+          "result.allowed": 61500,
+          "result.charged": 60600,
+          "result.overcharged": 1600,
+          "result.not_recovered": 2500,
+          "result.flag": 1,
+          "result.watch": 1,
+          "result.ok": 1
+        }
+      },
+      "generated": true
+    },
+    {
+      "id": "status-filter-keeps-totals",
+      "tool": "indirect_check",
+      "args": {
+        "grants": "fixtures/grants.csv",
+        "expenses": "fixtures/expenses.csv",
+        "settings": "fixtures/settings.json",
+        "status": "ok",
+        "limit": 1
+      },
+      "expect": {
+        "status": "executed",
+        "max": {
+          "result.items_shown": 1
+        },
+        "equals": {
+          "result.grants": 3,
+          "result.base": 266000,
+          "result.allowed": 61500,
+          "result.charged": 60600,
+          "result.overcharged": 1600,
+          "result.not_recovered": 2500,
+          "result.flag": 1,
+          "result.watch": 1,
+          "result.ok": 1
+        }
+      },
+      "generated": true
+    },
+    {
+      "id": "explain-unknown-item-is-a-readable-error",
+      "tool": "indirect_explain",
+      "args": {
+        "grants": "fixtures/grants.csv",
+        "expenses": "fixtures/expenses.csv",
+        "settings": "fixtures/settings.json",
+        "grant": "No Such Thing Zz"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "not found"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "report-writes-two-files",
+      "tool": "indirect_write_report",
+      "args": {
+        "grants": "fixtures/grants.csv",
+        "expenses": "fixtures/expenses.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "length": {
+          "result.files": 2
+        },
+        "matches": [
+          "[0-9a-f]{64}"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "refuses-ledger-post",
+      "tool": "ledger_post",
+      "mode": "auto",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "refuses-funder-portal-submit",
+      "tool": "funder_portal_submit",
+      "mode": "auto",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "recall-empty-memory",
+      "tool": "indirect_recall",
+      "args": {},
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.total": 0
+        }
+      },
+      "generated": true
+    },
+    {
+      "id": "intl-de-indirect-totals",
+      "tool": "indirect_check",
+      "args": {
+        "grants": "fixtures/intl/de/grants.csv",
+        "expenses": "fixtures/intl/de/expenses.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.grants": 3,
+          "result.base": 266000,
+          "result.allowed": 61500,
+          "result.charged": 60600,
+          "result.overcharged": 1600,
+          "result.not_recovered": 2500,
+          "result.flag": 1,
+          "result.watch": 1,
+          "result.ok": 1
+        }
+      },
+      "note": "German export of the same data (fixtures/intl/de); must match the English case \"indirect-totals\"."
+    },
+    {
+      "id": "intl-ja-indirect-totals",
+      "tool": "indirect_check",
+      "args": {
+        "grants": "fixtures/intl/ja/grants.csv",
+        "expenses": "fixtures/intl/ja/expenses.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.grants": 3,
+          "result.base": 266000,
+          "result.allowed": 61500,
+          "result.charged": 60600,
+          "result.overcharged": 1600,
+          "result.not_recovered": 2500,
+          "result.flag": 1,
+          "result.watch": 1,
+          "result.ok": 1
+        }
+      },
+      "note": "Japanese export of the same data (fixtures/intl/ja); must match the English case \"indirect-totals\"."
+    }
+  ]
+}

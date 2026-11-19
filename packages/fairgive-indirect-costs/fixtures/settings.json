@@ -1,0 +1,4 @@
+{
+  "excluded_categories": ["equipment", "capital", "rent", "participant support", "tuition remission", "patient care", "scholarships"],
+  "indirect_categories": ["indirect", "f&a", "overhead"]
+}

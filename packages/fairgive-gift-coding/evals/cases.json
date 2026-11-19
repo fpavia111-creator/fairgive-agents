@@ -1,0 +1,349 @@
+{
+  "suite": "fairgive-gift-coding",
+  "root": "..",
+  "data_note": "Fictional gifts, funds and appeals; names are made up. Deterministic checks; no model is called.",
+  "cases": [
+    {
+      "id": "coding-totals",
+      "tool": "coding_check",
+      "args": {
+        "gifts": "fixtures/gifts.csv",
+        "funds": "fixtures/funds.csv",
+        "appeals": "fixtures/appeals.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.gifts": 8,
+          "result.amount": 2485,
+          "result.likely_miscoded": 2,
+          "result.likely_miscoded_amount": 1500,
+          "result.to_review": 3,
+          "result.flag": 2,
+          "result.review": 3,
+          "result.watch": 1,
+          "result.ok": 2
+        }
+      }
+    },
+    {
+      "id": "every-planted-issue-found",
+      "tool": "coding_check",
+      "args": {
+        "gifts": "fixtures/gifts.csv",
+        "funds": "fixtures/funds.csv",
+        "appeals": "fixtures/appeals.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "contains": [
+          "memo_names_restricted_purpose",
+          "fund_inactive",
+          "unknown_fund",
+          "appeal_fund_mismatch",
+          "memo_says_restricted"
+        ],
+        "not_contains": [
+          "Rowan Ellery",
+          "Liesel Marchetti"
+        ]
+      }
+    },
+    {
+      "id": "scholarship-gift-explained",
+      "tool": "coding_explain",
+      "args": {
+        "gifts": "fixtures/gifts.csv",
+        "funds": "fixtures/funds.csv",
+        "appeals": "fixtures/appeals.csv",
+        "settings": "fixtures/settings.json",
+        "gift_id": "CG-2"
+      },
+      "expect": {
+        "status": "executed",
+        "contains": [
+          "which names SCHOL (Scholarships), but it is coded to GEN"
+        ],
+        "equals": {
+          "result.item.suggested_fund": "SCHOL"
+        }
+      }
+    },
+    {
+      "id": "without-appeals",
+      "tool": "coding_check",
+      "args": {
+        "gifts": "fixtures/gifts.csv",
+        "funds": "fixtures/funds.csv"
+      },
+      "expect": {
+        "status": "executed",
+        "not_contains": [
+          "appeal_fund_mismatch"
+        ],
+        "equals": {
+          "result.likely_miscoded": 2
+        }
+      }
+    },
+    {
+      "id": "fund-name-read-as-code",
+      "tool": "coding_explain",
+      "args": {
+        "gifts": "fixtures/gifts.csv",
+        "funds": "fixtures/funds.csv",
+        "settings": "fixtures/settings.json",
+        "gift_id": "CG-8"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.item.fund": "GEN"
+        },
+        "contains": [
+          "memo_says_restricted"
+        ]
+      }
+    },
+    {
+      "id": "flagged-only",
+      "tool": "coding_check",
+      "args": {
+        "gifts": "fixtures/gifts.csv",
+        "funds": "fixtures/funds.csv",
+        "appeals": "fixtures/appeals.csv",
+        "settings": "fixtures/settings.json",
+        "status": "flag"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.items_shown": 2
+        }
+      }
+    },
+    {
+      "id": "missing-argument-named",
+      "tool": "coding_check",
+      "args": {},
+      "expect": {
+        "status": "error",
+        "contains": [
+          "gifts"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "file-outside-root-refused",
+      "tool": "coding_check",
+      "args": {
+        "gifts": "../../../outside.csv",
+        "funds": "fixtures/funds.csv",
+        "appeals": "fixtures/appeals.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "outside"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "invented-tool-name-refused",
+      "tool": "coding_pay_everything_now",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "review-mode-still-reads",
+      "tool": "coding_check",
+      "mode": "review",
+      "args": {
+        "gifts": "fixtures/gifts.csv",
+        "funds": "fixtures/funds.csv",
+        "appeals": "fixtures/appeals.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.gifts": 8,
+          "result.amount": 2485,
+          "result.likely_miscoded": 2,
+          "result.likely_miscoded_amount": 1500,
+          "result.to_review": 3,
+          "result.flag": 2,
+          "result.review": 3,
+          "result.watch": 1,
+          "result.ok": 2
+        }
+      },
+      "generated": true
+    },
+    {
+      "id": "status-filter-keeps-totals",
+      "tool": "coding_check",
+      "args": {
+        "gifts": "fixtures/gifts.csv",
+        "funds": "fixtures/funds.csv",
+        "appeals": "fixtures/appeals.csv",
+        "settings": "fixtures/settings.json",
+        "status": "ok",
+        "limit": 1
+      },
+      "expect": {
+        "status": "executed",
+        "max": {
+          "result.items_shown": 1
+        },
+        "equals": {
+          "result.gifts": 8,
+          "result.amount": 2485,
+          "result.likely_miscoded": 2,
+          "result.likely_miscoded_amount": 1500,
+          "result.to_review": 3,
+          "result.flag": 2,
+          "result.review": 3,
+          "result.watch": 1,
+          "result.ok": 2
+        }
+      },
+      "generated": true
+    },
+    {
+      "id": "explain-unknown-item-is-a-readable-error",
+      "tool": "coding_explain",
+      "args": {
+        "gifts": "fixtures/gifts.csv",
+        "funds": "fixtures/funds.csv",
+        "appeals": "fixtures/appeals.csv",
+        "settings": "fixtures/settings.json",
+        "gift_id": "No Such Thing Zz"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "not found"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "report-writes-two-files",
+      "tool": "coding_write_report",
+      "args": {
+        "gifts": "fixtures/gifts.csv",
+        "funds": "fixtures/funds.csv",
+        "appeals": "fixtures/appeals.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "length": {
+          "result.files": 2
+        },
+        "matches": [
+          "[0-9a-f]{64}"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "refuses-crm-update-records",
+      "tool": "crm_update_records",
+      "mode": "auto",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "recall-empty-memory",
+      "tool": "coding_recall",
+      "args": {},
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.total": 0
+        }
+      },
+      "generated": true
+    },
+    {
+      "id": "learn-waits-for-acceptance",
+      "tool": "coding_learn",
+      "args": {
+        "kind": "fund_alias",
+        "value": {
+          "name": "Fictional Name A",
+          "means": "Fictional Name B"
+        }
+      },
+      "expect": {
+        "status": "executed",
+        "contains": [
+          "waiting"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "intl-de-coding-totals",
+      "tool": "coding_check",
+      "args": {
+        "gifts": "fixtures/intl/de/gifts.csv",
+        "funds": "fixtures/intl/de/funds.csv",
+        "appeals": "fixtures/intl/de/appeals.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.gifts": 8,
+          "result.amount": 2485,
+          "result.likely_miscoded": 2,
+          "result.likely_miscoded_amount": 1500,
+          "result.to_review": 3,
+          "result.flag": 2,
+          "result.review": 3,
+          "result.watch": 1,
+          "result.ok": 2
+        }
+      },
+      "note": "German export of the same data (fixtures/intl/de); must match the English case \"coding-totals\"."
+    },
+    {
+      "id": "intl-ja-coding-totals",
+      "tool": "coding_check",
+      "args": {
+        "gifts": "fixtures/intl/ja/gifts.csv",
+        "funds": "fixtures/intl/ja/funds.csv",
+        "appeals": "fixtures/intl/ja/appeals.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.gifts": 8,
+          "result.amount": 2485,
+          "result.likely_miscoded": 2,
+          "result.likely_miscoded_amount": 1500,
+          "result.to_review": 3,
+          "result.flag": 2,
+          "result.review": 3,
+          "result.watch": 1,
+          "result.ok": 2
+        }
+      },
+      "note": "Japanese export of the same data (fixtures/intl/ja); must match the English case \"coding-totals\"."
+    }
+  ]
+}
