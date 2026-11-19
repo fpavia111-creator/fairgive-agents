@@ -1,0 +1,21 @@
+{
+  "name": "fairgive-gift-deposits",
+  "version": "0.1.0",
+  "description": "Fairgive Gift Deposits: matches gifts in your donor CRM to bank deposits and to contribution revenue in the general ledger, by batch, date and amount. Lists gifts never deposited, deposits with no gifts and months where the CRM and the GL disagree. Never posts or changes anything.",
+  "author": {
+    "name": "Kurt Francisco"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/fpavia111-creator/fairgive-agents/tree/main/packages/fairgive-gift-deposits#readme",
+  "keywords": [
+    "mcp",
+    "mcp-server",
+    "nonprofit",
+    "nonprofits",
+    "fundraising",
+    "fairgive",
+    "gift-reconciliation",
+    "bank-deposits",
+    "donor-crm"
+  ]
+}

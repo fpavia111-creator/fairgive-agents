@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "fairgive-gift-coding": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "fairgive-gift-coding@0.1.0",
+        "mcp"
+      ]
+    }
+  }
+}

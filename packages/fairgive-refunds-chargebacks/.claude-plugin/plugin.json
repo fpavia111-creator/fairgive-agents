@@ -1,0 +1,21 @@
+{
+  "name": "fairgive-refunds-chargebacks",
+  "version": "0.1.0",
+  "description": "Fairgive Refunds Chargebacks: matches processor refunds and chargebacks to CRM gifts: refunds still standing as gifts in the CRM, acknowledgements sent for refunded gifts, refunds larger than the gift and disputes with evidence due. Never refunds or responds.",
+  "author": {
+    "name": "Kurt Francisco"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/fpavia111-creator/fairgive-agents/tree/main/packages/fairgive-refunds-chargebacks#readme",
+  "keywords": [
+    "mcp",
+    "mcp-server",
+    "nonprofit",
+    "nonprofits",
+    "fundraising",
+    "fairgive",
+    "refunds",
+    "chargebacks",
+    "gift-adjustments"
+  ]
+}

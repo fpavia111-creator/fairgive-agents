@@ -1,0 +1,21 @@
+{
+  "name": "fairgive-form-990-data",
+  "version": "0.1.0",
+  "description": "Fairgive Form 990 Data: checks that the data behind common Form 990 schedules is complete: Schedule B contributors over the threshold with name and address, Schedule M noncash gifts, Schedule I grants with EIN, and officer hours and pay. Files nothing; not tax advice.",
+  "author": {
+    "name": "Kurt Francisco"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/fpavia111-creator/fairgive-agents/tree/main/packages/fairgive-form-990-data#readme",
+  "keywords": [
+    "mcp",
+    "mcp-server",
+    "nonprofit",
+    "nonprofits",
+    "fundraising",
+    "fairgive",
+    "form-990",
+    "schedule-b",
+    "nonprofit-tax-data"
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "name": "fairgive-lapsed-donors",
+  "version": "0.1.0",
+  "description": "Fairgive Lapsed Donors: lists donors who gave last year but not this year (LYBUNT) and in an earlier year but not this one (SYBUNT), with retention, upgrades and downgrades by fiscal year. Reads your gift export only. Never contacts anyone.",
+  "author": {
+    "name": "Kurt Francisco"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/fpavia111-creator/fairgive-agents/tree/main/packages/fairgive-lapsed-donors#readme",
+  "keywords": [
+    "mcp",
+    "mcp-server",
+    "nonprofit",
+    "nonprofits",
+    "fundraising",
+    "fairgive",
+    "lybunt",
+    "sybunt",
+    "donor-retention"
+  ]
+}

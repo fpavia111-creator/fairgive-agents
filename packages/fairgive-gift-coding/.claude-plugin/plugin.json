@@ -1,0 +1,21 @@
+{
+  "name": "fairgive-gift-coding",
+  "version": "0.1.0",
+  "description": "Fairgive Gift Coding: checks how gifts were coded: notes that name a restricted purpose on an unrestricted fund, gifts to inactive funds, appeals coded to a fund other than their default and restricted funds used for another purpose. Never changes the CRM.",
+  "author": {
+    "name": "Kurt Francisco"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/fpavia111-creator/fairgive-agents/tree/main/packages/fairgive-gift-coding#readme",
+  "keywords": [
+    "mcp",
+    "mcp-server",
+    "nonprofit",
+    "nonprofits",
+    "fundraising",
+    "fairgive",
+    "gift-coding",
+    "donor-intent",
+    "fund-designation"
+  ]
+}

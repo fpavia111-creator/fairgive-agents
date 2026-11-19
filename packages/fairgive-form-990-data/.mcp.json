@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "fairgive-form-990-data": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "fairgive-form-990-data@0.1.0",
+        "mcp"
+      ]
+    }
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "name": "fairgive-board-designated",
+  "version": "0.1.0",
+  "description": "Fairgive Board Designated: checks board-designated funds against the board resolutions log: designations and spending with no resolution, balances below zero, designations shown as donor-restricted and designations above unrestricted net assets. Never posts.",
+  "author": {
+    "name": "Kurt Francisco"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/fpavia111-creator/fairgive-agents/tree/main/packages/fairgive-board-designated#readme",
+  "keywords": [
+    "mcp",
+    "mcp-server",
+    "nonprofit",
+    "nonprofits",
+    "fundraising",
+    "fairgive",
+    "board-designated-funds",
+    "quasi-endowment",
+    "net-assets"
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "name": "fairgive-fund-balances",
+  "version": "0.1.0",
+  "description": "Fairgive Fund Balances: fund balances by restriction class from your fund list and ledger: restricted funds spent below zero, funds coded to the wrong net asset class, endowment corpus below the gift value and due-to/due-from that do not net to zero. Never posts entries.",
+  "author": {
+    "name": "Kurt Francisco"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/fpavia111-creator/fairgive-agents/tree/main/packages/fairgive-fund-balances#readme",
+  "keywords": [
+    "mcp",
+    "mcp-server",
+    "nonprofit",
+    "nonprofits",
+    "fundraising",
+    "fairgive",
+    "net-assets",
+    "restricted-funds",
+    "fund-accounting"
+  ]
+}

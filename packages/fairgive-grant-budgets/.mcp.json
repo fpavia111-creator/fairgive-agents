@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "fairgive-grant-budgets": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "fairgive-grant-budgets@0.1.0",
+        "mcp"
+      ]
+    }
+  }
+}

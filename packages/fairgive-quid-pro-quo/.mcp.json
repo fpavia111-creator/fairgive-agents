@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "fairgive-quid-pro-quo": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "fairgive-quid-pro-quo@0.1.0",
+        "mcp"
+      ]
+    }
+  }
+}

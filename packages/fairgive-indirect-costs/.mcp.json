@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "fairgive-indirect-costs": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "fairgive-indirect-costs@0.1.0",
+        "mcp"
+      ]
+    }
+  }
+}

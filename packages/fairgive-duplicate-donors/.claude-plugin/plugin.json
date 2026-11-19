@@ -1,0 +1,21 @@
+{
+  "name": "fairgive-duplicate-donors",
+  "version": "0.1.0",
+  "description": "Fairgive Duplicate Donors: finds likely duplicate donor records in a constituent export by e-mail, phone, address and name similarity, with the gifts on each record. Writes a merge worklist for a person. Never merges or deletes records.",
+  "author": {
+    "name": "Kurt Francisco"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/fpavia111-creator/fairgive-agents/tree/main/packages/fairgive-duplicate-donors#readme",
+  "keywords": [
+    "mcp",
+    "mcp-server",
+    "nonprofit",
+    "nonprofits",
+    "fundraising",
+    "fairgive",
+    "duplicate-records",
+    "data-hygiene",
+    "donor-database"
+  ]
+}

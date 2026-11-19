@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "fairgive-expense-reports": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "fairgive-expense-reports@0.1.0",
+        "mcp"
+      ]
+    }
+  }
+}

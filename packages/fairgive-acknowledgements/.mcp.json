@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "fairgive-acknowledgements": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "fairgive-acknowledgements@0.1.0",
+        "mcp"
+      ]
+    }
+  }
+}

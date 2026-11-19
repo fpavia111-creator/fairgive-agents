@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "fairgive-memberships": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "fairgive-memberships@0.1.0",
+        "mcp"
+      ]
+    }
+  }
+}

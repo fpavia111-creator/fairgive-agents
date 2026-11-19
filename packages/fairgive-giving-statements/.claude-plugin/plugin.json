@@ -1,0 +1,21 @@
+{
+  "name": "fairgive-giving-statements",
+  "version": "0.1.0",
+  "description": "Fairgive Giving Statements: builds year-end contribution statements per giver from your church or nonprofit giving records, and flags givers with no address, gifts dated in another year, refunds and loose offering with no giver. Drafts the statements for a person to send.",
+  "author": {
+    "name": "Kurt Francisco"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/fpavia111-creator/fairgive-agents/tree/main/packages/fairgive-giving-statements#readme",
+  "keywords": [
+    "mcp",
+    "mcp-server",
+    "nonprofit",
+    "nonprofits",
+    "fundraising",
+    "fairgive",
+    "contribution-statements",
+    "church-giving",
+    "year-end-statements"
+  ]
+}

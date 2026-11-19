@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "fairgive-recurring-gifts": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "fairgive-recurring-gifts@0.1.0",
+        "mcp"
+      ]
+    }
+  }
+}

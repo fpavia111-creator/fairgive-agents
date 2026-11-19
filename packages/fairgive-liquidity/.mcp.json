@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "fairgive-liquidity": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "fairgive-liquidity@0.1.0",
+        "mcp"
+      ]
+    }
+  }
+}

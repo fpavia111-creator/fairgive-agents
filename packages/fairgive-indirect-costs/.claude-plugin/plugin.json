@@ -1,0 +1,21 @@
+{
+  "name": "fairgive-indirect-costs",
+  "version": "0.1.0",
+  "description": "Fairgive Indirect Costs: rebuilds the indirect cost base (modified total direct costs) per grant from the ledger, leaving out equipment, participant support and subaward amounts over the cap, applies the rate in your settings and compares with the indirect charged.",
+  "author": {
+    "name": "Kurt Francisco"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/fpavia111-creator/fairgive-agents/tree/main/packages/fairgive-indirect-costs#readme",
+  "keywords": [
+    "mcp",
+    "mcp-server",
+    "nonprofit",
+    "nonprofits",
+    "fundraising",
+    "fairgive",
+    "indirect-costs",
+    "mtdc",
+    "de-minimis-rate"
+  ]
+}

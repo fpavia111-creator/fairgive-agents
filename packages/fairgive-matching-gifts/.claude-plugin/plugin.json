@@ -1,0 +1,21 @@
+{
+  "name": "fairgive-matching-gifts",
+  "version": "0.1.0",
+  "description": "Fairgive Matching Gifts: finds gifts from donors whose employer matches, with the match amount, the claim deadline and the claims sent or received: eligible gifts not claimed, deadlines close or passed, matches received that differ. Drafts donor reminders. Never submits a claim.",
+  "author": {
+    "name": "Kurt Francisco"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/fpavia111-creator/fairgive-agents/tree/main/packages/fairgive-matching-gifts#readme",
+  "keywords": [
+    "mcp",
+    "mcp-server",
+    "nonprofit",
+    "nonprofits",
+    "fundraising",
+    "fairgive",
+    "matching-gifts",
+    "employer-match",
+    "corporate-giving"
+  ]
+}

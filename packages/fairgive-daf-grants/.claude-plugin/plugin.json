@@ -1,0 +1,21 @@
+{
+  "name": "fairgive-daf-grants",
+  "version": "0.1.0",
+  "description": "Fairgive DAF Grants: lists gifts from donor-advised fund sponsors and flags the ones to look at: DAF grants used for event benefits, applied to a personal pledge, hard-credited to the advisor or acknowledged as tax-deductible to the advisor. Not tax advice.",
+  "author": {
+    "name": "Kurt Francisco"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/fpavia111-creator/fairgive-agents/tree/main/packages/fairgive-daf-grants#readme",
+  "keywords": [
+    "mcp",
+    "mcp-server",
+    "nonprofit",
+    "nonprofits",
+    "fundraising",
+    "fairgive",
+    "donor-advised-funds",
+    "daf",
+    "gift-processing"
+  ]
+}

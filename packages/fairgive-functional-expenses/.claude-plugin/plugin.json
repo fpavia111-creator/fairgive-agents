@@ -1,0 +1,21 @@
+{
+  "name": "fairgive-functional-expenses",
+  "version": "0.1.0",
+  "description": "Fairgive Functional Expenses: builds the natural-by-function expense table (program, management and general, fundraising) from your ledger and allocation rules, and flags expenses with no function, shared costs not allocated and allocation rules that do not add to 100%.",
+  "author": {
+    "name": "Kurt Francisco"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/fpavia111-creator/fairgive-agents/tree/main/packages/fairgive-functional-expenses#readme",
+  "keywords": [
+    "mcp",
+    "mcp-server",
+    "nonprofit",
+    "nonprofits",
+    "fundraising",
+    "fairgive",
+    "functional-expenses",
+    "form-990-part-ix",
+    "cost-allocation"
+  ]
+}

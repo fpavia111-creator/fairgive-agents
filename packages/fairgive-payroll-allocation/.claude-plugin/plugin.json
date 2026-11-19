@@ -1,0 +1,21 @@
+{
+  "name": "fairgive-payroll-allocation",
+  "version": "0.1.0",
+  "description": "Fairgive Payroll Allocation: compares salaries charged to programs and grants with timesheets or effort reports: charges that differ from effort, effort over 100%, grant-funded staff with no effort certification and pay never allocated. Never changes payroll.",
+  "author": {
+    "name": "Kurt Francisco"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/fpavia111-creator/fairgive-agents/tree/main/packages/fairgive-payroll-allocation#readme",
+  "keywords": [
+    "mcp",
+    "mcp-server",
+    "nonprofit",
+    "nonprofits",
+    "fundraising",
+    "fairgive",
+    "payroll-allocation",
+    "effort-reporting",
+    "grant-compliance"
+  ]
+}

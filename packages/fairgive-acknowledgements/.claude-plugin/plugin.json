@@ -1,0 +1,21 @@
+{
+  "name": "fairgive-acknowledgements",
+  "version": "0.1.0",
+  "description": "Fairgive Acknowledgements: finds gifts at or over your acknowledgement threshold with no letter, late letters, letters with a different amount or no goods-and-services statement, and letters for refunded gifts. Drafts the letters for a person to send. Never sends.",
+  "author": {
+    "name": "Kurt Francisco"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/fpavia111-creator/fairgive-agents/tree/main/packages/fairgive-acknowledgements#readme",
+  "keywords": [
+    "mcp",
+    "mcp-server",
+    "nonprofit",
+    "nonprofits",
+    "fundraising",
+    "fairgive",
+    "donor-acknowledgement",
+    "thank-you-letters",
+    "gift-receipts"
+  ]
+}

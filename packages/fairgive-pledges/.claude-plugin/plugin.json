@@ -1,0 +1,21 @@
+{
+  "name": "fairgive-pledges",
+  "version": "0.1.0",
+  "description": "Fairgive Pledges: ages pledges receivable from pledge and payment exports: overdue installments, overpaid and paid-off pledges still open, write-offs without an approval, and multi-year pledges with no discount. Drafts pledge reminders. Never writes off or sends.",
+  "author": {
+    "name": "Kurt Francisco"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/fpavia111-creator/fairgive-agents/tree/main/packages/fairgive-pledges#readme",
+  "keywords": [
+    "mcp",
+    "mcp-server",
+    "nonprofit",
+    "nonprofits",
+    "fundraising",
+    "fairgive",
+    "pledges-receivable",
+    "pledge-reminders",
+    "write-offs"
+  ]
+}

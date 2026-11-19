@@ -1,0 +1,21 @@
+{
+  "name": "fairgive-expense-reports",
+  "version": "0.1.0",
+  "description": "Fairgive Expense Reports: checks staff expense report lines against your policy settings: missing receipts, meals over the per diem, mileage over the rate, alcohol and other unallowable costs charged to grants, duplicate claims and late submissions. Never pays or approves.",
+  "author": {
+    "name": "Kurt Francisco"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/fpavia111-creator/fairgive-agents/tree/main/packages/fairgive-expense-reports#readme",
+  "keywords": [
+    "mcp",
+    "mcp-server",
+    "nonprofit",
+    "nonprofits",
+    "fundraising",
+    "fairgive",
+    "expense-reports",
+    "travel-policy",
+    "unallowable-costs"
+  ]
+}

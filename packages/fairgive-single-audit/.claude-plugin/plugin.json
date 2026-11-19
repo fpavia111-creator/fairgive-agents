@@ -1,0 +1,21 @@
+{
+  "name": "fairgive-single-audit",
+  "version": "0.1.0",
+  "description": "Fairgive Single Audit: totals federal award spending by assistance listing number for the fiscal year against the single audit threshold in your settings, and lists missing listing numbers and pass-through ids. Data for your auditor, not a determination.",
+  "author": {
+    "name": "Kurt Francisco"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/fpavia111-creator/fairgive-agents/tree/main/packages/fairgive-single-audit#readme",
+  "keywords": [
+    "mcp",
+    "mcp-server",
+    "nonprofit",
+    "nonprofits",
+    "fundraising",
+    "fairgive",
+    "single-audit",
+    "sefa",
+    "federal-awards"
+  ]
+}

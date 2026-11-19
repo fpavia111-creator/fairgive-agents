@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "fairgive-payroll-allocation": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "fairgive-payroll-allocation@0.1.0",
+        "mcp"
+      ]
+    }
+  }
+}

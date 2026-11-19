@@ -1,0 +1,21 @@
+{
+  "name": "fairgive-grant-budgets",
+  "version": "0.1.0",
+  "description": "Fairgive Grant Budgets: grant budget against actual by grant and budget line, with costs shared across several grants by allocation percentages: lines over budget beyond your flexibility rule, allocations over or under 100%, costs outside the grant period and unallowable categories. Never posts.",
+  "author": {
+    "name": "Kurt Francisco"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/fpavia111-creator/fairgive-agents/tree/main/packages/fairgive-grant-budgets#readme",
+  "keywords": [
+    "mcp",
+    "mcp-server",
+    "nonprofit",
+    "nonprofits",
+    "fundraising",
+    "fairgive",
+    "grant-budget",
+    "budget-vs-actual",
+    "cost-allocation"
+  ]
+}

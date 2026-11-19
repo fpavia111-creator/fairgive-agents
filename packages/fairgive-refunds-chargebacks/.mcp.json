@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "fairgive-refunds-chargebacks": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "fairgive-refunds-chargebacks@0.1.0",
+        "mcp"
+      ]
+    }
+  }
+}

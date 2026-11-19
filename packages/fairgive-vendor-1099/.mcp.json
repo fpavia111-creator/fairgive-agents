@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "fairgive-vendor-1099": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "fairgive-vendor-1099@0.1.0",
+        "mcp"
+      ]
+    }
+  }
+}

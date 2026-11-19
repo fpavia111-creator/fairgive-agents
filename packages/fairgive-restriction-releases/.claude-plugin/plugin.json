@@ -1,0 +1,21 @@
+{
+  "name": "fairgive-restriction-releases",
+  "version": "0.1.0",
+  "description": "Fairgive Restriction Releases: compares spending on restricted purposes and time restrictions that have ended with the releases recorded. Lists releases still to record, releases over the spending or the balance, and drafts the release entry for your accountant. Never posts it.",
+  "author": {
+    "name": "Kurt Francisco"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/fpavia111-creator/fairgive-agents/tree/main/packages/fairgive-restriction-releases#readme",
+  "keywords": [
+    "mcp",
+    "mcp-server",
+    "nonprofit",
+    "nonprofits",
+    "fundraising",
+    "fairgive",
+    "release-from-restriction",
+    "restricted-funds",
+    "journal-entries"
+  ]
+}

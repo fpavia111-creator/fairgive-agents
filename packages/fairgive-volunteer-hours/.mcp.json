@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "fairgive-volunteer-hours": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "fairgive-volunteer-hours@0.1.0",
+        "mcp"
+      ]
+    }
+  }
+}

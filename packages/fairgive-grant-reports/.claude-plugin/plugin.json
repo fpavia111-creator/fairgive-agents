@@ -1,0 +1,21 @@
+{
+  "name": "fairgive-grant-reports",
+  "version": "0.1.0",
+  "description": "Fairgive Grant Reports: builds the reporting calendar for every grant from its schedule and period, and flags reports overdue, due soon, final reports after the period ends and grants with no schedule. Writes a calendar file. Never submits anything to a funder.",
+  "author": {
+    "name": "Kurt Francisco"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/fpavia111-creator/fairgive-agents/tree/main/packages/fairgive-grant-reports#readme",
+  "keywords": [
+    "mcp",
+    "mcp-server",
+    "nonprofit",
+    "nonprofits",
+    "fundraising",
+    "fairgive",
+    "grant-reporting",
+    "deadlines",
+    "grant-management"
+  ]
+}

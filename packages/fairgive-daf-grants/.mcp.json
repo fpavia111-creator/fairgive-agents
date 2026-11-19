@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "fairgive-daf-grants": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "fairgive-daf-grants@0.1.0",
+        "mcp"
+      ]
+    }
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "name": "fairgive-recurring-gifts",
+  "version": "0.1.0",
+  "description": "Fairgive Recurring Gifts: checks recurring gift plans against processor charges: failed charges, plans with several failures in a row, missed months, cards about to expire and charges after a cancellation. Drafts update-your-card notes. Never charges or sends.",
+  "author": {
+    "name": "Kurt Francisco"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/fpavia111-creator/fairgive-agents/tree/main/packages/fairgive-recurring-gifts#readme",
+  "keywords": [
+    "mcp",
+    "mcp-server",
+    "nonprofit",
+    "nonprofits",
+    "fundraising",
+    "fairgive",
+    "recurring-donations",
+    "monthly-giving",
+    "failed-payments"
+  ]
+}

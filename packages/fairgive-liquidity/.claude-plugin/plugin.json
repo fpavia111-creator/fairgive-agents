@@ -1,0 +1,21 @@
+{
+  "name": "fairgive-liquidity",
+  "version": "0.1.0",
+  "description": "Fairgive Liquidity: works out financial assets available for general spending within one year from your balance sheet accounts and restrictions, with months of operating expenses covered. Flags restricted cash counted as available and receivables due after a year.",
+  "author": {
+    "name": "Kurt Francisco"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/fpavia111-creator/fairgive-agents/tree/main/packages/fairgive-liquidity#readme",
+  "keywords": [
+    "mcp",
+    "mcp-server",
+    "nonprofit",
+    "nonprofits",
+    "fundraising",
+    "fairgive",
+    "liquidity",
+    "financial-statements",
+    "net-assets"
+  ]
+}

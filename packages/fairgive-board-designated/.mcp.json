@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "fairgive-board-designated": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "fairgive-board-designated@0.1.0",
+        "mcp"
+      ]
+    }
+  }
+}

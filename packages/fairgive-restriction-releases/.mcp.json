@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "fairgive-restriction-releases": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "fairgive-restriction-releases@0.1.0",
+        "mcp"
+      ]
+    }
+  }
+}

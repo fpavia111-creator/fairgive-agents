@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "fairgive-event-revenue": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "fairgive-event-revenue@0.1.0",
+        "mcp"
+      ]
+    }
+  }
+}

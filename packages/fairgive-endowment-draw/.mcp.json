@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "fairgive-endowment-draw": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "fairgive-endowment-draw@0.1.0",
+        "mcp"
+      ]
+    }
+  }
+}

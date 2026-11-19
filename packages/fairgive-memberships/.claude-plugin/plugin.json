@@ -1,0 +1,21 @@
+{
+  "name": "fairgive-memberships",
+  "version": "0.1.0",
+  "description": "Fairgive Memberships: checks members and dues payments: memberships expiring soon or lapsed, dues paid that do not match the level, payments that did not extend the membership, and active members with no payment. Drafts renewal notices. Never charges or sends.",
+  "author": {
+    "name": "Kurt Francisco"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/fpavia111-creator/fairgive-agents/tree/main/packages/fairgive-memberships#readme",
+  "keywords": [
+    "mcp",
+    "mcp-server",
+    "nonprofit",
+    "nonprofits",
+    "fundraising",
+    "fairgive",
+    "membership-dues",
+    "renewals",
+    "associations"
+  ]
+}

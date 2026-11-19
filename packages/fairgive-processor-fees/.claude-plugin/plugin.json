@@ -1,0 +1,21 @@
+{
+  "name": "fairgive-processor-fees",
+  "version": "0.1.0",
+  "description": "Fairgive Processor Fees: checks Stripe, PayPal, Givebutter or Classy transactions against the fee rates in your settings: fees over the rate, gifts booked net of fees, donor-covered fees, refund fees and payouts missing from the bank. Never moves money.",
+  "author": {
+    "name": "Kurt Francisco"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/fpavia111-creator/fairgive-agents/tree/main/packages/fairgive-processor-fees#readme",
+  "keywords": [
+    "mcp",
+    "mcp-server",
+    "nonprofit",
+    "nonprofits",
+    "fundraising",
+    "fairgive",
+    "payment-processing",
+    "stripe-fees",
+    "paypal-fees"
+  ]
+}

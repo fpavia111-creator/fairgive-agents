@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "fairgive-single-audit": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "fairgive-single-audit@0.1.0",
+        "mcp"
+      ]
+    }
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "fairgive-gift-deposits": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "fairgive-gift-deposits@0.1.0",
+        "mcp"
+      ]
+    }
+  }
+}

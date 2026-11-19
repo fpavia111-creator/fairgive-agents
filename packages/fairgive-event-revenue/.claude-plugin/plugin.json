@@ -1,0 +1,21 @@
+{
+  "name": "fairgive-event-revenue",
+  "version": "0.1.0",
+  "description": "Fairgive Event Revenue: splits event ticket and table sales into the exchange part (fair market value of the benefits) and the contribution part, and compares the split with your ledger. Lists ticket types with no fair market value. Never posts.",
+  "author": {
+    "name": "Kurt Francisco"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/fpavia111-creator/fairgive-agents/tree/main/packages/fairgive-event-revenue#readme",
+  "keywords": [
+    "mcp",
+    "mcp-server",
+    "nonprofit",
+    "nonprofits",
+    "fundraising",
+    "fairgive",
+    "special-events",
+    "gala",
+    "ticket-revenue"
+  ]
+}
