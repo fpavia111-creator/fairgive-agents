@@ -1,7 +1,7 @@
 {
   "name": "fairgive-core",
-  "version": "0.1.0",
-  "description": "Shared core for the Fairgive nonprofit agents: pinned-model pack manifests, allow/ask/block policy, Review/Assist/Auto modes with caps and a kill switch, hash-chained JSONL audit logs, a zero-dependency stdio MCP server, fixture-based evals, nonprofit column vocabularies and masking of personal data.",
+  "version": "0.1.1",
+  "description": "Family kit (names, reading rules, data and domain helpers) on fair-agent-core for the Fairgive nonprofit agents: pinned-model pack manifests, allow/ask/block policy, Review/Assist/Auto modes with caps and a kill switch, hash-chained JSONL audit logs, a zero-dependency stdio MCP server, fixture-based evals, nonprofit column vocabularies and masking of personal data.",
   "type": "module",
   "license": "MIT",
   "author": "Kurt Francisco",
@@ -48,5 +48,8 @@
     "audit-log",
     "nonprofit",
     "fairgive"
-  ]
+  ],
+  "dependencies": {
+    "fair-agent-core": "^8.0.0"
+  }
 }
