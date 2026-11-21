@@ -4,6 +4,7 @@
   "description": "Fairgive: nonprofit, foundation, church and association back-office agents monorepo, built on fairgive-core.",
   "license": "MIT",
   "workspaces": [
+    "vendor/fair-agent-core",
     "packages/fairgive-core",
     "packages/*"
   ],
