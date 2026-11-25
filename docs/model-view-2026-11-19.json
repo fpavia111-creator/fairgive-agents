@@ -417,7 +417,7 @@
     "plus": "amounts, quantities, dates, rates and finding codes in clear"
   },
   {
-    "agent": "fairgive-vendor-1099",
+    "agent": "fairgive-vendor-tax-forms",
     "masked": [
       "address",
       "tin",

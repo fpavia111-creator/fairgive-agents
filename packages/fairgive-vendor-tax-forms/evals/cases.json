@@ -1,5 +1,5 @@
 {
-  "suite": "fairgive-vendor-1099",
+  "suite": "fairgive-vendor-tax-forms",
   "root": "..",
   "data_note": "Fictional vendors, taxpayer ids and payments. Prepares data only; files nothing; not tax advice. Deterministic checks; no model is called.",
   "cases": [

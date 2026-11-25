@@ -25,7 +25,7 @@ Every agent has a `demo` on fictional files, an `eval` with its own test cases a
 
 **Funds, net assets and cash (6):** `fairgive-fund-balances` (fund balances by restriction class), `fairgive-restriction-releases` (releases from restriction and the release entry), `fairgive-board-designated` (board-designated funds against resolutions), `fairgive-endowment-draw` (endowment draw from the spending policy), `fairgive-liquidity` (financial assets available within one year), `fairgive-pledges` (pledges receivable, aging and write-offs).
 
-**Expenses, payroll and year-end (4):** `fairgive-functional-expenses` (program, management and fundraising split), `fairgive-expense-reports` (expense reports against your policy), `fairgive-vendor-1099` (vendor 1099 readiness, W-9s and taxpayer ids), `fairgive-form-990-data` (data behind Form 990 schedules (no filing)).
+**Expenses, payroll and year-end (4):** `fairgive-functional-expenses` (program, management and fundraising split), `fairgive-expense-reports` (expense reports against your policy), `fairgive-vendor-tax-forms` (vendor 1099 readiness, W-9s and taxpayer ids), `fairgive-form-990-data` (data behind Form 990 schedules (no filing)).
 
 ## How they stay safe
 

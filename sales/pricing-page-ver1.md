@@ -9,12 +9,12 @@ Prices are set at or below the other Fair Agents families because many nonprofit
 | Package | Agents | Setup |
 |---|---|---|
 | Donor gifts starter | fairgive-gift-deposits, fairgive-acknowledgements, fairgive-duplicate-donors | $1,000 |
-| Church pack (one congregation) | fairgive-giving-statements, fairgive-gift-deposits, fairgive-acknowledgements, fairgive-duplicate-donors, fairgive-recurring-gifts, fairgive-vendor-1099 | $1,200 |
+| Church pack (one congregation) | fairgive-giving-statements, fairgive-gift-deposits, fairgive-acknowledgements, fairgive-duplicate-donors, fairgive-recurring-gifts, fairgive-vendor-tax-forms | $1,200 |
 | Gifts and donors pack | fairgive-gift-deposits, fairgive-acknowledgements, fairgive-duplicate-donors, fairgive-recurring-gifts, fairgive-lapsed-donors, fairgive-gift-coding, fairgive-matching-gifts, fairgive-daf-grants, fairgive-refunds-chargebacks, fairgive-processor-fees | $1,800 |
 | Events, members and volunteers pack | fairgive-quid-pro-quo, fairgive-event-revenue, fairgive-in-kind-gifts, fairgive-memberships, fairgive-giving-statements, fairgive-volunteer-hours | $1,500 |
 | Grants pack | fairgive-grant-budgets, fairgive-indirect-costs, fairgive-grant-reports, fairgive-grant-drawdowns, fairgive-single-audit, fairgive-payroll-allocation | $2,500 |
 | Funds and net assets pack | fairgive-fund-balances, fairgive-restriction-releases, fairgive-board-designated, fairgive-endowment-draw, fairgive-liquidity, fairgive-pledges | $1,800 |
-| Year-end pack | fairgive-functional-expenses, fairgive-expense-reports, fairgive-vendor-1099, fairgive-form-990-data | $1,500 |
+| Year-end pack | fairgive-functional-expenses, fairgive-expense-reports, fairgive-vendor-tax-forms, fairgive-form-990-data | $1,500 |
 | Whole organization | all 32 agents | $6,500 |
 
 ## Partner rollout

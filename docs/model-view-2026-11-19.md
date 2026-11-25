@@ -36,5 +36,5 @@ The result goes to whatever model the user's assistant uses. For donor, staff an
 | fairgive-refunds-chargebacks | donor | gift_id, processor, status, txn_id | - |
 | fairgive-restriction-releases | - | fund, fund_name | - |
 | fairgive-single-audit | - | funder, grant, pass_through | - |
-| fairgive-vendor-1099 | address, tin, vendor | entity_type, vendor_id | - |
+| fairgive-vendor-tax-forms | address, tin, vendor | entity_type, vendor_id | - |
 | fairgive-volunteer-hours | volunteer | program, role, volunteer_id | - |

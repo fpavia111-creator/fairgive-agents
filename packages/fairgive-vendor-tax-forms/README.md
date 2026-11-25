@@ -1,4 +1,4 @@
-# fairgive-vendor-1099
+# fairgive-vendor-tax-forms
 
 Finds vendors paid at or over the 1099 threshold in your settings, with payments by card left out: no W-9 on file, no or malformed taxpayer id, missing address, attorneys paid as corporations. Taxpayer ids are masked. Files nothing.
 
@@ -41,7 +41,7 @@ Put the ones you want to change in a JSON file and pass it as `settings`; anythi
 
 ## A demo run
 
-`npx -y fairgive-vendor-1099 demo` runs the agent on the fictional files in [`fixtures/`](fixtures) in a temporary folder. Captured output:
+`npx -y fairgive-vendor-tax-forms demo` runs the agent on the fictional files in [`fixtures/`](fixtures) in a temporary folder. Captured output:
 
 ```text
 Fairgive Vendor 1099 demo (fictional nonprofit data), Auto mode on
@@ -114,7 +114,7 @@ Table inputs can be CSV, TSV, semicolon- or pipe-separated text, Excel `.xlsx`, 
 
 ### Files from other countries
 
-A German export in Windows-1252 with semicolons, `1.234,56` and `03.11.2026`, or a Japanese one in Shift_JIS with `2026/11/03`, is read the same way as the English file. [`fixtures/intl/`](fixtures/intl) has both versions of the demo data, and the eval cases `intl-de-*` and `intl-ja-*` require the same results as the English case. A weight, distance or dimension column found by its translated name with no unit in it is read as metric and converted, and the result says so. Columns named differently? Run `npx fairgive-vendor-1099 inspect <file>` (names and shapes only, never values) and name them in `fairgive-sources.json`:
+A German export in Windows-1252 with semicolons, `1.234,56` and `03.11.2026`, or a Japanese one in Shift_JIS with `2026/11/03`, is read the same way as the English file. [`fixtures/intl/`](fixtures/intl) has both versions of the demo data, and the eval cases `intl-de-*` and `intl-ja-*` require the same results as the English case. A weight, distance or dimension column found by its translated name with no unit in it is read as metric and converted, and the result says so. Columns named differently? Run `npx fairgive-vendor-tax-forms inspect <file>` (names and shapes only, never values) and name them in `fairgive-sources.json`:
 
 ```json
 { "files": { "exports/bills.csv": { "columns": { "invoice_number": "Beleg" }, "date_order": "dmy", "units": { "weight": "kg" } } } }
@@ -122,16 +122,16 @@ A German export in Windows-1252 with semicolons, `1.234,56` and `03.11.2026`, or
 
 ## Memory
 
-fairgive-vendor-1099 can remember facts about your setup so the next run does not have to be told again. `vendor_1099_learn` only proposes a fact; it changes nothing until a named person accepts it with `vendor_1099_accept_learning`, which is one click even in Auto. Facts live in one hash-chained file per agent under `.fairgive/memory/`; if the chain does not verify, no fact is used. Credentials, personal identifiers and text that reads like instructions to an AI are refused. Run without memory with `--no-memory`.
+fairgive-vendor-tax-forms can remember facts about your setup so the next run does not have to be told again. `vendor_1099_learn` only proposes a fact; it changes nothing until a named person accepts it with `vendor_1099_accept_learning`, which is one click even in Auto. Facts live in one hash-chained file per agent under `.fairgive/memory/`; if the chain does not verify, no fact is used. Credentials, personal identifiers and text that reads like instructions to an AI are refused. Run without memory with `--no-memory`.
 
 | Kind | What an accepted fact changes |
 |---|---|
 | `note` | nothing (shown by recall only) |
 
 ```bash
-fairgive-vendor-1099 memory list
-fairgive-vendor-1099 memory accept MEM-1a2b3c4d5e6f --as "Your Name"
-fairgive-vendor-1099 memory retire MEM-1a2b3c4d5e6f --as "Your Name" --reason "carrier renamed"
+fairgive-vendor-tax-forms memory list
+fairgive-vendor-tax-forms memory accept MEM-1a2b3c4d5e6f --as "Your Name"
+fairgive-vendor-tax-forms memory retire MEM-1a2b3c4d5e6f --as "Your Name" --reason "carrier renamed"
 ```
 
 <!-- sources:start -->
@@ -147,7 +147,7 @@ No named exports: other column names are matched by a list of common alternative
 
 No named exports: other column names are matched by a list of common alternatives.
 
-Columns named differently? Run `npx fairgive-vendor-1099 inspect <file>` to see how a file is read (column names and shapes only, never values), then name your columns in `fairgive-sources.json` in the root:
+Columns named differently? Run `npx fairgive-vendor-tax-forms inspect <file>` to see how a file is read (column names and shapes only, never values), then name your columns in `fairgive-sources.json` in the root:
 
 ```json
 { "files": { "exports/users.csv": { "columns": { "email": "Work E-mail" }, "date_order": "dmy" } } }
@@ -161,8 +161,8 @@ Where a layout says "checked", its column names were compared with the vendor's 
 Node 20 or newer. No other dependencies.
 
 ```bash
-npx -y fairgive-vendor-1099 demo
-npx -y fairgive-vendor-1099 mcp --root /path/to/your/files
+npx -y fairgive-vendor-tax-forms demo
+npx -y fairgive-vendor-tax-forms mcp --root /path/to/your/files
 ```
 
 Claude Desktop, Cursor and other MCP hosts:
@@ -170,11 +170,11 @@ Claude Desktop, Cursor and other MCP hosts:
 ```json
 {
   "mcpServers": {
-    "fairgive-vendor-1099": {
+    "fairgive-vendor-tax-forms": {
       "command": "npx",
       "args": [
         "-y",
-        "fairgive-vendor-1099",
+        "fairgive-vendor-tax-forms",
         "mcp",
         "--root",
         "/path/to/your/files"
@@ -184,23 +184,23 @@ Claude Desktop, Cursor and other MCP hosts:
 }
 ```
 
-Claude Code: `claude mcp add fairgive-vendor-1099 -- npx -y fairgive-vendor-1099 mcp --root .`, or install the `fairgive-vendor-1099` plugin from this repository's marketplace.
+Claude Code: `claude mcp add fairgive-vendor-tax-forms -- npx -y fairgive-vendor-tax-forms mcp --root .`, or install the `fairgive-vendor-tax-forms` plugin from this repository's marketplace.
 
 ## Modes and approvals
 
 - **Review** (`--mode review`): reads and reports only.
-- **Assist** (default): the policy above. A tool that asks returns an `approval_id`; a person approves it once with `fairgive-vendor-1099 approve <id> --as "Your Name"` (or on the local approvals page, `fairgive-vendor-1099 approvals`), and the same call is repeated.
-- **Auto** (`--mode auto --auto <tool,...>`): opt-in per tool, with step caps and a kill switch (`fairgive-vendor-1099 kill`). Paying, sending, posting to a ledger or a live system and accepting a learned fact stay **one named click even in Auto**; an approval is tied to the sha256 of the reviewed draft, so a changed draft needs a new click.
+- **Assist** (default): the policy above. A tool that asks returns an `approval_id`; a person approves it once with `fairgive-vendor-tax-forms approve <id> --as "Your Name"` (or on the local approvals page, `fairgive-vendor-tax-forms approvals`), and the same call is repeated.
+- **Auto** (`--mode auto --auto <tool,...>`): opt-in per tool, with step caps and a kill switch (`fairgive-vendor-tax-forms kill`). Paying, sending, posting to a ledger or a live system and accepting a learned fact stay **one named click even in Auto**; an approval is tied to the sha256 of the reviewed draft, so a changed draft needs a new click.
 
 ## CLI
 
 ```bash
-fairgive-vendor-1099 tools                 # every tool, its policy and arguments
-fairgive-vendor-1099 sources               # the columns each input is read from
-fairgive-vendor-1099 inspect <file>        # how a file would be read (names and shapes, never values)
-fairgive-vendor-1099 call vendor_1099_check '{"vendors":"<vendors>","payments":"<payments>"}'
-fairgive-vendor-1099 eval                  # the private eval cases on the fictional fixtures
-fairgive-vendor-1099 demo
+fairgive-vendor-tax-forms tools                 # every tool, its policy and arguments
+fairgive-vendor-tax-forms sources               # the columns each input is read from
+fairgive-vendor-tax-forms inspect <file>        # how a file would be read (names and shapes, never values)
+fairgive-vendor-tax-forms call vendor_1099_check '{"vendors":"<vendors>","payments":"<payments>"}'
+fairgive-vendor-tax-forms eval                  # the private eval cases on the fictional fixtures
+fairgive-vendor-tax-forms demo
 ```
 
 ## Audit log and data

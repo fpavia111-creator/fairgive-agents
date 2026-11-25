@@ -458,8 +458,8 @@
       ]
     },
     {
-      "name": "fairgive-vendor-1099",
-      "source": "./packages/fairgive-vendor-1099",
+      "name": "fairgive-vendor-tax-forms",
+      "source": "./packages/fairgive-vendor-tax-forms",
       "description": "Fairgive Vendor 1099: finds vendors paid at or over the 1099 threshold in your settings, with payments by card left out: no W-9 on file, no or malformed taxpayer id, missing address, attorneys paid as corporations. Taxpayer ids are masked. Files nothing.",
       "version": "0.1.0",
       "category": "nonprofits",

@@ -512,7 +512,7 @@ export const SPECS = {
     ],
   },
 
-  'fairgive-vendor-1099': {
+  'fairgive-vendor-tax-forms': {
     planted: { 'V-2': ['needs_1099_no_w9', 'tin_missing', 'address_missing'], 'V-5': ['tin_malformed'], 'V-3': ['attorney_reportable'], 'V-4': ['corporation_exempt'] },
     clean: [
       ['set', 'vendors.csv', { vendor_id: 'V-2' }, { tin: '345-67-8901', w9_on_file: 'yes', address: '7 Lake Road Springfield' }],
