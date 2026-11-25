@@ -25,7 +25,7 @@ Ogni agente ha una `demo` su file fittizi, un `eval` con i propri casi di prova 
 
 **Fondi, patrimonio netto e liquidità (6):** `fairgive-fund-balances` (saldi dei fondi per vincolo), `fairgive-restriction-releases` (svincoli e scrittura contabile), `fairgive-board-designated` (fondi vincolati dal consiglio rispetto alle delibere), `fairgive-endowment-draw` (prelievo dal fondo secondo la politica), `fairgive-liquidity` (attività finanziarie disponibili entro un anno), `fairgive-pledges` (promesse da incassare, anzianità e stralci).
 
-**Spese, paghe e chiusura (4):** `fairgive-functional-expenses` (ripartizione programmi, gestione, raccolta fondi), `fairgive-expense-reports` (note spese rispetto alla vostra politica), `fairgive-vendor-1099` (preparazione 1099, W-9 e codici fiscali), `fairgive-form-990-data` (dati per gli allegati del modulo 990 (nessun invio)).
+**Spese, paghe e chiusura (4):** `fairgive-functional-expenses` (ripartizione programmi, gestione, raccolta fondi), `fairgive-expense-reports` (note spese rispetto alla vostra politica), `fairgive-vendor-tax-forms` (preparazione 1099, W-9 e codici fiscali), `fairgive-form-990-data` (dati per gli allegati del modulo 990 (nessun invio)).
 
 ## Come restano sicuri
 

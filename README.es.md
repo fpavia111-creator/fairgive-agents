@@ -25,7 +25,7 @@ Cada agente tiene una `demo` con archivos ficticios, un `eval` con sus propios c
 
 **Fondos, activos netos y liquidez (6):** `fairgive-fund-balances` (saldos de fondos por restricción), `fairgive-restriction-releases` (liberaciones de restricciones y asiento), `fairgive-board-designated` (fondos designados por la junta frente a resoluciones), `fairgive-endowment-draw` (retiro del fondo patrimonial según la política), `fairgive-liquidity` (activos financieros disponibles en un año), `fairgive-pledges` (promesas por cobrar, antigüedad y castigos).
 
-**Gastos, nómina y cierre anual (4):** `fairgive-functional-expenses` (reparto programas, administración, captación), `fairgive-expense-reports` (informes de gastos frente a su política), `fairgive-vendor-1099` (preparación de 1099, W-9 e identificadores fiscales), `fairgive-form-990-data` (datos de los anexos del Formulario 990 (sin presentar)).
+**Gastos, nómina y cierre anual (4):** `fairgive-functional-expenses` (reparto programas, administración, captación), `fairgive-expense-reports` (informes de gastos frente a su política), `fairgive-vendor-tax-forms` (preparación de 1099, W-9 e identificadores fiscales), `fairgive-form-990-data` (datos de los anexos del Formulario 990 (sin presentar)).
 
 ## Cómo se mantienen seguros
 

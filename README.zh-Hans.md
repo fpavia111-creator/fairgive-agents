@@ -25,7 +25,7 @@ npx -y fairgive-grant-budgets demo     # 资助预算与实际（含共享成本
 
 **基金、净资产与现金 (6):** `fairgive-fund-balances` (按限定性划分的基金余额), `fairgive-restriction-releases` (限定解除与分录), `fairgive-board-designated` (理事会指定基金与决议), `fairgive-endowment-draw` (按支出政策的留本基金支取), `fairgive-liquidity` (一年内可用的金融资产), `fairgive-pledges` (应收认捐、账龄与核销).
 
-**费用、工资与年终 (4):** `fairgive-functional-expenses` (项目、管理与筹款的功能分配), `fairgive-expense-reports` (费用报销与贵组织政策核对), `fairgive-vendor-1099` (1099准备、W-9与纳税人识别号), `fairgive-form-990-data` (990表附表数据（不申报）).
+**费用、工资与年终 (4):** `fairgive-functional-expenses` (项目、管理与筹款的功能分配), `fairgive-expense-reports` (费用报销与贵组织政策核对), `fairgive-vendor-tax-forms` (1099准备、W-9与纳税人识别号), `fairgive-form-990-data` (990表附表数据（不申报）).
 
 ## 如何保持安全
 

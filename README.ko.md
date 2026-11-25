@@ -25,7 +25,7 @@ npx -y fairgive-grant-budgets demo     # 보조금 예산 대비 실적(공통�
 
 **기금·순자산·현금 (6):** `fairgive-fund-balances` (제한 구분별 기금 잔액), `fairgive-restriction-releases` (제한 해제와 분개), `fairgive-board-designated` (이사회 지정 기금과 결의), `fairgive-endowment-draw` (지출 정책에 따른 기본재산 인출), `fairgive-liquidity` (1년 내 사용 가능한 금융자산), `fairgive-pledges` (미수 기부약정·경과·대손).
 
-**경비·급여·연말 (4):** `fairgive-functional-expenses` (사업·관리·모금 기능별 배분), `fairgive-expense-reports` (경비 보고서와 규정 대조), `fairgive-vendor-1099` (1099 준비, W-9와 납세자 번호), `fairgive-form-990-data` (양식 990 부속서류 데이터(제출 없음)).
+**경비·급여·연말 (4):** `fairgive-functional-expenses` (사업·관리·모금 기능별 배분), `fairgive-expense-reports` (경비 보고서와 규정 대조), `fairgive-vendor-tax-forms` (1099 준비, W-9와 납세자 번호), `fairgive-form-990-data` (양식 990 부속서류 데이터(제출 없음)).
 
 ## 안전을 지키는 방법
 

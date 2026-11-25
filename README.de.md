@@ -25,7 +25,7 @@ Jeder Agent hat eine `demo` mit fiktiven Dateien, ein `eval` mit eigenen Testfä
 
 **Fonds, Nettovermögen und Liquidität (6):** `fairgive-fund-balances` (Fondssalden nach Zweckbindung), `fairgive-restriction-releases` (Freigaben aus Zweckbindung und Buchungssatz), `fairgive-board-designated` (vom Vorstand bestimmte Mittel gegen Beschlüsse), `fairgive-endowment-draw` (Entnahme aus dem Stiftungsvermögen nach Ausgabenpolitik), `fairgive-liquidity` (innerhalb eines Jahres verfügbare Finanzmittel), `fairgive-pledges` (offene Spendenzusagen, Altersstruktur, Abschreibungen).
 
-**Ausgaben, Lohn und Jahresabschluss (4):** `fairgive-functional-expenses` (Aufteilung Programm, Verwaltung, Mittelbeschaffung), `fairgive-expense-reports` (Spesenabrechnungen gegen Ihre Richtlinie), `fairgive-vendor-1099` (Vorbereitung 1099, W-9 und Steuernummern), `fairgive-form-990-data` (Daten für die Anlagen zum Formular 990 (keine Einreichung)).
+**Ausgaben, Lohn und Jahresabschluss (4):** `fairgive-functional-expenses` (Aufteilung Programm, Verwaltung, Mittelbeschaffung), `fairgive-expense-reports` (Spesenabrechnungen gegen Ihre Richtlinie), `fairgive-vendor-tax-forms` (Vorbereitung 1099, W-9 und Steuernummern), `fairgive-form-990-data` (Daten für die Anlagen zum Formular 990 (keine Einreichung)).
 
 ## Wie sie sicher bleiben
 

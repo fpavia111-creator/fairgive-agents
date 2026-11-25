@@ -25,7 +25,7 @@ Chaque agent a une `demo` sur des fichiers fictifs, un `eval` avec ses propres c
 
 **Fonds, actifs nets et trésorerie (6):** `fairgive-fund-balances` (soldes des fonds par restriction), `fairgive-restriction-releases` (libérations de restrictions et écriture), `fairgive-board-designated` (fonds affectés par le conseil face aux résolutions), `fairgive-endowment-draw` (prélèvement sur la dotation selon la politique), `fairgive-liquidity` (actifs financiers disponibles sous un an), `fairgive-pledges` (promesses à recevoir, ancienneté, abandons).
 
-**Dépenses, paie et clôture (4):** `fairgive-functional-expenses` (répartition programmes, gestion, collecte), `fairgive-expense-reports` (notes de frais face à votre politique), `fairgive-vendor-1099` (préparation des 1099, W-9 et identifiants fiscaux), `fairgive-form-990-data` (données des annexes du formulaire 990 (sans dépôt)).
+**Dépenses, paie et clôture (4):** `fairgive-functional-expenses` (répartition programmes, gestion, collecte), `fairgive-expense-reports` (notes de frais face à votre politique), `fairgive-vendor-tax-forms` (préparation des 1099, W-9 et identifiants fiscaux), `fairgive-form-990-data` (données des annexes du formulaire 990 (sans dépôt)).
 
 ## Comment ils restent sûrs
 

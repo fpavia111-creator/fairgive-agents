@@ -1,12 +1,12 @@
 {
-  "name": "fairgive-vendor-1099",
+  "name": "fairgive-vendor-tax-forms",
   "version": "0.1.0",
   "description": "Fairgive Vendor 1099: finds vendors paid at or over the 1099 threshold in your settings, with payments by card left out: no W-9 on file, no or malformed taxpayer id, missing address, attorneys paid as corporations. Taxpayer ids are masked. Files nothing.",
   "author": {
     "name": "Kurt Francisco"
   },
   "license": "MIT",
-  "homepage": "https://github.com/fpavia111-creator/fairgive-agents/tree/main/packages/fairgive-vendor-1099#readme",
+  "homepage": "https://github.com/fpavia111-creator/fairgive-agents/tree/main/packages/fairgive-vendor-tax-forms#readme",
   "keywords": [
     "mcp",
     "mcp-server",

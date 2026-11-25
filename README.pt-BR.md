@@ -25,7 +25,7 @@ Cada agente tem uma `demo` com arquivos fictícios, um `eval` com seus próprios
 
 **Fundos, patrimônio líquido e caixa (6):** `fairgive-fund-balances` (saldos de fundos por restrição), `fairgive-restriction-releases` (liberações de restrição e lançamento), `fairgive-board-designated` (fundos designados pelo conselho frente a resoluções), `fairgive-endowment-draw` (resgate do fundo patrimonial pela política), `fairgive-liquidity` (ativos financeiros disponíveis em um ano), `fairgive-pledges` (promessas a receber, vencimento e baixas).
 
-**Despesas, folha e fechamento (4):** `fairgive-functional-expenses` (divisão programas, gestão, captação), `fairgive-expense-reports` (relatórios de despesas frente à sua política), `fairgive-vendor-1099` (preparação de 1099, W-9 e identificadores fiscais), `fairgive-form-990-data` (dados dos anexos do Formulário 990 (sem envio)).
+**Despesas, folha e fechamento (4):** `fairgive-functional-expenses` (divisão programas, gestão, captação), `fairgive-expense-reports` (relatórios de despesas frente à sua política), `fairgive-vendor-tax-forms` (preparação de 1099, W-9 e identificadores fiscais), `fairgive-form-990-data` (dados dos anexos do Formulário 990 (sem envio)).
 
 ## Como eles se mantêm seguros
 

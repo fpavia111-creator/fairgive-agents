@@ -25,7 +25,7 @@ npx -y fairgive-grant-budgets demo     # 助成金の予算と実績（共通費
 
 **基金・純資産・資金 (6):** `fairgive-fund-balances` (使途制限別の基金残高), `fairgive-restriction-releases` (使途制限の解除と仕訳), `fairgive-board-designated` (理事会指定基金と決議), `fairgive-endowment-draw` (支出方針による基本財産の取り崩し), `fairgive-liquidity` (1年以内に利用可能な金融資産), `fairgive-pledges` (寄付約束の未収金・経過・償却).
 
-**経費・給与・年度末 (4):** `fairgive-functional-expenses` (事業・管理・募金の機能別配分), `fairgive-expense-reports` (経費精算と規程の照合), `fairgive-vendor-1099` (1099の準備、W-9と納税者番号), `fairgive-form-990-data` (フォーム990別表のデータ（提出はしない）).
+**経費・給与・年度末 (4):** `fairgive-functional-expenses` (事業・管理・募金の機能別配分), `fairgive-expense-reports` (経費精算と規程の照合), `fairgive-vendor-tax-forms` (1099の準備、W-9と納税者番号), `fairgive-form-990-data` (フォーム990別表のデータ（提出はしない）).
 
 ## 安全の仕組み
 
