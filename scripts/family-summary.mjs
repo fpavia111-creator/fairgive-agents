@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 // Prints one line per agent (name, tool prefix, tools, eval cases, draft and its one-click
-// category, memory) and family totals. Used for REVIEW-ver1.md.
+// category, memory) and family totals. Used for docs/.
 import { readdirSync, readFileSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';

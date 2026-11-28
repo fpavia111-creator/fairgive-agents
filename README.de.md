@@ -4,7 +4,7 @@
 
 Zweiunddreißig kleine MCP-Agenten für das Backoffice von gemeinnützigen Organisationen, Stiftungen, Kirchen und Vereinen. Jeder ist für **eine Aufgabe** zuständig, etwa Spenden gegen Bankeinzahlungen, Freigaben aus Zweckbindung, Mittelabrufe oder Jahresspendenübersichten, und kann nicht darüber hinaus handeln. Sie lesen die Dateien, die Sie bereits aus Spenden-CRM, Zahlungsanbietern und Buchhaltung exportieren, schreiben Berichte auf Ihrem Rechner und warten auf eine namentlich genannte Person, bevor Geld bewegt, eine Nachricht gesendet, etwas bei einer Behörde oder einem Fördergeber eingereicht oder ein laufendes System geändert wird.
 
-Teil von Fair Agents von Mythos Machines. MIT-Lizenz · Node 20 oder neuer · nur lokale Dateien · keine Zugangsdaten · keine Abhängigkeiten. Die Software ist kostenlos; bezahlt wird eine Einrichtung zum Festpreis auf Ihren eigenen Dateien.
+Teil von Fair Agents von Fair Agents. MIT-Lizenz · Node 20 oder neuer · nur lokale Dateien · keine Zugangsdaten · keine Abhängigkeiten. Die Software ist kostenlos; bezahlt wird eine Einrichtung zum Festpreis auf Ihren eigenen Dateien.
 
 ## Ausprobieren
 
@@ -54,7 +54,7 @@ npm run release:check:offline
 
 ## Wie sie geprüft werden
 
-Alle Prüfungen mit Zahlen stehen in [REVIEW-ver1.md](REVIEW-ver1.md) (Englisch).
+Alle Prüfungen mit Zahlen stehen in [docs/](docs/) (Englisch).
 
 ## Grenzen
 

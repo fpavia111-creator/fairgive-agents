@@ -4,7 +4,7 @@
 
 Trente-deux petits agents MCP pour le back-office des associations, fondations, Églises et organismes sans but lucratif. Chacun a **une seule tâche**, par exemple les dons face aux remises en banque, les libérations de restrictions, les appels de fonds des subventions ou les relevés annuels de dons, et ne peut agir au-delà. Ils lisent les fichiers que vous exportez déjà de votre CRM de dons, de vos prestataires de paiement et de votre comptabilité, écrivent leurs rapports sur votre ordinateur et attendent une personne nommée avant de déplacer de l’argent, d’envoyer un message, de déposer quoi que ce soit auprès d’une administration ou d’un financeur, ou de modifier un système en production.
 
-Fait partie de Fair Agents de Mythos Machines. Licence MIT · Node 20 ou plus récent · fichiers locaux uniquement · aucun identifiant · aucune dépendance. Le logiciel est gratuit ; la partie payante est une mise en place à prix fixe sur vos propres fichiers.
+Fait partie de Fair Agents de Fair Agents. Licence MIT · Node 20 ou plus récent · fichiers locaux uniquement · aucun identifiant · aucune dépendance. Le logiciel est gratuit ; la partie payante est une mise en place à prix fixe sur vos propres fichiers.
 
 ## Essayer
 
@@ -54,7 +54,7 @@ npm run release:check:offline
 
 ## Comment ils sont testés
 
-Chaque contrôle et ses chiffres figurent dans [REVIEW-ver1.md](REVIEW-ver1.md) (en anglais).
+Chaque contrôle et ses chiffres figurent dans [docs/](docs/) (en anglais).
 
 ## Limites
 
