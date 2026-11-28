@@ -27,7 +27,9 @@
     "readme": "node scripts/readme-head.mjs && node scripts/readme-sections.mjs && node scripts/sources-doc.mjs",
     "accuracy": "node scripts/accuracy.mjs",
     "model-view": "node scripts/model-view.mjs",
-    "realdata": "node scripts/realdata.mjs"
+    "realdata": "node scripts/realdata.mjs",
+    "skills": "node scripts/skill-files.mjs",
+    "skills:check": "node scripts/skill-files.mjs --check"
   },
   "engines": {
     "node": ">=20"

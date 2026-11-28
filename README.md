@@ -4,7 +4,7 @@
 
 Thirty-two small MCP agents for the back office of nonprofits, foundations, churches and associations. Each one owns **one job**, such as gifts against bank deposits, releases from restriction, grant drawdowns or year-end giving statements, and cannot act outside it. They read the files you already export from Blackbaud Raiser's Edge NXT and Financial Edge NXT, Salesforce NPSP, Bloomerang, DonorPerfect, Little Green Light, Neon, Givebutter, Classy, PayPal, Stripe, QuickBooks Online, Aplos and Sage Intacct; write their reports on your computer; and wait for one named person before anything that moves money, sends a message, files with a government or funder, or changes a live system.
 
-Part of Fair Agents by Mythos Machines. MIT licence · Node 20 or newer · local files only · no credentials · no runtime dependencies. The software is free; the paid part is a fixed-price setup on your own files.
+Part of Fair Agents by Fair Agents. MIT license · Node 20 or newer · local files only · no credentials · no runtime dependencies. The software is free; the paid part is a fixed-price setup on your own files.
 
 ## Try one
 
@@ -62,7 +62,7 @@ npm run release:check:offline
 
 ## How they are tested
 
-See [REVIEW-ver1.md](REVIEW-ver1.md) for every check with its numbers.
+See [docs/](docs/) for every check with its numbers.
 
 ## Limits
 

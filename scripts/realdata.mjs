@@ -221,7 +221,7 @@ const results = { date: DATE, downloaded, sources: [] };
 mkdirSync(join(ROOT, 'docs'), { recursive: true });
 writeFileSync(join(ROOT, 'docs', `realdata-${DATE}.json`), JSON.stringify(results, null, 2) + '\n');
 for (const s of results.sources) console.log(`\n## ${s.name}\n${JSON.stringify(s.summary, null, 1).slice(0, 3000)}`);
-// A short table of what ran; REVIEW-ver1.md explains what was found and fixed.
+// A short table of what ran; docs/ explains what was found and fixed.
 const [fac, irs, bmf] = results.sources.map((s) => s.summary);
 const md = [`# Real public data through the agents (${DATE})`, '', 'Made by `node scripts/realdata.mjs` (downloads with `--download` into the git-ignored `_realdata/`). Each public file is converted to the agent\'s columns, run through the agent, and the answer is re-counted from the same rows by separate code in the script. Details per audit, return and group: `realdata-' + DATE + '.json`.', '',
   '| Source | Agent | What ran | Agent vs re-count |', '|---|---|---|---|',
